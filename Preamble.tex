@@ -6,9 +6,9 @@
 % \renewcommand {\@degree@string} {Master of Things}
 % \makeatother
 
-\title{A Thesis Title}
-\author{Author Name}
-\department{Department of Something}
+\title{Completeness Theorems for Behavioural Metrics and Equivalences}
+\author{Wojciech Krzysztof R\'{o}\.{z}owski}
+\department{Department of Computer Science}
 
 \maketitle
 \makedeclaration
@@ -22,36 +22,13 @@ There is a 300-word limit on your abstract.
 \end{abstract}
 
 \begin{impactstatement}
+\textbf{Outside academia:} The discipline of Formal Verification enables making precise logical statements about computer systems to guarantee their correctness. This relies on the study of models of computation, which are mathematical objects representing the semantics of systems of interest. In Theoretical Computer Science, it is customary to model computations as transition systems. This thesis is part of a larger research programme aimed at providing specification syntaxes for representing transition systems and studying logical systems for reasoning about the equivalence or similarity of systems represented by the syntax. One of the central problems attached to this paradigm are completeness problems, that concern showing that every semantic equivalence or similarity of transition systems can be witnessed through the means of axiomatic manipulation. Having a complete axiomatisation allows one to fully resort to syntactic reasoning, which is particularly amenable to implementation and thus desirable from the automated reasoning point of view. 
 
-	UCL theses now have to include an impact statement. \textit{(I think for REF reasons?)} The following text is the description from the guide linked from the formatting and submission website of what that involves. (Link to the guide: {\scriptsize \url{http://www.grad.ucl.ac.uk/essinfo/docs/Impact-Statement-Guidance-Notes-for-Research-Students-and-Supervisors.pdf}})
+A central exemplar of this paradigm is Kleene Algebra, which is a foundation of tools relevant to industry, such as NetKAT, which enables reasoning about the behaviour of packet-passing Software-Defined Networks, or cf-GKAT, which can be used to certify the correctness of decompilation algorithms. This thesis particularly focuses on the semantic notions of behavioural distances and probabilistic language equivalence, where it makes its main contributions. Behavioural distances replace the strict notion of equivalence of states with a more liberal quantitative measure of dissimilarity. This is particularly desirable for stochastic or probabilistic systems, where a tiny observed perturbation would lead to inequivalence of states. Behavioural distances have been successfully applied to Markov Decision Processes within Reinforcement Learning (RL), with the key example being MiCO (Matching under Independent Couplings) distance. Additionally, probabilistic language equivalence, axiomatised in Chapter 4 of this thesis, underpins Apex, an automated equivalence checker for probabilistic programs.
 
-\begin{quote}
-The statement should describe, in no more than 500 words, how the expertise, knowledge, analysis,
-discovery or insight presented in your thesis could be put to a beneficial use. Consider benefits both
-inside and outside academia and the ways in which these benefits could be brought about.
+\textbf{Inside academia:} This thesis makes original contributions within the field of Theoretical Computer Science. The results in Chapter 2 are an adaptation of a concrete completeness result for behavioural distance of probabilistic transition systems to an instance of an abstract coalgebraic framework. Besides the basic examples provided by Lobbia et al, the content of Chapter 3 is the first work to propose a complete axiomatisation of a quantitative calculus of string diagrams through a systematic axiomatic foundation. Finally, Chapter 4 provides an alternative axiomatisation of language equivalence of generative probabilistic transition systems through a simple generalisation of Kleene’s regular expressions. The completeness result makes use of recently developed theory of proper functors and provides further evidence that the use of coalgebras for proper functors provides a good abstraction for completeness theorems.
 
-The benefits inside academia could be to the discipline and future scholarship, research methods or
-methodology, the curriculum; they might be within your research area and potentially within other
-research areas.
-
-The benefits outside academia could occur to commercial activity, social enterprise, professional
-practice, clinical use, public health, public policy design, public service delivery, laws, public
-discourse, culture, the quality of the environment or quality of life.
-
-The impact could occur locally, regionally, nationally or internationally, to individuals, communities or
-organisations and could be immediate or occur incrementally, in the context of a broader field of
-research, over many years, decades or longer.
-
-Impact could be brought about through disseminating outputs (either in scholarly journals or
-elsewhere such as specialist or mainstream media), education, public engagement, translational
-research, commercial and social enterprise activity, engaging with public policy makers and public
-service delivery practitioners, influencing ministers, collaborating with academics and non-academics
-etc.
-
-Further information including a searchable list of hundreds of examples of UCL impact outside of
-academia please see \url{https://www.ucl.ac.uk/impact/}. For thousands more examples, please see
-\url{http://results.ref.ac.uk/Results/SelectUoa}.
-\end{quote}
+The entire material presented in this thesis has been accepted or is under review for several highly-ranked conferences in Theoretical Computer Science. The results of this thesis have been disseminated to the computer science community through a series of seminar talks across the United Kingdom, the United States, and Germany. 
 \end{impactstatement}
 
 \begin{acknowledgements}
