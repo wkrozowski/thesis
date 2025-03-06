@@ -1,0 +1,26 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (16) at (-1, 1.25) {\scriptsize $m_1$};
+		\node [style=none] (17) at (-0.5, 0.75) {};
+		\node [style=black] (79) at (1.75, 0.75) {};
+		\node [style=none] (84) at (1.25, 0.75) {};
+		\node [style=none] (86) at (-1.25, 0.75) {};
+		\node [style=smallb] (98) at (0.5, 0.75) {$d_1$};
+		\node [style=none] (101) at (-1, -0.25) {\scriptsize $m_2$};
+		\node [style=none] (102) at (-0.5, -0.75) {};
+		\node [style=black] (104) at (1.75, -0.75) {};
+		\node [style=none] (106) at (1.25, -0.75) {};
+		\node [style=none] (108) at (-1.25, -0.75) {};
+		\node [style=smallb] (110) at (0.5, -0.75) {$d_2$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (84.center) to (79);
+		\draw [->] (86.center) to (17.center);
+		\draw (17.center) to (98);
+		\draw (98) to (84.center);
+		\draw (106.center) to (104);
+		\draw [->] (108.center) to (102.center);
+		\draw (102.center) to (110);
+		\draw (110) to (106.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,11 @@
+\begin{tikzpicture}[scale=0.8]
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=reg] (2) at (1, 0) {$e$};
+		\node [style=none] (5) at (-0.25, 0) {};
+		\node [style=black] (10) at (2.5, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (5.center) to (2);
+		\draw (2) to (10);
+	\end{pgfonlayer}
+\end{tikzpicture}

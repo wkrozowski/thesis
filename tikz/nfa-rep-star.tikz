@@ -1,0 +1,56 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=black] (225) at (2.5, -0.25) {};
+		\node [style=none] (226) at (-1.25, 0.5) {};
+		\node [style=none] (229) at (3.25, -0.25) {};
+		\node [style=none] (232) at (-3.25, -0.25) {};
+		\node [style=none] (235) at (3.25, 2.25) {};
+		\node [style=none] (238) at (-3.25, 2.25) {};
+		\node [style=none] (240) at (-1.25, -1) {};
+		\node [style=black] (242) at (-2.5, -0.25) {};
+		\node [style=none] (252) at (-0.75, -0.25) {};
+		\node [style=none] (253) at (-0.75, 1.25) {};
+		\node [style=none] (254) at (-0.5, 1.5) {};
+		\node [style=none] (255) at (-0.75, -0.25) {};
+		\node [style=none] (256) at (0.75, -0.25) {};
+		\node [style=none] (257) at (-0.5, -0.5) {};
+		\node [style=none] (258) at (0.75, 1.25) {};
+		\node [style=none] (259) at (0.5, -0.5) {};
+		\node [style=none] (260) at (0.5, 1.5) {};
+		\node [style=none] (261) at (1.5, 0.5) {};
+		\node [style=none] (262) at (0, 0.5) {$d$};
+		\node [style=none] (263) at (-0.75, 1.25) {};
+		\node [style=none] (264) at (-0.75, 0.5) {};
+		\node [style=none] (277) at (5, -2) {};
+		\node [style=none] (287) at (1.25, -1) {};
+		\node [style=none] (291) at (0.75, 0.5) {};
+		\node [style=none] (292) at (-5, -2) {};
+		\node [style=none] (293) at (-3.5, 0.5) {\scriptsize $|Q|$};
+		\node [style=none] (294) at (3.25, 0.5) {\scriptsize $|Q|$};
+		\node [style=none] (295) at (0, 2.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [->] (225) to (229.center);
+		\draw [bend right=90, looseness=2.00] (229.center) to (235.center);
+		\draw [->, bend right=90, looseness=2.00] (238.center) to (232.center);
+		\draw (232.center) to (242);
+		\draw [->, in=-180, out=-60, looseness=0.75] (242) to (240.center);
+		\draw [semithick, in=0, out=-90] (256.center) to (259.center);
+		\draw [semithick, in=-90, out=180] (257.center) to (255.center);
+		\draw [semithick, in=180, out=90] (253.center) to (254.center);
+		\draw [semithick, in=90, out=0] (260.center) to (258.center);
+		\draw [semithick] (254.center) to (260.center);
+		\draw [semithick] (258.center) to (256.center);
+		\draw [semithick] (259.center) to (257.center);
+		\draw [semithick] (255.center) to (253.center);
+		\draw [in=135, out=0] (261.center) to (225);
+		\draw (226.center) to (264.center);
+		\draw [->, in=-180, out=60] (242) to (226.center);
+		\draw [in=-180, out=0] (240.center) to (277.center);
+		\draw [in=-120, out=0, looseness=0.75] (287.center) to (225);
+		\draw [->] (291.center) to (261.center);
+		\draw [->, in=180, out=0] (292.center) to (287.center);
+		\draw [->] (235.center) to (295.center);
+		\draw (295.center) to (238.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

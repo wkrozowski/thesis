@@ -1,0 +1,46 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (3.25, -1.25) {};
+		\node [style=black] (1) at (-0.75, -0.25) {};
+		\node [style=none] (2) at (1.75, 0.75) {};
+		\node [style=none] (3) at (4.25, -1.25) {};
+		\node [style=none] (6) at (4.75, -1.25) {};
+		\node [style=none] (8) at (-3.5, -1) {};
+		\node [style=none] (10) at (-4.25, -1) {};
+		\node [style=none] (11) at (1.75, -1.25) {};
+		\node [style=black] (12) at (0.5, -0.25) {};
+		\node [style=none] (22) at (-1.75, 0.5) {};
+		\node [style=none] (48) at (-1.75, -1) {};
+		\node [style=basicb] (53) at (-2.5, -1) {$e$};
+		\node [style=none] (55) at (0, 0.5) {\scriptsize $l$};
+		\node [style=none] (70) at (3.25, 0.75) {};
+		\node [style=none] (71) at (-2.5, 0.5) {};
+		\node [style=none] (72) at (3.25, 2.25) {};
+		\node [style=none] (73) at (-2.5, 2.25) {};
+		\node [style=none] (74) at (4.75, 2) {\scriptsize $l$};
+		\node [style=basicb] (75) at (2.75, -1.25) {$f$};
+		\node [style=basicb] (76) at (2.75, 0.75) {$d$};
+		\node [style=none] (77) at (-0.25, 2.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [->] (0.center) to (3.center);
+		\draw (3.center) to (6.center);
+		\draw [->, in=-180, out=-75] (12) to (11.center);
+		\draw [in=105, out=0] (22.center) to (1);
+		\draw [->, in=-180, out=75] (12) to (2.center);
+		\draw [in=-105, out=0] (48.center) to (1);
+		\draw [->] (10.center) to (8.center);
+		\draw [bend right=90, looseness=2.00] (70.center) to (72.center);
+		\draw [->, bend right=90, looseness=2.00] (73.center) to (71.center);
+		\draw (1) to (12);
+		\draw (71.center) to (22.center);
+		\draw (11.center) to (75);
+		\draw (2.center) to (76);
+		\draw [->] (72.center) to (77.center);
+		\draw (77.center) to (73.center);
+		\draw (76) to (70.center);
+		\draw (75) to (0.center);
+		\draw (8.center) to (53);
+		\draw (53) to (48.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

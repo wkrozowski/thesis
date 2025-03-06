@@ -1,0 +1,12 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-1.5, -1) {};
+		\node [style=none] (1) at (-1.5, 0.75) {};
+		\node [style=none] (2) at (1.25, -1) {};
+		\node [style=none] (3) at (1.25, 0.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=180, out=0, looseness=1.00] (1.center) to (2.center);
+		\draw [in=180, out=0, looseness=1.00] (0.center) to (3.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

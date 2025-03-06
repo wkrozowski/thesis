@@ -1,0 +1,21 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (6) at (0.5, 0) {};
+		\node [style=basic box] (9) at (1, 0) {$c$};
+		\node [style=none] (10) at (2.5, 0) {};
+		\node [style=none] (11) at (1.5, 0) {};
+		\node [style=none] (12) at (-2.75, 0) {};
+		\node [style=none] (13) at (-0.75, 0.5) {};
+		\node [style=none] (14) at (-1.75, 0.5) {};
+		\node [style=none] (15) at (-0.75, -0.5) {};
+		\node [style=none] (16) at (-1.75, -0.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=0, out=180, looseness=1.25] (10.center) to (11.center);
+		\draw (6.center) to (12.center);
+		\draw [densely dotted] (13.center) to (14.center);
+		\draw [densely dotted] (14.center) to (16.center);
+		\draw [densely dotted] (16.center) to (15.center);
+		\draw [densely dotted] (15.center) to (13.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

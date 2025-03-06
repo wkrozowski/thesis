@@ -1,0 +1,29 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (6) at (1, 0.75) {};
+		\node [style=black] (8) at (0, 0) {};
+		\node [style=none] (9) at (1, -0.75) {};
+		\node [style=none] (15) at (1, 0.75) {};
+		\node [style=none] (16) at (-2.25, 0.75) {};
+		\node [style=black] (17) at (-1.25, 0) {};
+		\node [style=none] (18) at (-2.25, -0.75) {};
+		\node [style=none] (20) at (2, -0.75) {};
+		\node [style=none] (21) at (-3.25, -0.75) {};
+		\node [style=none] (22) at (1, 2) {};
+		\node [style=none] (23) at (-2.25, 2) {};
+		\node [style=none] (24) at (-0.75, 2) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [->, in=180, out=75] (8) to (6.center);
+		\draw [->, in=180, out=-75] (8) to (9.center);
+		\draw [in=0, out=105] (17) to (16.center);
+		\draw [in=0, out=-105] (17) to (18.center);
+		\draw (17) to (8);
+		\draw (9.center) to (20.center);
+		\draw [->] (21.center) to (18.center);
+		\draw [bend right=90, looseness=2.25] (15.center) to (22.center);
+		\draw [->] (22.center) to (24.center);
+		\draw (24.center) to (23.center);
+		\draw [->, bend right=90, looseness=2.25] (23.center) to (16.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

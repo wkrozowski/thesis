@@ -1,0 +1,36 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (171) at (-4.5, 0) {};
+		\node [style=none] (172) at (-3.5, 0) {};
+		\node [style=black] (173) at (-2.5, 0) {};
+		\node [style=none] (175) at (-1.25, 1) {};
+		\node [style=none] (177) at (-0.25, 1) {};
+		\node [style=basicb] (181) at (0.25, 1) {$e_1$};
+		\node [style=none] (185) at (0.75, 1) {};
+		\node [style=black] (188) at (3.25, 0) {};
+		\node [style=none] (191) at (1.75, 1) {};
+		\node [style=none] (192) at (4.25, 0) {};
+		\node [style=none] (193) at (4.25, 0) {};
+		\node [style=none] (194) at (5.25, 0) {};
+		\node [style=none] (195) at (4.75, 0.25) {\scriptsize $n$};
+		\node [style=none] (196) at (2.5, -0.5) {\scriptsize $n$};
+		\node [style=none] (198) at (2.5, 1.25) {\scriptsize $n$};
+		\node [style=basicb] (205) at (0.25, -1) {$f_1$};
+		\node [style=none] (207) at (-1.25, -1) {};
+		\node [style=none] (208) at (1.75, -1) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=right arrow] (171.center) to (172.center);
+		\draw (172.center) to (173);
+		\draw (175.center) to (177.center);
+		\draw [style=right arrow] (185.center) to (191.center);
+		\draw [in=90, out=0] (191.center) to (188);
+		\draw [style=right arrow] (188) to (193.center);
+		\draw (193.center) to (194.center);
+		\draw [style=right arrow, in=-180, out=90] (173) to (175.center);
+		\draw [style=right arrow, in=180, out=-90] (173) to (207.center);
+		\draw (207.center) to (205);
+		\draw [style=right arrow] (205) to (208.center);
+		\draw [in=-90, out=0] (208.center) to (188);
+	\end{pgfonlayer}
+\end{tikzpicture}

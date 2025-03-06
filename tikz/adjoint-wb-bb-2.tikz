@@ -1,0 +1,32 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=black] (47) at (1.5, -0.25) {};
+		\node [style=black] (89) at (-1.75, -0.25) {};
+		\node [style=none] (108) at (3.75, -1.5) {\scriptsize $i_n$};
+		\node [style=none] (110) at (3.75, 1.75) {\scriptsize $i_1$};
+		\node [style=none] (112) at (3.75, -2) {};
+		\node [style=none] (113) at (3.75, 1.25) {};
+		\node [style=none] (114) at (-4, 1.25) {};
+		\node [style=none] (116) at (-4, -1.5) {\scriptsize $i_n$};
+		\node [style=none] (117) at (-4, 1.75) {\scriptsize $i_1$};
+		\node [style=none] (120) at (0, 0.5) {\scriptsize $\{i_1,\dots, i_n\}$};
+		\node [style=none] (121) at (-4, -2) {};
+		\node [style=none] (122) at (-4, -0.5) {};
+		\node [style=black] (123) at (-2.75, -1.25) {};
+		\node [style=black] (124) at (2.5, -1.25) {};
+		\node [style=none] (125) at (3.75, -0.5) {};
+		\node [style=none] (126) at (3.75, 0) {\scriptsize $i_{n-1}$};
+		\node [style=none] (127) at (-4, 0) {\scriptsize $i_{n-1}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (89) to (47);
+		\draw [in=105, out=0] (114.center) to (89);
+		\draw [in=-180, out=75] (47) to (113.center);
+		\draw [bend left] (122.center) to (123);
+		\draw [bend right] (121.center) to (123);
+		\draw [densely dotted, bend right] (123) to (89);
+		\draw [densely dotted, bend right] (47) to (124);
+		\draw [bend right] (124) to (112.center);
+		\draw [bend left] (124) to (125.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,20 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (175) at (-2.75, 0) {};
+		\node [style=none] (177) at (-1.75, 0) {};
+		\node [style=basicb] (181) at (0.5, 0) {$f_{j}$};
+		\node [style=none] (185) at (1.25, 0) {};
+		\node [style=none] (191) at (2.25, 0) {};
+		\node [style=none] (198) at (3.25, 0.25) {\scriptsize $n$};
+		\node [style=reg] (202) at (-1.25, 0) {$a$};
+		\node [style=none] (203) at (-3.75, 0) {};
+		\node [style=none] (204) at (3, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (175.center) to (177.center);
+		\draw [style=right arrow] (185.center) to (191.center);
+		\draw (202) to (181);
+		\draw [style=right arrow] (203.center) to (175.center);
+		\draw (191.center) to (204.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

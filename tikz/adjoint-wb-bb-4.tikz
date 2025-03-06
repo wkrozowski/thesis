@@ -1,0 +1,49 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (55) at (0.25, 0) {};
+		\node [style=none] (59) at (0.25, 1.25) {};
+		\node [style=none] (73) at (4, 0.25) {\scriptsize $0$};
+		\node [style=none] (74) at (4, -1.25) {\scriptsize $1$};
+		\node [style=black] (78) at (1, 2.25) {};
+		\node [style=black] (84) at (2.5, 0.25) {};
+		\node [style=black] (87) at (2.5, -1.25) {};
+		\node [style=none] (90) at (-0.25, 1.25) {};
+		\node [style=none] (92) at (-4, 0.25) {\scriptsize $0$};
+		\node [style=none] (93) at (-4, -1.25) {\scriptsize $1$};
+		\node [style=black] (95) at (-1, 2.25) {};
+		\node [style=none] (96) at (-0.25, 0) {};
+		\node [style=white] (97) at (-2.5, 0.25) {};
+		\node [style=white] (99) at (-2.5, -1.25) {};
+		\node [style=none] (100) at (-3.5, 0.25) {};
+		\node [style=none] (101) at (-3.5, -1.25) {};
+		\node [style=none] (102) at (3.5, 0.25) {};
+		\node [style=none] (103) at (3.5, -1.25) {};
+		\node [style=none] (104) at (0, 1.75) {\scriptsize $0$};
+		\node [style=none] (105) at (0, -0.5) {\scriptsize $0$};
+		\node [style=none] (108) at (0, -1.75) {\scriptsize $1$};
+		\node [style=none] (111) at (0, 0.5) {\scriptsize $1$};
+		\node [style=none] (112) at (0.25, -1) {};
+		\node [style=none] (113) at (-0.25, -1) {};
+		\node [style=none] (114) at (-0.25, -2.25) {};
+		\node [style=none] (115) at (0.25, -2.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=0, out=120] (84) to (59.center);
+		\draw [in=120, out=0, looseness=0.75] (55.center) to (87);
+		\draw [in=-180, out=60] (97) to (90.center);
+		\draw [in=180, out=75, looseness=0.75] (99) to (96.center);
+		\draw (95) to (78);
+		\draw (90.center) to (59.center);
+		\draw (96.center) to (55.center);
+		\draw (100.center) to (97);
+		\draw (101.center) to (99);
+		\draw (84) to (102.center);
+		\draw (87) to (103.center);
+		\draw [in=-180, out=-60] (97) to (113.center);
+		\draw (113.center) to (112.center);
+		\draw [in=-120, out=0, looseness=0.75] (112.center) to (84);
+		\draw [in=-180, out=-60] (99) to (114.center);
+		\draw (114.center) to (115.center);
+		\draw [in=-120, out=0] (115.center) to (87);
+	\end{pgfonlayer}
+\end{tikzpicture}

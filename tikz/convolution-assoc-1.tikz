@@ -1,0 +1,57 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=basicb] (183) at (1.25, -3) {$f_{3}$};
+		\node [style=none] (187) at (2, -3) {};
+		\node [style=black] (188) at (7.5, -1.25) {};
+		\node [style=none] (189) at (5.5, -3) {};
+		\node [style=none] (191) at (5.5, 0.5) {};
+		\node [style=none] (192) at (8.75, -1.25) {};
+		\node [style=none] (193) at (8.75, -1.25) {};
+		\node [style=none] (194) at (10, -1.25) {};
+		\node [style=none] (195) at (9.5, -0.75) {\scriptsize $n$};
+		\node [style=none] (196) at (6, -2.5) {\scriptsize $n$};
+		\node [style=none] (198) at (6, 0.75) {\scriptsize $n$};
+		\node [style=none] (199) at (-3, -1.75) {};
+		\node [style=none] (200) at (-3, 1.75) {};
+		\node [style=none] (202) at (0.5, -3) {};
+		\node [style=black] (209) at (-5, 0) {};
+		\node [style=none] (210) at (-6, 0) {};
+		\node [style=none] (211) at (-7, 0) {};
+		\node [style=basicb] (212) at (1.25, 1.75) {$f_{1}$};
+		\node [style=basicb] (213) at (1.25, -0.75) {$f_{2}$};
+		\node [style=none] (214) at (1.75, 1.75) {};
+		\node [style=none] (215) at (2, -0.75) {};
+		\node [style=black] (216) at (4.5, 0.5) {};
+		\node [style=none] (217) at (3, -0.75) {};
+		\node [style=none] (218) at (3, 1.75) {};
+		\node [style=none] (223) at (3.5, -0.25) {\scriptsize $n$};
+		\node [style=none] (224) at (3.5, 2) {\scriptsize $n$};
+		\node [style=none] (225) at (-0.5, -3) {};
+		\node [style=none] (226) at (-0.5, -0.75) {};
+		\node [style=none] (227) at (0.5, 1.75) {};
+		\node [style=none] (228) at (0.5, -0.75) {};
+		\node [style=black] (229) at (-2, -1.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=right arrow] (187.center) to (189.center);
+		\draw [in=-90, out=0] (189.center) to (188);
+		\draw [in=90, out=0] (191.center) to (188);
+		\draw [style=right arrow] (188) to (193.center);
+		\draw (193.center) to (194.center);
+		\draw [style=right arrow] (211.center) to (210.center);
+		\draw (210.center) to (209);
+		\draw [style=right arrow, bend right=45] (209) to (199.center);
+		\draw [style=right arrow, bend left=45] (209) to (200.center);
+		\draw [style=right arrow] (215.center) to (217.center);
+		\draw [style=right arrow] (214.center) to (218.center);
+		\draw [in=-90, out=0] (217.center) to (216);
+		\draw [in=90, out=0] (218.center) to (216);
+		\draw [style=right arrow, bend right=45] (229) to (225.center);
+		\draw [style=right arrow, in=180, out=75] (229) to (226.center);
+		\draw (199.center) to (229);
+		\draw [style=right arrow] (216) to (191.center);
+		\draw (225.center) to (202.center);
+		\draw (226.center) to (228.center);
+		\draw (200.center) to (227.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

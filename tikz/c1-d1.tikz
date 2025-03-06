@@ -1,0 +1,28 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (1) at (-0.25, 0) {};
+		\node [style=none] (4) at (-0.75, 0) {};
+		\node [style=basicb] (11) at (-0.5, 0) {$c_1$};
+		\node [style=basicb] (12) at (2, 0) {$d_1$};
+		\node [style=none] (13) at (3.5, 0) {};
+		\node [style=none] (14) at (2.75, 0) {};
+		\node [style=none] (15) at (4, 0.5) {\scriptsize $m$};
+		\node [style=none] (16) at (4.25, 0) {};
+		\node [style=none] (17) at (0.75, 0.5) {\scriptsize $k$};
+		\node [style=none] (18) at (-0.25, 0) {};
+		\node [style=none] (19) at (0.75, 0) {};
+		\node [style=none] (20) at (1.5, 0) {};
+		\node [style=none] (21) at (-2, 0.5) {\scriptsize $k$};
+		\node [style=none] (22) at (-2.5, 0) {};
+		\node [style=none] (23) at (-1.5, 0) {};
+		\node [style=none] (24) at (-1, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (13.center) to (16.center);
+		\draw [->] (14.center) to (13.center);
+		\draw (19.center) to (20.center);
+		\draw [->] (18.center) to (19.center);
+		\draw (23.center) to (24.center);
+		\draw [->] (22.center) to (23.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

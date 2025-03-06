@@ -1,0 +1,16 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (51) at (-1.25, 0.5) {};
+		\node [style=none] (52) at (-1.25, -0.5) {};
+		\node [style=none] (55) at (0.25, -0.5) {};
+		\node [style=none] (59) at (0.25, 0.5) {};
+		\node [style=none] (65) at (1, 0.5) {};
+		\node [style=none] (66) at (1, -0.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (59.center) to (65.center);
+		\draw (55.center) to (66.center);
+		\draw [->] (51.center) to (59.center);
+		\draw [->] (52.center) to (55.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

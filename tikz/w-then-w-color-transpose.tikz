@@ -1,0 +1,19 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (16) at (-2, 0.5) {\scriptsize $m$};
+		\node [style=smallb] (76) at (-0.5, 0) {$w$};
+		\node [style=none] (78) at (-1.5, 0) {};
+		\node [style=none] (79) at (-2.25, 0) {};
+		\node [style=none] (85) at (2.5, 0.5) {\scriptsize $m$};
+		\node [style=none] (101) at (2.25, 0) {};
+		\node [style=smallb] (102) at (1, 0) {$w^\circ$};
+		\node [style=none] (103) at (2.75, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [->] (79.center) to (78.center);
+		\draw (78.center) to (76);
+		\draw [->] (102) to (101.center);
+		\draw (101.center) to (103.center);
+		\draw (76) to (102);
+	\end{pgfonlayer}
+\end{tikzpicture}

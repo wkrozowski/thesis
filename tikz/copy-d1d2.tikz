@@ -1,0 +1,46 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (16) at (-1.25, 1.25) {\scriptsize $m_1$};
+		\node [style=none] (17) at (-0.75, 0.75) {};
+		\node [style=smallb] (76) at (2.5, 2) {$d_1$};
+		\node [style=smallb] (77) at (2.5, -0.75) {$d_2$};
+		\node [style=none] (78) at (1.5, 2) {};
+		\node [style=black] (79) at (0, 0.75) {};
+		\node [style=none] (80) at (1.5, -0.75) {};
+		\node [style=none] (85) at (3.75, 2.5) {\scriptsize $n_1$};
+		\node [style=none] (86) at (-1.5, 0.75) {};
+		\node [style=none] (99) at (3.75, 2) {};
+		\node [style=none] (100) at (3.75, -0.75) {};
+		\node [style=none] (101) at (-1.25, -0.25) {\scriptsize $m_2$};
+		\node [style=none] (102) at (-0.75, -0.75) {};
+		\node [style=smallb] (103) at (2.5, 0.5) {$d_1$};
+		\node [style=smallb] (104) at (2.5, -2.25) {$d_2$};
+		\node [style=none] (105) at (1.5, 0.5) {};
+		\node [style=black] (106) at (0, -0.75) {};
+		\node [style=none] (107) at (1.5, -2.25) {};
+		\node [style=none] (108) at (3.75, -1.75) {\scriptsize $n_2$};
+		\node [style=none] (109) at (-1.5, -0.75) {};
+		\node [style=none] (110) at (3.75, 0.5) {};
+		\node [style=none] (111) at (3.75, -2.25) {};
+		\node [style=none] (112) at (3.75, -0.25) {\scriptsize $n_1$};
+		\node [style=none] (113) at (3.75, 1) {\scriptsize $n_2$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [->, in=180, out=-60] (79) to (80.center);
+		\draw [->, in=180, out=60] (79) to (78.center);
+		\draw (78.center) to (76);
+		\draw (80.center) to (77);
+		\draw [->] (86.center) to (17.center);
+		\draw (76) to (99.center);
+		\draw (77) to (100.center);
+		\draw (17.center) to (79);
+		\draw [->, in=180, out=-60] (106) to (107.center);
+		\draw [->, in=180, out=60] (106) to (105.center);
+		\draw (105.center) to (103);
+		\draw (107.center) to (104);
+		\draw [->] (109.center) to (102.center);
+		\draw (103) to (110.center);
+		\draw (104) to (111.center);
+		\draw (102.center) to (106);
+	\end{pgfonlayer}
+\end{tikzpicture}

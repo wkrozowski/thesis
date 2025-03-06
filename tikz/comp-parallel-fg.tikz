@@ -1,0 +1,24 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (6) at (2, 1) {};
+		\node [style=none] (7) at (0.25, 1) {};
+		\node [style=basic rounded box] (10) at (0, 1) {$f_1$};
+		\node [style=none] (11) at (-2, 1) {};
+		\node [style=none] (12) at (-0.25, 1) {};
+		\node [style=none] (13) at (2, -1) {};
+		\node [style=none] (17) at (-2, -1) {};
+		\node [style=basic rounded box] (18) at (0, -1) {$f_2$};
+		\node [style=none] (20) at (-0.25, -1) {};
+		\node [style=none] (23) at (0.25, -1) {};
+		\node [style=none] (26) at (-1.75, 1.5) {\scriptsize $v_1$};
+		\node [style=none] (28) at (1.75, 1.5) {\scriptsize $w_1$};
+		\node [style=none] (30) at (-1.75, -0.5) {\scriptsize $v_2$};
+		\node [style=none] (31) at (1.75, -0.5) {\scriptsize $w_2$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=180, out=0, looseness=1.25] (7.center) to (6.center);
+		\draw [in=180, out=0, looseness=1.25] (11.center) to (12.center);
+		\draw [in=180, out=0, looseness=1.25] (17.center) to (20.center);
+		\draw [in=180, out=0, looseness=1.25] (23.center) to (13.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

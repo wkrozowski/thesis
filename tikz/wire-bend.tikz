@@ -1,0 +1,50 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (229) at (2.5, 1) {};
+		\node [style=none] (242) at (-2.25, 1) {};
+		\node [style=none] (252) at (-0.75, -1) {};
+		\node [style=none] (253) at (-0.75, 1.25) {};
+		\node [style=none] (254) at (-0.5, 1.5) {};
+		\node [style=none] (255) at (-0.75, -1) {};
+		\node [style=none] (256) at (0.75, -1) {};
+		\node [style=none] (257) at (-0.5, -1.25) {};
+		\node [style=none] (258) at (0.75, 1.25) {};
+		\node [style=none] (259) at (0.5, -1.25) {};
+		\node [style=none] (260) at (0.5, 1.5) {};
+		\node [style=none] (263) at (-0.75, 1.25) {};
+		\node [style=none] (264) at (-0.75, 1) {};
+		\node [style=none] (291) at (0.75, 1) {};
+		\node [style=none] (293) at (-2.25, 1.5) {\scriptsize $A_1$};
+		\node [style=none] (294) at (2.5, 1.5) {\scriptsize $B_1$};
+		\node [style=none] (296) at (2.5, -0.75) {};
+		\node [style=none] (297) at (-2.25, -0.75) {};
+		\node [style=none] (299) at (-0.75, -0.75) {};
+		\node [style=none] (300) at (0.75, -0.75) {};
+		\node [style=none] (301) at (-2.25, -0.25) {\scriptsize $A_2$};
+		\node [style=none] (302) at (2.5, -0.25) {\scriptsize $B_2$};
+		\node [style=none] (303) at (-2.25, 0.25) {};
+		\node [style=none] (305) at (-1.5, 0.25) {};
+		\node [style=none] (306) at (0.75, 0.25) {};
+		\node [style=none] (308) at (1.5, 0.25) {};
+		\node [style=none] (309) at (-0.75, 0.25) {};
+		\node [style=none] (310) at (2.5, 0.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [semithick, in=0, out=-90] (256.center) to (259.center);
+		\draw [semithick, in=-90, out=180] (257.center) to (255.center);
+		\draw [semithick, in=180, out=90] (253.center) to (254.center);
+		\draw [semithick, in=90, out=0] (260.center) to (258.center);
+		\draw [semithick] (254.center) to (260.center);
+		\draw [semithick] (258.center) to (256.center);
+		\draw [semithick] (259.center) to (257.center);
+		\draw [semithick] (255.center) to (253.center);
+		\draw [->] (303.center) to (305.center);
+		\draw [->] (306.center) to (308.center);
+		\draw (305.center) to (309.center);
+		\draw (308.center) to (310.center);
+		\draw (291.center) to (229.center);
+		\draw (300.center) to (296.center);
+		\draw (297.center) to (299.center);
+		\draw (242.center) to (264.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

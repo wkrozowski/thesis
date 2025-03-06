@@ -1,0 +1,14 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=wrn] (64) at (-0.75, 0.5) {};
+		\node [style=none] (70) at (0.5, 0.5) {};
+		\node [style=none] (75) at (-1.5, 1) {${\color{red} a}$};
+		\node [style=wrn] (76) at (-0.75, -0.5) {};
+		\node [style=none] (77) at (0.5, -0.5) {};
+		\node [style=none] (78) at (-1.5, 0) {${\color{red} a}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [red] (64) to (70.center);
+		\draw [red] (76) to (77.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

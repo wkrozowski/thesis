@@ -1,0 +1,12 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=rn] (63) at (-1, 0.5) {};
+		\node [style=rn] (65) at (-1, -0.5) {};
+		\node [style=none] (67) at (-2.25, 0.5) {};
+		\node [style=none] (68) at (-2.25, -0.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [red] (63) to (67.center);
+		\draw [red] (65) to (68.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

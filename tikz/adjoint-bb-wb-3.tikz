@@ -1,0 +1,52 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (46) at (-3.25, -1) {};
+		\node [style=black] (47) at (-2, -1) {};
+		\node [style=none] (49) at (-0.75, -1.75) {};
+		\node [style=none] (51) at (-3.25, 1) {};
+		\node [style=none] (52) at (-3.25, 0.25) {};
+		\node [style=none] (55) at (-3, 0.25) {};
+		\node [style=none] (59) at (-3, 1) {};
+		\node [style=none] (62) at (2.75, -1) {};
+		\node [style=black] (63) at (1.5, -1) {};
+		\node [style=none] (64) at (0.25, -1.75) {};
+		\node [style=none] (65) at (2.75, 1) {};
+		\node [style=none] (66) at (2.75, 0.25) {};
+		\node [style=none] (67) at (-0.75, -0.25) {};
+		\node [style=none] (68) at (0.25, -0.25) {};
+		\node [style=none] (69) at (-4.25, 1.75) {\scriptsize $\varnothing$};
+		\node [style=none] (70) at (-4.25, 1) {\scriptsize $\{0\}$};
+		\node [style=none] (71) at (-4.25, 0.25) {\scriptsize $\{1\}$};
+		\node [style=none] (72) at (-4.25, -1) {\scriptsize $\{0,1\}$};
+		\node [style=none] (73) at (-0.25, 0.25) {\scriptsize $0$};
+		\node [style=none] (74) at (-0.25, -2.25) {\scriptsize $1$};
+		\node [style=none] (75) at (2.75, 1.75) {};
+		\node [style=black] (76) at (1.25, 1.75) {};
+		\node [style=none] (77) at (-3.25, 1.75) {};
+		\node [style=black] (78) at (-1.75, 1.75) {};
+		\node [style=none] (79) at (-0.75, -1) {};
+		\node [style=none] (80) at (-0.75, 0.75) {};
+		\node [style=none] (81) at (0.25, 0.75) {};
+		\node [style=none] (82) at (0.25, -1) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=180, out=-60] (47) to (49.center);
+		\draw (47) to (46.center);
+		\draw (59.center) to (51.center);
+		\draw (55.center) to (52.center);
+		\draw [in=0, out=-120] (63) to (64.center);
+		\draw (63) to (62.center);
+		\draw (49.center) to (64.center);
+		\draw [in=-180, out=60] (47) to (67.center);
+		\draw (67.center) to (68.center);
+		\draw [in=120, out=0] (68.center) to (63);
+		\draw (76) to (75.center);
+		\draw (78) to (77.center);
+		\draw [in=-180, out=0] (59.center) to (80.center);
+		\draw [in=180, out=0, looseness=1.25] (55.center) to (79.center);
+		\draw (79.center) to (82.center);
+		\draw (80.center) to (81.center);
+		\draw [in=-180, out=0] (81.center) to (65.center);
+		\draw [in=180, out=0] (82.center) to (66.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

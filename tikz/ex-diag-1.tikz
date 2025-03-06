@@ -1,0 +1,49 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=black] (48) at (0.75, 1.75) {};
+		\node [style=black] (52) at (-2, 1) {};
+		\node [style=reg] (53) at (-0.5, 1.75) {$a$};
+		\node [style=reg] (70) at (1.25, 0.25) {$b$};
+		\node [style=none] (71) at (8.25, 2.5) {};
+		\node [style=none] (72) at (8.25, 0.25) {};
+		\node [style=reg] (75) at (7.75, 0.25) {$a$};
+		\node [style=black] (76) at (6.25, 0.25) {};
+		\node [style=none] (77) at (5, 1) {};
+		\node [style=none] (78) at (5, -0.5) {};
+		\node [style=none] (79) at (5, 2.5) {};
+		\node [style=none] (81) at (7.25, 2.5) {};
+		\node [style=none] (82) at (-0.5, 0.25) {};
+		\node [style=black] (84) at (-5, 0) {};
+		\node [style=reg] (85) at (-3.5, 1) {$a$};
+		\node [style=none] (86) at (-6.25, 0) {};
+		\node [style=none] (87) at (-0.5, -1.25) {};
+		\node [style=black] (88) at (3.5, -0.5) {};
+		\node [style=none] (89) at (2.25, 0.25) {};
+		\node [style=none] (90) at (2.25, -1.25) {};
+		\node [style=reg] (91) at (1.25, -1.25) {$b$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [bend left] (52) to (53);
+		\draw [bend left=90, looseness=2.00] (71.center) to (72.center);
+		\draw [in=120, out=0] (77.center) to (76);
+		\draw [in=0, out=-120] (76) to (78.center);
+		\draw [bend left=270, looseness=2.50] (79.center) to (77.center);
+		\draw [->] (71.center) to (81.center);
+		\draw (81.center) to (79.center);
+		\draw [->, in=-180, out=-60] (52) to (82.center);
+		\draw (82.center) to (70);
+		\draw (76) to (75);
+		\draw (53) to (48);
+		\draw [bend left] (84) to (85);
+		\draw (86.center) to (84);
+		\draw [->, in=-180, out=-75, looseness=0.75] (84) to (87.center);
+		\draw (85) to (52);
+		\draw [in=120, out=0] (89.center) to (88);
+		\draw [in=0, out=-120] (88) to (90.center);
+		\draw (70) to (89.center);
+		\draw (87.center) to (91);
+		\draw (91) to (90.center);
+		\draw [style=right arrow] (88) to (78.center);
+		\draw (75) to (72.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,35 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (6) at (0.5, 2) {};
+		\node [style=basic box] (9) at (0, 2) {\scriptsize $c_1$};
+		\node [style=none] (10) at (-1.5, 2) {};
+		\node [style=none] (11) at (-0.5, 2) {};
+		\node [style=none] (12) at (-1, 3) {};
+		\node [style=none] (13) at (1, 3) {};
+		\node [style=none] (14) at (-1, -1) {};
+		\node [style=none] (15) at (1, -1) {};
+		\node [style=basic box] (17) at (0, 0) {\scriptsize $c_2$};
+		\node [style=none] (20) at (-0.5, 0) {};
+		\node [style=none] (21) at (-0.5, -2) {};
+		\node [style=basic box] (25) at (0, -2) {\scriptsize $c_3$};
+		\node [style=none] (28) at (0.5, -2) {};
+		\node [style=none] (32) at (-1.5, -2) {};
+		\node [style=none] (38) at (1.5, -2) {};
+		\node [style=none] (39) at (-1.5, 0) {};
+		\node [style=none] (40) at (0.5, 0) {};
+		\node [style=none] (41) at (1.5, 0) {};
+		\node [style=none] (42) at (1.5, 2) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=180, out=0, looseness=1.25] (10.center) to (11.center);
+		\draw [densely dotted] (12.center) to (13.center);
+		\draw [densely dotted] (13.center) to (15.center);
+		\draw [densely dotted] (15.center) to (14.center);
+		\draw [densely dotted] (14.center) to (12.center);
+		\draw (32.center) to (21.center);
+		\draw (28.center) to (38.center);
+		\draw (6.center) to (42.center);
+		\draw (40.center) to (41.center);
+		\draw (39.center) to (20.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

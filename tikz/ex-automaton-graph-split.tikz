@@ -1,0 +1,25 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=black] (67) at (2.75, 0) {};
+		\node [style=black] (71) at (-0.75, 0) {};
+		\node [style=black] (72) at (-3.25, 0) {};
+		\node [style=none] (73) at (-2, 0.5) {$a$};
+		\node [style=none] (74) at (-3.25, 1) {};
+		\node [style=none] (75) at (1, -1.75) {$a$};
+		\node [style=none] (76) at (1, 1.75) {$b$};
+		\node [style=none] (77) at (2.75, -1) {};
+		\node [style=none] (78) at (3, -0.25) {};
+		\node [style=none] (79) at (4, 1) {$a$};
+		\node [style=none] (80) at (2.25, 2.25) {};
+		\node [style=none] (81) at (-0.25, -2) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [->] (72) to (71);
+		\draw [->] (74.center) to (72);
+		\draw [->, bend left=60] (71) to (67);
+		\draw [->, bend left=60] (67) to (71);
+		\draw [->] (67) to (77.center);
+		\draw [->, in=-30, out=30, looseness=15.75] (67) to (78.center);
+		\draw [dashed] (81.center) to (80.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

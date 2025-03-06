@@ -1,0 +1,29 @@
+\begin{tikzpicture}[scale=0.8]
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (10) at (-2.75, 0.75) {};
+		\node [style=none] (11) at (-3, 1.75) {};
+		\node [style=black] (12) at (-1.5, 0) {};
+		\node [style=none] (14) at (-2.75, -0.75) {};
+		\node [style=none] (16) at (-3, 0.75) {};
+		\node [style=none] (17) at (-3, -0.75) {};
+		\node [style=act] (19) at (-0.25, 0) {};
+		\node [style=none] (20) at (-4, 1.75) {};
+		\node [style=none] (21) at (-4, 0.75) {};
+		\node [style=none] (22) at (-4, -0.75) {};
+		\node [style=none] (24) at (0.75, 0) {};
+		\node [style=none] (25) at (1.5, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=0, out=120] (12) to (10.center);
+		\draw [in=0, out=-120] (12) to (14.center);
+		\draw [red] (20.center) to (11.center);
+		\draw [->] (21.center) to (16.center);
+		\draw [->] (22.center) to (17.center);
+		\draw (16.center) to (10.center);
+		\draw (17.center) to (14.center);
+		\draw [red, in=105, out=0] (11.center) to (19);
+		\draw [->] (19) to (24.center);
+		\draw (24.center) to (25.center);
+		\draw (12) to (19);
+	\end{pgfonlayer}
+\end{tikzpicture}

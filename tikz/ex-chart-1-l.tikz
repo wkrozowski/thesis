@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=white] (72) at (-1.75, 0.5) {};
+		\node [style=none] (73) at (-0.5, 1.75) {$a$};
+		\node [style=none] (74) at (-3.5, 0.5) {};
+		\node [style=none] (79) at (-1.25, -0.75) {$b$};
+		\node [style=white] (146) at (0.75, -1) {};
+		\node [style=white] (147) at (0.75, 1.5) {};
+		\node [style=none] (149) at (1.5, 0.5) {$b$};
+		\node [style=white] (150) at (2.5, 2.5) {};
+		\node [style=none] (151) at (1.25, 2.5) {$a$};
+		\node [style=none] (152) at (3.25, -1) {$v_1$};
+		\node [style=none] (153) at (2.5, -1) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [->] (74.center) to (72);
+		\draw [style=right arrow, bend right=15] (72) to (146);
+		\draw [style=right arrow, bend left=15] (72) to (147);
+		\draw [style=right arrow, bend left=15] (147) to (146);
+		\draw [style=right arrow] (147) to (150);
+		\draw [double, ->] (146) to (153.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

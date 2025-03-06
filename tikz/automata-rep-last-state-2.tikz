@@ -1,0 +1,45 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (208) at (-2.25, 0.75) {};
+		\node [style=none] (213) at (-1, 0.75) {};
+		\node [style=none] (224) at (-2, 1.75) {};
+		\node [style=black] (225) at (-4, 1.75) {};
+		\node [style=none] (229) at (-1.25, 1.75) {};
+		\node [style=basicb] (240) at (-2.75, 1.25) {$c$};
+		\node [style=none] (241) at (-3.75, 0.75) {};
+		\node [style=none] (242) at (-3.75, -1.5) {};
+		\node [style=black] (243) at (-5.25, -0.25) {};
+		\node [style=none] (244) at (-3.25, 0.75) {};
+		\node [style=none] (245) at (-6, -0.25) {};
+		\node [style=none] (246) at (-7, -0.25) {};
+		\node [style=basicb] (247) at (-2.75, -1) {$o$};
+		\node [style=none] (249) at (-3, -0.5) {};
+		\node [style=black] (251) at (-4, -0.5) {};
+		\node [style=none] (252) at (-3, -1.5) {};
+		\node [style=none] (253) at (-2, -1) {};
+		\node [style=none] (254) at (0, -1) {};
+		\node [style=black] (255) at (1.5, 0) {};
+		\node [style=none] (256) at (-0.25, 1.25) {};
+		\node [style=none] (257) at (2.5, 0) {};
+		\node [style=none] (258) at (3, 0) {};
+		\node [style=none] (259) at (2.5, 0.5) {\scriptsize $n$};
+		\node [style=basicb] (260) at (-0.75, 1.25) {$f$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [->] (225) to (224.center);
+		\draw (224.center) to (229.center);
+		\draw (208.center) to (213.center);
+		\draw [in=-180, out=-75] (243) to (242.center);
+		\draw [->, in=-180, out=75] (243) to (241.center);
+		\draw (241.center) to (244.center);
+		\draw [style=right arrow] (246.center) to (245.center);
+		\draw (245.center) to (243);
+		\draw [style=right arrow] (251) to (249.center);
+		\draw (242.center) to (252.center);
+		\draw [in=105, out=0] (256.center) to (255);
+		\draw [in=-105, out=0] (254.center) to (255);
+		\draw (257.center) to (258.center);
+		\draw [style=right arrow] (255) to (257.center);
+		\draw [style=right arrow] (253.center) to (254.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,23 @@
+\begin{tikzpicture}[scale=0.8]
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (2) at (0.75, 0) {};
+		\node [style=none] (4) at (-1.75, 0.75) {};
+		\node [style=black] (5) at (-0.5, 0) {};
+		\node [style=none] (6) at (-1.75, -0.75) {};
+		\node [style=reg] (8) at (-2, 0.75) {$a$};
+		\node [style=reg] (9) at (-2, -0.75) {$a$};
+		\node [style=none] (11) at (-3.5, 0.75) {};
+		\node [style=none] (12) at (-3.5, -0.75) {};
+		\node [style=none] (13) at (1.25, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=0, out=-120] (5) to (6.center);
+		\draw (9) to (6.center);
+		\draw (8) to (4.center);
+		\draw [in=0, out=120] (5) to (4.center);
+		\draw [->] (5) to (2.center);
+		\draw (11.center) to (8);
+		\draw (12.center) to (9);
+		\draw (13.center) to (2.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

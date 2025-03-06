@@ -1,0 +1,22 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=wrn] (37) at (1, -0.75) {};
+		\node [style=none] (44) at (2.25, -0.75) {};
+		\node [style=wrn] (48) at (1, 0.75) {};
+		\node [style=none] (50) at (2.25, 0.75) {};
+		\node [style=rn] (54) at (-1.25, 0.75) {};
+		\node [style=none] (56) at (-2.5, 0.75) {};
+		\node [style=rn] (60) at (-1.25, -0.75) {};
+		\node [style=none] (62) at (-2.5, -0.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [red] (44.center) to (37);
+		\draw [red] (50.center) to (48);
+		\draw [red] (56.center) to (54);
+		\draw [red] (62.center) to (60);
+		\draw [red, bend right] (60) to (37);
+		\draw [red, bend left=45] (54) to (48);
+		\draw [red] (60) to (48);
+		\draw [red] (54) to (37);
+	\end{pgfonlayer}
+\end{tikzpicture}

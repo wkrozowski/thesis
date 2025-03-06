@@ -5,15 +5,189 @@
 \newcommand{\seq}{\mathbin{;}} %Sequential composition of (probabilistic) regular expressions
 \newcommand{\zero}{\mathsf{0}} %0 of a (probabilistic) regular expression
 \newcommand{\one}{\mathsf{1}} %1 of a (probabilistic) regular expression
+\newcommand{\sem}[1]{\left\llbracket{#1}\right\rrbracket}
 
 % common behavioural distances stuff
 \newcommand{\disteq}[1]{\equiv_{#1}} % rational-indexed equality
 \newcommand{\e}{\varepsilon} % epsilon for distances
+\newcommand{\PMet}{\mathsf{PMet}}
 
 % chapter two only
-\newcommand{\RExp}{\mathsf{PExp}}
+\newcommand{\RExp}{\mathsf{RExp}}
+
+\newcommand{\objr}{\blacktriangleright}
+\newcommand{\objl}{\blacktriangleleft}
+\newcommand{\arrowright}{\tikzfig{lr-order}}
+\newcommand{\arrowleft}{\tikzfig{rl-order}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                          ROBIN'S TIKZ STUFF
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pgfdeclarelayer{edgelayer}
+\pgfdeclarelayer{nodelayer}
+\pgfsetlayers{edgelayer,nodelayer,main}
+
+\definecolor{light-gray}{gray}{.5}
+\tikzstyle{right arrow} = [->]
+\tikzstyle{none}=[inner sep=0pt]
+\tikzstyle{plain}=[inner sep=0pt]
+\tikzstyle{black}=[circle, draw=black, fill=black, inner sep=0pt, minimum size=4pt]
+\tikzstyle{black-faded}=[circle, draw=light-gray, fill=light-gray, inner sep=0pt, minimum size=4pt]
+\tikzstyle{white}=[circle, draw=black, fill=white, inner sep=0pt, minimum size=4.5pt]
+\tikzstyle{white-faded}=[circle, draw=light-gray, fill=white, inner sep=0pt, minimum size=4.5pt]
+\tikzstyle{delay}=[fill=black, regular polygon, regular polygon sides=3,rotate=-90, scale=.55]
+\tikzstyle{delay-op}=[fill=black, regular polygon, regular polygon sides=3,rotate=90, scale=.55]
+\tikzstyle{reg}=[draw, fill=white, rounded rectangle, rounded rectangle left arc=none, minimum height=1.2em, minimum width=1.4em, node font={\scriptsize}]
+\tikzstyle{coreg}=[draw, fill=white, rounded rectangle, rounded rectangle right arc=none, minimum height=1.2em, minimum width=1.4em, node font={\scriptsize}]
+\tikzstyle{basicb}=[draw, fill=white, rectangle, rounded corners, minimum height=1.6em, minimum width=1.4em]
+\tikzstyle{basic box}=[draw, fill=white, rectangle, rounded corners, minimum height=1.6em, minimum width=1.4em]
+\tikzstyle{smallb}=[draw, fill=white, rectangle, rounded corners, minimum height=1.2em, minimum width=1.4em, node font={\scriptsize}]
+\tikzstyle{rcoreg}=[draw=red, fill=white, rounded rectangle, rounded rectangle right arc=none, minimum height=1.2em, minimum width=1.4em, node font={\scriptsize}]
+\tikzstyle{regb}=[draw, fill=black, rounded rectangle, rounded rectangle left arc=none, minimum height=1.2em, minimum width=1.4em, node font={\scriptsize}]
+\tikzstyle{regbw}=[draw, left color=black, right color=white, middle color=white, rounded rectangle, rounded rectangle left arc=none, minimum height=1.2em, minimum width=1.4em, node font={\scriptsize}]
+\tikzstyle{regwb}=[draw, left color=white, right color=black, middle color=white, rounded rectangle, rounded rectangle left arc=none, minimum height=1.2em, minimum width=1.4em, node font={\scriptsize}]
+\tikzstyle{coregb}=[draw, fill=black, rounded rectangle, rounded rectangle right arc=none, minimum height=1.2em, minimum width=1.4em, node font={\scriptsize}]
+\tikzstyle{coregbw}=[draw, left color=black, right color=white, middle color=white, rounded rectangle, rounded rectangle right arc=none, minimum height=1.2em, minimum width=1.4em, node font={\scriptsize}]
+\tikzstyle{coregwb}=[draw, left color=white, right color=black, middle color=white, rounded rectangle, rounded rectangle right arc=none, minimum height=1.2em, minimum width=1.4em, node font={\scriptsize}]
+\tikzstyle{rn}=[circle, draw=red, fill=red, inner sep=0pt, minimum size=4pt]
+\tikzstyle{wrn}=[circle, draw=red, fill=white, inner sep=0pt, minimum size=4pt]
+\tikzstyle{place}=[circle, draw=black, fill=white, inner sep=0pt, minimum size=9pt]
+\tikzstyle{act}=[circle, draw=black, fill=white, inner sep=0pt, minimum size=4.5pt]
+\tikzstyle{coact}=[draw, fill=white, rounded rectangle, rounded rectangle right arc=none, minimum height=.7em, minimum width=.9em, node font={\scriptsize}]
+\tikzstyle{basic rounded box}=[draw, fill=white, rectangle, rounded corners, minimum height=1.6em, minimum width=1.4em]
+\tikzstyle{small rounded box}=[draw, fill=white, rectangle, rounded corners, minimum height=1.2em, minimum width=1.4em, node font={\scriptsize}]
+\tikzset{
+BWmatrix/.pic={
+    \coordinate (center) at (0,0);
+    \filldraw[fill=white, draw=black, line width=1pt] (.5,0) 
+        [rounded corners=14pt] -- (1,0) 
+        [rounded corners=14pt] -- (1,1)
+        [rounded corners=0pt] -- (.5,1) 
+        [rounded corners=0pt] -- cycle;
+    \filldraw[fill=black, draw=black, line width=1pt] (0,0) 
+        -- (.5,0) 
+        -- (.5,1)
+        -- (0,1) 
+        -- cycle;
+   },
+pics/BWmatrix/.default=0.2
+}
+
+
+% Petri net styles
+\tikzstyle{pl}=[circle,thick,draw=black!75,fill=white,minimum size=17pt]
+\tikzstyle{port}=[circle, fill,inner sep=1.2pt]
+\tikzstyle{transition}=[rectangle,thick,draw=black!75,
+  			  fill=black!20,minimum size=7pt]
+
+\tikzstyle{arrow}=[->]
+
+\newcommand{\tikzfig}[1]{
+\tikzset{x=1em, y=2.1ex}
+\InputIfFileExists{#1.tikz}{}{\input{./tikz/#1.tikz}}
+\tikzset{x=1em, y=1.5ex}
+}
+
+\newcommand{\ctikzfig}[1]{%
+\begin{center}
+  \tikzfig{#1}
+\end{center}}
+
+
+\newcommand{\eqtikzfig}[1]{%
+\begin{equation}
+  \tikzfig{#1}
+\end{equation}}
+
+% Directed box
+\newcommand{\dbox}[3]{
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (6) at (1.5, 0) {};
+		\node [style=basicb] (10) at (0, 0) {$#1$};
+		\node [style=none] (11) at (-1.25, 0) {};
+		\node [style=none] (13) at (-2, 0) {};
+		\node [style=none] (14) at (2, 0) {};
+		\node [style=none] (15) at (1.75, 0.75) {\scriptsize $#3$};
+		\node [style=none] (16) at (-1.75, 0.75) {\scriptsize $#2$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [->] (13.center) to (11.center);
+		\draw (6.center) to (14.center);
+		\draw (11.center) to (10);
+		\draw [->] (10) to (6.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
+}
+
+
+% Trace with actions
+\newcommand{\traceaction}[5]{
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-0.75, 1.25) {};
+		\node [style=none] (1) at (0.75, 1) {};
+		\node [style=none] (2) at (-0.25, 1.75) {};
+		\node [style=none] (3) at (-0.75, -0.25) {};
+		\node [style=none] (4) at (0.75, -0.25) {};
+		\node [style=none] (5) at (-0.25, -0.75) {};
+		\node [style=none] (6) at (-0.75, 1) {};
+		\node [style=none] (7) at (0.75, 1.25) {};
+		\node [style=none] (8) at (2.5, 0) {};
+		\node [style=none] (9) at (0.75, 0) {};
+		\node [style=none] (10) at (0.25, -0.75) {};
+		\node [style=none] (11) at (0.25, 1.75) {};
+		\node [style=none] (12) at (0, 0.5) {$#1$};
+		\node [style=none] (13) at (4, 0.5) {\scriptsize $#3$};
+		\node [style=none] (14) at (2.5, 2.5) {};
+		\node [style=none] (15) at (-1.5, 2.5) {};
+		\node [style=none] (16) at (-2.75, 0.5) {\scriptsize $#2$};
+		\node [style=none] (17) at (-1.75, 0) {};
+		\node [style=none] (18) at (-0.75, 0) {};
+		\node [style=none] (20) at (2.5, 1) {};
+		\node [style=none] (21) at (3.5, 2.75) {\scriptsize $#4$};
+		\node [style=none] (22) at (-1.5, 1) {};
+		\node [style=reg] (23) at (1.75, 1) {$#5$};
+		\node [style=none] (24) at (4.25, 0) {};
+		\node [style=none] (25) at (-3, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [semithick, in=0, out=-90] (4.center) to (10.center);
+		\draw [semithick, in=-90, out=180] (5.center) to (3.center);
+		\draw [semithick, in=180, out=90] (0.center) to (2.center);
+		\draw [semithick, in=90, out=0] (11.center) to (7.center);
+		\draw [semithick] (2.center) to (11.center);
+		\draw [semithick] (7.center) to (4.center);
+		\draw [semithick] (10.center) to (5.center);
+		\draw [semithick] (3.center) to (0.center);
+		\draw (15.center) to (14.center);
+		\draw (6.center) to (22.center);
+		\draw (1.center) to (20.center);
+		\draw [->, bend right=90, looseness=2.25] (20.center) to (14.center);
+		\draw [->, bend right=90, looseness=2.25] (15.center) to (22.center);
+		\draw (8.center) to (24.center);
+		\draw [->] (9.center) to (8.center);
+		\draw (17.center) to (18.center);
+		\draw [->] (25.center) to (17.center);
+	\end{pgfonlayer}
+\end{tikzpicture}}
+
+
+\newcommand{\myeq}[1]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily (#1)}}}{=}}}
+\newcommand{\myleq}[1]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily (#1)}}}{\leq}}}
+\newcommand{\mygeq}[1]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily (#1)}}}{\geq}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % chapter three only
+\newcommand{\idright}{\tikzfig{lr-order}}
+\newcommand\scalar[1]{
+  \tikz {
+    \node[ha] (ha) {$#1$};
+    \draw (ha.west) -- ++(-0.75, 0);
+    \draw (ha.east) -- ++(0.75, 0);
+  }
+}
 
 % chapter four only
-\newcommand{\PExp}{\mathsf{RExp}}
+\newcommand{\PExp}{\mathsf{PExp}}

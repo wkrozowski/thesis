@@ -1,0 +1,26 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=reg] (67) at (0.75, 0.75) {$b$};
+		\node [style=reg] (78) at (0.75, -0.75) {$c$};
+		\node [style=black] (84) at (2, 0) {};
+		\node [style=none] (85) at (3.25, 0) {};
+		\node [style=none] (89) at (-5, 0) {};
+		\node [style=reg] (90) at (-3.75, 0) {$a$};
+		\node [style=black] (93) at (-0.5, 0) {};
+		\node [style=none] (94) at (0.5, 0.75) {};
+		\node [style=none] (95) at (0.5, -0.75) {};
+		\node [style=reg] (96) at (-2, 0) {$a^*$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (84) to (85.center);
+		\draw [in=105, out=0] (67) to (84);
+		\draw [in=-105, out=0] (78) to (84);
+		\draw (89.center) to (90);
+		\draw [in=-180, out=75] (93) to (94.center);
+		\draw [in=180, out=-75] (93) to (95.center);
+		\draw (90) to (96);
+		\draw (96) to (93);
+		\draw (94.center) to (67);
+		\draw (95.center) to (78);
+	\end{pgfonlayer}
+\end{tikzpicture}

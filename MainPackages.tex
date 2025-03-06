@@ -161,3 +161,28 @@
 \usepackage{algorithmic}
 
 
+%tikz setup for chapter three
+\usepackage{tikz}
+\usetikzlibrary{arrows,snakes,automata,backgrounds,petri, positioning,calc,cd, automata}
+\usetikzlibrary{shapes.geometric,shapes.misc,matrix,arrows.meta,decorations.markings}
+\tikzset{x=1em, y=1.5ex, baseline=-0.5ex}
+\tikzset{ihbase/.style={inner sep=0,circle,draw,fill=lightgray,minimum size=0.4em,node contents={}}}
+\tikzset{ihblack/.style={ihbase,fill=black}}
+\tikzset{ihwhite/.style={ihbase,fill=white}}
+\tikzset{mat/.style={draw,fill=white,rectangle,node font=\scriptsize}}
+\tikzset{ha/.style={mat,rounded rectangle,rounded rectangle left arc=none}}
+\tikzset{haop/.style={mat,rounded rectangle,rounded rectangle right arc=none}}
+\tikzset{blackha/.style={mat,rounded rectangle,rounded rectangle left arc=none,font=\color{white},fill=black}}
+\tikzset{blackhaop/.style={mat,rounded rectangle,rounded rectangle right arc=none,font=\color{white},fill=black}}
+\tikzset{anti/.style={inner sep=0,isosceles triangle,fill=black,draw=black, minimum width=0.75em, node contents={}}}
+\tikzset{antiop/.style={anti,shape border rotate=180}}
+\tikzset{antisq/.style={inner sep=0,rectangle,fill=black, minimum height=1em, minimum width=0.6em, node contents={}}}
+\tikzset{count/.style={above,inner ysep=0.15em,font=\scriptsize}}
+\tikzset{axiom/.style={above,font=\small}}
+\tikzset{dir/.style={-Latex}}
+\tikzset{st/.style={decoration={markings,
+    mark={at position 0.5 with {\draw (0, 2pt) to (0, -2pt);}}},
+    postaction=decorate}}
+
+
+% end of tikz setup

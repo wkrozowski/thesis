@@ -1,0 +1,33 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (191) at (1.25, 0) {};
+		\node [style=none] (199) at (-4.25, 0) {};
+		\node [style=basicb] (212) at (2.5, 0) {$f_1$};
+		\node [style=black] (216) at (0.25, 0) {};
+		\node [style=none] (217) at (-1.25, -1.25) {};
+		\node [style=none] (218) at (-1.25, 1.25) {};
+		\node [style=none] (225) at (-1.75, 1.25) {};
+		\node [style=none] (226) at (-1.75, -1.25) {};
+		\node [style=black] (229) at (-3.25, 0) {};
+		\node [style=none] (230) at (2, 0) {};
+		\node [style=none] (231) at (-5.25, 0) {};
+		\node [style=none] (232) at (4, 0) {};
+		\node [style=none] (233) at (3, 0) {};
+		\node [style=none] (234) at (5, 0) {};
+		\node [style=none] (235) at (4.75, 0.5) {\scriptsize $n$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=-90, out=0] (217.center) to (216);
+		\draw [in=90, out=0] (218.center) to (216);
+		\draw [style=right arrow, bend left=45] (229) to (225.center);
+		\draw [style=right arrow, bend right=45] (229) to (226.center);
+		\draw (199.center) to (229);
+		\draw [style=right arrow] (216) to (191.center);
+		\draw (191.center) to (230.center);
+		\draw [style=right arrow] (231.center) to (199.center);
+		\draw (225.center) to (218.center);
+		\draw (226.center) to (217.center);
+		\draw [style=right arrow] (233.center) to (232.center);
+		\draw (232.center) to (234.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

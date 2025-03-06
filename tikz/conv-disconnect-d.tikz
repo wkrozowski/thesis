@@ -1,0 +1,31 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (2) at (-1.25, 0.75) {};
+		\node [style=none] (8) at (-2.75, 0) {};
+		\node [style=none] (10) at (-3.5, 0) {};
+		\node [style=none] (11) at (-1.25, -0.75) {};
+		\node [style=black] (12) at (-2.25, 0) {};
+		\node [style=smallb] (75) at (-0.5, -0.75) {$d$};
+		\node [style=smallb] (76) at (-0.25, 0.75) {$c$};
+		\node [style=black] (78) at (2.5, 0) {};
+		\node [style=none] (79) at (1.5, 0.75) {};
+		\node [style=black] (80) at (1.5, -0.75) {};
+		\node [style=none] (83) at (3.25, 0) {};
+		\node [style=none] (84) at (3.75, 0) {};
+		\node [style=black] (85) at (0.5, -0.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [->, in=-180, out=-75] (12) to (11.center);
+		\draw [->, in=-180, out=75] (12) to (2.center);
+		\draw [->] (10.center) to (8.center);
+		\draw (11.center) to (75);
+		\draw (2.center) to (76);
+		\draw [in=105, out=0] (79.center) to (78);
+		\draw [in=-105, out=0] (80) to (78);
+		\draw (8.center) to (12);
+		\draw [->] (78) to (83.center);
+		\draw [->] (76) to (79.center);
+		\draw (83.center) to (84.center);
+		\draw (75) to (85);
+	\end{pgfonlayer}
+\end{tikzpicture}

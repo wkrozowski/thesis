@@ -1,0 +1,22 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=reg] (2) at (0, -0.75) {$e_2$};
+		\node [style=none] (3) at (-2.75, 0) {};
+		\node [style=none] (5) at (-2, 0) {};
+		\node [style=reg] (9) at (0, 0.75) {$e_1$};
+		\node [style=none] (11) at (2.75, 0) {};
+		\node [style=black] (13) at (-1.5, 0) {};
+		\node [style=black] (14) at (1.5, 0) {};
+		\node [style=none] (15) at (2.25, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [->] (3.center) to (5.center);
+		\draw (5.center) to (13);
+		\draw [in=180, out=60] (13) to (9);
+		\draw [in=-180, out=-60] (13) to (2);
+		\draw [->] (14) to (15.center);
+		\draw (15.center) to (11.center);
+		\draw [in=120, out=0] (9) to (14);
+		\draw [in=-120, out=0] (2) to (14);
+	\end{pgfonlayer}
+\end{tikzpicture}

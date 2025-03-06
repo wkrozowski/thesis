@@ -1,0 +1,18 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (33) at (-0.75, 0.75) {};
+		\node [style=none] (34) at (-0.75, 0.75) {};
+		\node [style=none] (35) at (-1.75, 0.75) {};
+		\node [style=white] (36) at (-0.25, 0.75) {};
+		\node [style=none] (37) at (-0.75, -0.75) {};
+		\node [style=none] (38) at (-0.75, -0.75) {};
+		\node [style=none] (39) at (-1.75, -0.75) {};
+		\node [style=white] (40) at (-0.25, -0.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [->] (35.center) to (34.center);
+		\draw (34.center) to (36);
+		\draw [->] (39.center) to (38.center);
+		\draw (38.center) to (40);
+	\end{pgfonlayer}
+\end{tikzpicture}

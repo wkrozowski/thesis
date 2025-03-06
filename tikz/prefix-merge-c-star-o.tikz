@@ -1,0 +1,65 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (2.25, 0) {};
+		\node [style=none] (3) at (3.25, 0) {};
+		\node [style=none] (6) at (3.75, 0) {};
+		\node [style=none] (99) at (3.5, 0.5) {\scriptsize $n$};
+		\node [style=black] (126) at (-5, 0.25) {};
+		\node [style=none] (127) at (-7, -0.75) {};
+		\node [style=none] (128) at (-6.25, 1.25) {};
+		\node [style=none] (129) at (-6.25, -0.75) {};
+		\node [style=none] (130) at (-7, 1.25) {};
+		\node [style=basicb] (132) at (-7.75, -0.75) {$c$};
+		\node [style=none] (133) at (-9, -0.75) {};
+		\node [style=none] (134) at (-10.75, -0.75) {};
+		\node [style=none] (138) at (-8.25, -0.75) {};
+		\node [style=black] (139) at (-2, 1) {};
+		\node [style=none] (140) at (0.5, 2) {};
+		\node [style=none] (141) at (-3.75, 0.25) {};
+		\node [style=none] (143) at (0.5, 0) {};
+		\node [style=black] (144) at (-0.75, 1) {};
+		\node [style=none] (145) at (-3, 1.75) {};
+		\node [style=none] (146) at (-3, 0.25) {};
+		\node [style=none] (147) at (2.5, 2) {};
+		\node [style=none] (148) at (-3.5, 1.75) {};
+		\node [style=none] (149) at (2.5, 3.5) {};
+		\node [style=none] (150) at (-3.5, 3.5) {};
+		\node [style=basicb] (151) at (1.75, 0) {$o$};
+		\node [style=basicb] (152) at (1.75, 2) {$c$};
+		\node [style=none] (153) at (-1.5, 3.5) {};
+		\node [style=none] (154) at (1.25, 0) {};
+		\node [style=none] (155) at (1.25, 2) {};
+		\node [style=none] (156) at (-10, -0.25) {\scriptsize $m+\ell$};
+		\node [style=basicb] (157) at (-7.75, 1.25) {$c$};
+		\node [style=none] (158) at (-9, 1.25) {};
+		\node [style=none] (159) at (-10.75, 1.25) {};
+		\node [style=none] (160) at (-8.25, 1.25) {};
+		\node [style=none] (161) at (-10, 1.75) {\scriptsize $m+\ell$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [->] (0.center) to (3.center);
+		\draw (3.center) to (6.center);
+		\draw [in=105, out=0] (128.center) to (126);
+		\draw [in=-105, out=0] (129.center) to (126);
+		\draw [style=right arrow] (130.center) to (128.center);
+		\draw [style=right arrow] (127.center) to (129.center);
+		\draw [->] (134.center) to (133.center);
+		\draw (133.center) to (138.center);
+		\draw [->, in=-180, out=-75] (144) to (143.center);
+		\draw [in=105, out=0] (145.center) to (139);
+		\draw [->, in=-180, out=75] (144) to (140.center);
+		\draw [in=-105, out=0] (146.center) to (139);
+		\draw [bend right=90, looseness=2.00] (147.center) to (149.center);
+		\draw [->, bend right=90, looseness=2.00] (150.center) to (148.center);
+		\draw (139) to (144);
+		\draw (148.center) to (145.center);
+		\draw [->] (149.center) to (153.center);
+		\draw (153.center) to (150.center);
+		\draw (141.center) to (146.center);
+		\draw (143.center) to (154.center);
+		\draw (140.center) to (155.center);
+		\draw [->] (159.center) to (158.center);
+		\draw (158.center) to (160.center);
+		\draw [style=right arrow] (126) to (141.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,32 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=reg] (67) at (1.5, 1) {$b$};
+		\node [style=reg] (78) at (1.5, -1) {$c$};
+		\node [style=black] (84) at (3.25, 0) {};
+		\node [style=none] (85) at (4.5, 0) {};
+		\node [style=black] (88) at (-2.25, 0) {};
+		\node [style=none] (89) at (-5, 0) {};
+		\node [style=reg] (90) at (-3.75, 0) {$a$};
+		\node [style=reg] (91) at (-0.25, 1) {$a^*$};
+		\node [style=reg] (92) at (-0.25, -1) {$a^*$};
+		\node [style=none] (93) at (-2.75, 1.75) {};
+		\node [style=none] (94) at (0.75, 1.75) {};
+		\node [style=none] (95) at (0.75, -1.75) {};
+		\node [style=none] (96) at (-2.75, -1.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (84) to (85.center);
+		\draw [in=105, out=0] (67) to (84);
+		\draw [in=-105, out=0] (78) to (84);
+		\draw (89.center) to (90);
+		\draw (90) to (88);
+		\draw [in=-180, out=75] (88) to (91);
+		\draw (91) to (67);
+		\draw [in=180, out=-75] (88) to (92);
+		\draw (92) to (78);
+		\draw [densely dotted] (96.center) to (95.center);
+		\draw [densely dotted] (95.center) to (94.center);
+		\draw [densely dotted] (94.center) to (93.center);
+		\draw [densely dotted] (93.center) to (96.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,9 @@
+\begin{tikzpicture}[scale=0.8]
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (2) at (-0.75, 0) {};
+		\node [style=black] (10) at (1, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (2.center) to (10);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,18 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (51) at (-1.25, 0.5) {};
+		\node [style=none] (52) at (-1.25, -0.5) {};
+		\node [style=none] (55) at (0.5, 0.5) {};
+		\node [style=none] (59) at (0.5, -0.5) {};
+		\node [style=none] (60) at (0.75, 0) {\scriptsize  $v$};
+		\node [style=none] (61) at (0.75, 1) {\scriptsize  $w$};
+		\node [style=none] (62) at (1, 0.5) {};
+		\node [style=none] (63) at (1, -0.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=-180, out=0] (51.center) to (59.center);
+		\draw [in=-180, out=0] (52.center) to (55.center);
+		\draw (59.center) to (63.center);
+		\draw (55.center) to (62.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

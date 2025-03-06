@@ -1,0 +1,33 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=black] (9) at (0, 0.75) {};
+		\node [style=black] (10) at (-1.75, 0.75) {};
+		\node [style=reg] (11) at (-3, 0.75) {$a$};
+		\node [style=none] (12) at (-3.25, 0.75) {};
+		\node [style=black] (13) at (-4.25, 0) {};
+		\node [style=none] (14) at (-3.25, -0.75) {};
+		\node [style=none] (15) at (-5, 0) {};
+		\node [style=none] (16) at (1, 0.75) {};
+		\node [style=black] (17) at (2, 0) {};
+		\node [style=none] (18) at (1, -0.75) {};
+		\node [style=none] (19) at (3, 0) {};
+		\node [style=none] (20) at (-0.75, -0.75) {};
+		\node [style=none] (21) at (-5.75, 0) {};
+		\node [style=none] (22) at (3.75, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (11) to (10);
+		\draw [in=180, out=75] (13) to (12.center);
+		\draw [in=180, out=-75] (13) to (14.center);
+		\draw (15.center) to (13);
+		\draw (12.center) to (11);
+		\draw [in=0, out=105] (17) to (16.center);
+		\draw [in=-105, out=0] (18.center) to (17);
+		\draw [->] (17) to (19.center);
+		\draw [style=right arrow] (9) to (16.center);
+		\draw [style=right arrow] (14.center) to (20.center);
+		\draw (20.center) to (18.center);
+		\draw [style=right arrow] (21.center) to (15.center);
+		\draw (19.center) to (22.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

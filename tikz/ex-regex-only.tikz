@@ -1,0 +1,30 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (14) at (0.25, 1.5) {};
+		\node [style=wrn] (16) at (-1.25, 1.5) {};
+		\node [style=wrn] (19) at (-2.5, 0.75) {};
+		\node [style=wrn] (20) at (-2.5, 2.25) {};
+		\node [style=rn] (23) at (-3.75, 0.75) {};
+		\node [style=wrn] (25) at (-5, 0.25) {};
+		\node [style=rn] (26) at (-6.75, 2.5) {};
+		\node [style=rn] (27) at (-6.75, 0.75) {};
+		\node [style=wrn] (28) at (-8, 2.5) {};
+		\node [style=wrn] (29) at (-8, 0.75) {};
+		\node [style=none] (30) at (-8.5, 3.25) {${\color{red} a}$};
+		\node [style=none] (31) at (-8.5, 1.25) {${\color{red} b}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [red] (16) to (14.center);
+		\draw [red, in=120, out=0] (20) to (16);
+		\draw [red, in=-120, out=0] (19) to (16);
+		\draw [red] (23) to (19);
+		\draw [red, in=-135, out=0] (25) to (23);
+		\draw [red, in=-165, out=-60] (27) to (25);
+		\draw [red, in=105, out=-75] (26) to (25);
+		\draw [red] (28) to (26);
+		\draw [red] (29) to (27);
+		\draw [red, in=120, out=-45] (26) to (23);
+		\draw [red, in=-135, out=30, looseness=0.75] (27) to (20);
+		\draw [red, in=120, out=30, looseness=0.75] (26) to (20);
+	\end{pgfonlayer}
+\end{tikzpicture}

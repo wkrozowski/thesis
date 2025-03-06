@@ -1,0 +1,25 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (1.75, 0) {};
+		\node [style=none] (3) at (2.75, 0) {};
+		\node [style=none] (6) at (3.25, 0) {};
+		\node [style=none] (8) at (-5, 0) {};
+		\node [style=none] (10) at (-5.75, 0) {};
+		\node [style=none] (11) at (0.25, 0) {};
+		\node [style=regb] (48) at (-2.25, 0) {};
+		\node [style=basicb] (53) at (-4, 0) {$e$};
+		\node [style=basicb] (75) at (1.25, 0) {$\hat f$};
+		\node [style=basicb] (76) at (-0.5, 0) {$\hat d^*$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [->] (0.center) to (3.center);
+		\draw (3.center) to (6.center);
+		\draw [->] (10.center) to (8.center);
+		\draw (11.center) to (75);
+		\draw (75) to (0.center);
+		\draw (8.center) to (53);
+		\draw [in=180, out=0] (48) to (76);
+		\draw (76) to (11.center);
+		\draw (53) to (48);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,12 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=black] (49) at (0.75, 0) {};
+		\node [style=none] (56) at (-1, 0.5) {\scriptsize  $n$};
+		\node [style=none] (57) at (-1.25, 0) {};
+		\node [style=none] (58) at (-0.25, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (58.center) to (49);
+		\draw [->] (57.center) to (58.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

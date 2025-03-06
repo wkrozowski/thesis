@@ -1,0 +1,14 @@
+\begin{tikzpicture}[scale=0.8]
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=rn] (11) at (-4.5, 1.25) {};
+		\node [style=black] (12) at (-4, 0) {};
+		\node [style=none] (19) at (-2.25, 0) {};
+		\node [style=none] (20) at (-5.75, 1.25) {};
+		\node [style=none] (23) at (-3, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [red] (20.center) to (11);
+		\draw [->] (12) to (23.center);
+		\draw (23.center) to (19.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

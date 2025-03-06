@@ -1,0 +1,60 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small rounded box] (77) at (-2, 0.75) {$r_{k,1}$};
+		\node [style=none] (78) at (-3, 2.25) {};
+		\node [style=black] (79) at (-4.25, 1.5) {};
+		\node [style=none] (80) at (-3, 0.75) {};
+		\node [style=none] (88) at (0.25, 2.25) {};
+		\node [style=black] (89) at (1.5, 1.5) {};
+		\node [style=none] (90) at (0.25, 0.75) {};
+		\node [style=reg] (93) at (3, 1.5) {$x$};
+		\node [style=none] (94) at (3.5, 3.5) {};
+		\node [style=none] (95) at (-5, 3.5) {};
+		\node [style=none] (96) at (-5, 1.5) {};
+		\node [style=small rounded box] (97) at (-2, 2.25) {$r_{k,k}$};
+		\node [style=none] (100) at (0.25, -0.75) {};
+		\node [style=black] (101) at (1.5, -1.5) {};
+		\node [style=none] (102) at (0.25, -2.25) {};
+		\node [style=none] (103) at (2.5, -1.5) {};
+		\node [style=none] (104) at (5, -1.5) {};
+		\node [style=small rounded box] (105) at (-2, -2.25) {$r_{1,1}$};
+		\node [style=none] (106) at (-3, -0.75) {};
+		\node [style=black] (107) at (-4.25, -1.5) {};
+		\node [style=none] (108) at (-3, -2.25) {};
+		\node [style=none] (109) at (-6.75, -1.5) {};
+		\node [style=none] (110) at (-5.25, -1.5) {};
+		\node [style=small rounded box] (111) at (-2, -0.75) {$r_{1,k}$};
+		\node [style=none] (112) at (4.5, 1) {\scriptsize $k$};
+		\node [style=none] (114) at (-1.25, 3.5) {};
+		\node [style=none] (115) at (3.5, 1.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=180, out=-60] (79) to (80.center);
+		\draw [in=180, out=60] (79) to (78.center);
+		\draw (80.center) to (77);
+		\draw [in=-120, out=0] (90.center) to (89);
+		\draw [in=120, out=0] (88.center) to (89);
+		\draw (96.center) to (79);
+		\draw [->, bend right=90, looseness=2.25] (95.center) to (96.center);
+		\draw (78.center) to (97);
+		\draw [in=-120, out=0] (102.center) to (101);
+		\draw [in=120, out=0] (100.center) to (101);
+		\draw [->] (101) to (103.center);
+		\draw (103.center) to (104.center);
+		\draw (97) to (88.center);
+		\draw [in=180, out=0, looseness=1.25] (77) to (100.center);
+		\draw [in=180, out=-60] (107) to (108.center);
+		\draw [in=180, out=60] (107) to (106.center);
+		\draw (108.center) to (105);
+		\draw (110.center) to (107);
+		\draw [->] (109.center) to (110.center);
+		\draw (106.center) to (111);
+		\draw [in=180, out=0] (111) to (90.center);
+		\draw (105) to (102.center);
+		\draw [->] (94.center) to (114.center);
+		\draw (114.center) to (95.center);
+		\draw (93) to (115.center);
+		\draw [bend right=90, looseness=2.25] (115.center) to (94.center);
+		\draw (89) to (93);
+	\end{pgfonlayer}
+\end{tikzpicture}

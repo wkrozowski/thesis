@@ -1,0 +1,29 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (46) at (2.75, 0) {};
+		\node [style=none] (51) at (2.75, 1.25) {};
+		\node [style=none] (57) at (-3.75, 1.25) {};
+		\node [style=none] (59) at (-0.5, 1.25) {};
+		\node [style=none] (60) at (4.25, 0) {\scriptsize $\{i, j,\dots\}$};
+		\node [style=none] (62) at (-2, 0) {};
+		\node [style=none] (63) at (-1.25, 0) {};
+		\node [style=none] (81) at (3.75, 1.25) {\scriptsize $\{i\}$};
+		\node [style=none] (85) at (-0.75, 0) {};
+		\node [style=none] (86) at (1, 0) {};
+		\node [style=none] (87) at (0.5, -1.75) {};
+		\node [style=none] (88) at (2, -1.75) {};
+		\node [style=none] (89) at (2.75, -1.75) {};
+		\node [style=black] (90) at (-0.5, -1.75) {};
+		\node [style=none] (91) at (1.25, -1.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (59.center) to (51.center);
+		\draw [densely dotted] (62.center) to (63.center);
+		\draw [->] (57.center) to (59.center);
+		\draw (86.center) to (46.center);
+		\draw [->] (85.center) to (86.center);
+		\draw [densely dotted] (88.center) to (89.center);
+		\draw (87.center) to (91.center);
+		\draw [->] (90) to (87.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

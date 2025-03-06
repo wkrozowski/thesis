@@ -1,0 +1,33 @@
+\begin{tikzpicture}[scale=0.8]
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (2) at (-4.25, 0) {};
+		\node [style=none] (4) at (-2.25, 1) {};
+		\node [style=black] (5) at (-3.5, 0) {};
+		\node [style=none] (6) at (-2.25, -1) {};
+		\node [style=reg] (8) at (-1.75, 1) {$a_1$};
+		\node [style=reg] (9) at (-1.75, -1) {$a_n$};
+		\node [style=none] (10) at (1, 0) {};
+		\node [style=none] (11) at (-1.25, 1) {};
+		\node [style=black] (12) at (0, 0) {};
+		\node [style=none] (13) at (-1.25, -1) {};
+		\node [style=none] (14) at (-5.25, 0) {};
+		\node [style=none] (15) at (1.75, 0) {};
+		\node [style=none] (16) at (-1.75, 0.25) {};
+		\node [style=none] (17) at (-1.75, -0.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=180, out=-75] (5) to (6.center);
+		\draw (6.center) to (9);
+		\draw (4.center) to (8);
+		\draw [in=180, out=75] (5) to (4.center);
+		\draw (5) to (2.center);
+		\draw [in=0, out=-105] (12) to (13.center);
+		\draw [in=0, out=105] (12) to (11.center);
+		\draw [->] (12) to (10.center);
+		\draw (8) to (11.center);
+		\draw (9) to (13.center);
+		\draw [->] (14.center) to (2.center);
+		\draw (10.center) to (15.center);
+		\draw [dotted] (17.center) to (16.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

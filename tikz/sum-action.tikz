@@ -1,0 +1,21 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (13) at (1, 0) {};
+		\node [style=act] (14) at (0, 0) {};
+		\node [style=none] (15) at (-3.25, 0) {};
+		\node [style=rn] (16) at (-1.25, 1.5) {};
+		\node [style=none] (17) at (-1, 0) {};
+		\node [style=none] (18) at (1.75, 0) {};
+		\node [style=rcoreg] (19) at (-2.5, 1) {${\color{red} f}$};
+		\node [style=rcoreg] (20) at (-2.5, 2.25) {${\color{red} e}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [->] (14) to (13.center);
+		\draw [red, in=90, out=0, looseness=0.75] (16) to (14);
+		\draw [->] (15.center) to (17.center);
+		\draw (17.center) to (14);
+		\draw (13.center) to (18.center);
+		\draw [red, in=120, out=0] (20) to (16);
+		\draw [red, in=-135, out=0] (19) to (16);
+	\end{pgfonlayer}
+\end{tikzpicture}

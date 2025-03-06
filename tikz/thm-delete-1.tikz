@@ -1,0 +1,14 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=black] (79) at (-0.75, -0.5) {};
+		\node [style=none] (84) at (-2.5, -0.5) {};
+		\node [style=none] (85) at (-2, 0) {\scriptsize $m$};
+		\node [style=none] (86) at (-2.5, 0.75) {};
+		\node [style=rn] (87) at (-0.75, 0.75) {};
+		\node [style=none] (88) at (-2, 1.25) {\scriptsize {\color{red} $k$}};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (84.center) to (79);
+		\draw [red, in=180, out=0] (86.center) to (87);
+	\end{pgfonlayer}
+\end{tikzpicture}

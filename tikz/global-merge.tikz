@@ -1,0 +1,34 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=basicb] (12) at (-1.75, 1) {$d$};
+		\node [style=none] (16) at (-3.75, 1.5) {\scriptsize $m$};
+		\node [style=none] (17) at (-2.5, 1) {};
+		\node [style=none] (18) at (-3.25, 1) {};
+		\node [style=none] (84) at (2.25, 0) {};
+		\node [style=none] (85) at (2.75, 0.5) {\scriptsize $n$};
+		\node [style=none] (88) at (-1, 1) {};
+		\node [style=none] (89) at (-1, -1) {};
+		\node [style=none] (90) at (-0.25, 1) {};
+		\node [style=black] (91) at (1.25, 0) {};
+		\node [style=none] (92) at (-0.25, -1) {};
+		\node [style=basicb] (103) at (-1.75, -1) {$d$};
+		\node [style=none] (104) at (-2.5, -1) {};
+		\node [style=none] (105) at (-3.25, -1) {};
+		\node [style=none] (111) at (-3.75, -0.5) {\scriptsize $m$};
+		\node [style=none] (112) at (-4, 1) {};
+		\node [style=none] (113) at (-4, -1) {};
+		\node [style=none] (114) at (3, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=0, out=180, looseness=1.25] (17.center) to (18.center);
+		\draw [in=0, out=-120] (91) to (92.center);
+		\draw [in=0, out=120] (91) to (90.center);
+		\draw [in=0, out=180, looseness=1.25] (104.center) to (105.center);
+		\draw [->] (113.center) to (105.center);
+		\draw [->] (112.center) to (18.center);
+		\draw [->] (88.center) to (90.center);
+		\draw [->] (89.center) to (92.center);
+		\draw (84.center) to (114.center);
+		\draw [->] (91) to (84.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,20 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (1, 0) {};
+		\node [style=none] (1) at (-1, 0) {};
+		\node [style=basic rounded box] (2) at (-1.25, 0) {$f$};
+		\node [style=none] (3) at (-3.25, 0) {};
+		\node [style=none] (4) at (-1.5, 0) {};
+		\node [style=none] (5) at (-3, 0.5) {\scriptsize $u$};
+		\node [style=none] (6) at (0, 0.5) {\scriptsize $v$};
+		\node [style=none] (7) at (3.25, 0) {};
+		\node [style=none] (8) at (1.5, 0) {};
+		\node [style=basic rounded box] (9) at (1.25, 0) {$g$};
+		\node [style=none] (10) at (3, 0.5) {\scriptsize $w$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=180, out=0, looseness=1.25] (1.center) to (0.center);
+		\draw [in=180, out=0, looseness=1.25] (3.center) to (4.center);
+		\draw [in=180, out=0, looseness=1.25] (8.center) to (7.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

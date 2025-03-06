@@ -1,0 +1,19 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (16) at (-3.25, 0.5) {\scriptsize $m$};
+		\node [style=none] (17) at (-2.75, 0) {};
+		\node [style=black] (79) at (1.75, 0) {};
+		\node [style=none] (84) at (1.25, 0) {};
+		\node [style=none] (86) at (-3.5, 0) {};
+		\node [style=basicb] (97) at (0.25, 0) {$e$};
+		\node [style=basicb] (98) at (-1.75, 0) {$d$};
+		\node [style=none] (99) at (1.75, 0.75) {\scriptsize $p$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (84.center) to (79);
+		\draw [->] (86.center) to (17.center);
+		\draw (17.center) to (98);
+		\draw (98) to (97);
+		\draw (97) to (84.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

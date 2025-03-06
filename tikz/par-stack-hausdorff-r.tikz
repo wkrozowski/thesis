@@ -1,0 +1,31 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=basicb] (181) at (-0.25, 1.75) {$f_{k_1}$};
+		\node [style=basicb] (183) at (-0.25, -1.75) {$f_{k_j}$};
+		\node [style=none] (185) at (0.25, 1.75) {};
+		\node [style=none] (187) at (0.5, -1.75) {};
+		\node [style=none] (189) at (1.75, -1.75) {};
+		\node [style=none] (191) at (1.75, 1.75) {};
+		\node [style=none] (196) at (2.25, -1.25) {\scriptsize $n$};
+		\node [style=none] (198) at (2.25, 2) {\scriptsize $n$};
+		\node [style=none] (199) at (-2, 1.75) {};
+		\node [style=none] (200) at (-2, -1.75) {};
+		\node [style=none] (201) at (-1, 1.75) {};
+		\node [style=none] (202) at (-1, -1.75) {};
+		\node [style=none] (208) at (-0.25, 0.25) {$\vdots$};
+		\node [style=none] (214) at (-3, 1.75) {};
+		\node [style=none] (215) at (-3, -1.75) {};
+		\node [style=none] (216) at (3, -1.75) {};
+		\node [style=none] (217) at (3, 1.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=right arrow] (187.center) to (189.center);
+		\draw [style=right arrow] (185.center) to (191.center);
+		\draw (199.center) to (201.center);
+		\draw (200.center) to (202.center);
+		\draw [style=right arrow] (214.center) to (199.center);
+		\draw [style=right arrow] (215.center) to (200.center);
+		\draw (191.center) to (217.center);
+		\draw (189.center) to (216.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,32 @@
+\begin{tikzpicture}[scale=0.8]
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=act] (2) at (-1.75, 0.75) {};
+		\node [style=none] (10) at (-2, 0.75) {};
+		\node [style=rn] (11) at (-3.5, 1.5) {};
+		\node [style=black] (12) at (-3.5, 0) {};
+		\node [style=act] (13) at (-1.75, -0.75) {};
+		\node [style=none] (14) at (-2, -0.75) {};
+		\node [style=none] (16) at (-0.75, 0.75) {};
+		\node [style=none] (17) at (-0.75, -0.75) {};
+		\node [style=none] (18) at (-4.25, 0) {};
+		\node [style=none] (19) at (-5.25, 0) {};
+		\node [style=none] (20) at (-5.25, 1.5) {};
+		\node [style=none] (21) at (-0.25, 0.75) {};
+		\node [style=none] (22) at (-0.25, -0.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (2) to (10.center);
+		\draw [red, bend left] (11) to (2);
+		\draw [in=180, out=60] (12) to (10.center);
+		\draw (13) to (14.center);
+		\draw [in=180, out=-60] (12) to (14.center);
+		\draw [->] (2) to (16.center);
+		\draw [->] (13) to (17.center);
+		\draw (18.center) to (12);
+		\draw [->] (19.center) to (18.center);
+		\draw [red, in=120, out=-60] (11) to (13);
+		\draw [red] (20.center) to (11);
+		\draw (16.center) to (21.center);
+		\draw (17.center) to (22.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

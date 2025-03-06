@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=rcoreg] (4) at (-1.25, 0) {${\color{red} e}$};
+		\node [style=rn] (5) at (0.25, 0) {};
+		\node [style=none] (6) at (1.75, 0.75) {};
+		\node [style=none] (7) at (1.75, -0.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [red] (4) to (5);
+		\draw [red, in=180, out=60] (5) to (6.center);
+		\draw [red, in=-180, out=-60] (5) to (7.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,27 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=reg] (24) at (-0.25, -0.75) {$b$};
+		\node [style=reg] (30) at (-3, 0) {$a$};
+		\node [style=none] (32) at (-4.25, 0) {};
+		\node [style=none] (33) at (-2.5, 0) {};
+		\node [style=black] (34) at (-1.5, -0.75) {};
+		\node [style=none] (35) at (-2.5, -1.5) {};
+		\node [style=none] (39) at (1.75, -0.75) {};
+		\node [style=none] (41) at (1, -0.75) {};
+		\node [style=none] (42) at (1.75, -2.25) {};
+		\node [style=none] (44) at (-2.5, -2.25) {};
+		\node [style=none] (47) at (0.75, -2.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (32.center) to (30);
+		\draw [in=0, out=-105] (34) to (35.center);
+		\draw [in=0, out=105] (34) to (33.center);
+		\draw (30) to (33.center);
+		\draw (34) to (24);
+		\draw [bend right=270, looseness=2.50] (44.center) to (35.center);
+		\draw [->] (42.center) to (47.center);
+		\draw (47.center) to (44.center);
+		\draw [->] (24) to (41.center);
+		\draw (41.center) to (39.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

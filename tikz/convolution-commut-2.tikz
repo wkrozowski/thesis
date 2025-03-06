@@ -1,0 +1,37 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (191) at (5.75, 0) {};
+		\node [style=none] (198) at (6.5, 0.5) {\scriptsize $n$};
+		\node [style=none] (199) at (-4, 0) {};
+		\node [style=basicb] (212) at (0, 1.25) {$f_{2}$};
+		\node [style=basicb] (213) at (0, -1.25) {$f_{1}$};
+		\node [style=none] (214) at (0.5, -1.25) {};
+		\node [style=none] (215) at (0.5, 1.25) {};
+		\node [style=black] (216) at (4.75, 0) {};
+		\node [style=none] (217) at (3.25, -1.25) {};
+		\node [style=none] (218) at (3.25, 1.25) {};
+		\node [style=none] (223) at (3.75, -0.75) {\scriptsize $n$};
+		\node [style=none] (224) at (3.75, 1.5) {\scriptsize $n$};
+		\node [style=none] (225) at (-1.5, 1.25) {};
+		\node [style=none] (226) at (-1.5, -1.25) {};
+		\node [style=none] (227) at (-0.5, 1.25) {};
+		\node [style=none] (228) at (-0.5, -1.25) {};
+		\node [style=black] (229) at (-3, 0) {};
+		\node [style=none] (230) at (6.75, 0) {};
+		\node [style=none] (231) at (-5, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=right arrow, in=-180, out=0, looseness=0.75] (215.center) to (217.center);
+		\draw [style=right arrow, in=180, out=0] (214.center) to (218.center);
+		\draw [in=-90, out=0] (217.center) to (216);
+		\draw [in=90, out=0] (218.center) to (216);
+		\draw [in=-180, out=0] (225.center) to (227.center);
+		\draw [in=180, out=0, looseness=0.75] (226.center) to (228.center);
+		\draw [style=right arrow, bend left=45] (229) to (225.center);
+		\draw [style=right arrow, bend right=45] (229) to (226.center);
+		\draw (199.center) to (229);
+		\draw [style=right arrow] (216) to (191.center);
+		\draw (191.center) to (230.center);
+		\draw [style=right arrow] (231.center) to (199.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,12 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=white] (72) at (0, 0) {};
+		\node [style=none] (74) at (-1.75, 0) {};
+		\node [style=none] (82) at (0, 0.5) {};
+		\node [style=none] (83) at (-1.25, 1.5) {$a$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [->] (74.center) to (72);
+		\draw [->, in=75, out=165, looseness=11.50] (72) to (82.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

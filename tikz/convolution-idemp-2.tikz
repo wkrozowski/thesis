@@ -1,0 +1,18 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (191) at (1.25, 0) {};
+		\node [style=basicb] (212) at (2.5, 0) {$f_1$};
+		\node [style=none] (216) at (0.25, 0) {};
+		\node [style=none] (230) at (2, 0) {};
+		\node [style=none] (232) at (4, 0) {};
+		\node [style=none] (233) at (3, 0) {};
+		\node [style=none] (234) at (5, 0) {};
+		\node [style=none] (235) at (4.75, 0.5) {\scriptsize $n$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=right arrow] (216.center) to (191.center);
+		\draw (191.center) to (230.center);
+		\draw [style=right arrow] (233.center) to (232.center);
+		\draw (232.center) to (234.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

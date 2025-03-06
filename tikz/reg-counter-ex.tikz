@@ -1,0 +1,57 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (3) at (-1.75, 0.75) {};
+		\node [style=none] (4) at (-1.5, -0.75) {};
+		\node [style=none] (7) at (-2.25, 0.75) {};
+		\node [style=black] (8) at (-3, 0) {};
+		\node [style=none] (9) at (-2, -0.75) {};
+		\node [style=none] (10) at (-3.75, 0) {};
+		\node [style=none] (11) at (-4.25, 0) {};
+		\node [style=none] (12) at (-7, 1.5) {};
+		\node [style=white] (13) at (-6.25, 0.75) {};
+		\node [style=none] (14) at (-7, 0) {};
+		\node [style=none] (15) at (-7.25, 1.5) {};
+		\node [style=none] (16) at (-7.25, 0) {};
+		\node [style=reg] (18) at (-5.5, 0.75) {$a$};
+		\node [style=none] (19) at (-7.5, 1.5) {};
+		\node [style=none] (20) at (-8.25, 0) {};
+		\node [style=none] (21) at (-5.25, 0.75) {};
+		\node [style=black] (22) at (-4.5, 0) {};
+		\node [style=none] (23) at (-5.75, -0.75) {};
+		\node [style=none] (25) at (-7, -0.75) {};
+		\node [style=none] (29) at (-8.25, -0.75) {};
+		\node [style=none] (30) at (-1.75, 2.5) {};
+		\node [style=none] (31) at (0, -0.75) {};
+		\node [style=none] (32) at (-7.5, 2.5) {};
+		\node [style=none] (33) at (-4.75, 2.5) {};
+		\node [style=none] (34) at (12.25, -1.25) {$=\left\{((L_1,L_2),K)\,|\,\bigcup_{n\geq 0} (L_2a^n \cap L_1a^n\cap \cdots \cap L_1 a^2\cap L_1a)\subseteq K\right\}$};
+		\node [style=none] (35) at (10.25, 0.5) {$\{((L_1,L_2),K)\,|\,\exists M (M\cap L_1)a\cup L_2\subseteq M\cap K\}$};
+		\node [style=none] (36) at (1.5, 0.5) {$\mapsto$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=180, out=-75] (8) to (9.center);
+		\draw [in=180, out=75] (8) to (7.center);
+		\draw (10.center) to (8);
+		\draw [->] (11.center) to (10.center);
+		\draw [->] (7.center) to (3.center);
+		\draw [->] (9.center) to (4.center);
+		\draw [in=-105, out=0] (14.center) to (13);
+		\draw (15.center) to (12.center);
+		\draw [in=105, out=0] (12.center) to (13);
+		\draw (16.center) to (14.center);
+		\draw [->] (19.center) to (15.center);
+		\draw [->] (20.center) to (16.center);
+		\draw [in=-105, out=0] (23.center) to (22);
+		\draw [in=105, out=0] (21.center) to (22);
+		\draw (25.center) to (23.center);
+		\draw [->] (29.center) to (25.center);
+		\draw (22) to (11.center);
+		\draw (18) to (21.center);
+		\draw (13) to (18);
+		\draw [bend right=90, looseness=2.25] (3.center) to (30.center);
+		\draw (4.center) to (31.center);
+		\draw [->] (30.center) to (33.center);
+		\draw (33.center) to (32.center);
+		\draw [bend right=90, looseness=2.00] (32.center) to (19.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

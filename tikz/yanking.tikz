@@ -1,0 +1,21 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (43) at (-1, -1.25) {};
+		\node [style=none] (44) at (-1, 0) {};
+		\node [style=none] (45) at (2, 0.75) {};
+		\node [style=none] (47) at (1, 0) {};
+		\node [style=none] (48) at (1, -1.25) {};
+		\node [style=none] (50) at (-2, 0.75) {};
+		\node [style=none] (51) at (2.75, 0.75) {};
+		\node [style=none] (52) at (-2.75, 0.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [->, bend right=90, looseness=2.00] (44.center) to (43.center);
+		\draw [->, bend right=90, looseness=2.00] (48.center) to (47.center);
+		\draw [in=0, out=-180] (47.center) to (50.center);
+		\draw [in=0, out=180] (45.center) to (44.center);
+		\draw (45.center) to (51.center);
+		\draw (52.center) to (50.center);
+		\draw (43.center) to (48.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

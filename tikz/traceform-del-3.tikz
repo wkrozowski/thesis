@@ -1,0 +1,24 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (14) at (2, 2.25) {};
+		\node [style=none] (15) at (-1.25, 2.25) {};
+		\node [style=none] (20) at (2.25, 0.75) {};
+		\node [style=none] (21) at (2.75, 2.5) {\scriptsize  $l$};
+		\node [style=none] (22) at (-1, 0.75) {};
+		\node [style=black] (49) at (-0.25, -0.75) {};
+		\node [style=none] (56) at (-2, -0.25) {\scriptsize  $n$};
+		\node [style=none] (57) at (-2.25, -0.75) {};
+		\node [style=none] (58) at (-1.5, -0.75) {};
+		\node [style=black] (61) at (-0.25, 0.75) {};
+		\node [style=black] (65) at (1.75, 0.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (15.center) to (14.center);
+		\draw [->, bend right=90, looseness=1.75] (20.center) to (14.center);
+		\draw [->, bend right=90, looseness=1.75] (15.center) to (22.center);
+		\draw (58.center) to (49);
+		\draw [->] (57.center) to (58.center);
+		\draw (22.center) to (61);
+		\draw (65) to (20.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
