@@ -27,7 +27,7 @@ This has motivated the development of behavioural metrics, which endow the state
 
 Behavioural distances first appeared in the context of probabilistic transition systems~\cite{Desharnais:2004:Metrics,Breugel:2001:Towards}. Here, one-step observable behaviour forms a probability distribution. In such a setting, in order to lift distances from the state space to one-step observable behaviour, one can rely on classic Kantorovich lifting from transportation theory~\cite{Villani:2009:Optimal}. 
 
-Behavioural distances are not limited to probabilistic or weighted systems; instead, they can be defined meaningfully for a variety of transition systems~\cite{Baldan:2018:Coalgebraic}. One of the simplest instances is deterministic finite automata, which can be equipped with a shortest-distinguishing-word distance~\cite{Bonchi:2018:UpTo}, where the longer the smallest word that can witness inequivalence of two states is, the closer the behaviour of compared states is. To illustrate that, given an alphabet $\Sigma = \{a\}$, we have that a state recognising the language $\{a,aa, aaa\}$ is closer to the one recognising $\{a,aa,aaa,aaa\}$ rather than $\{a\}$. 
+Behavioural distances are not limited to probabilistic or weighted systems; instead, they can be defined meaningfully for a variety of transition systems~\cite{Baldan:2018:Coalgebraic}. One of the simplest instances is deterministic finite automata, which can be equipped with a shortest-distinguishing-word distance~\cite{Bonchi:2018:UpTo}, where the longer the smallest word that can witness inequivalence of two states is, the closer the behaviour of compared states is. To illustrate that, given an alphabet $\alphabet = \{a\}$, we have that a state recognising the language $\{a,aa, aaa\}$ is closer to the one recognising $\{a,aa,aaa,aaa\}$ rather than $\{a\}$. 
 
 So far, the study of axiomatisations of behavioural distances have mainly focused on concrete probabilistic cases~\cite{Bacci:2018:Bisimilarity,Bacci:2018:TV,Bacci:2018:Algebraic}. Axiomatisations of other important instances of behavioural distances are still underexplored. The main goal of the first part of this thesis is to initiate the study of axiomatisations and completeness problems for behavioural distances beyond the concrete probabilistic instances. Our starting point is the work of Bacci, Bacci, Larsen and Mardare~\cite{Bacci:2018:Bisimilarity}, who gave a sound and complete axiomatisation of branching-time behavioural distance of terms of a probabilistic process calculus.
 
@@ -42,19 +42,71 @@ While the result of Silva and Sokolova enables the use of the process algebraic 
 
 
 \section{Coalgebra}
-In this thesis, we rely on the framework of universal coalgebra, which provides an abstract and uniform treatment of transition systems through the language of category theory. One of the main reasons why we do so, stems from the fact that coalgebraic framework allows is able to express behavioural metrics and probabilistic language equivalence through a unified formalism.
+This thesis's subjects, behavioural metrics and probabilistic language equivalence can be studied abstractly through the unifying framework of the universal coalgebra~\cite{Gumm:2000:Elements,Rutten:2000:Universal}. This framework provides an abstract and uniform treatment of transition systems through the language of category theory. Because of this, this thesis takes a coalgebraic point of view.
 
-Generally speaking, transition systems can be seen as pairs consisting of a set of states and a transition function, mapping each state to its one-step behaviour. The coalgebraic outlook allows abstracting away the features of the one-step behaviour of the transition system, such as inputs, labels, nondeterminism, probability, and the like through the notion of a type, formally modelled as an endofunctor on the category of sets and functions. Given a type functor, one can uniformly instantiate abstract results concerning the transition systems of the interest.
+Generally speaking, transition systems can be seen as pairs consisting of a set of states and a transition function, mapping each state to its one-step behaviour. The coalgebraic outlook allows abstracting away the features of the one-step behaviour of the transition system, such as inputs, labels, nondeterminism, probability, and the like through the notion of a type, formally modelled as an endofunctor on the category of sets and functions. Given a type functor, one can uniformly instantiate abstract results concerning the transition systems of the interest. In particular, each type of functor canonically determines a notion of behavioural equivalence of states. Under mild set-theoretic size constraints on the type functor, one can construct a final coalgebra, which provides a universal domain of behaviours of transition systems of interest. For example, the final coalgebra for the functor describing deterministic automata is isomorphic to the set of all formal languages over some alphabet~\cite{Rutten:2000:Universal}. Concrete instances of coalgebraic behavioural equivalence usually capture variants of bisimilarity and coincide with the notions known for the literature such as bisimilarity of LTSs or probabilistic bisimilarity of Larsen and Skou~\cite{Vink:1999:Bisimulation}.  
+		
+	Modelling finer notions of semantic equivalence can be phrased by changing the base category over which the type functor is defined to a more structured setting than sets and functions. For example, one of the ways to model probabilistic language equivalence in the language of coalgebra is to work with coalgebras for an appropriate type functor over the category of positive convex algebras~\cite{Silva:2010:Generalizing,Silva:2011:Sound}. In this category, the final coalgebra is precisely carried by the set of all probabilistic languages over some alphabet. 	 
 
-	Under mild set-theoretic size constraints on the type functor, one can construct a final coalgebra, a canonical domain for behavioural equivalence. For simple systems without side effects, like deterministic automata, the final coalgebra is carried by the set of all formal languages over some alphabet and thus captures the usual notion of language equivalence. At the same time, for more complicated systems like LTSs or probabilistic transition systems featuring side-effects (formally modelled through the notion of a monad), coalgebraic behavioural equivalence coincides with bisimilarity. 
-	
-	Modelling finer notions of semantic equivalence can be phrased by changing the base category over which the type functor is defined to a more structured setting than just sets and functions. For example, one of the ways to model probabilistic language equivalence in the language of coalgebra is to work with coalgebras for an appropriate type functor over the category of positive convex algebras. In this category, the final coalgebra is precisely carried by the set of all probabilistic languages over some fixed alphabet. 	 
+At the same time, the recent work on coalgebraic behavioural metrics~\cite{Baldan:2018:Coalgebraic} provided a categorical generalisation of Kantorovich lifting to lifting endofunctors over the category of sets to the category of pseudometric spaces and nonexpansive maps between them. Final coalgebras for type functors obtained through such liftings come equipped with a pseudometric between behaviours. Such a coalgebraic outlook enables generalising the notions of behavioural metrics beyond probabilistic transition systems. 
 
-At the same time, the recent work on coalgebraic behavioural metrics provided a categorical generalisation of Kantorovich lifting to lifting endofunctors over the category of sets to the category of pseudometric spaces and nonexpansive maps between them. Final coalgebras for type functors obtained through such liftings come equipped with a pseudometric between behaviours. Such a coalgebraic outlook enabled to generalise the notion of behavioural metrics beyond probabilistic transition systems. 
+Using the theory of universal coalgebra for axiomatisation problems allows abstracting away the generic steps of completeness theorems and instantiating abstract categorical results to obtain concrete properties of transition systems of interest. For example, the recently developed theory of rational fixpoints~\cite{Milius:2010:Sound} for coalgebras for proper functors~\cite{Milius:2018:Proper} provides a useful generalisation of the notion of regular languages to coalgebraic generality. One of the concrete instantiations of such a theory enables characterising the analogue of regular languages in the case of probabilistic languages~\cite{Sokolova:2018:Proper} and underpins key results in the second part of the thesis.
+
+
 \section{Overview of the thesis}
-\subparagraph{Chapter Two: A Complete Quantitative Axiomatisations of Behavioural Distance of Regular Expressions}
-\subparagraph{Chapter Three: A Diagrammatic Approach to Behavioural Distance of Nondeterministic Processes}
-\subparagraph{Chapter Four: Completeness Theorem for Probabilistic Regular Expressions}
+Having outlined the scope and the main aims of this thesis, we summarise below the content of each chapter of the thesis and outline their main contributions.
+\subparagraph{Chapter 2} presents a sound and complete axiomatisation of \emph{shortest-distinguishing-word} distance between formal languages represented by regular expressions.
+ The axiomatisation relies on a recently developed quantitative analogue of equational logic, allowing to manipulate rational-indexed judgements of the form $e \disteq{\e} f$ meaning \emph{term $e$ is approximately equivalent to term $f$ within the error margin of $\e$}. The technical core of the chapter is dedicated to the completeness argument that draws techniques from order theory and Banach spaces to simplify the calculation of the behavioural distance to the point it can be then mimicked by axiomatic reasoning.  
+\begin{center}
+
+\begin{tabular}{ m{3cm}|m{10cm}}
+  \hline
+  Model & DFAs\\
+  Syntax & $e,f \in \RExp ::= \zero \mid \one \mid a \in \Sigma \mid e + f \mid e \seq f \mid e^\ast$ \\
+  Semantics & shortest-distinguishing-word distance of languages \\
+  Example fact & $a^\ast \disteq{\frac{1}{4}}a + 1 $\\
+  Soundness & Theorem \Cref{c2:soundness} \\
+  Completeness	& Theorem \Cref{c2:completeness} \\
+  \hline
+\end{tabular}
+\end{center}
+This chapter is based on the following paper:
+
+\printpublication{Rozowski:2024:Complete}
+
+
+\subparagraph{Chapter 3} contains a sound and complete axiomatisation of behavioural metric for nondeterministic processes using Milner's charts---a model that generalises finite-state automata by incorporating variable outputs. Charts provide a compelling setting for studying behavioural distances because they shift the focus from language equivalence to bisimilarity.
+
+To formalise this approach, we adopt string diagrams as our syntax of choice. String diagrams closely mirror the graphical structure of charts, while providing a rigorous formalism that supports inductive reasoning and compositional semantics. Unlike traditional algebraic syntaxes, which require additional mechanisms such as binders and substitution, string diagrams offer a variable-free representation where recursion naturally decomposes into simpler components. This makes them well-suited for reasoning about behavioural distances and aligns with broader efforts to axiomatise automata-theoretic equivalences through a unified diagrammatic framework.
+
+This chapter is based on the following paper:
+
+\printpublication{Rozowski:2025:Diagrammatic}
+
+
+\subparagraph{Chapter 4} introduces Probabilistic Regular Expressions (PRE), a probabilistic analogue of regular expressions denoting probabilistic languages in which every word is assigned a probability of being generated.  PRE are formed through constants from an alphabet and regular operations of probabilistic choice, sequential composition, probabilistic Kleene star, identity and emptiness.  
+
+
+We present and prove the completeness of an inference system for reasoning about probabilistic language equivalence of PRE
+based on Salomaa’s axiomatisation of Kleene Algebra. 
+
+\begin{center}
+
+\begin{tabular}{ m{3cm}|m{10cm}}
+  \hline
+  Model & generative probabilistic transition systems~\cite{Glabbeek:1995:Reactive}\\
+  Syntax & $e,f \in \PExp ::= \zero \mid \one \mid a \in \Sigma \mid e \oplus_p f \mid e \seq f \mid e^{[p]} \quad (p \in [0,1])$ \\
+  Semantics & probabilistic language equivalence \\
+  Example fact & $a \seq a^{\left[\frac{1}{4}\right]} \equiv a \oplus_{\frac{3}{4}} \left( a \seq a^{\left[\frac{1}{4}\right]}\seq a\right)$\\
+  Soundness & Theorem \Cref{c2:soundness} \\
+  Completeness 	& Theorem \Cref{c2:completeness} \\
+  \hline
+\end{tabular}
+\end{center}
+
+
+This chapter is based on the following paper:
+\printpublication{Rozowski:2024:Completeness}
 
 
 

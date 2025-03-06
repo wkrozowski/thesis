@@ -69,17 +69,16 @@
 % And then some settings in separate files.
 \input{FloatSettings} % For things like figures and tables
 \input{BibSettings}   % For bibliographies
-
+\addbibresource{example.bib}
 % These control how many number sections your subsections will take
 %    e.g. Section 2.3.1.5.6.3
 %  and how many of those will get put into the contents pages.
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
 
-
+\input{Macros}
 \begin{document}
 
-\nobibliography*
 % ^-- This is a dumb trick that works with the bibentry package to let
 %  you put bibliography entries whereever you like.
 % I used this to put references to papers a chapter's work was 
@@ -108,7 +107,7 @@
 
 % Actually generates your bibliography. The fact that \include is 
 % the last thing before this ensures that it is on a clear page.
-\bibliography{example}
+\printbibliography
 
 % All done. \o/
 \end{document}
