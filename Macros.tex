@@ -1,16 +1,77 @@
 \newcommand{\printpublication}[1]{\AtNextCite{\defcounter{maxnames}{99}}\fullcite{#1}}
 
+% theorem environment setup
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{proposition*}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{question}{Question}
+\newtheorem*{question*}{Question}
+\newtheorem{assumption}{Assumption}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
 % Things shared between chapters
 \newcommand{\alphabet}{\Sigma}
 \newcommand{\seq}{\mathbin{;}} %Sequential composition of (probabilistic) regular expressions
 \newcommand{\zero}{\mathsf{0}} %0 of a (probabilistic) regular expression
 \newcommand{\one}{\mathsf{1}} %1 of a (probabilistic) regular expression
 \newcommand{\sem}[1]{\left\llbracket{#1}\right\rrbracket}
+\newcommand{\cat}[1]{\mathcal{#1}} %Category
 
+%number sets
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+
+%Some generic categories
+\def\A{\cat{A}}
+\def\C{\cat{C}}
+\def\D{\cat{D}}
+\def\J{\cat{J}}
+
+
+\newcommand{\funF}{\mathcal{F}} % Arbitrary functor
+
+\newcommand{\Obj}{\mathsf{Obj}} % Objects of category
+\newcommand{\forget}{\mathcal{U}}
+
+\def\subto{\hookrightarrow}
+\def\monoto{\rightarrowtail}
+\def\epito{\twoheadrightarrow}
+\def\ot{\leftarrow}
+
+
+
+\def\Set{{\mathsf{Set}}}
+\def\Rel{{\mathsf{Rel}}}
+
+% generic coalgebra
+\newcommand{\beh}[1]{\dagger{#1}} 
+
+\def\coa{\mathop{\mathsf{Coalg}}}
+\def\alg{\mathop{\mathsf{Alg}}}
+\def\coaf{\mathop{\mathsf{Coalg}_{\mathsf{fp}}}}
+\def\coafg{\mathop{\mathsf{Coalg}_{\mathsf{fg}}}}
+\def\coalfp{\mathop{\mathsf{Coalg}_{\mathsf{lfp}}}}
+\def\coafr{\mathop{\mathsf{Coalg}_{\mathsf{free}}}}
+\def\beheq{\sim_{\mathsf{b}}}
 % common behavioural distances stuff
 \newcommand{\disteq}[1]{\equiv_{#1}} % rational-indexed equality
 \newcommand{\e}{\varepsilon} % epsilon for distances
 \newcommand{\PMet}{\mathsf{PMet}}
+
+%fixpoints of functors
+\def\rho{\varrho}
+\def\theta{\vartheta}
+\def\phi{\varphi}
 
 % chapter two only
 \newcommand{\RExp}{\mathsf{RExp}}
@@ -191,3 +252,5 @@ pics/BWmatrix/.default=0.2
 
 % chapter four only
 \newcommand{\PExp}{\mathsf{PExp}}
+\def\pca{{\mathsf{PCA}}}
+\def\smod{\S\textsf{-Mod}}

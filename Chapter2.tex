@@ -1,4 +1,89 @@
 \chapter{A Complete Quantitative Axiomatisation of Behavioural Distance of Regular Expressions}
 \label{chapter2}
 
+\section{Preliminaries}
+\subsection{Coalgebra}
+
+Let $\C$ be a category.  An $\funF$-coalgebra is a pair $(X, \alpha : X \to \funF X)$, where $X \in \Obj(\C)$ and $\funF \colon \C \to \C$ is an endofunctor on $\C$. We call $\funF$ a \emph{type functor} and refer to $X$ and $\alpha$ as \emph{state space} (or a \emph{carrier}) and \emph{transition structure} respectively. We will omit writing $\funF$ when it is obvious from the context. A homomorphism $f \colon (X, \alpha) \to (Y, \beta)$ of coalgebras is an arrow $f \colon X \to Y$ in $\C$ making the following diagram commute:
+
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJYIl0sWzAsMSwiXFxmdW5GIFgiXSxbMiwwLCJZIl0sWzIsMSwiXFxmdW5GIFkiXSxbMCwyLCJmIl0sWzIsMywiXFxiZXRhIl0sWzAsMSwiXFxhbHBoYSIsMl0sWzEsMywiXFxmdW5GIGYiLDJdXQ==
+\[\begin{tikzcd}
+	X && Y \\
+	{\funF X} && {\funF Y}
+	\arrow["f", from=1-1, to=1-3]
+	\arrow["\alpha"', from=1-1, to=2-1]
+	\arrow["\beta", from=1-3, to=2-3]
+	\arrow["{\funF f}"', from=2-1, to=2-3]
+\end{tikzcd}\]
+$\funF$-coalgebras and their homomorphisms form a category $\coa{\funF}$. 
+
+\begin{definition}
+We call a coalgebra $(\nu \funF, t)$ \emph{final} if for any coalgebra $(X, \alpha)$, there exists a unique homomorphism $\beh\alpha \colon (X, \alpha) \to (\nu \funF, t)$. A final coalgebra (if it exists) is precisely the final object in $\coa{\funF}$.	
+\end{definition}
+
+If $\C$ is a concrete category, that is equipped with a faithful functor $\forget \colon \C \to \Set$, one can define the notion of \emph{behavioural equivalence}. 
+\begin{definition}
+Given $\funF$-coalgebras $(X, \alpha)$ and $(Y, \beta)$, and elements $x \in \forget X$, $y \in \forget Y$, we say that $x$ is behaviourally equivalent to $y$ (written $x \beheq y$), if there exists a third coalgebra $(Z, \gamma)$ and $\funF$-coalgebra homomorphisms $f \colon (X, \alpha) \to (Z, \gamma)$ and $g \colon (Y, \beta) \to (Z, \gamma)$, such that $\forget f(x)=\forget g(x)$.	
+\end{definition}
+
+
+For the remainder of this section, we will focus on coalgebras for endofunctors over $\Set$ by setting $\funF \colon \Set \to \Set$. 
+
+\begin{definition}
+A coalgebra $(X, \alpha)$ is called a subcoalgebra of $(Y, \beta)$, if $X \subseteq Y$ and the canonical inclusion map $i \colon X \subto Y$ is a coalgebra homomorphism.	
+\end{definition}
+Under a mild restriction on $\funF$, subcoalgebras carry a lattice structure.
+\begin{lemma}
+If $\funF$ preserves arbitrary intersections, then the collection of all subcoalgebras of a system $(Y, \beta)$ is a complete lattice. Least upper bounds and greatest lower bounds are respectively given by union and intersection of sets. 
+\end{lemma}
+Given a set $X \subseteq Y$, we will write $\langle X \rangle_{(Y, \beta)}$ for the least subcoalgebra of $(Y, \beta)$ containing $X$.	
+In the case when $X$ is a singleton or a two-element set, we will lighten up the notation and respectively write $\langle x \rangle_{(Y, \beta)}$ and $\langle x , y \rangle_{(Y, \beta)}$ instead.  Least subcoalgebras allow to characterise an important subcategory of coalgebras.
+\begin{definition}
+We call a coalgebra $(X, \alpha)$ locally finite if for all $x \in X$, we have that $\langle x \rangle_{(X, \alpha)}$ is finite.		
+\end{definition}
+
+
+
+
+\begin{definition}
+Let $(X, \alpha)$ and $(Y, \beta)$ be two coalgebras for the functor $\funF \colon \Set \to \Set$. We call a relation ${R} \subseteq {X \times Y}$ a bisimulation if there exists a transition function $R \to \funF R$ making the following diagram commute:
+% https://q.uiver.app/#q=WzAsNixbMCwwLCJYIl0sWzIsMCwiUiJdLFs0LDAsIlkiXSxbMiwxLCJcXGZ1bkYgUiJdLFswLDEsIlxcZnVuRiBYIl0sWzQsMSwiXFxmdW5GIFkiXSxbMCw0LCJcXGFscGhhIl0sWzEsM10sWzIsNSwiXFxiZXRhIl0sWzEsMiwiXFxwaV8yIl0sWzMsNSwiXFxmdW5GIFxccGlfMiIsMl0sWzEsMCwiXFxwaV8xIiwyXSxbMyw0LCJcXGZ1bkYgXFxwaV8xIl1d
+\[\begin{tikzcd}
+	X && R && Y \\
+	{\funF X} && {\funF R} && {\funF Y}
+	\arrow["\alpha", from=1-1, to=2-1]
+	\arrow["{\pi_1}"', from=1-3, to=1-1]
+	\arrow["{\pi_2}", from=1-3, to=1-5]
+	\arrow[from=1-3, to=2-3]
+	\arrow["\beta", from=1-5, to=2-5]
+	\arrow["{\funF \pi_1}", from=2-3, to=2-1]
+	\arrow["{\funF \pi_2}"', from=2-3, to=2-5]
+\end{tikzcd}\]	
+\end{definition}
+
+In the above, $\pi_1 \colon R \to X$ and $\pi_2 \colon R \to Y$ are the canonical projection maps given by the product structure on $X\times Y$. Given $(x,y) \in X \times Y$, we write $x \sim y$ if there exists a bisimulation $R$ between $(X, \alpha)$ and $(Y, \gamma)$, such that $\langle x,y \rangle \in R$.
+\begin{lemma}
+	Let $(X, \alpha)$ and $(Y, \beta)$ be two coalgebras. A function $f \colon X \to Y$ is a homomorphism if and only if $G(f) = \{\langle x, f(x) \rangle \mid x \in X\} \subseteq X \times Y$ is a bisimulation.
+\end{lemma}
+We call a bisimulation that is an equivalence relation a bisimulation equivalence. 
+\begin{lemma}
+	Let $R \subseteq {X \times X}$ be a bisimulation equivalence on a coalgebra $(X, \alpha)$. Let $[-]_{R} \colon X \to {X}/{R}$, be the canonical quotient map of $R$. Then, there is a unique transition structure $\overline{\alpha} \colon {X}/{R} \to \funF {X}/{R}$ on ${X}/{R}$, that makes $[-]_R$ into a coalgebra homomorphism, thus making the following diagram commute:
+	 % https://q.uiver.app/#q=WzAsNCxbMCwwLCJYIl0sWzIsMCwie1h9L3tSfSJdLFsyLDEsIlxcZnVuRiB7WH0ve1J9Il0sWzAsMSwiXFxmdW5GIFgiXSxbMCwzLCJcXGFscGhhIl0sWzEsMiwiXFxvdmVybGluZVxcYWxwaGEiXSxbMCwxLCJbLV1fUiJdLFszLDIsIlxcZnVuRiBbLV1fUiIsMl1d
+\[\begin{tikzcd}
+	X && {{X}/{R}} \\
+	{\funF X} && {\funF {X}/{R}}
+	\arrow["{[-]_R}", from=1-1, to=1-3]
+	\arrow["\alpha", from=1-1, to=2-1]
+	\arrow["{\overline\alpha}", from=1-3, to=2-3]
+	\arrow["{\funF [-]_R}"', from=2-1, to=2-3]
+\end{tikzcd}\]
+\end{lemma}
+
+
+\begin{lemma}
+We have that
+$
+x \sim y \implies x \beheq y
+$. The converse is true if $\funF$ preserves weak pullbacks.	
+\end{lemma}
 
