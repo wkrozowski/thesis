@@ -65,7 +65,7 @@ Having outlined the scope and the main aims of this thesis, we summarise below t
   \multicolumn{2}{c}{Summary of \Cref{chapter2}}\\
   \hline
   Model & deterministic finite automata (DFA)\\
-  Syntax & $e,f \in \RExp ::= \zero \mid \one \mid a \in \Sigma \mid e + f \mid e \seq f \mid e^\ast$ \\
+  Syntax & $e,f \in \RExp ::= \zero \mid \one \mid a \in \alphabet \mid e + f \mid e \seq f \mid e^\ast$ \\
   Semantics & shortest-distinguishing-word distance of languages \\
   Example fact & $a^\ast \disteq{1/4}a + 1 $\\
   Soundness & Theorem \Cref{c2:soundness} \\
@@ -112,7 +112,7 @@ The findings presented in this chapter are the content of the following paper:
   \multicolumn{2}{c}{Summary of \Cref{chapter4}}\\
   \hline
   Model & generative probabilistic transition systems~\cite{Glabbeek:1995:Reactive}\\
-  Syntax & $e,f \in \PExp ::= \zero \mid \one \mid a \in \Sigma \mid e \oplus_p f \mid e \seq f \mid e^{\left[ p \right]}$ \\  Semantics & probabilistic language equivalence \\
+  Syntax & $e,f \in \PExp ::= \zero \mid \one \mid a \in \alphabet \mid e \oplus_p f \mid e \seq f \mid e^{\left[ p \right]}$ \\  Semantics & probabilistic language equivalence \\
   Example fact & $a \seq a^{\left[1/4\right]} \equiv a \oplus_{3/4} \left( a \seq a^{\left[1/4\right]}\seq a\right)$\\
   Soundness & Theorem \Cref{c2:soundness} \\
   Completeness 	& Theorem \Cref{c2:completeness} \\

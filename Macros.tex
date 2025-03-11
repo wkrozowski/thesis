@@ -18,12 +18,14 @@
 \newtheorem{example}[theorem]{Example}
 
 % Things shared between chapters
-\newcommand{\alphabet}{\Sigma}
+\newcommand{\alphabet}{{A}}
 \newcommand{\seq}{\mathbin{;}} %Sequential composition of (probabilistic) regular expressions
 \newcommand{\zero}{\mathsf{0}} %0 of a (probabilistic) regular expression
 \newcommand{\one}{\mathsf{1}} %1 of a (probabilistic) regular expression
 \newcommand{\sem}[1]{\left\llbracket{#1}\right\rrbracket}
 \newcommand{\cat}[1]{\mathcal{#1}} %Category
+\newcommand*\circlednum[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=1pt] (char) {#1};}} %number in the circle
 
 %number sets
 \newcommand{\N}{\mathbb{N}}
@@ -49,24 +51,30 @@
 \def\ot{\leftarrow}
 
 
-
 \def\Set{{\mathsf{Set}}}
 \def\Rel{{\mathsf{Rel}}}
 
+\def\pset{\mathcal{P}}
+
 % generic coalgebra
-\newcommand{\beh}[1]{\dagger{#1}} 
+\newcommand{\beh}[1]{\mathsf{beh}_{#1}} 
 
 \def\coa{\mathop{\mathsf{Coalg}}}
 \def\alg{\mathop{\mathsf{Alg}}}
 \def\coaf{\mathop{\mathsf{Coalg}_{\mathsf{fp}}}}
+\def\coalf{\mathop{\mathsf{Coalg}_{\mathsf{lf}}}}
 \def\coafg{\mathop{\mathsf{Coalg}_{\mathsf{fg}}}}
 \def\coalfp{\mathop{\mathsf{Coalg}_{\mathsf{lfp}}}}
 \def\coafr{\mathop{\mathsf{Coalg}_{\mathsf{free}}}}
-\def\beheq{\sim_{\mathsf{b}}}
+\def\beheq{\sim_{\mathsf{b}}} %behavioural equivalence
+
+\newcommand{\gen}[2]{\langle #1 \rangle_{#2}}
+
 % common behavioural distances stuff
 \newcommand{\disteq}[1]{\equiv_{#1}} % rational-indexed equality
 \newcommand{\e}{\varepsilon} % epsilon for distances
 \newcommand{\PMet}{\mathsf{PMet}}
+\newcommand{\bd}{\mathsf{bd}}
 
 %fixpoints of functors
 \def\rho{\varrho}
@@ -80,6 +88,10 @@
 \newcommand{\objl}{\blacktriangleleft}
 \newcommand{\arrowright}{\tikzfig{lr-order}}
 \newcommand{\arrowleft}{\tikzfig{rl-order}}
+\newcommand{\emptyword}{\mathtt{e}}
+\newcommand{\acirel}{{\mathrel{\dot\equiv}}}
+\newcommand{\aciq}{{\RExp}/{\acirel}}
+\newcommand{\eR}{\overline{\mathbb{R}}} %Extended reals
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                          ROBIN'S TIKZ STUFF

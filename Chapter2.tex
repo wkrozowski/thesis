@@ -1,8 +1,8 @@
 \chapter{A Complete Quantitative Axiomatisation of Behavioural Distance of Regular Expressions}
 \label{chapter2}
 
-\section{Preliminaries}
-\subsection{Coalgebra}
+\section{Preliminaries}\label{c2:sec:preliminaries}
+\subsection{Coalgebra}\label{c2:subsec:coalgebra}
 
 Let $\C$ be a category.  An $\funF$-coalgebra is a pair $(X, \alpha : X \to \funF X)$, where $X \in \Obj(\C)$ and $\funF \colon \C \to \C$ is an endofunctor on $\C$. We call $\funF$ a \emph{type functor} and refer to $X$ and $\alpha$ as \emph{state space} (or a \emph{carrier}) and \emph{transition structure} respectively. We will omit writing $\funF$ when it is obvious from the context. A homomorphism $f \colon (X, \alpha) \to (Y, \beta)$ of coalgebras is an arrow $f \colon X \to Y$ in $\C$ making the following diagram commute:
 
@@ -17,35 +17,35 @@ Let $\C$ be a category.  An $\funF$-coalgebra is a pair $(X, \alpha : X \to \fun
 \end{tikzcd}\]
 $\funF$-coalgebras and their homomorphisms form a category $\coa{\funF}$. 
 
-\begin{definition}
+\begin{definition}\label{c2:def:final_coalgebra}
 We call a coalgebra $(\nu \funF, t)$ \emph{final} if for any coalgebra $(X, \alpha)$, there exists a unique homomorphism $\beh\alpha \colon (X, \alpha) \to (\nu \funF, t)$. A final coalgebra (if it exists) is precisely the final object in $\coa{\funF}$.	
 \end{definition}
 
-If $\C$ is a concrete category, that is equipped with a faithful functor $\forget \colon \C \to \Set$, one can define the notion of \emph{behavioural equivalence}. 
-\begin{definition}
+If $\C$ is a concrete category, that is equipped with a faithful functor $\forget \colon \C \to \Set$, one can define the notion of \emph{behavioural equivalence}. All coalgebras considered in this thesis are defined over concrete categories.
+\begin{definition}\label{c2:def:behavioural_equivalence}
 Given $\funF$-coalgebras $(X, \alpha)$ and $(Y, \beta)$, and elements $x \in \forget X$, $y \in \forget Y$, we say that $x$ is behaviourally equivalent to $y$ (written $x \beheq y$), if there exists a third coalgebra $(Z, \gamma)$ and $\funF$-coalgebra homomorphisms $f \colon (X, \alpha) \to (Z, \gamma)$ and $g \colon (Y, \beta) \to (Z, \gamma)$, such that $\forget f(x)=\forget g(x)$.	
 \end{definition}
 
 
-For the remainder of this section, we will focus on coalgebras for endofunctors over $\Set$ by setting $\funF \colon \Set \to \Set$. 
+For the remainder of this subsection, we will focus on properties of coalgebras for endofunctors over $\Set$ by setting $\funF \colon \Set \to \Set$. 
 
-\begin{definition}
+\begin{definition}\label{c2:def:subcoalgebra}
 A coalgebra $(X, \alpha)$ is called a subcoalgebra of $(Y, \beta)$, if $X \subseteq Y$ and the canonical inclusion map $i \colon X \subto Y$ is a coalgebra homomorphism.	
 \end{definition}
 Under a mild restriction on $\funF$, subcoalgebras carry a lattice structure.
-\begin{lemma}
-If $\funF$ preserves arbitrary intersections, then the collection of all subcoalgebras of a system $(Y, \beta)$ is a complete lattice. Least upper bounds and greatest lower bounds are respectively given by union and intersection of sets. 
+\begin{lemma}[{\cite[Theorem~6.4.]{Rutten:2000:Universal}}]\label{c2:lem:subcoalgebras_lattice}
+If $\funF$ preserves weak pullbacks, then the collection of all subcoalgebras of a system $(Y, \beta)$ is a complete lattice. Least upper bounds and greatest lower bounds are respectively given by union and intersection of sets. 
 \end{lemma}
-Given a set $X \subseteq Y$, we will write $\langle X \rangle_{(Y, \beta)}$ for the least subcoalgebra of $(Y, \beta)$ containing $X$.	
-In the case when $X$ is a singleton or a two-element set, we will lighten up the notation and respectively write $\langle x \rangle_{(Y, \beta)}$ and $\langle x , y \rangle_{(Y, \beta)}$ instead.  Least subcoalgebras allow to characterise an important subcategory of coalgebras.
-\begin{definition}
+Given a set $X \subseteq Y$, we will write $\gen{X}{(Y, \beta)}$ for the least subcoalgebra of $(Y, \beta)$ containing $X$.	
+In the case when $X$ is a singleton or a two-element set, we will lighten up the notation and respectively write $\gen{x}{(Y, \beta)}$ and $\gen{x,y}{(Y, \beta)}$ instead. Least subcoalgebras allow to characterise an important subcategory of coalgebras.
+\begin{definition}\label{c2:def:locally_finite}
 We call a coalgebra $(X, \alpha)$ locally finite if for all $x \in X$, we have that $\langle x \rangle_{(X, \alpha)}$ is finite.		
 \end{definition}
+We will write $\coalf{\funF}$ for the full subcategory of $\coa{\funF}$ consisting only of locally finite coalgebras.
 
 
 
-
-\begin{definition}
+\begin{definition}\label{c2:def:bisimulation}
 Let $(X, \alpha)$ and $(Y, \beta)$ be two coalgebras for the functor $\funF \colon \Set \to \Set$. We call a relation ${R} \subseteq {X \times Y}$ a bisimulation if there exists a transition function $R \to \funF R$ making the following diagram commute:
 % https://q.uiver.app/#q=WzAsNixbMCwwLCJYIl0sWzIsMCwiUiJdLFs0LDAsIlkiXSxbMiwxLCJcXGZ1bkYgUiJdLFswLDEsIlxcZnVuRiBYIl0sWzQsMSwiXFxmdW5GIFkiXSxbMCw0LCJcXGFscGhhIl0sWzEsM10sWzIsNSwiXFxiZXRhIl0sWzEsMiwiXFxwaV8yIl0sWzMsNSwiXFxmdW5GIFxccGlfMiIsMl0sWzEsMCwiXFxwaV8xIiwyXSxbMyw0LCJcXGZ1bkYgXFxwaV8xIl1d
 \[\begin{tikzcd}
@@ -61,12 +61,12 @@ Let $(X, \alpha)$ and $(Y, \beta)$ be two coalgebras for the functor $\funF \col
 \end{tikzcd}\]	
 \end{definition}
 
-In the above, $\pi_1 \colon R \to X$ and $\pi_2 \colon R \to Y$ are the canonical projection maps given by the product structure on $X\times Y$. Given $(x,y) \in X \times Y$, we write $x \sim y$ if there exists a bisimulation $R$ between $(X, \alpha)$ and $(Y, \gamma)$, such that $\langle x,y \rangle \in R$.
-\begin{lemma}
+In the above, $\pi_1 \colon R \to X$ and $\pi_2 \colon R \to Y$ are the canonical projection maps given by the product structure on $X\times Y$. Given $\langle x,y \rangle \in X \times Y$, we write $x \sim y$ if there exists a bisimulation $R$ between $(X, \alpha)$ and $(Y, \gamma)$, such that $\langle x,y \rangle \in R$.
+\begin{lemma}[{\cite[Theorem~2.5]{Rutten:2000:Universal}}]\label{c2:lem:functional_bisimulation}
 	Let $(X, \alpha)$ and $(Y, \beta)$ be two coalgebras. A function $f \colon X \to Y$ is a homomorphism if and only if $G(f) = \{\langle x, f(x) \rangle \mid x \in X\} \subseteq X \times Y$ is a bisimulation.
 \end{lemma}
 We call a bisimulation that is an equivalence relation a bisimulation equivalence. 
-\begin{lemma}
+\begin{lemma}[{\cite[Proposition~5.8]{Rutten:2000:Universal}}]\label{c2:lem:quotient_coalgebra}
 	Let $R \subseteq {X \times X}$ be a bisimulation equivalence on a coalgebra $(X, \alpha)$. Let $[-]_{R} \colon X \to {X}/{R}$, be the canonical quotient map of $R$. Then, there is a unique transition structure $\overline{\alpha} \colon {X}/{R} \to \funF {X}/{R}$ on ${X}/{R}$, that makes $[-]_R$ into a coalgebra homomorphism, thus making the following diagram commute:
 	 % https://q.uiver.app/#q=WzAsNCxbMCwwLCJYIl0sWzIsMCwie1h9L3tSfSJdLFsyLDEsIlxcZnVuRiB7WH0ve1J9Il0sWzAsMSwiXFxmdW5GIFgiXSxbMCwzLCJcXGFscGhhIl0sWzEsMiwiXFxvdmVybGluZVxcYWxwaGEiXSxbMCwxLCJbLV1fUiJdLFszLDIsIlxcZnVuRiBbLV1fUiIsMl1d
 \[\begin{tikzcd}
@@ -80,10 +80,165 @@ We call a bisimulation that is an equivalence relation a bisimulation equivalenc
 \end{lemma}
 
 
-\begin{lemma}
+\begin{lemma}[{\cite[Theorem~9.3]{Rutten:2000:Universal}}]\label{c2:lem:behavioural_equivalence}
 We have that
 $
 x \sim y \implies x \beheq y
 $. The converse is true if $\funF$ preserves weak pullbacks.	
 \end{lemma}
+\subsection{Deterministic automata}\label{c2:subsec:deterministic_automata}
+A deterministic automaton $\mathcal{M}$ with inputs in a finite alphabet $\alphabet$ is a pair $(M, \langle o_M , t_M \rangle)$ consisting of a set of states $M$ and a pair of functions $\langle o_M, t_M \rangle$, where $o_M : M \to \{0,1\}$ is the \emph{output} function which determines whether a state $m$ is final ($o_M(m)=1$) or not ($o_M(m)=0$), and $t :M \to M^\alphabet$ is the \emph{transition} function, which, given an input letter $a$ determines the next state. If the set $M$ of states is finite, then we call an automaton $\mathcal{M}$ a deterministic finite automaton (DFA). We will frequently write $m_a$ to denote $t_M(m)(a)$ and refer to $m_a$ as the derivative of $m$ for the input $a$. Definition of derivatives can be inductively extended to words $w \in \alphabet^{\ast}$. We will write $\emptyword$ to denote an empty word. We set $m_{\emptyword} = m$ and $m_{aw'} = (m_a)_{w'}$ for $a \in \alphabet, w' \in \alphabet^\ast$.
+\begin{remark}\label{c2:rem:automata_as_coalgebras}
+Note that our definition of deterministic automaton slightly differs from the most common one in the literature, by not explicitly including the initial state. Instead of talking about the language of the automaton, we will talk about the languages of particular states of the automaton. 	
+\end{remark}
+
+
+Given a state $m \in M$, we write $L_{\mathcal{M}} (m) \subseteq {\alphabet^{\ast}}$ for its language, which is formally defined by $L_{\mathcal{M}}(m) = \{w \in \alphabet^\ast \mid o(m_w) = 1\}$. 
+Given two deterministic automata $(M, \langle o_M, t_M \rangle)$ and $(N, \langle o_N, t_N \rangle)$, a function $h : M \to N$ is a homomorphism if it preserves outputs and input derivatives, that is $o_N(h(m))=o_M(m)$ and $h(m)_a = h(m_a)$. The set of all languages $\pset(\alphabet^{\ast})$ over an alphabet $\alphabet$ can be made into a deterministic automaton $(\pset(\alphabet^\ast), \langle o_L, t_L\rangle)$, where for $l \in \pset (\Sigma^{\ast})$ the output function is given by $o_L(l)=[\emptyword \in l]$ and for all $a \in \alphabet$ the input derivative is defined to be $l_a = \{w \mid aw \in l\}$. This automaton is \emph{final}, that is for any other automaton $\mathcal{M} = (M, \langle o_M, t_M \rangle)$ there exists a unique homomorphism from $M$ to $\pset(\alphabet^{\ast})$, which is given by the map $L_{\mathcal{M}} : M \to \pset(\alphabet^\ast)$ taking each state $m \in M$ to its language.
+\begin{remark}
+	Deterministic automata are precisely coalgebras for the functor $\{0,1\} \times (-)^\alphabet \colon \Set \to \Set$. The coalgebraic definition of homomorphism coincides with the definition of an automaton homomorphism stated above. The final coalgebra for that functor corresponds to the final automaton defined on the set $\pset(\alphabet^\ast)$.
+\end{remark}
+\subsection{Regular expressions}\label{c2:subsec:regular_expressions}
+We let $e, f$ range over \emph{regular expressions over $\alphabet$} generated by the following grammar:
+$$e , f \in \RExp ::= \zero \mid \one \mid a \in A \mid e + f \mid e \seq f \mid e^{\ast}$$
+The standard interpretation of regular expressions $\sem{-} \colon \RExp \to \pset(\alphabet^\ast)$ is inductively defined by the following:
+\begin{gather*}
+	\sem{\zero} = \emptyset \quad \sem{\one} = \{\emptyword\} \quad \sem{a} = \{ a \} \quad \sem{e + f} =  \sem{e}  \cup \sem{f} \\ \sem{e \seq f}  = \sem{e}  \diamond \sem{f} \quad \sem{e^\ast} = \sem{e}^\ast
+\end{gather*}
+Given $L, M \subseteq A^\ast$, we define $L \diamond M = \{lm \mid l \in L, m \in M\}$, where mere juxtaposition denotes concatenation of words. $L^\ast$ denotes the \emph{asterate} of the language $L$ defined as $L^\ast = \bigcup_{i \in \N} L^i$ with $L^0 = \{\epsilon\}$ and $L^{n + 1} = L \diamond L^{n}$.
+\subsection{Brzozowski derivatives}\label{c2:subsec:brzozowski_derivatives}
+The famous Kleene's theorem states that the formal languages accepted by DFA are in one-to-one correspondence with formal languages definable by regular expressions. One direction of this theorem involves constructing a \textsf{DFA} for an arbitrary regular expression. The most common way is via Thompson construction, $\emptyword$-transition removal and determinisation. Instead, we recall a direct construction due to Brzozowski~\cite{Brzozowski:1964:Expressions}, in which the set $\RExp$ of regular expressions is equipped with a structure of deterministic automaton $\mathcal{R} = (\RExp, \langle o_{\mathcal{R}}, t_{\mathcal{R}} \rangle)$ through so-called Brzozowski derivatives~\cite{Brzozowski:1964:Expressions}. The output derivative $o_{\mathcal{R}} : \RExp \to \{0, 1\}$ is defined inductively by the following 
+\begin{gather*}
+    o_{\mathcal{R}}(0) = 0 \quad o_{\mathcal{R}}(1) = 1 \quad o_{\mathcal{R}}(a) = 0 \\ o_{\mathcal{R}}(e + f) = o_{\mathcal{R}}(e) \vee o_{\mathcal{R}}(f) \quad
+    o_{\mathcal{R}}(e \seq f) = o_{\mathcal{R}}(e) \wedge o_{\mathcal{R}}(f) \quad o_{\mathcal{R}}(e^{\ast}) = 1
+\end{gather*}
+for $a \in \alphabet$ and $e,f \in \RExp$. Similarly, the transition derivative $t_{\mathcal{R}} \colon \RExp \to \alphabet \to \RExp$ denoted $t_{\mathcal{R}} (e)(a) = (e)_a$ is defined by
+\begin{gather*}
+    (\zero)_a = 0 \quad (\one)_a = 0 \quad (a')_a = \begin{cases}
+        1 & a = a'\\ 0 & a \neq a'  \end{cases}\\
+    (e + f)_a = (e)_a + (f)_a \quad
+    (e \seq f)_a = (e_a) \seq f + o_{\mathcal{R}}(e) \seq f \quad (e^{\ast}) = (e)_a \seq e^{\ast}
+\end{gather*}
+Semantics of regular expressions is well-behaved, that is the standard interpretation $\sem{-}$ assigning a language to each regular expression concides with the canonical language-assigning homomorphism from $\mathcal{R}$ to $\mathcal{L}$.
+\begin{lemma}[{\cite[Theorem~3.1.4]{Silva:2010:Kleene}}]\label{c2:lem:adequacy}
+    For all $e \in \RExp$, $\sem{e} = L_{\mathcal{R}}(e)$
+\end{lemma}
+Instead of looking at infinite-state automaton defined on the state-space of all regular expressions, we can restrict ourselves to the subautomaton $\gen{e}{\mathcal{R}}$ of $\mathcal{R}$ while obtaining the semantics of $e$.
+\begin{lemma}\label{c2:lem:adequacy2}
+    For all $e \in \RExp$, $\sem{e} = L_{\gen{e}{\mathcal{R}}}(e)$
+\end{lemma}
+\begin{proof}
+    Let $i : \gen{e}{\mathcal{R}} \subto \RExp$ be the canonical inclusion homomorphism. Composing it with $L_{\mathcal{R}}$ a unique homomorphism from $\mathcal{R}$ into the final automaton $\mathcal{L}$ yields a homomorphism $L_{\mathcal{R}} \circ i$ from $\gen{e}{\mathcal{R}}$ to the final automaton, which by finality is the same as $L_{\gen{e}{\mathcal{R}}}$. Using \Cref{c2:lem:adequacy} we can show the following: 
+    \[
+        \sem{e} = L_{\mathcal{R}}(e)=  L_{\mathcal{R}}(i(e)) = L_{\gen{e}{\mathcal{R}}}(e)
+    \]
+\end{proof}
+Unfortunately, for an arbitrary regular expression $e \in \RExp$, the automaton $\gen{e}{\mathcal{R}}$ is not guaranteed to have a finite set of states. 
+However, simplifying the transition derivatives by removing duplicates in the expressions in the form $e_1 + \dots + e_n$, guarantees a finite number of reachable states from any expression. Formally speaking, let ${\acirel} \subseteq {\RExp \times \RExp}$ be the least congruence relation closed under
+\begin{enumerate}
+	\item $ {{(e + f) + g} {~\acirel~} {e + (f+g)}}$ (Associativity)
+	\item ${e + f} {~\acirel~} {f + e}$ (Commutativity)
+	\item ${e} {~\acirel~} {e + e}$ (Idempotence) 
+\end{enumerate}
+	 for all $e,f,g \in \RExp$. 
+We will write ${\aciq}$ for the quotient of $\RExp$ by the relation $\acirel$ and $[-]_{\acirel} : \RExp \to \aciq$ for the canonical map taking each expression $e \in \RExp$ into its equivalence class $[e]_{\acirel}$ modulo $\acirel$. It can be easily verified that $\acirel$ is a bisimulation and hence using \Cref{c2:lem:quotient_coalgebra}, one can equip $\aciq$ with a structure of deterministic automaton $\mathcal{Q} = (\aciq, \langle o_{\mathcal{Q}}, t_{\mathcal{Q}} \rangle)$, where for all $e \in \RExp, a \in A$, $o_{\mathcal{Q}}([e]_{\acirel})=o_{\mathcal{R}}(e)$ and $([e]_{\acirel})_a = [e_a]_{\acirel}$, which makes the quotient map $[-]_{\acirel} \colon \RExp 
+\to \aciq$ into an automaton homomorphism from the Brzozowski automaton $\mathcal{R}$ into $\mathcal{Q}$. This automaton enjoys the following property:
+\begin{lemma}[{\cite[Theorem~4.3]{Brzozowski:1964:Expressions}}]\label{lem:locally_finite}
+    For any $e \in \RExp$, the set $\gen{e}{\mathcal{Q}} \subseteq \aciq$ is finite.
+\end{lemma}
+Through the identical line of reasoning to \Cref{c2:lem:adequacy}, we can show that:
+\begin{lemma}
+	For all $e \in \RExp$, $L_{\gen{[e]_{\acirel}}{\mathcal{Q}}}([e]_{\acirel}) = \sem{e}$
+\end{lemma}
+\subsection{Pseudometric spaces}\label{c2:subsec:pseudometric_spaces}
+Let $\top \in \left] 0, \infty \right]$ be a fixed maximal element. A $\top$-bounded \emph{pseudometric} on a set $X$ (equivalently $\top$-\emph{pseudometric} or even just a \emph{pseudometric} if $\top$ is clear from the context) is a function $d \colon X \times X \to [0, \top]$ satisfying
+\begin{enumerate}
+	\item  $d(x,x)=0$ (Reflexivity)
+	\item  $d(x,y)=d(y,x)$ ({Symmetry})
+	\item  $d(x,z) \leq d(x, y) + d(y,z)$ (Triangle inequality)
+\end{enumerate}
+for all $x,y,z \in X$. If additionally $d(x,y)=0$ implies $x=y$, $d$ is called a $\top$-\emph{metric}. 
+
+\begin{definition}
+	A pseudometric space is a pair $(X, d)$, where $X$ is a set and $d$ is a pseudometric on $X$. We call a function $f \colon X \to Y$ between pseudometric spaces $(X,d_1)$ and $(Y,d_2)$ nonexpansive, if $d_2(f(x),f(y))\leq d_1(x,y)$ for all $x,y \in X$. It is called isometry if it satisfies $d_Y(f(x),f(y))=d_X(x,y)$. 	
+\end{definition}
+Pseudometrics and nonexpansive functions form a category $\PMet$. This category is bicomplte, i.e. has all limits and colimits~\cite[Theorem~3.8]{Baldan:2018:Coalgebraic}. The categorical product in $\PMet$ is defined via the following:
+\begin{definition}
+Let $(X,d_1)$ and $(Y, d_2)$ be pseudometrics. We define $(X, d_1) \times (Y, d_2) = (X \times Y, d_{X \times Y})$, where $d_{X \times Y}(\langle x,y \rangle,\langle x',y' \rangle ) = \max \{d_1(x,x'), d_2(y,y')\}$ for all $x,x' \in X$ and $y,y' \in Y$.
+\end{definition}
+This can be easily extended to any $n$-tuple. We define $0$-tuples to be given by $1_{\bullet} = (\{\bullet\}, d_{\bullet})$, the unique single point pseudometric space, where $d_{\bullet}(\bullet,\bullet)=0$. Given a function of multiple arguments, i.e. $X_1 \to X_2 \to Y$, we will call it nonexpansive, if it is nonexpansive as a function $f \colon (X_1, d_{1}) \times (X_2, d_{2}) \to (Y, d_Y)$. 	
+
+
+Given a set $X$, we write $D_X$ for the set of all pseudometrics on the set $X$. This set carries a partial order structure, given by
+$$d_1 \sqsubseteq d_2 \iff \forall x,y \in X \ldotp d_1(x,y) \leq d_2(x,y)$$  
+\begin{lemma}[{\cite[Lemma~3.2]{Baldan:2018:Coalgebraic}}]\label{c2:lem:pseudometrics_complete_lattice}
+    $(D_X, \sqsubseteq )$ is a complete lattice. The join of an arbitrary set of pseudometrics $D \subseteq D_X$ is taken pointwise, ie. $\left(\sup D \right)(x,y) = \sup \{ d(x,y) \mid d \in D\}$ for $x, y \in X$. The meet of $D$ is defined to be $\inf D = \sup \{ d \mid d \in D_X , \forall {d' \in D}, d \sqsubseteq d'\}$.
+\end{lemma}
+The top element of that lattice is given by the discrete pseudometric $\top \colon X \times X \to [0,1]$ such that $\top(x,y) = 0$ if $x=y$, or $\top(x,y)=1$ otherwise.
+
+Crucially for our completeness proof, if we are dealing with descending chains, that is sequences $\{d_i\}_{i \in \N}$, such that $d_i \sqsupseteq d_{i+1}$ for all $i \in \N$, then we can also calculate infima in the pointwise way.
+\begin{lemma}\label{c2:lem:chain_pointwise_inf}
+    Let $\{d_i\}_{i \in \N}$ be an infinite descending chain in the lattice $(D_X, \sqsubseteq)$ of pseudometrics over some fixed set $X$. Then $(\inf\{d_i \mid i \in \N\})(x,y) = \inf \{d_i(x,y) \mid i \in \N \}$ for any $x,y \in X$.
+\end{lemma}
+\begin{proof}
+    It suffices to argue that $d(x,y) = \inf \{d_i(x,y) \mid i \in \N \}$ is a pseudometric. For reflexivity, observe that $d(x,x) = \inf \{d_i(x,x) \mid i \in \N \} = \inf \{ 0 \} = 0 $ for all $x \in X$. 
+    
+    For symmetry, we have that $d(x,y) = \inf \{d_i(x,y) \mid i \in \N \} =  \inf \{d_i(y,x) \mid i \in \N \}=d(y,x)$ for any $x, y \in X$. 
+    
+    The only difficult case is triangle inequality. First, let $i, j \in \N$ and define $k = \max(i,j)$. Since $d_k \sqsubseteq d_i$ and $d_k \sqsubseteq d_j$, we have that $d_k(x,y) + d_k(y,z) \leq d_i(x,y) + d_j(y,z)$.
+    Therefore $\inf \{d_l(x,y) + d_l(y,z) \mid l \in \N\}$ is a lower bound of $d_i(x,y) + d_j(y,z)$ for any $i, j \in \N$ and hence it is below the greatest lower bound, that is $\inf \{d_l(x,y) + d_l(y,z) \mid l \in \N\} \leq \inf \{d_i(x,y) + d_j(y,z) \mid i,j \in \N\}$. We can use that property to show that
+    \begin{align*}
+    	d(x,y) &= \inf \{d_i(z,y) \mid i \in \N\} \\
+    	&\leq \inf \{d_i(x,y) + d_i(y,z) \mid i \in \N\}\\
+    	&\leq \inf \{d_i(x,y) + d_j(y,z) \mid i,j \in \N\}\\
+    	&= \inf \{d_i(x,y) \mid i \in \N\} + \inf \{d_j(y,z) \mid j \in \N\}\\
+    	&= d(x,y) + d(y,z)
+    \end{align*}
+	which completes the proof.
+\end{proof}
+Additionally, the set of pseudometrics can be equipped with a norm. We write $\eR = [-\infty, \infty]$ for the set of extended reals. For any set $X$, the set of functions $\eR^{X \times X }$, which is a superset of $D_X$, can be seen as a Banach space~\cite{Rudin:1990:Functional} (complete normed vector space) by means of the sup-norm $\|d\| = \sup_{x,y \in X} |d(x,y)|$. This structure will implicitly underly some of the claims used as intermediate steps in the proof of completeness in this and next chapter.
+\section{Behavioural distance}\label{c2:sec:behavioural_distance}
+We now move on to defining behavioural distance for deterministic automata through the abstract framework of coalgebraic behavioural distances~\cite{Baldan:2018:Coalgebraic}. We first recall the main definitions and then concretise the abstract results to the case of our interest.
+\subsection{Coalgebraic behavioural distances}\label{c2:subsec:coalgebraic_behavioural_distances}
+In order to define a behavioural distance for $\funF$-coalgebras for a functor $\funF \colon \Set \to \Set$, we need to be able to \emph{lift} the functor $\funF$ describing the one-step dynamics of transition systems of interest to the category $\PMet$ of pseudometric spaces and nonexpansive functions. In terms of notation, we will write $\forget \colon \PMet \to \Set$ for the canonical faithful functor taking each pseudometric space $(X, d_X)$ to its underlying set $X$.
+\begin{definition}\label{c2:def:lifting}
+	Let $\funF \colon \Set \to \Set$ be a functor. We call a functor $\overline{\funF} \colon \PMet \to \PMet$ a lifting of $\funF$ if makes the following diagram commute:
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFBNZXQiXSxbMSwwLCJcXFBNZXQiXSxbMCwxLCJcXFNldCJdLFsxLDEsIlxcU2V0Il0sWzAsMSwiXFxvdmVybGluZXtcXGZ1bkZ9Il0sWzIsMywiXFxmdW5GIl0sWzEsMywiXFxmb3JnZXQiXSxbMCwyLCJcXGZvcmdldCIsMl1d
+\[\begin{tikzcd}
+	\PMet & \PMet \\
+	\Set & \Set
+	\arrow["{\overline{\funF}}", from=1-1, to=1-2]
+	\arrow["\forget"', from=1-1, to=2-1]
+	\arrow["\forget", from=1-2, to=2-2]
+	\arrow["\funF", from=2-1, to=2-2]
+\end{tikzcd}\]
+Given a pseudometric space $(X, d)$, we will write $d^{\funF}$ for the pseudometric $d^{\funF} \colon \funF X \times \funF X \to [0, \top]$ obtained by applying $\overline{\funF}$ to $(X,d)$.
+\end{definition}
+We can use liftings to equip coalgebras with a notion of behavioural distance, through the following construction:
+\begin{lemma}[{\cite[Lemma~6.1]{Baldan:2018:Coalgebraic}}]\label{c2:lem:behavioural_distances}
+	Let $\overline{\funF} \colon \PMet \to \PMet$ be a lifting of a functor $\funF \colon \Set \to \Set$ and let $(X, \alpha)$ be a $\funF$-coalgebra. The mapping associating each pseudometric $d \colon X \times X \to [0,\top]$ with $d^{\funF} \circ (\alpha \times \alpha)$ is a monotone mapping on the complete lattice $(D_X, \sqsubseteq)$ of pseudometrics over set $X$. By Knaster-Tarski fixpoint theorem, this mapping has a least fixpoint, that we will refer to as $d_\alpha \colon X \times X \to [0, \top]$. Given a coalgebra $(Y, \beta)$ and a homomorphism $f \colon (X, \alpha) \to (Y, \beta)$, we have that $f \colon (X, d_\alpha) \to (Y, d_\beta)$ is nonexpansive. If $\overline{\funF}$ preserves isometries, then $f$ is an isometry.
+\end{lemma}
+If $\funF \colon \Set \to \Set$ admits a final coalgebra $(\nu \funF, t)$, then we can define behavioural distance on a  coalgebra $(X, \alpha)$ to be the pseudometric space $\bd_\alpha \colon X\times X \to [0, \top]$ given by $\bd_\alpha(x,y) = d_{t}(\beh{\alpha}(x), \beh{\alpha}(y))$ for all $x, y \in X$. Behavioural distances satisfy several desirable properties:
+\begin{lemma}\label{c2:lem:behavioural_distances_properties}
+	Let $\overline{\funF} \colon \PMet \to \PMet$ be a lifting of a functor $\funF \colon \Set \to \Set$ that admits a final coalgebra $(\nu \funF, t)$. Given a coalgebra $(X, \alpha)$ and $x,y \in X$, the following facts hold:
+	\begin{enumerate}
+		\item $x \beheq y \implies \bd_\alpha(x,y)=0$
+		\item If $\overline\funF$ preserves metrics and $\funF$ is finitary, then $\bd_\alpha(x,y)=0 \implies x \beheq y$
+		\item If $\overline{\funF}$ preserves isometries, then $d_\alpha(x,y) = \bd(x,y)$
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	\circlednum{1} follows from \cite[Lemma~6.6]{Baldan:2018:Coalgebraic}. For \circlednum{2}, we have that if $\funF$ is finitary, then $(\nu \funF,t)$ can be obtained via the Adamek fixpoint theorem~\cite{Adamek:1995:Greatest} and hence one can apply \cite[Theorem~6.10]{Baldan:2018:Coalgebraic}. Finally, \circlednum{3} follows from \cite[Theorem~6.7]{Baldan:2018:Coalgebraic}.
+\end{proof}
+\subsection{Shortest-distinguishing-word distance of deterministic automata}	
+As mentioned in \Cref{c2:rem:automata_as_coalgebras} deterministic automata are precisely coalgebras for the functor $\{0,1\} \times (-)^\alphabet$. Let $d \colon M \times M \to [0,1]$ be a $1$-pseudometric and let $\lambda \in \left] 0,1\right[$ be a fixed \emph{discount factor}. We can equip the set $\{0,1\} \times M^\alphabet$ with a distance function given by
+\[
+	d^{\{0,1\} \times (-)^\alphabet}(\langle o_1, f_1 \rangle, \langle o_2, f_2 \rangle) = \max\{d_{\{0,1\}}(o_1, o_2), \lambda \cdot \max_{a \in \alphabet} d(f_1(a), f_2(a))\} 
+\]   
+for all $\langle o_1, f_1 \rangle, \langle o_2, f_2 \rangle \in \{0,1\} \times M^A$. The definition above involves $d_{\{0,1\}}$, the discrete metric on the set $\{0,1\}$. 
+\begin{lemma}
+	$d^{\{0,1\} \times (-)^\alphabet}$ defined above is a lifting of the functor $\{0,1\} \times (-)^\alphabet \colon \Set \to \Set$ that preserves metrics and isometries.
+\end{lemma}
+
+%It turns out, that the map $\Phi_{\mathcal{M}}$ is a monotone mapping on the lattice of $1$-psuedometrics on the set $M$~\cite[Lemma~6.1]{Baldan:2018:Coalgebraic}. Because of that, one can use the Knaster-Tarski fixpoint theorem~\cite{Tarski:1955:Lattice} and construct its least fixed point, explicitly given by $d_{\mathcal{M}} = \inf \{d \mid d \in D_M \wedge \Phi_{\mathcal {M}}(d) \sqsubseteq d \}$. Pseudometrics, which are fixpoints of $\Phi_{\mathcal{M}}$ intuitively interact well with the automaton structure, as they satisfy the property that the distance between two states is the same as the distance between their observable behaviour calculated using the lifting. Taking the least such pseudometric satisfies several desirable properties~\cite{Baldan:2018:Coalgebraic} and thus we will call $d_{\mathcal{M}}$ a behavioural pseudometric on the automaton $\mathcal{M}$. First of all, preserving automaton transitions also preserves behavioural distances.
 
