@@ -480,8 +480,8 @@ Let $e,f,g \in \RExp$, such that $\emptyword \notin \sem{e}$ and let $n \in \N$.
 		
 		Then, because of $(\Refl)$, we have that $\vdash f \equiv_0 f$. We can combine those two quantitative inferences using \textsf{(SL5)} axiom in order to get $\vdash e \seq g + f \equiv_{\e} e \seq e^\ast \seq f  + f $. By assumption, the left hand side satisfies that $\vdash g \equiv_0 e \seq g + f$. Now, consider the right hand side of that quantitative inference:
 	\begin{align*}
-		\vdash e \seq e^{\ast} \seq f + f &\equiv_0 e \seq e^\ast \seq f + 1 \seq f \tag{\textsf{1S}} \\
-		&\equiv_0 (e \seq e^* + 1) \seq f \tag{\textsf{D2}} \\
+		\vdash e \seq e^{\ast} \seq f + f &\equiv_0 e \seq e^\ast \seq f + \one \seq f \tag{\textsf{1S}} \\
+		&\equiv_0 (e \seq e^* + \one) \seq f \tag{\textsf{D2}} \\
 		&\equiv_0 e^{*} \seq f \tag{\textsf{Unroll}}
 	\end{align*}
 	We can combine the reasoning above and conclude (using $(\Triang)$) that $\vdash g \equiv_{\e} e^\ast \seq f$.
@@ -505,7 +505,7 @@ Consider a deterministic automaton $\mathcal{M} = (M, \langle o_M, t_M\rangle)$.
 It is noteworthy that $\Phi_{\langle o_M, t_M\rangle}$ exhibits two generic properties. Firstly, $\Phi_{\langle o_M, t_M\rangle}$ behaves well within the Banach space structure defined by the supremum norm.
 \begin{lemma}\label{c2:lem:operator_nonexpansive}
 	For any deterministic automaton $\mathcal{M} = (M, \langle o_M, t_M\rangle)$,  $\Phi_{\langle o_M, t_M\rangle} \colon D_M \to D_M$ is contractive with respect to the supremum norm. In other words, for all $d, d' \in D_M$ we have that
-    $\|\Phi_{\langle o_M, t_M\rangle}(d') - \Phi_{\langle o_M, t_M\rangle}(d) \| \leq \lambda \cdot\|d' - d \|$.
+    $$\|\Phi_{\langle o_M, t_M\rangle}(d') - \Phi_{\langle o_M, t_M\rangle}(d) \| \leq \lambda \cdot\|d' - d \|$$
 \end{lemma}
 \begin{proof}
     We can safely assume that $d \sqsubseteq d'$, as other case will be symmetric. It sufices to show that for all $m, m' \in M$, $\Phi_{\langle o_M, t_M\rangle}(d')(m,m') - \Phi_{\langle o_M, t_M\rangle}(d)(m,m') \leq \|d' - d \|$. First, let's consider the case when $o_M(m) \neq o_M(m')$ and hence $d_{\{0,1\}}(m,m')=1$. In such a scenario, it holds that $$\Phi_{\langle o_M, t_M\rangle}(d')(m,m') - \Phi_{\langle o_M, t_M\rangle}(d)(m,m') = 0 \leq \lambda \cdot \|d'-d \|$$ 
@@ -542,7 +542,7 @@ The theorem above requires the endomap to be $\omega$-cocontinuous. Luckily, it 
 We can now use the above to show the desired property, by re-adapting \cite[Theorem~1]{Breugel:2012:On}. 
 \begin{lemma}\label{c2:lem:cocontinuous} If $\mathcal{M} = (M, \langle o_M, t_M\rangle) $ is a deterministic finite automaton, then $\Phi_{\langle o_M, t_M\rangle}$ is $\omega$-cocontinuous.\end{lemma} 
 \begin{proof}
- By \cref{c2:lem:chain_conv_to_inf}, the chain $\{d_i\}_{i \in \N}$ converges to $\inf_{i \in \N} d_i$. Since $\Phi_{\langle o_M, t_M\rangle}$ is contractive (\Cref{c2:lem:operator_nonexpansive}) it is also continuous (in the sense of the Banach space continuity) and therefore $\{\Phi_{\langle o_M, t_M\rangle}(d_i)\}_{i \in \N}$ converges to $\Phi_{\langle o_M, t_M\rangle} \left(\inf_{i \in \N} d_i\right)$. Recall that $\Phi_{\langle o_M, t_M\rangle}$ is monotone, which makes $\{\Phi_{\langle o_M, t_M\rangle}(d_i)\}_{i \in \N}$ into a chain, which by \Cref{c2:lem:chain_pointwise_inf} and \Cref{c2:lem:chain_conv_to_inf} converges to $\inf_{i \in \N} \{\Phi_{\langle o_M, t_M\rangle} (d_i)\}$. Since limit points are unique, $\inf_{i \in \N} \{\Phi_{\langle o_M, t_M\rangle} (d_i)\} = \Phi_{\langle o_M, t_M\rangle} \left(\inf_{i \in \N} d_i\right)$.
+ By \Cref{c2:lem:chain_conv_to_inf}, the chain $\{d_i\}_{i \in \N}$ converges to $\inf_{i \in \N} d_i$. Since $\Phi_{\langle o_M, t_M\rangle}$ is contractive (\Cref{c2:lem:operator_nonexpansive}) it is also continuous (in the sense of the Banach space continuity) and therefore $\{\Phi_{\langle o_M, t_M\rangle}(d_i)\}_{i \in \N}$ converges to $\Phi_{\langle o_M, t_M\rangle} \left(\inf_{i \in \N} d_i\right)$. Recall that $\Phi_{\langle o_M, t_M\rangle}$ is monotone, which makes $\{\Phi_{\langle o_M, t_M\rangle}(d_i)\}_{i \in \N}$ into a chain, which by \Cref{c2:lem:chain_pointwise_inf} and \Cref{c2:lem:chain_conv_to_inf} converges to $\inf_{i \in \N} \{\Phi_{\langle o_M, t_M\rangle} (d_i)\}$. Since limit points are unique, $\inf_{i \in \N} \{\Phi_{\langle o_M, t_M\rangle} (d_i)\} = \Phi_{\langle o_M, t_M\rangle} \left(\inf_{i \in \N} d_i\right)$.
 \end{proof}
 We can combine the preceding results and provide a straightforward characterisation of the distance between languages represented by arbitrary regular expressions, denoted as $e, f \in \RExp$. Utilising a simple argument based on \Cref{c2:lem:behavioural_distances_properties}, which asserts that automata homomorphisms are isometries, one can demonstrate that the distance between $\sem{e}$ and $\sem{f}$ in the final automaton is equivalent to the distance between $[e]_{\acirel}$ and $[f]_{\acirel}$ in $\gen{[e]_{\acirel},[f]_{\acirel}}{\mathcal{Q}}$. This is, the least subautomaton of $\mathcal{Q}$ that contains the derivatives (modulo $\acirel$) reachable from $[e]_{\acirel}$ and $[f]_{\acirel}$. Importantly, this automaton is finite (\Cref{lem:locally_finite}), allowing us to apply the Kleene fixpoint theorem to calculate the distance.
 
