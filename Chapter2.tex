@@ -27,24 +27,7 @@ Given $\funF$-coalgebras $(X, \alpha)$ and $(Y, \beta)$, and elements $x \in \fo
 \end{definition}
 
 
-For the remainder of this subsection, we will focus on properties of coalgebras for endofunctors over $\Set$ by setting $\funF \colon \Set \to \Set$. 
-
-\begin{definition}\label{c2:def:subcoalgebra}
-A coalgebra $(X, \alpha)$ is called a subcoalgebra of $(Y, \beta)$, if $X \subseteq Y$ and the canonical inclusion map $i \colon X \subto Y$ is a coalgebra homomorphism.	
-\end{definition}
-Under a mild restriction on $\funF$, subcoalgebras carry a lattice structure.
-\begin{lemma}[{\cite[Theorem~6.4.]{Rutten:2000:Universal}}]\label{c2:lem:subcoalgebras_lattice}
-If $\funF$ preserves weak pullbacks, then the collection of all subcoalgebras of a system $(Y, \beta)$ is a complete lattice. Least upper bounds and greatest lower bounds are respectively given by union and intersection of sets. 
-\end{lemma}
-Given a set $X \subseteq Y$, we will write $\gen{X}{(Y, \beta)}$ for the least subcoalgebra of $(Y, \beta)$ containing $X$.	
-In the case when $X$ is a singleton or a two-element set, we will lighten up the notation and respectively write $\gen{x}{(Y, \beta)}$ and $\gen{x,y}{(Y, \beta)}$ instead. Least subcoalgebras allow to characterise an important subcategory of coalgebras.
-\begin{definition}\label{c2:def:locally_finite}
-We call a coalgebra $(X, \alpha)$ locally finite if for all $x \in X$, we have that $\langle x \rangle_{(X, \alpha)}$ is finite.		
-\end{definition}
-We will write $\coalf{\funF}$ for the full subcategory of $\coa{\funF}$ consisting only of locally finite coalgebras.
-
-
-
+For the remainder of this subsection, we will focus on properties of coalgebras for endofunctors over $\Set$ by setting $\funF \colon \Set \to \Set$. For such coalgebras, one can phrase the notion of \emph{coalgebraic bisimulation}.
 \begin{definition}\label{c2:def:bisimulation}
 Let $(X, \alpha)$ and $(Y, \beta)$ be two coalgebras for the functor $\funF \colon \Set \to \Set$. We call a relation ${R} \subseteq {X \times Y}$ a bisimulation if there exists a transition function $R \to \funF R$ making the following diagram commute:
 % https://q.uiver.app/#q=WzAsNixbMCwwLCJYIl0sWzIsMCwiUiJdLFs0LDAsIlkiXSxbMiwxLCJcXGZ1bkYgUiJdLFswLDEsIlxcZnVuRiBYIl0sWzQsMSwiXFxmdW5GIFkiXSxbMCw0LCJcXGFscGhhIl0sWzEsM10sWzIsNSwiXFxiZXRhIl0sWzEsMiwiXFxwaV8yIl0sWzMsNSwiXFxmdW5GIFxccGlfMiIsMl0sWzEsMCwiXFxwaV8xIiwyXSxbMyw0LCJcXGZ1bkYgXFxwaV8xIl1d
@@ -61,11 +44,18 @@ Let $(X, \alpha)$ and $(Y, \beta)$ be two coalgebras for the functor $\funF \col
 \end{tikzcd}\]	
 \end{definition}
 
-In the above, $\pi_1 \colon R \to X$ and $\pi_2 \colon R \to Y$ are the canonical projection maps given by the product structure on $X\times Y$. Given $\langle x,y \rangle \in X \times Y$, we write $x \sim y$ if there exists a bisimulation $R$ between $(X, \alpha)$ and $(Y, \gamma)$, such that $\langle x,y \rangle \in R$.
+In the above, $\pi_1 \colon R \to X$ and $\pi_2 \colon R \to Y$ are the canonical projection maps given by the product structure on $X\times Y$. Given $\langle x,y \rangle \in X \times Y$, we write $x \sim y$ if there exists a bisimulation $R$ between $(X, \alpha)$ and $(Y, \gamma)$, such that $\langle x,y \rangle \in R$. Moreover, constructing bisimulations is a sound technique for proving behavioural equivalence. It is also complete upon imposing a mild restriction on $\funF$.
+\begin{lemma}[{\cite[Theorem~9.3]{Rutten:2000:Universal}}]\label{c2:lem:behavioural_equivalence}
+We have that
+$
+x \sim y \implies x \beheq y
+$. The converse is true if $\funF$ preserves weak pullbacks.	
+\end{lemma}
+Bisimulations and homomorphisms are related via the following lemma:
 \begin{lemma}[{\cite[Theorem~2.5]{Rutten:2000:Universal}}]\label{c2:lem:functional_bisimulation}
 	Let $(X, \alpha)$ and $(Y, \beta)$ be two coalgebras. A function $f \colon X \to Y$ is a homomorphism if and only if $G(f) = \{\langle x, f(x) \rangle \mid x \in X\} \subseteq X \times Y$ is a bisimulation.
 \end{lemma}
-We call a bisimulation that is an equivalence relation a bisimulation equivalence. 
+We call a bisimulation that is an equivalence relation a bisimulation equivalence. Forming a quotient using bisimulation equivalences can be used to construct quotient coalgebras.
 \begin{lemma}[{\cite[Proposition~5.8]{Rutten:2000:Universal}}]\label{c2:lem:quotient_coalgebra}
 	Let $R \subseteq {X \times X}$ be a bisimulation equivalence on a coalgebra $(X, \alpha)$. Let $[-]_{R} \colon X \to {X}/{R}$, be the canonical quotient map of $R$. Then, there is a unique transition structure $\overline{\alpha} \colon {X}/{R} \to \funF {X}/{R}$ on ${X}/{R}$, that makes $[-]_R$ into a coalgebra homomorphism, thus making the following diagram commute:
 	 % https://q.uiver.app/#q=WzAsNCxbMCwwLCJYIl0sWzIsMCwie1h9L3tSfSJdLFsyLDEsIlxcZnVuRiB7WH0ve1J9Il0sWzAsMSwiXFxmdW5GIFgiXSxbMCwzLCJcXGFscGhhIl0sWzEsMiwiXFxvdmVybGluZVxcYWxwaGEiXSxbMCwxLCJbLV1fUiJdLFszLDIsIlxcZnVuRiBbLV1fUiIsMl1d
@@ -78,14 +68,20 @@ We call a bisimulation that is an equivalence relation a bisimulation equivalenc
 	\arrow["{\funF [-]_R}"', from=2-1, to=2-3]
 \end{tikzcd}\]
 \end{lemma}
-
-
-\begin{lemma}[{\cite[Theorem~9.3]{Rutten:2000:Universal}}]\label{c2:lem:behavioural_equivalence}
-We have that
-$
-x \sim y \implies x \beheq y
-$. The converse is true if $\funF$ preserves weak pullbacks.	
+Moreover, one can phrase the dual notion of subalgebras.
+\begin{definition}\label{c2:def:subcoalgebra}
+A coalgebra $(X, \alpha)$ is called a subcoalgebra of $(Y, \beta)$, if $X \subseteq Y$ and the canonical inclusion map $i \colon X \subto Y$ is a coalgebra homomorphism.	
+\end{definition}
+Upon imposing a mild restriction on $\funF$, subcoalgebras carry a lattice structure.
+\begin{lemma}[{\cite[Theorem~6.4.]{Rutten:2000:Universal}}]\label{c2:lem:subcoalgebras_lattice}
+If $\funF$ preserves weak pullbacks, then the collection of all subcoalgebras of a system $(Y, \beta)$ is a complete lattice. Least upper bounds and greatest lower bounds are respectively given by union and intersection of sets. 
 \end{lemma}
+Given a set $X \subseteq Y$, we will write $\gen{X}{(Y, \beta)}$ for the least subcoalgebra of $(Y, \beta)$ containing $X$.	
+In the case when $X$ is a singleton or a two-element set, we will lighten up the notation and respectively write $\gen{x}{(Y, \beta)}$ and $\gen{x,y}{(Y, \beta)}$ instead. Least subcoalgebras allow to characterise an important subcategory of coalgebras.
+\begin{definition}\label{c2:def:locally_finite}
+We call a coalgebra $(X, \alpha)$ locally finite if for all $x \in X$, we have that $\langle x \rangle_{(X, \alpha)}$ is finite.		
+\end{definition}
+We will write $\coalf{\funF}$ for the full subcategory of $\coa{\funF}$ consisting only of locally finite coalgebras.
 \subsection{Deterministic automata}\label{c2:subsec:deterministic_automata}
 A deterministic automaton $\mathcal{M}$ with inputs in a finite alphabet $\alphabet$ is a pair $(M, \langle o_M , t_M \rangle)$ consisting of a set of states $M$ and a pair of functions $\langle o_M, t_M \rangle$, where $o_M : M \to \{0,1\}$ is the \emph{output} function which determines whether a state $m$ is final ($o_M(m)=1$) or not ($o_M(m)=0$), and $t :M \to M^\alphabet$ is the \emph{transition} function, which, given an input letter $a$ determines the next state. If the set $M$ of states is finite, then we call an automaton $\mathcal{M}$ a deterministic finite automaton (DFA). We will frequently write $m_a$ to denote $t_M(m)(a)$ and refer to $m_a$ as the derivative of $m$ for the input $a$. Definition of derivatives can be inductively extended to words $w \in \alphabet^{\ast}$. We will write $\emptyword$ to denote an empty word. We set $m_{\emptyword} = m$ and $m_{aw'} = (m_a)_{w'}$ for $a \in \alphabet, w' \in \alphabet^\ast$.
 \begin{remark}\label{c2:rem:automata_as_coalgebras}
@@ -96,7 +92,7 @@ Note that our definition of deterministic automaton slightly differs from the mo
 Given a state $m \in M$, we write $L_{\mathcal{M}} (m) \subseteq {\alphabet^{\ast}}$ for its language, which is formally defined by $L_{\mathcal{M}}(m) = \{w \in \alphabet^\ast \mid o(m_w) = 1\}$. 
 Given two deterministic automata $(M, \langle o_M, t_M \rangle)$ and $(N, \langle o_N, t_N \rangle)$, a function $h : M \to N$ is a homomorphism if it preserves outputs and input derivatives, that is $o_N(h(m))=o_M(m)$ and $h(m)_a = h(m_a)$. The set of all languages $\pset(\alphabet^{\ast})$ over an alphabet $\alphabet$ can be made into a deterministic automaton $(\pset(\alphabet^\ast), \langle o_L, t_L\rangle)$, where for $l \in \pset (\Sigma^{\ast})$ the output function is given by $o_L(l)=[\emptyword \in l]$ and for all $a \in \alphabet$ the input derivative is defined to be $l_a = \{w \mid aw \in l\}$. This automaton is \emph{final}, that is for any other automaton $\mathcal{M} = (M, \langle o_M, t_M \rangle)$ there exists a unique homomorphism from $M$ to $\pset(\alphabet^{\ast})$, which is given by the map $L_{\mathcal{M}} : M \to \pset(\alphabet^\ast)$ taking each state $m \in M$ to its language.
 \begin{remark}
-	Deterministic automata are precisely coalgebras for the functor $\{0,1\} \times (-)^\alphabet \colon \Set \to \Set$. The coalgebraic definition of homomorphism coincides with the definition of an automaton homomorphism stated above. The final coalgebra for that functor corresponds to the final automaton defined on the set $\pset(\alphabet^\ast)$.
+	Deterministic automata are precisely coalgebras for the functor $\funDFA \colon \Set \to \Set$ given by $\funDFA = \{0,1\} \times (-)^\alphabet \colon \Set \to \Set$. The coalgebraic definition of homomorphism coincides with the definition of an automaton homomorphism stated above. The final coalgebra for that functor corresponds to the final automaton defined on the set $\pset(\alphabet^\ast)$.
 \end{remark}
 \subsection{Regular expressions}\label{c2:subsec:regular_expressions}
 We let $e, f$ range over \emph{regular expressions over $\alphabet$} generated by the following grammar:
@@ -151,18 +147,17 @@ Through the identical line of reasoning to \Cref{c2:lem:adequacy}, we can show t
 	For all $e \in \RExp$, $L_{\gen{[e]_{\acirel}}{\mathcal{Q}}}([e]_{\acirel}) = \sem{e}$
 \end{lemma}
 \subsection{Pseudometric spaces}\label{c2:subsec:pseudometric_spaces}
-Let $\top \in \left] 0, \infty \right]$ be a fixed maximal element. A $\top$-bounded \emph{pseudometric} on a set $X$ (equivalently $\top$-\emph{pseudometric} or even just a \emph{pseudometric} if $\top$ is clear from the context) is a function $d \colon X \times X \to [0, \top]$ satisfying
+A $1$-bounded \emph{pseudometric} on a set $X$ (or equivalently just a \emph{pseudometric}) is a function $d \colon X \times X \to \interval{0}{1}$ satisfying
 \begin{enumerate}
 	\item  $d(x,x)=0$ (Reflexivity)
 	\item  $d(x,y)=d(y,x)$ ({Symmetry})
 	\item  $d(x,z) \leq d(x, y) + d(y,z)$ (Triangle inequality)
 \end{enumerate}
-for all $x,y,z \in X$. If additionally $d(x,y)=0$ implies $x=y$, $d$ is called a $\top$-\emph{metric}. 
-
+for all $x,y,z \in X$. If additionally $d(x,y)=0$ implies $x=y$, $d$ is called a ($1$-bounded) \emph{metric}. 
 \begin{definition}
 	A pseudometric space is a pair $(X, d)$, where $X$ is a set and $d$ is a pseudometric on $X$. We call a function $f \colon X \to Y$ between pseudometric spaces $(X,d_1)$ and $(Y,d_2)$ nonexpansive, if $d_2(f(x),f(y))\leq d_1(x,y)$ for all $x,y \in X$. It is called isometry if it satisfies $d_Y(f(x),f(y))=d_X(x,y)$. 	
 \end{definition}
-Pseudometrics and nonexpansive functions form a category $\PMet$. This category is bicomplte, i.e. has all limits and colimits~\cite[Theorem~3.8]{Baldan:2018:Coalgebraic}. The categorical product in $\PMet$ is defined via the following:
+Pseudometrics and nonexpansive functions form a category $\PMet$. This category is bicomplete, i.e. has all limits and colimits~\cite[Theorem~3.8]{Baldan:2018:Coalgebraic}. The categorical product in $\PMet$ is defined via the following:
 \begin{definition}
 Let $(X,d_1)$ and $(Y, d_2)$ be pseudometrics. We define $(X, d_1) \times (Y, d_2) = (X \times Y, d_{X \times Y})$, where $d_{X \times Y}(\langle x,y \rangle,\langle x',y' \rangle ) = \max \{d_1(x,x'), d_2(y,y')\}$ for all $x,x' \in X$ and $y,y' \in Y$.
 \end{definition}
@@ -212,13 +207,13 @@ In order to define a behavioural distance for $\funF$-coalgebras for a functor $
 	\arrow["\forget", from=1-2, to=2-2]
 	\arrow["\funF", from=2-1, to=2-2]
 \end{tikzcd}\]
-Given a pseudometric space $(X, d)$, we will write $d^{\funF}$ for the pseudometric $d^{\funF} \colon \funF X \times \funF X \to [0, \top]$ obtained by applying $\overline{\funF}$ to $(X,d)$.
+Given a pseudometric space $(X, d)$, we will write $d^{\funF}$ for the pseudometric $d^{\funF} \colon \funF X \times \funF X \to \interval{0}{1}$ obtained by applying $\overline{\funF}$ to $(X,d)$.
 \end{definition}
 We can use liftings to equip coalgebras with a notion of behavioural distance, through the following construction:
 \begin{lemma}[{\cite[Lemma~6.1]{Baldan:2018:Coalgebraic}}]\label{c2:lem:behavioural_distances}
-	Let $\overline{\funF} \colon \PMet \to \PMet$ be a lifting of a functor $\funF \colon \Set \to \Set$ and let $(X, \alpha)$ be a $\funF$-coalgebra. The mapping associating each pseudometric $d \colon X \times X \to [0,\top]$ with $d^{\funF} \circ (\alpha \times \alpha)$ is a monotone mapping on the complete lattice $(D_X, \sqsubseteq)$ of pseudometrics over set $X$. By Knaster-Tarski fixpoint theorem, this mapping has a least fixpoint, that we will refer to as $d_\alpha \colon X \times X \to [0, \top]$. Given a coalgebra $(Y, \beta)$ and a homomorphism $f \colon (X, \alpha) \to (Y, \beta)$, we have that $f \colon (X, d_\alpha) \to (Y, d_\beta)$ is nonexpansive. If $\overline{\funF}$ preserves isometries, then $f$ is an isometry.
+	Let $\overline{\funF} \colon \PMet \to \PMet$ be a lifting of a functor $\funF \colon \Set \to \Set$ and let $(X, \alpha)$ be a $\funF$-coalgebra. The mapping associating each pseudometric $d \colon X \times X \to [0,\top]$ with $d^{\funF} \circ (\alpha \times \alpha)$ is a monotone mapping on the complete lattice $(D_X, \sqsubseteq)$ of pseudometrics over set $X$. By Knaster-Tarski fixpoint theorem, this mapping has a least fixpoint, that we will refer to as $d_\alpha \colon X \times X \to \interval{0}{1}$. Given a coalgebra $(Y, \beta)$ and a homomorphism $f \colon (X, \alpha) \to (Y, \beta)$, we have that $f \colon (X, d_\alpha) \to (Y, d_\beta)$ is nonexpansive. If $\overline{\funF}$ preserves isometries, then $f$ is an isometry.
 \end{lemma}
-If $\funF \colon \Set \to \Set$ admits a final coalgebra $(\nu \funF, t)$, then we can define behavioural distance on a  coalgebra $(X, \alpha)$ to be the pseudometric space $\bd_\alpha \colon X\times X \to [0, \top]$ given by $\bd_\alpha(x,y) = d_{t}(\beh{\alpha}(x), \beh{\alpha}(y))$ for all $x, y \in X$. Behavioural distances satisfy several desirable properties:
+If $\funF \colon \Set \to \Set$ admits a final coalgebra $(\nu \funF, t)$, then we can define behavioural distance on a  coalgebra $(X, \alpha)$ to be the pseudometric space $\bd_\alpha \colon X\times X \to \interval{0}{1}$ given by $\bd_\alpha(x,y) = d_{t}(\beh{\alpha}(x), \beh{\alpha}(y))$ for all $x, y \in X$. Behavioural distances satisfy several desirable properties:
 \begin{lemma}\label{c2:lem:behavioural_distances_properties}
 	Let $\overline{\funF} \colon \PMet \to \PMet$ be a lifting of a functor $\funF \colon \Set \to \Set$ that admits a final coalgebra $(\nu \funF, t)$. Given a coalgebra $(X, \alpha)$ and $x,y \in X$, the following facts hold:
 	\begin{enumerate}
@@ -230,15 +225,78 @@ If $\funF \colon \Set \to \Set$ admits a final coalgebra $(\nu \funF, t)$, then 
 \begin{proof}
 	\circlednum{1} follows from \cite[Lemma~6.6]{Baldan:2018:Coalgebraic}. For \circlednum{2}, we have that if $\funF$ is finitary, then $(\nu \funF,t)$ can be obtained via the Adamek fixpoint theorem~\cite{Adamek:1995:Greatest} and hence one can apply \cite[Theorem~6.10]{Baldan:2018:Coalgebraic}. Finally, \circlednum{3} follows from \cite[Theorem~6.7]{Baldan:2018:Coalgebraic}.
 \end{proof}
-\subsection{Shortest-distinguishing-word distance of deterministic automata}	
-As mentioned in \Cref{c2:rem:automata_as_coalgebras} deterministic automata are precisely coalgebras for the functor $\{0,1\} \times (-)^\alphabet$. Let $d \colon M \times M \to [0,1]$ be a $1$-pseudometric and let $\lambda \in \left] 0,1\right[$ be a fixed \emph{discount factor}. We can equip the set $\{0,1\} \times M^\alphabet$ with a distance function given by
+\subsection{Behavioural distance of deterministic automata via functor lifting}	
+It turns out that shortest-distinguishing-word distance can be obtained as an instance of the coalgebraic framework of behavioural distances~\cite[Example~6.5]{Baldan:2018:Coalgebraic} using an appropriate lifting of the functor $\funDFA = \{0,1\} \times (-)^\alphabet$ describing one-step behaviour of finite automata~\cite[Example~6.3]{Baldan:2018:Coalgebraic}. That lifting is defined as follows; let $d \colon M \times M \to [0,1]$ be a pseudometric and let $\lambda \in \interval[open]{0}{1}$ be a fixed \emph{discount factor}. We can equip the set $\funDFA X$ with a distance function given by
 \[
-	d^{\{0,1\} \times (-)^\alphabet}(\langle o_1, f_1 \rangle, \langle o_2, f_2 \rangle) = \max\{d_{\{0,1\}}(o_1, o_2), \lambda \cdot \max_{a \in \alphabet} d(f_1(a), f_2(a))\} 
+	d^{\funDFA}(\langle o_1, g_1 \rangle, \langle o_2, g_2 \rangle) = \max\{d_{\{0,1\}}(o_1, o_2), \lambda \cdot \max_{a \in \alphabet} d(g_1(a), g_2(a))\} 
 \]   
-for all $\langle o_1, f_1 \rangle, \langle o_2, f_2 \rangle \in \{0,1\} \times M^A$. The definition above involves $d_{\{0,1\}}$, the discrete metric on the set $\{0,1\}$. 
-\begin{lemma}
-	$d^{\{0,1\} \times (-)^\alphabet}$ defined above is a lifting of the functor $\{0,1\} \times (-)^\alphabet \colon \Set \to \Set$ that preserves metrics and isometries.
-\end{lemma}
+for all $\langle o_1, g_1 \rangle, \langle o_2, g_2 \rangle \in \funDFA X$. The definition above involves $d_{\{0,1\}}$, the discrete metric on the set $\{0,1\}$. Intuitively, two one-step behaviours $\langle o_1, g_1\rangle, \langle o_2, g_2 \rangle \in \{0,1\} \times M^\alphabet$ of a deterministic automaton with the set of states $M$ are maximally apart if $o_1 \neq o_2$, that is, they disagree in their output behaviour. Otherwise, the distance is equal to a maximal distance $d(g_1(a), g_2(a))$ between reachable states for all letters $a \in \alphabet$ of the alphabet, discounted by the factor of $\lambda$.
+
+The lifting defined above is particularly well-behaved, as it satisfies the following:
+
+\begin{proposition}
+	$d^{\funDFA}$ preserves isometries and metrics.
+\end{proposition}
+\begin{proof}
+	Preservation of isometries follows from \cite[Theorem 5.23]{Baldan:2018:Coalgebraic} and preservation of metrics follows from~\cite[Theorem~5.24]{Baldan:2018:Coalgebraic}.
+\end{proof}
+Combining the statement above with \Cref{c2:lem:behavioural_distances} and \Cref{c2:lem:behavioural_distances_properties} yields that for any deterministic automaton $\mathcal{M} := (M, \langle o_M, t_M \rangle)$, its behavioural distance $\bd_{\langle o_M, t_M \rangle}$ is a metric space, whose values can be calculated as the least fixpoint of the monotone map $\Phi_{\mathcal{M}} \colon D_M \to D_M$ defined as
+$$
+\Phi_{\mathcal{M}}(m_1, m_2) = d^{\funDFA}(\langle o_M(m_1), t_{M}(m_1) \rangle, \langle o_M(m_2), t_{M}(m_2) \rangle)
+$$
+for all $m_1, m_2 \in M$.
+
+\section{Quantitative Axiomatisation}\label{c2:sec:quantitative_axiomatisation}
+In order to provide a quantitative inference system for reasoning about the behavioural distance of languages denoted by regular expressions, we first recall the definition of quantitative equational theories from the existing literature~\cite{Mardare:2016:Quantitative,Bacci:2018:Bisimilarity} following the notational conventions from~\cite{Bacci:2018:Bisimilarity}. We then present our axiomatisation and demonstrate its soundness. The interesting thing about our axiomatisation is the lack of any fixpoint introduction rule. We show that in the case of quantitative analogue of equational logic~\cite{Mardare:2016:Quantitative} containing the infinitary rule capturing the notion of convergence, we can use our axioms to derive Salomaa's fixpoint rule from his axiomatisation of language equivalence of regular expressions~\cite{Salomaa:1966:Two}.
+
+\subsection{Quantitative equational theories}\label{c2:subsec:quantitative_equational_theories} 
+Let $\Sigma$ be an algebraic signature (in the sense of universal algebra~\cite{Burris:1981:Course}) consisting of operation symbols $f_n \in \Sigma$ of arity $n \in \N$. If we write $X$ for the countable set of \emph{metavariables}, then $\TT[\Sigma]{X}$ denotes a set of freely generated terms over $X$ built from the signature $\Sigma$. As a notational convention, we will use letters $t,s,u, \ldots \in \TT[\Sigma]{X}$ to denote terms. 
+By a \emph{substitution} we mean a function of the type $\sigma\colon X \to \TT[\Sigma]{X}$ allowing to replace metavariables with terms. Each substitution can be inductively extended to terms in a unique way by setting $\sigma(f(t_1, \dots, t_n)) = f(\sigma(t_1), \dots, \sigma(t_n))$ for each operation symbol $f_n \in \Sigma$ from the signature. We will write $\Sub[\Sigma]$ for the set of all substitutions. Given two terms $t,s \in \TT[\Sigma]{X}$ and a nonnegative rational number $\e \in \Q$ denoting the distance between the terms, we call $t \equiv_\e s$ a \emph{quantitative equation (of type $\Sigma$)}. Notation-wise, we will write $\E[\Sigma]$ to denote the set of all quantitative equations (of type $\Sigma$) and we will use the capital Greek letters $\Gamma, \Theta, \ldots \subseteq \E[\Sigma]$ to denote the subsets of $\E[\Sigma]$. By a \emph{deducibility relation} we mean a binary relation denoted  ${\vdash} \subseteq \pset ({\E[\Sigma]}) \times \E[\Sigma]$.  Similarly, to the classical equational logic, we will use the following notational shorthands:
+\begin{gather*} 
+	\Gamma \vdash t \equiv_\e s \iff (\Gamma,t \equiv_\e s) \in {\vdash} \qquad \text{ and } \qquad \vdash t \equiv_\e s \iff \emptyset \vdash t \equiv_\e s
+\end{gather*}
+Furthermore, following the usual notational conventions, we will write $\Gamma \vdash \Theta$ as a shorthand for the situation when $\Gamma \vdash t \equiv_\e s$ holds for all $t \equiv_\e s \in \Theta$. To call $\vdash$ a \emph{quantitative deduction 
+system (of type $\Sigma$)} it needs to satisfy the following rules of inference: 
+\begin{align*} 
+(\Top) \quad 
+& \vdash t \equiv_1 t \,, \\
+(\Refl) \quad 
+& \vdash t \equiv_0 t \,, \\
+(\Symm) \quad 
+& \{t\equiv_\e s\} \vdash s\equiv_\e t \,, \\
+(\Triang) \quad 
+& \{t \equiv_\e u, u \equiv_{\e'} s \} \vdash t \equiv_{\e+\e'} s \,, \\
+(\Max) \quad 
+& \{t\equiv_\e s\} \vdash t\equiv_{\e+\e'}s \,, \text{ for all $\e'>0$} \,, \\ 
+(\Cont) \quad 
+& \{t\equiv_{\e'}s\mid \e'>\e\} \vdash t\equiv_\e s \,, \\
+(\Nexp) \quad
+& \{t_1\equiv_\e s_1,\ldots,t_n \equiv_\e s_n\} \vdash f(t_1,\dots, t_n) \equiv_\e f(s_1,\dots, s_n) \,, 
+\text{ for all $f_n \in \Sigma$} \,, \\
+(\Subst) \quad
+& \text{If $\Gamma \vdash t \equiv_\e s$, then $\sigma(\Gamma) \vdash \sigma(t) \equiv_\e \sigma(s)$, 
+for all $\sigma \in \Sub[\Sigma]$} \,, \\
+(\Cut) \quad 
+& \text{If $\Gamma \vdash \Theta$ and $\Theta \vdash t \equiv_\e s$, then $\Gamma \vdash t \equiv_\e s$} \,, \\
+(\Assum) \quad
+& \text{If $t \equiv_\e s \in\Gamma$, then $\Gamma \vdash t \equiv_\e s$} \,.
+\end{align*}
+where $\sigma(\Gamma) = \set{\sigma(t) \equiv_\e \sigma(s)}{ t \equiv_\e s \in \Gamma}$.
+Finally, by a \emph{quantitative equational theory} we mean a set $\U$ of universally quantified \emph{quantitative inferences} 
+$
+\{t_1 \equiv_{\e_1} s_1, \dots, t_n \equiv_{\e_n} s_n\} \vdash t \equiv_\e s \,,
+$ with \emph{finitely many premises}, closed under $\vdash$-derivability.
+
+\subsection{Quantitative algebras}\label{s2:subsec:quantitative_algebras} 
+
+Quantitative equational theories lie on the syntactic part of the picture. On the semantic side, we have their models called \emph{quantitative algebras}, defined as follows. 
+
+\begin{definition}[{\cite[Definition~3.1]{Mardare:2016:Quantitative}}]
+    A quantitative algebra is a tuple $\A = (A, \Sigma^{\A}, d^{\A})$, such that $(A, \Sigma^{\A})$ is an algebra for the signature $\Sigma$ and $(A, d^{\A})$ is a pseudometric such that for all operation symbols $f_n \in \Sigma$, for all $1 \leq i \leq n$, $a_i, b_i \in A$, $d^{\A}(a_i,b_i)\leq \e$ implies $d^{\A}(f^{\A}(a_1, \dots, a_n), f^{\A}(b_1, \dots, b_n)) \leq \e$.
+\end{definition}
+
+Consider a quantitative algebra $\A = (A,\Sigma^\A,d^\A)$. Given an assignment  $\iota \colon X \to A$ of meta-variables from $X$ to elements of carrier $A$, one can inductively extend it to $\Sigma$-terms $t \in \TT[\Sigma]{X}$ in a unique way. We will abuse the notation and just write $\iota(t)$ for the interpretation of the term $t$ in quantitative algebra $\A$. We will say that $\A$ \emph{satisfies} the quantitative inference $\Gamma \vdash t \equiv_\e s$, written $\Gamma \models_\A t \equiv_\e s$, if for any assignment of the meta-variables $\iota \colon X \to A$ it is the case that for all $t' \equiv_{\e'} s' \in \Gamma$ we have that $d^\A(\iota(t'),\iota(s')) \leq \e'$ implies $d^\A(\iota(t),\iota(s)) \leq \e $. Finally, we say that a quantitative algebra $\A$ \emph{satisfies} (or is a \emph{model} of) the quantitative theory $\U[]$, 
+if whenever $\Gamma \vdash t \equiv_\e s \in \U[]$, then $\Gamma \models_\A t \equiv_\e s$. 
 
 %It turns out, that the map $\Phi_{\mathcal{M}}$ is a monotone mapping on the lattice of $1$-psuedometrics on the set $M$~\cite[Lemma~6.1]{Baldan:2018:Coalgebraic}. Because of that, one can use the Knaster-Tarski fixpoint theorem~\cite{Tarski:1955:Lattice} and construct its least fixed point, explicitly given by $d_{\mathcal{M}} = \inf \{d \mid d \in D_M \wedge \Phi_{\mathcal {M}}(d) \sqsubseteq d \}$. Pseudometrics, which are fixpoints of $\Phi_{\mathcal{M}}$ intuitively interact well with the automaton structure, as they satisfy the property that the distance between two states is the same as the distance between their observable behaviour calculated using the lifting. Taking the least such pseudometric satisfies several desirable properties~\cite{Baldan:2018:Coalgebraic} and thus we will call $d_{\mathcal{M}}$ a behavioural pseudometric on the automaton $\mathcal{M}$. First of all, preserving automaton transitions also preserves behavioural distances.
 

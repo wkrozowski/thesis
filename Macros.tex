@@ -92,6 +92,44 @@
 \newcommand{\acirel}{{\mathrel{\dot\equiv}}}
 \newcommand{\aciq}{{\RExp}/{\acirel}}
 \newcommand{\eR}{\overline{\mathbb{R}}} %Extended reals
+\newcommand{\funDFA}{\mathcal{H}}
+\usepackage{xifthen}
+
+\providecommand*{\ifempty}[3]{\ifthenelse{\isempty{#1}}{#2}{#3}}
+\newcommand{\set}[2]{\left\{ #1 \ifempty{#2}{}{\mid #2} \right\}}
+%% Terms and Deduction Systems
+\newcommand{\TT}[2][]{\mathbb{T}\ifempty{#2}{\ifempty{#1}{}{(#1)}}{\ifempty{#1}{(#2)}{(#1,#2)}}}  %% Set of terms
+\newcommand{\Sub}[1][]{\ifempty{#1}{\mathcal{S}}{\mathcal{S}(#1)}} %% Set of substitutions
+\newcommand{\E}[1][]{\ifempty{#1}{\mathcal{E}}{\mathcal{E}(#1)}} %% Set of quantitative equations
+\newcommand{\U}[1][]{{\mathcal{U}^{#1}}} %% Theory induced by a quantitative deduction system
+\newcommand{\KK}[2][]{\mathbb{K}\ifempty{#1}{(#2)}{(#1,#2)}} %% Class of models for theory
+\newcommand{\freemodel}[1][\vdash]{{\mathcal{T}_{#1}}} %% Freely-generated model
+
+\newcommand{\Refl}{\textsf{Refl}} %% Reflexivity Axiom
+\newcommand{\Symm}{\textsf{Symm}} %% Symmetry Axiom
+\newcommand{\Triang}{\textsf{Triang}} %% Triangular inequality Axiom
+\newcommand{\Max}{\textsf{Max}} %% Max Axiom
+\newcommand{\Cont}{\textsf{Cont}} %% Archimedian Axiom
+\newcommand{\Nexp}{\textsf{NExp}} %% Non-expansivity Axiom
+\newcommand{\Subst}{\textsf{Subst}} %% Substitution Axiom
+\newcommand{\Cut}{\textsf{Cut}} %% Cut rule
+\newcommand{\Assum}{\textsf{Assum}} %% Assumption rule
+\newcommand{\Bone}{\textsf{B1}}
+\newcommand{\Btwo}{\textsf{B2}}
+\newcommand{\SC}{\textsf{SC}}
+\newcommand{\SA}{\textsf{SA}}
+\newcommand{\Alpha}{\textsf{Alpha}}
+\newcommand{\Unfold}{\textsf{Unfold}}
+\newcommand{\Unguard}{\textsf{Unguard}}
+\newcommand{\Fix}{\textsf{Fix}}
+\newcommand{\Cong}{\textsf{Cong}}
+\newcommand{\Top}{\textsf{Top}}
+\newcommand{\Conv}{\textsf{IB}}
+\newcommand{\Dist}{\textsf{Dist}}
+\newcommand{\Pref}{\textsf{Pref}}
+\newcommand{\Entr}{\textsf{Entr}}
+\newcommand{\Distr}{\textsf{Distr}}
+\newcommand{\dPref}[1][\lambda]{\textsf{$#1$-Pref}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                          ROBIN'S TIKZ STUFF
