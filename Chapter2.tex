@@ -283,7 +283,7 @@ If $\funF \colon \Set \to \Set$ admits a final coalgebra $(\nu \funF, t)$, then 
 	\circlednum{1} follows from \cite[Lemma~6.6]{Baldan:2018:Coalgebraic}. For \circlednum{2}, we have that if $\funF$ is finitary, then $(\nu \funF,t)$ can be obtained via the Adamek fixpoint theorem~\cite{Adamek:1995:Greatest} and hence one can apply \cite[Theorem~6.10]{Baldan:2018:Coalgebraic}. Finally, \circlednum{3} follows from \cite[Theorem~6.7]{Baldan:2018:Coalgebraic}.
 \end{proof}
 \subsection{Behavioural distance of deterministic automata via functor lifting}	
-It turns out that shortest-distinguishing-word distance can be obtained as an instance of the coalgebraic framework of behavioural distances~\cite[Example~6.5]{Baldan:2018:Coalgebraic} using an appropriate lifting of the functor $\funDFA = \{0,1\} \times (-)^\alphabet$ describing one-step behaviour of finite automata~\cite[Example~6.3]{Baldan:2018:Coalgebraic}. That lifting is defined as follows; let $d \colon M \times M \to [0,1]$ be a pseudometric and let $\lambda \in \interval[open]{0}{1}$ be a fixed \emph{discount factor}. We can equip the set $\funDFA X$ with a distance function given by
+It turns out that shortest-distinguishing-word metric (\Cref{c2:eq:shortest_distinguishing_word}) can be obtained as an instance of the coalgebraic framework of behavioural distances~\cite[Example~6.5]{Baldan:2018:Coalgebraic} using an appropriate lifting of the functor $\funDFA = \{0,1\} \times (-)^\alphabet$ describing one-step behaviour of finite automata~\cite[Example~6.3]{Baldan:2018:Coalgebraic}. That lifting is defined as follows; let $d \colon M \times M \to [0,1]$ be a pseudometric and let $\lambda \in \interval[open]{0}{1}$ be a fixed \emph{discount factor}. We can equip the set $\funDFA X$ with a distance function given by
 \[
 	d^{\funDFA}(\langle o_1, g_1 \rangle, \langle o_2, g_2 \rangle) = \max\{d_{\{0,1\}}(o_1, o_2), \lambda \cdot \max_{a \in \alphabet} d(g_1(a), g_2(a))\} 
 \]   
@@ -297,11 +297,16 @@ The lifting defined above is particularly well-behaved, as it satisfies the foll
 \begin{proof}
 	Preservation of isometries follows from \cite[Theorem 5.23]{Baldan:2018:Coalgebraic} and preservation of metrics follows from~\cite[Theorem~5.24]{Baldan:2018:Coalgebraic}.
 \end{proof}
-Combining the statement above with \Cref{c2:lem:behavioural_distances} and \Cref{c2:lem:behavioural_distances_properties} yields that for any deterministic automaton $\mathcal{M} := (M, \langle o_M, t_M \rangle)$, its behavioural distance $\bd_{\langle o_M, t_M \rangle}$ is a metric space, whose values can be calculated as the least fixpoint of the monotone map $\Phi_{\langle o_M, t_M\rangle} \colon D_M \to D_M$ defined as
+Combining the statement above with \Cref{c2:lem:behavioural_distances} yields that for any deterministic automaton $\mathcal{M} := (M, \langle o_M, t_M \rangle)$, its behavioural distance $\bd_{\langle o_M, t_M \rangle}$ is a pseudometric space, whose values can be calculated as the least fixpoint of the monotone map $\Phi_{\langle o_M, t_M\rangle} \colon D_M \to D_M$ defined as
 $$
 \Phi_{\langle o_M, t_M\rangle}(m_1, m_2) = d^{\funDFA}(\langle o_M(m_1), t_{M}(m_1) \rangle, \langle o_M(m_2), t_{M}(m_2) \rangle)
 $$
 for all $m_1, m_2 \in M$.
+
+Moreover, because of the preservation of metrics and \Cref{c2:lem:behavioural_distances_properties}, we know that for the final deterministic automaton $\mathcal{L} = (\pset (\alphabet^\ast), \langle o_L, t_L\rangle)$, the least fixpoint of $\Phi_{\langle o_L, t_L\rangle}$ is a metric space. This metric enjoys the following concrete characterisation:
+\begin{proposition}[{\cite[Example~6.5]{Baldan:2018:Coalgebraic}}]
+	For the final deterministic automaton $\mathcal{L} = (\pset (\alphabet^\ast), \langle o_L, t_L\rangle)$, the least fixpoint of $\Phi_{\langle o_L, t_L\rangle}$ coincides with shortest-distinguishing-word metric.
+\end{proposition}
 
 \section{Quantitative Axiomatisation}\label{c2:sec:quantitative_axiomatisation}
 In order to provide a quantitative inference system for reasoning about the behavioural distance of languages denoted by regular expressions, we first recall the definition of quantitative equational theories from the existing literature~\cite{Mardare:2016:Quantitative,Bacci:2018:Bisimilarity} following the notational conventions from~\cite{Bacci:2018:Bisimilarity}. We then present our axiomatisation and demonstrate its soundness. The interesting thing about our axiomatisation is the lack of any fixpoint introduction rule. We show that in the case of quantitative analogue of equational logic~\cite{Mardare:2016:Quantitative} containing the infinitary rule capturing the notion of convergence, we can use our axioms to derive Salomaa's fixpoint rule from his axiomatisation of language equivalence of regular expressions~\cite{Salomaa:1966:Two}.
