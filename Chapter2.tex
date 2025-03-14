@@ -1,8 +1,64 @@
 \chapter{A Complete Quantitative Axiomatisation of Behavioural Distance of Regular Expressions}
 \label{chapter2}
-\section{Introduction}\label{c2:sec:introduction}
+Deterministic automata have been traditionally studied through the point of view of language equivalence. Another perspective is given by the notion of \emph{shortest-distinguishing-word} distance quantifying the dissimilarity of states. To illustrate that notion of distance, consider the following three deterministic finite automata:
 
+\begin{figure*}[h!]
+\[
+\begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto,every node/.style={scale=1}]
+
+  \node[initial,state,accepting]  (q_0)                      {$\mathbf{q_0}$};
+  \path[->] (q_0) edge [loop above] node {a} ();
+  \node [initial, state, accepting] (r_0) [right= 3 cm of q_0] {$\mathbf{r_0}$};
+  \node [state,accepting] (r_1) [right= of r_0] {$\mathbf{r_1}$};
+  \node [state] (r_2) [right= of r_1] {$\mathbf{r_2}$}; 
+  \path[->] (r_0) edge node {a} (r_1);
+  \path[->] (r_1) edge node {a} (r_2);
+  \path[->] (r_2) edge [loop above] node {a} ();
+  \node[initial, state] (s_0) [right= 3 cm of r_2] {$\mathbf{s_0}$};
+  \path[->] (s_0) edge [loop above] node {a} ();
+\end{tikzpicture}
+\]
+\caption{Three inequivalent DFAs}	
+\label{c2:fig:dfas}
+\end{figure*}
+
+Neither of the above automata are language equivalent. Their languages are respectively: $\{\emptyword, a, aa, aaa, \dots\}$, $\{\emptyword, a\}$ and $\emptyset$ (we use $\emptyword$ to denote the empty word). However, one could argue that the behaviour of the middle automaton is closer to the one on the left rather than the one on the right. In particular, languages of the left and middle automaton agree on all words of length less than two, while the left and right one disagree on all words. 
+
+One can make this idea precise, by providing \emph{shortest-distinguishing-word} metric $\langmetric \colon \pset (\alphabet^*) \times \pset (\alphabet^*) \to [0,1]$ on the set of all formal languages over some fixed alphabet $\alphabet$ given by the following formula, where $\lambda \in \interval[open]{0}{1}$ and $L, M \subseteq \alphabet^*$:
+\begin{equation}\label{c2:eq:shortest_distinguishing_word}
+	d_{\mathcal{L}}(L, M) = \begin{cases}
+\lambda^{|w|} & w \text{ is the shortest word that belongs to only one of } L \text{ and } M\\
+0 & \text{if } L = M
+\end{cases}
+\end{equation}
+
+If we set $\lambda = \frac{1}{2}$, then
+\begin{gather*}
+	\langmetric(\{\emptyword, a, aa, aaa, \dots\}, \{\emptyword, a\}) = \frac{1}{4} \quad \text{ and } \quad \langmetric(\{\emptyword,a,aa,aaa, \dots\}, \emptyset)=1
+\end{gather*}
+This allows us to formally state that the behaviour of the middle automaton is a better approximation of the left one, rather than the right one. Observe, that we excluded $\lambda=0$ and $\lambda=1$, as in both cases $\langmetric$ would become a pseudometric setting all languages to be at distance zero or one, without providing any quantitative information. 
+
+Rather than dealing with DFAs directly, it has been customary to represent them using the syntax of Kleene's regular expressions~\cite{Kleene:1951:Representation}. For example,  automata depicted in the \Cref{c2:fig:dfas} can be equivalently described using regular expressions $a^*$, $a + 1$ and $0$ respectively.  To determine the distance between arbitrary regular expressions $e$ and $f$ one would have to construct corresponding deterministic finite automata and calculate (or approximate) the distance between their languages. Instead, as a main contribution of this chapter, we present a sound and complete quantitative inference system for reasoning about the shortest-distinguishing-word distance of languages denoted by regular expressions in question.
+
+Since we are dealing with distances, rather than strict equality, we cannot rely on the classical equational logic as a basis for our inference system. Instead, we rely on the quantitative analogue of equational logic~\cite{Mardare:2016:Quantitative}, which deals with the statements of the form $e \equiv_{\e} f$, intuitively meaning \emph{term $e$ is within the distance of at most $\e \in \Q$ from the term $f$}. While the existing work~\cite{Bacci:2018:Algebraic,Bacci:2018:Bisimilarity,Bacci:2018:TV} looked at quantitative axiomatisations of behavioural distance for probabilistic transition systems calculated through the Kantorovich lifting, which can be thought of as a special case of the abstract coalgebraic framework relying on lifting endofunctors to the category of pseudometric spaces~\cite{Baldan:2018:Coalgebraic}, axiomatising behavioural distances for other kinds of transition systems have received little to no attention.
+
+It turns out that the approach to completeness used in~\cite{Bacci:2018:Bisimilarity} relies on properties which are not unique to distances obtained through the Kantorovich lifting and can be employed to give complete axiomatisations of behavioural distances for other kinds of transition systems obtained through the coalgebraic framework~\cite{Baldan:2018:Coalgebraic}. In this chapter, as a starting point, we look at one of the simplest instantiations of that abstract framework in the case of deterministic automata, yielding \emph{shortest-distinguishing-word} distance. 
+
+Formally speaking, if $\sem{-}: \RExp \to \pset (\alphabet^*)$ is a function taking regular expressions to their languages, then our inference system satisfies the following:
+$$
+	\vdash e \equiv_\e f \iff \langmetric(\llbracket e \rrbracket, \llbracket f \rrbracket) \leq \e
+$$ 
+
+The rest of the chapter is organised is as follows:
+\begin{itemize}
+	\item In \Cref{c2:sec:preliminaries} we review basic definitions from the field of universal coalgebra~\cite{Rutten:2000:Universal,Gumm:2000:Elements} and automata theory. In particular, we recall the semantics of regular expressions through Brzozowski derivatives~\cite{Brzozowski:1964:Expressions}. Then, in order to talk about distances, we state basic definitions and properties surrounding (pseudo)metric spaces.
+	\item In \Cref{c2:sec:behavioural_distance} we recall the central notions of the abstract framework of coalgebraic behavioural metrics~\cite{Baldan:2018:Coalgebraic} and discuss its concrete instatiation to the concrete case of deterministic automata that yields shortest-distinguishing-word distance.
+	\item In \Cref{c2:sec:quantitative_axiomatisation} we introduce a quantitative inference system for reasoning about the shortest-distinguishing-word distance of regular expressions. We recall the definitions surrounding the quantitative equational theories~\cite{Mardare:2016:Quantitative} from the literature. We then present the rules of our inference system, give soundness result and provide a discussion about the axioms. The interesting insight is that when relying on quantitative equational theories which contain an infinitary rule capturing the notion of convergence, there is no need for any fixpoint introduction rule. We illustrate this by axiomatically deriving Salomaa's fixpoint rule for regular expressions~\cite{Salomaa:1966:Two}.
+	\item The key result of our paper is contained in \Cref{c2:sec:completeness}, where we prove completeness of our inference system. The heart of the argument relies on showing that the behavioural distance of regular expressions can be approximated from above using Kleene's fixpoint theorem, which can be then mimicked through the means of axiomatic reasoning. This part of the paper makes heavy use of the order-theoretic and Banach space structures carried by the sets of pseudometrics over a given set.
+	\item We conclude in \Cref{c2:sec:discussion}, review related literature, and sketch directions for future work.
+\end{itemize}
 \section{Preliminaries}\label{c2:sec:preliminaries}
+In this section, we recall the main definitions and results from the literature that this and further chapters rely on. Throughout this thesis, we assume the familiarity of the reader with basic notions of category theory~\cite{Abramsky:2010:Introduction} and order theory~\cite{Davey:2002:Introduction}. Notation wise, given a category $\C$, we will write $\Obj(\C)$ for the collection of its objects. For $X,Y \in \Obj(\C)$, we will write $\C(X,Y)$ for the hom-object between objets $X$ and $Y$. We will write $f \colon X \to Y$, to denote that $f$ is a morphism from $X$ to $Y$.
 \subsection{Coalgebra}\label{c2:subsec:coalgebra}
 
 Let $\C$ be a category.  An $\funF$-coalgebra is a pair $(X, \alpha \colon X \to \funF X)$, where $X \in \Obj(\C)$ and $\funF \colon \C \to \C$ is an endofunctor on $\C$. We call $\funF$ a \emph{type functor} and refer to $X$ and $\alpha$ as \emph{state space} (or a \emph{carrier}) and \emph{transition structure} respectively. We will omit writing $\funF$ when it is obvious from the context. A homomorphism $f \colon (X, \alpha) \to (Y, \beta)$ of coalgebras is an arrow $f \colon X \to Y$ in $\C$ making the following diagram commute:
@@ -671,4 +727,5 @@ At this point, we have done all the hard work, and establishing completeness inv
 
     Using the fact shown above, we can use \Cref{c2:lem:provability1} to obtain $\vdash e \equiv_{\e'} f \in \mathsf{REG}$ for any $\e' > \e$, which completes the proof.
 \end{proof}
+\section{Discussion}\label{c2:sec:discussion}
 
