@@ -4,25 +4,107 @@
 \section{Preliminaries}
 \label{c4:sec:preliminaries}
 \subsection{Monads and their algebras}\label{c4:subsec:monads}
-A monad (over the category $\Set$) is a triple $(T, \mu, \eta)$ consisting of a functor $T \colon \Set \to \Set$ and two natural transformations: a unit $\eta \colon \Id \Rightarrow T$ and multiplication $\mu \colon T^2 \Rightarrow T$ satisfying the following laws:
+A monad (over the category $\Set$) is a triple $\monadT = (T, \mu, \eta)$ consisting of a functor $T \colon \Set \to \Set$ and two natural transformations: a unit $\eta \colon \Id \Rightarrow T$ and multiplication $\mu \colon T^2 \Rightarrow T$ satisfying the following laws:
 $$\mu \circ \eta_T = \id_T=  \mu \circ T\eta \qquad \text{and} \qquad \mu \circ \mu_T = \mu \circ T \mu$$
-A $T$-algebra for a monad $T$ is a pair $(X, h)$ consisting of a set $X \in \Obj(\C)$, called carrier, and a function $h \colon T X \to X$ such that 
+A $\monadT$-algebra for a monad $T$ is a pair $(X, h)$ consisting of a set $X \in \Obj(\C)$, called carrier, and a function $h \colon T X \to X$ such that 
 $$
 h \circ \mu_X = h \circ Th \qquad \text{ and }\qquad h \circ \eta_X = \id_X
 $$
-A $T$-homomorphism between two $T$-algebras $(X,h)$ and $(Y,k)$ is a function 	$f \colon X \to Y$ satisfying $k \circ Tf = f \circ h$.
+A $\monadT$-homomorphism between two $T$-algebras $(X,h)$ and $(Y,k)$ is a function 	$f \colon X \to Y$ satisfying $k \circ Tf = f \circ h$.
 
-$T$-algebras and $T$-homomorphisms form a category $\Set^T$. There is a canonical forgetful functor $\forget \colon \Set^T \to \Set$ that takes each $T$-algebra to its carrier. This functor has a left adjoint $X \mapsto (TX, \mu_X \colon T^2 X \to T)$, mapping each set to its free $T$-algebra. If $X$ is finite, then we call $(TX, \mu_X)$ free finitely generated.
+$\monadT$-algebras and $\monadT$-homomorphisms form a category $\Set^\monadT$. There is a canonical forgetful functor $\forget \colon \Set^\monadT \to \Set$ that takes each $\monadT$-algebra to its carrier. This functor has a left adjoint $X \mapsto (TX, \mu_X \colon T^2 X \to T)$, mapping each set to its free $\monadT$-algebra. If $X$ is finite, then we call $(TX, \mu_X)$ free finitely generated.
 
-Given a function $f \colon X \to Y$, where $Y$ is a carrier of a $T$-algebra $(Y, h)$, there is a unique homomorphism $f^\sharp \colon (TX, \mu_X) \to (Y,h)$ satisfying $f^\sharp \circ \eta_X = f$ that is explicitly given by $f^\sharp = h \circ Tf$.
+Given a function $f \colon X \to Y$, where $Y$ is a carrier of a $\monadT$-algebra $(Y, h)$, there is a unique homomorphism $f^\sharp \colon (TX, \mu_X) \to (Y,h)$ satisfying $f^\sharp \circ \eta_X = f$ that is explicitly given by $f^\sharp = h \circ Tf$.
 
 \subsection{Subdistribution monad}\label{c4:subsec:subdistribution}
  A function $\nu : X \to [0,1]$ is called a subprobability distribution or subdistribution, if it satisfies $\sum_{x \in X} \nu(x) \leq 1$. A subdistribution $\nu$ is \emph{finitely supported}  if the set $\supp(\nu) = \{x \in X \mid \nu(x) > 0\}$ is finite. We use $\distf {X}$ to denote the set of finitely supported subprobability distributions on $X$. Given a function $f \colon X \to Y$, we can define a map $\distf f \colon \distf X \to \distf Y$ given by 
  
- Given $x \in X$, its \emph{Dirac} is a subdistribution $\delta_x$ which is given by $\delta_x(y)=1$ only if $x=y$, and $0$ otherwise. We will moreover write $0 \in \distf X$ for a subdistribution with an empty support. It is defined as $0(x)=0$ for all $x \in X$. When $\nu_1, \nu_2 : X \to \interval{0}{1}$ are subprobability distributions and $p \in \interval{0}{1}$, we write $p\nu_1 + (1-p)\nu_2$ for the convex combination of $\nu_1$ and $\nu_2$, which is the probability distribution given by $$(p\nu_1 + (1-p)\nu_2)(x) = p\nu_1(x) + (1-p)\nu_2(x)$$
- Note that this operation preserves finite support. 
+ Given $x \in X$, its \emph{Dirac} is a subdistribution $\delta_x$ which is given by $\delta_x(y)=1$ only if $x=y$, and $0$ otherwise. We will moreover write $\emptydist \in \distf X$ for a subdistribution with an empty support. It is defined as $\emptydist(x)=0$ for all $x \in X$. When $\nu_1, \nu_2 : X \to \interval{0}{1}$ are subprobability distributions and $p \in \interval{0}{1}$, we write $p\nu_1 + (1-p)\nu_2$ for the convex combination of $\nu_1$ and $\nu_2$, which is the probability distribution given by $$(p \nu_1 + (1-p) \nu_2)(x) = p\nu_1(x) + (1-p)\nu_2(x)$$
+ for all $x \in X$. Note that this operation preserves finite support. 
  
-  $\distf$ is in fact a functor on the category $\Set$: $\distf$ maps each set $X$ to the set to $\distf X$ and maps each arrow $f : X \to Y$ to the function $\distf f : \distf X \to \distf Y$ given by $$\distf f (\nu)(x) = \sum_{y \in f^{-1}(x)} \nu(y)$$
-   Moreover, $\distf$ also  carries a monad structure with unit  $\eta_X(x) = \delta_x$ and multiplication $\mu_X(\Phi)(x) = \sum_{\varphi \in \distf X }\Phi(\varphi)\varphi(x)$ for $\Phi \in \distf \distf X$. Using the free-forgetful adjunction between $\Set$ and category of $\distf$-algebras, given $f : X \to \distf Y$, there exists a unique map $f^\sharp : \distf X \to \distf Y$ satisfying $f = f^\star \circ \delta$ called the \emph{convex extension of $f$}, and explicitly given by $f^\sharp(\nu)(y) = \sum_{x \in X} \nu(x) \cdot f(x)(y)$.
+  $\distf$ is in fact a functor on the category $\Set$, which maps each set $X$ to $\distf X$ and maps each arrow $f : X \to Y$ to the function $\distf f \colon \distf X \to \distf Y$ given by $$\distf f (\nu)(x) = \sum_{y \in f^{-1}(x)} \nu(y)$$
+   Moreover, $\distf$ also  carries a monad structure with unit  $\eta_X(x) = \delta_x$ and multiplication $\mu_X(\Phi)(x) = \sum_{\varphi \in \distf X }\Phi(\varphi)\varphi(x)$ for $\Phi \in \distf^2 X$. Using the free-forgetful adjunction between $\Set$ and category of $\distf$-algebras, given $f \colon X \to \distf Y$, there exists a unique map $f^\sharp \colon \distf X \to \distf Y$ satisfying $f = f^\sharp \circ \delta$ called the \emph{convex extension of $f$}, and explicitly given by $f^\sharp(\nu)(y) = \sum_{x \in X} \nu(x) f(x)(y)$.
+\subsection{Positive convex algebras}\label{c4:subsec:positive}
+By $\sigpca$ we denote a signature given by
+$$\sigpca = \left\{\bigboxplus_{i \in I} p_i \cdot (-)_i \mid I \text{ finite}, \forall i \in I \ldotp p_i \in [0,1], \sum_{i \in I} p_i \leq 1\right\} $$
+A positive convex algebra is a an algebra for the signature $\sigpca$, that is a pair $\A = \left(X, \sigpca^\A\right)$, where $X$ is the carrier set and $\sigpca^\A$ is a set of interpretation functions $\bigboxplus_{i \in I} p_i \cdot (-)_i \colon X^{|I|} \to X$ satisfying the axioms:
+\begin{enumerate}
+    \item (Projection) \(\bigboxplus_{i \in I} p_i \cdot x_i = x_j\) if \(p_j=1\)
+    \item (Barycenter) \(\bigboxplus_{i \in I} p_i \cdot \left(\bigboxplus_{j \in J}{q_{i,j}} \cdot {x_j}\right) = \bigboxplus_{j \in J} \left(\sum_{i \in I} p_i q_{i,j} \right) \cdot x_j\)
+\end{enumerate}
+Positive convex algebras and their homomorphisms (in the sense of homomorphisms of algebras for the signature from universal algebra) form a category $\pca$.
+\begin{proposition}\label{c4:prop:properties_of_positive_convex_algebras}
+    In any positive convex algebra, the following hold:
+    \begin{enumerate}
+        \item $${\bigboxplus_{i \in I} p_i \cdot x_i} = {\bigboxplus_{x \in \bigcup_{i \in I} \{x_i\}} \left(\sum_{x_i = x} p_i\right)\cdot x}$$
+        \item Let ${=_R} \subseteq {X \times X}$ be a congruence relation, with $[-]_R \colon X \to X/{=_R}$ being its canonical quotient map. Then, 
+        $${\bigboxplus_{i \in I} p_i \cdot x_i} =_R {\bigboxplus_{[x]_R \in \bigcup_{i \in I} \left\{[x_i]_R\right\}} \left(\sum_{x_i =_R x} p_i\right)\cdot x}$$
+        \item All terms $\bigboxplus_{i \in I } 0 \cdot x_i $ coincide and are all provably equivalent to the empty convex sum.
+        \item   Let $I$ be a finite index set, and let $\{p_i\}_{i \in I}$ and $\{x_i\}_{i \in I}$ be indexed collections. If $J \subseteq I$ and $J \supseteq \{i \in I \mid p_i \neq 0\}$, then 
+        $$
+        \bigboxplus_{i \in I} p_i \cdot x_i = \bigboxplus_{j \in J} p_j \cdot x_j
+        $$
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    We write $[\Phi]$ to denote Iverson bracket, which is defined to be $1$ if $\Phi$ is true and $0$ otherwise.
+    
+    For \circlednum{1} we have that
+    \begin{align*}
+        \bigboxplus_{i \in I} p_i \cdot x_i &= \bigboxplus_{i \in I} p_i \cdot \left( \bigboxplus_{x \in \cup_{i \in I} \{x_i\}} [x_i = x] \cdot  x \right) &\tag{Projection axiom}\\
+        &= \bigboxplus_{x \in \cup_{i \in I} \{x_i\}} \left( \sum_{i \in I} p_i[x_i = x] \right) \cdot x \tag{Barycenter axiom} \\
+        &=  \bigboxplus_{x \in \cup_{i \in I} \{x_i\} } \left(\sum_{x_i = x} p_i\right) \cdot x
+    \end{align*}
+    \circlednum{2} can be shown by picking a representative for each equivalence class and then using \circlednum{1}. For \circlednum{3}, by \cite[Lemma~3.4]{Sokolova:2015:Congruences} we know that all terms $\bigboxplus_{i \in I} 0 \cdot x_i$ coincide. To see that they are provably equivalent to the empty convex sum, observe that
+    \begin{align*}
+        \bigboxplus_{i \in I} 0 \cdot x_i &= \bigboxplus_{i \in I} 0 \cdot \left(\bigboxplus_{j \in \emptyset} p_j \cdot y_j\right)\tag{\cite[Lemma~3.4]{Sokolova:2015:Congruences}}\\
+        &= \bigboxplus_{j \in \emptyset} 0 \cdot y_j \tag{Barycenter axiom}\\
+    \end{align*}
+    Finallu, \circlednum{4} follows from \cite[Lemma~3.4]{Sokolova:2015:Congruences}.
+\end{proof}
+\begin{lemma}\label{lem:flattening_convex_sums}
+    Let $I, J$ be finite index sets, $\{p_i\}_{i \in I}$, $\{q_{i,j}\}_{(i,j) \in I\times J}$ and $\{x_{i,j}\}_{(i,j) \in I \times J}$ indexed collections such that for all $i \in I$ and $j \in J$, $p_i, q_{i,j} \in [0,1]$ and $x_{i,j} \in X$. If $X$ carries $\pca$ structure, then:
+    $$\bigboxplus_{i \in I} p_i \cdot \left(\bigboxplus_{j \in J} q_{i,j} \cdot x_{i,j}\right) = \bigboxplus_{(i,j) \in I \times J} p_iq_{i,j} \cdot x_{i,j}$$
+\end{lemma}
+\begin{proof}
+    \begin{align*}
+        \bigboxplus_{i \in I} p_i \cdot \left(\bigboxplus_{j \in J} q_{i,j} \cdot x_{i,j}\right) &= \bigboxplus_{i \in I} p_i \cdot \left(\bigboxplus_{(k,j) \in \{i\} \times J} q_{k,j} \cdot x_{k,j}\right) \\
+        &= \bigboxplus_{i \in I} p_i \cdot \left(\bigboxplus_{(k,j) \in I \times J} [k = i]q_{k,j} \cdot x_{k,j}\right) \tag{\cref{prop:properties_of_positive_convex_algebras}} \\
+        &= \bigboxplus_{(k,j) \in I \times J} \left(\sum_{i \in I} p_i [k=i]q_{k,j} \right) \cdot x_{k,j} \tag{Barycenter axiom} \\
+        &= \bigboxplus_{(k,j) \in I \times J} p_k q_{k,j}  \cdot x_{k,j} \\
+        &= \bigboxplus_{(i,j) \in I \times J} p_i q_{i,j}  \cdot x_{i,j} \tag{Renaming indices}\\
+    \end{align*}
+\end{proof}
+\begin{lemma}\label{c4:lem:grouping_probabilities}
+    Let $I$ be a finite index set, $\{p_i\}_{i \in I}$ and $\{q_i\}_{i \in I}$ indexed collections such that $p_i,q_i \in [0,1]$ for all $i \in I$, $\sum_{i \in I} p_i + \sum_{i \in I} q_i \leq 1$ and let $\{x_i\}_{i \in I}$ and $\{y_i\}_{i \in I}$ indexed collection such that $x_i, y_i \in X$ for all $i \in I$. If $X$ carries $\pca$ structure, then:
+    $$
+    \bigboxplus_{i \in I} p_i \cdot x_i \boxplus\bigboxplus_{i \in I} q_i \cdot y_i = \bigboxplus_{i \in I} (p_i + q_i) \cdot \left(\frac{p_i}{p_i + q_i} \cdot x_i \boxplus \frac{q_i}{p_i + q_i} \cdot y_i \right)
+    $$
+\end{lemma}
+\begin{proof}
+    Let $J = \{0,1\}$. Define indexed collections $\{r_{i,j}\}_{(i,j) \in I \times J}$ and $\{z_{i,j}\}_{(i,j) \in I \times J}$, such that $r_{i,0} = \frac{p_i}{p_i + q_i}$ and $z_{i,0} = x_i$ and $r_{i,1} = \frac{q_i}{p_i + q_i}$ and $z_{i,1} = x_i$.
+    We have the following:
+    \begin{align*}
+        \bigboxplus_{i \in I} (p_i + q_i) \cdot \left(\frac{p_i}{p_i + q_i} \cdot x_i \boxplus \frac{q_i}{p_i + q_i} \cdot y_i\right) &= \bigboxplus_{i \in I} (p_i + q_i) \cdot \left(\bigboxplus_{j \in J} r_{i,j} \cdot z_{i,j} \right) \\
+        &= \bigboxplus_{(i,j) \in I \times J} (p_i + q_i)r_{i_j} \cdot z_{i,j} \tag{\cref{lem:flattening_convex_sums}} \\
+        &= \bigboxplus_{i \in I} p_i \cdot x_{i} \boxplus \bigboxplus_{i \in I} q_i \cdot y_i
+    \end{align*}
+\end{proof}
+%\begin{proposition}\label{c4:prop:binary}
+%    If  $X$ is a set equipped with a binary operation $\boxplus_{p} : X \times X \to X$ for each $p \in [0,1]$ and a constant $\zero \in X$ satisfying for all $x,y,z \in X$ (when defined) the following:
+%    \begin{gather*}
+%        x \boxplus_{p} x = x \qquad x \boxplus_{1} y = x \qquad x \boxplus_{p} y = y \boxplus_{\ol{p}} x \\ (x \boxplus_{p} y) \boxplus_{q} z = x \boxplus_{pq} \left(y \boxplus_{\frac{(1-p)q}{1-pq}} z\right)
+%    \end{gather*}
+%    then $X$ carries the structure of a positive convex algebra. The interpretation of $\boxplus_{i \in I} p_i \cdot (-)_{i}$ is defined inductively by the following
+%    $$\bigboxplus_{i \in I} p_i \cdot x_i = \begin{cases}
+%        \zero & \text{if } I = \emptyset \\
+%        x_0 & \text{if } p_0 = 1\\
+%        x_n \boxplus_{p_k} \left(\bigboxplus_{i \in I \setminus \{k\}} \frac{p_i}{\ol{p_k}}\cdot x_i  \right) &\text{otherwise, for some } k \in I
+%    \end{cases} $$
+%\end{proposition}
+%\begin{proof}
+%    A straightforward re-adaptation of \cite[Proposition~7]{Bonchi:2017:Power}.
+%\end{proof}
+
 
  
