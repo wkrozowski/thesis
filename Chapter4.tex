@@ -1,2 +1,28 @@
 \chapter{Completeness Theorem for Probabilistic Regular Expressions}
 \label{chapter4}
+
+\section{Preliminaries}
+\label{c4:sec:preliminaries}
+\subsection{Monads and their algebras}\label{c4:subsec:monads}
+A monad (over the category $\Set$) is a triple $(T, \mu, \eta)$ consisting of a functor $T \colon \Set \to \Set$ and two natural transformations: a unit $\eta \colon \Id \Rightarrow T$ and multiplication $\mu \colon T^2 \Rightarrow T$ satisfying the following laws:
+$$\mu \circ \eta_T = \id_T=  \mu \circ T\eta \qquad \text{and} \qquad \mu \circ \mu_T = \mu \circ T \mu$$
+A $T$-algebra for a monad $T$ is a pair $(X, h)$ consisting of a set $X \in \Obj(\C)$, called carrier, and a function $h \colon T X \to X$ such that 
+$$
+h \circ \mu_X = h \circ Th \qquad \text{ and }\qquad h \circ \eta_X = \id_X
+$$
+A $T$-homomorphism between two $T$-algebras $(X,h)$ and $(Y,k)$ is a function 	$f \colon X \to Y$ satisfying $k \circ Tf = f \circ h$.
+
+$T$-algebras and $T$-homomorphisms form a category $\Set^T$. There is a canonical forgetful functor $\forget \colon \Set^T \to \Set$ that takes each $T$-algebra to its carrier. This functor has a left adjoint $X \mapsto (TX, \mu_X \colon T^2 X \to T)$, mapping each set to its free $T$-algebra. If $X$ is finite, then we call $(TX, \mu_X)$ free finitely generated.
+
+Given a function $f \colon X \to Y$, where $Y$ is a carrier of a $T$-algebra $(Y, h)$, there is a unique homomorphism $f^\sharp \colon (TX, \mu_X) \to (Y,h)$ satisfying $f^\sharp \circ \eta_X = f$ that is explicitly given by $f^\sharp = h \circ Tf$.
+
+\subsection{Subdistribution monad}\label{c4:subsec:subdistribution}
+ A function $\nu : X \to [0,1]$ is called a subprobability distribution or subdistribution, if it satisfies $\sum_{x \in X} \nu(x) \leq 1$. A subdistribution $\nu$ is \emph{finitely supported}  if the set $\supp(\nu) = \{x \in X \mid \nu(x) > 0\}$ is finite. We use $\distf {X}$ to denote the set of finitely supported subprobability distributions on $X$. Given a function $f \colon X \to Y$, we can define a map $\distf f \colon \distf X \to \distf Y$ given by 
+ 
+ Given $x \in X$, its \emph{Dirac} is a subdistribution $\delta_x$ which is given by $\delta_x(y)=1$ only if $x=y$, and $0$ otherwise. We will moreover write $0 \in \distf X$ for a subdistribution with an empty support. It is defined as $0(x)=0$ for all $x \in X$. When $\nu_1, \nu_2 : X \to \interval{0}{1}$ are subprobability distributions and $p \in \interval{0}{1}$, we write $p\nu_1 + (1-p)\nu_2$ for the convex combination of $\nu_1$ and $\nu_2$, which is the probability distribution given by $$(p\nu_1 + (1-p)\nu_2)(x) = p\nu_1(x) + (1-p)\nu_2(x)$$
+ Note that this operation preserves finite support. 
+ 
+  $\distf$ is in fact a functor on the category $\Set$: $\distf$ maps each set $X$ to the set to $\distf X$ and maps each arrow $f : X \to Y$ to the function $\distf f : \distf X \to \distf Y$ given by $$\distf f (\nu)(x) = \sum_{y \in f^{-1}(x)} \nu(y)$$
+   Moreover, $\distf$ also  carries a monad structure with unit  $\eta_X(x) = \delta_x$ and multiplication $\mu_X(\Phi)(x) = \sum_{\varphi \in \distf X }\Phi(\varphi)\varphi(x)$ for $\Phi \in \distf \distf X$. Using the free-forgetful adjunction between $\Set$ and category of $\distf$-algebras, given $f : X \to \distf Y$, there exists a unique map $f^\sharp : \distf X \to \distf Y$ satisfying $f = f^\star \circ \delta$ called the \emph{convex extension of $f$}, and explicitly given by $f^\sharp(\nu)(y) = \sum_{x \in X} \nu(x) \cdot f(x)(y)$.
+
+ 

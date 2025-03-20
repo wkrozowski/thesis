@@ -26,6 +26,7 @@
 \newcommand{\cat}[1]{\mathcal{#1}} %Category
 \newcommand*\circlednum[1]{\tikz[baseline=(char.base)]{
             \node[shape=circle,draw,inner sep=1pt] (char) {#1};}} %number in the circle
+\def\Id{\mathsf{Id}}
 
 %number sets
 \newcommand{\N}{\mathbb{N}}
@@ -44,6 +45,8 @@
 
 \newcommand{\Obj}{\mathsf{Obj}} % Objects of category
 \newcommand{\forget}{\mathcal{U}}
+
+\def\id{\mathsf{id}}
 
 \def\subto{\hookrightarrow}
 \def\monoto{\rightarrowtail}
@@ -307,4 +310,6 @@ pics/BWmatrix/.default=0.2
 \newcommand{\PExp}{\mathsf{PExp}}
 \def\pca{{\mathsf{PCA}}}
 \def\smod{\S\textsf{-Mod}}
+\newcommand\supp{\operatorname{supp}}
+\def\distf{\mathcal{D}}
 
