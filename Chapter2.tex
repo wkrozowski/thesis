@@ -22,9 +22,9 @@ Deterministic automata have been traditionally studied through the point of view
 \label{c2:fig:dfas}
 \end{figure*}
 
-Neither of the above automata are language equivalent. Their languages are respectively: $\{\emptyword, a, aa, aaa, \dots\}$, $\{\emptyword, a\}$ and $\emptyset$ (we use $\emptyword$ to denote the empty word). However, one could argue that the behaviour of the middle automaton is closer to the one on the left rather than the one on the right. In particular, languages of the left and middle automaton agree on all words of length less than two, while the left and right one disagree on all words. 
+Neither of the above automata are language equivalent. Their languages are respectively: $\{\emptyword, a, aa, aaa, \dots\}$, $\{\emptyword, a\}$, and $\emptyset$ (we use $\emptyword$ to denote the empty word). However, one could argue that the behaviour of the middle automaton is closer to the one on the left rather than the one on the right. In particular, languages of the left and middle automaton agree on all words of length less than two, while the left and right one disagree on all words. 
 
-One can make this idea precise, by providing \emph{shortest-distinguishing-word} metric $\langmetric \colon \pset (\alphabet^*) \times \pset (\alphabet^*) \to [0,1]$ on the set of all formal languages over some fixed alphabet $\alphabet$ given by the following formula, where $\lambda \in \interval[open]{0}{1}$ and $L, M \subseteq \alphabet^*$:
+One can make this idea precise, by providing a \emph{shortest-distinguishing-word} metric $\langmetric \colon \pset (\alphabet^*) \times \pset (\alphabet^*) \to [0,1]$ on the set of all formal languages over some fixed alphabet $\alphabet$ given by the following formula, where $\lambda \in \interval[open]{0}{1}$ and $L, M \subseteq \alphabet^*$:
 \begin{equation}\label{c2:eq:shortest_distinguishing_word}
 	d_{\mathcal{L}}(L, M) = \begin{cases}
 \lambda^{|w|} & w \text{ is the shortest word that belongs to only one of } L \text{ and } M\\
@@ -38,25 +38,30 @@ If we set $\lambda = \frac{1}{2}$, then
 \end{gather*}
 This allows us to formally state that the behaviour of the middle automaton is a better approximation of the left one, rather than the right one. Observe, that we excluded $\lambda=0$ and $\lambda=1$, as in both cases $\langmetric$ would become a pseudometric setting all languages to be at distance zero or one, without providing any quantitative information. 
 
-Rather than dealing with DFAs directly, it has been customary to represent them using the syntax of Kleene's regular expressions~\cite{Kleene:1951:Representation}. For example,  automata depicted in the \Cref{c2:fig:dfas} can be equivalently described using regular expressions $a^*$, $a + 1$ and $0$ respectively.  To determine the distance between arbitrary regular expressions $e$ and $f$ one would have to construct corresponding deterministic finite automata and calculate (or approximate) the distance between their languages. Instead, as a main contribution of this chapter, we present a sound and complete quantitative inference system for reasoning about the shortest-distinguishing-word distance of languages denoted by regular expressions in question.
 
-Since we are dealing with distances, rather than strict equality, we cannot rely on the classical equational logic as a basis for our inference system. Instead, we rely on the quantitative analogue of equational logic~\cite{Mardare:2016:Quantitative}, which deals with the statements of the form $e \equiv_{\e} f$, intuitively meaning \emph{term $e$ is within the distance of at most $\e \in \Q$ from the term $f$}. While the existing work~\cite{Bacci:2018:Algebraic,Bacci:2018:Bisimilarity,Bacci:2018:TV} looked at quantitative axiomatisations of behavioural distance for probabilistic transition systems calculated through the Kantorovich lifting, which can be thought of as a special case of the abstract coalgebraic framework relying on lifting endofunctors to the category of pseudometric spaces~\cite{Baldan:2018:Coalgebraic}, axiomatising behavioural distances for other kinds of transition systems have received little to no attention.
+Equivalently, languages accepted by automata depicted on the \Cref{c2:fig:dfas} can be represented using regular expressions $a^*$, $a + 1$ and $0$ respectively.  To determine the distance between arbitrary regular expressions $e$ and $f$ one would have to construct corresponding deterministic finite automata and calculate (or approximate) the distance between their languages. Instead, as a main contribution of this chapter, we present a sound and complete quantitative inference system for reasoning about the shortest-distinguishing-word distance of languages denoted by regular expressions in question.
+
+Since we are dealing with distances, rather than strict equality, we cannot rely on classical equational logic as a basis for our inference system. Instead, we rely on the quantitative analogue of equational logic~\cite{Mardare:2016:Quantitative}, which deals with the statements of the form $e \equiv_{\e} f$, intuitively meaning \emph{term $e$ is within the distance of at most $\e \in \Q$ from the term $f$}. While the existing work~\cite{Bacci:2018:Algebraic,Bacci:2018:Bisimilarity,Bacci:2018:TV} looked at quantitative axiomatisations of behavioural distance for probabilistic transition systems calculated through the Kantorovich lifting, which can be thought of as a special case of the abstract coalgebraic framework relying on lifting endofunctors to the category of pseudometric spaces~\cite{Baldan:2018:Coalgebraic}, axiomatising behavioural distances for other kinds of transition systems have received little to no attention.
 
 It turns out that the approach to completeness used in~\cite{Bacci:2018:Bisimilarity} relies on properties which are not unique to distances obtained through the Kantorovich lifting and can be employed to give complete axiomatisations of behavioural distances for other kinds of transition systems obtained through the coalgebraic framework~\cite{Baldan:2018:Coalgebraic}. In this chapter, as a starting point, we look at one of the simplest instantiations of that abstract framework in the case of deterministic automata, yielding \emph{shortest-distinguishing-word} distance. 
 
-Formally speaking, if $\sem{-}: \RExp \to \pset (\alphabet^*)$ is a function taking regular expressions to their languages, then our inference system satisfies the following:
+Formally speaking, if $\sem{-}: \RExp \to \pset (\alphabet^*)$ is the function taking regular expressions to their languages, then our inference system satisfies the following:
 $$
 	\vdash e \equiv_\e f \iff \langmetric(\llbracket e \rrbracket, \llbracket f \rrbracket) \leq \e
 $$ 
 
 The rest of the chapter is organised is as follows:
-\begin{itemize}
-	\item In \Cref{c2:sec:preliminaries} we review basic definitions from the field of universal coalgebra~\cite{Rutten:2000:Universal,Gumm:2000:Elements} and automata theory. In particular, we recall the semantics of regular expressions through Brzozowski derivatives~\cite{Brzozowski:1964:Expressions}. Then, in order to talk about distances, we state basic definitions and properties surrounding (pseudo)metric spaces.
-	\item In \Cref{c2:sec:behavioural_distance} we recall the central notions of the abstract framework of coalgebraic behavioural metrics~\cite{Baldan:2018:Coalgebraic} and discuss its concrete instatiation to the concrete case of deterministic automata that yields shortest-distinguishing-word distance.
-	\item In \Cref{c2:sec:quantitative_axiomatisation} we introduce a quantitative inference system for reasoning about the shortest-distinguishing-word distance of regular expressions. We recall the definitions surrounding the quantitative equational theories~\cite{Mardare:2016:Quantitative} from the literature. We then present the rules of our inference system, give soundness result and provide a discussion about the axioms. The interesting insight is that when relying on quantitative equational theories which contain an infinitary rule capturing the notion of convergence, there is no need for any fixpoint introduction rule. We illustrate this by axiomatically deriving Salomaa's fixpoint rule for regular expressions~\cite{Salomaa:1966:Two}.
-	\item The key result of our paper is contained in \Cref{c2:sec:completeness}, where we prove completeness of our inference system. The heart of the argument relies on showing that the behavioural distance of regular expressions can be approximated from above using Kleene's fixpoint theorem, which can be then mimicked through the means of axiomatic reasoning. This part of the paper makes heavy use of the order-theoretic and Banach space structures carried by the sets of pseudometrics over a given set.
-	\item We conclude in \Cref{c2:sec:discussion}, review related literature, and sketch directions for future work.
-\end{itemize}
+
+In \Cref{c2:sec:preliminaries} we review basic definitions from the field of universal coalgebra~\cite{Rutten:2000:Universal,Gumm:2000:Elements} and automata theory. In particular, we recall the semantics of regular expressions through Brzozowski derivatives~\cite{Brzozowski:1964:Expressions}. Then, in order to talk about distances, we state basic definitions and properties surrounding (pseudo)metric spaces.
+
+In \Cref{c2:sec:behavioural_distance} we recall the central notions of the abstract framework of coalgebraic behavioural metrics~\cite{Baldan:2018:Coalgebraic} and discuss its concrete instatiation to the concrete case of deterministic automata that yields shortest-distinguishing-word distance.
+	
+In \Cref{c2:sec:quantitative_axiomatisation} we introduce a quantitative inference system for reasoning about the shortest-distinguishing-word distance of regular expressions. We recall the definitions surrounding the quantitative equational theories~\cite{Mardare:2016:Quantitative} from the literature. We then present the rules of our inference system, give soundness result and provide a discussion about the axioms. The interesting insight is that when relying on quantitative equational theories which contain an infinitary rule capturing the notion of convergence, there is no need for any fixpoint introduction rule. We illustrate this by axiomatically deriving Salomaa's fixpoint rule for regular expressions~\cite{Salomaa:1966:Two}.
+
+The key result of our paper is contained in \Cref{c2:sec:completeness}, where we prove completeness of our inference system. The heart of the argument relies on showing that the behavioural distance of regular expressions can be approximated from above using Kleene's fixpoint theorem, which can be then mimicked through the means of axiomatic reasoning. This part of the paper makes heavy use of the order-theoretic and Banach space structures carried by the sets of pseudometrics over a given set.
+
+We conclude in \Cref{c2:sec:discussion}, review related literature, and sketch directions for future work.
+
 \section{Preliminaries}\label{c2:sec:preliminaries}
 In this section, we recall the main definitions and results from the literature that this and further chapters rely on. Throughout this thesis, we assume the familiarity of the reader with basic notions of category theory~\cite{Abramsky:2010:Introduction} and order theory~\cite{Davey:2002:Introduction}. Notation wise, given a category $\C$, we will write $\Obj(\C)$ for the collection of its objects. For $X,Y \in \Obj(\C)$, we will write $\C(X,Y)$ for the hom-object between objets $X$ and $Y$. We will write $f \colon X \to Y$, to denote that $f$ is a morphism from $X$ to $Y$.
 \subsection{Coalgebra}\label{c2:subsec:coalgebra}
@@ -154,13 +159,13 @@ Given two deterministic automata $(M, \langle o_M, t_M \rangle)$ and $(N, \langl
 \subsection{Regular expressions}\label{c2:subsec:regular_expressions}
 We let $e, f$ range over \emph{regular expressions over $\alphabet$} generated by the following grammar:
 $$e , f \in \RExp ::= \zero \mid \one \mid a \in \alphabet \mid e + f \mid e \seq f \mid e^{\ast}$$
-The standard interpretation of regular expressions $\sem{-} \colon \RExp \to \pset(\alphabet^\ast)$ is inductively defined by the following:
+The standard interpretation of regular expressions $\sem{-} \colon \RExp \to \pset(\alphabet^\ast)$ is inductively defined by the following equation:
 \begin{gather*}
 	\sem{\zero} = \emptyset \quad \sem{\one} = \{\emptyword\} \quad \sem{a} = \{ a \} \quad \sem{e + f} =  \sem{e}  \cup \sem{f} \\ \sem{e \seq f}  = \sem{e}  \diamond \sem{f} \quad \sem{e^\ast} = \sem{e}^\ast
 \end{gather*}
 Given $L, M \subseteq A^\ast$, we define $L \diamond M = \{lm \mid l \in L, m \in M\}$, where mere juxtaposition denotes concatenation of words. $L^\ast$ denotes the \emph{asterate} of the language $L$ defined as $L^\ast = \bigcup_{i \in \N} L^i$ with $L^0 = \{\emptyword\}$ and $L^{n + 1} = L \diamond L^{n}$.
 \subsection{Brzozowski derivatives}\label{c2:subsec:brzozowski_derivatives}
-The famous Kleene's theorem states that the formal languages accepted by DFA are in one-to-one correspondence with formal languages definable by regular expressions. One direction of this theorem involves constructing a \textsf{DFA} for an arbitrary regular expression. The most common way is via Thompson construction, $\emptyword$-transition removal and determinisation. Instead, we recall a direct construction due to Brzozowski~\cite{Brzozowski:1964:Expressions}, in which the set $\RExp$ of regular expressions is equipped with a structure of deterministic automaton $\mathcal{R} = (\RExp, \langle o_{\mathcal{R}}, t_{\mathcal{R}} \rangle)$ through so-called Brzozowski derivatives~\cite{Brzozowski:1964:Expressions}. The output derivative $o_{\mathcal{R}} \colon \RExp \to \{0, 1\}$ is defined inductively by the following 
+Kleene's theorem states that the formal languages accepted by DFA are in one-to-one correspondence with formal languages definable by regular expressions. One direction of this theorem involves constructing a \textsf{DFA} for an arbitrary regular expression. The most common way is via Thompson construction, $\emptyword$-transition removal and determinisation. Instead, we recall a direct construction due to Brzozowski~\cite{Brzozowski:1964:Expressions}, in which the set $\RExp$ of regular expressions is equipped with a structure of deterministic automaton $\mathcal{R} = (\RExp, \langle o_{\mathcal{R}}, t_{\mathcal{R}} \rangle)$ through so-called Brzozowski derivatives~\cite{Brzozowski:1964:Expressions}. The output derivative $o_{\mathcal{R}} \colon \RExp \to \{0, 1\}$ is defined inductively by the following 
 \begin{gather*}
     o_{\mathcal{R}}(0) = 0 \quad o_{\mathcal{R}}(1) = 1 \quad o_{\mathcal{R}}(a) = 0 \\ o_{\mathcal{R}}(e + f) = o_{\mathcal{R}}(e) \vee o_{\mathcal{R}}(f) \quad
     o_{\mathcal{R}}(e \seq f) = o_{\mathcal{R}}(e) \wedge o_{\mathcal{R}}(f) \quad o_{\mathcal{R}}(e^{\ast}) = 1
@@ -176,7 +181,7 @@ Semantics of regular expressions is well-behaved, that is the standard interpret
 \begin{lemma}[{\cite[Theorem~3.1.4]{Silva:2010:Kleene}}]\label{c2:lem:adequacy}
     For all $e \in \RExp$, $\sem{e} = L_{\mathcal{R}}(e)$
 \end{lemma}
-Instead of looking at infinite-state automaton defined on the state-space of all regular expressions, we can restrict ourselves to the subautomaton $\gen{e}{\mathcal{R}}$ of $\mathcal{R}$ while obtaining the semantics of $e$.
+Instead of looking at an infinite-state automaton defined on the state-space of all regular expressions, we can restrict ourselves to the subautomaton $\gen{e}{\mathcal{R}}$ of $\mathcal{R}$ while obtaining the semantics of $e$.
 \begin{lemma}\label{c2:lem:adequacy2}
     For all $e \in \RExp$, $\sem{e} = L_{\gen{e}{\mathcal{R}}}(e)$
 \end{lemma}
@@ -187,7 +192,7 @@ Instead of looking at infinite-state automaton defined on the state-space of all
     \]
 \end{proof}
 Unfortunately, for an arbitrary regular expression $e \in \RExp$, the automaton $\gen{e}{\mathcal{R}}$ is not guaranteed to have a finite set of states. 
-However, simplifying the transition derivatives by removing duplicates in the expressions in the form $e_1 + \dots + e_n$, guarantees a finite number of reachable states from any expression. Formally speaking, let ${\acirel} \subseteq {\RExp \times \RExp}$ be the least congruence relation closed under
+However, simplifying the transition derivatives by quotienting the expressions by associativity, commutativity and idempotence (ACI) guarantees a finite number of reachable states from any expression. Formally speaking, let ${\acirel} \subseteq {\RExp \times \RExp}$ be the least congruence relation closed under
 \begin{enumerate}
 	\item $ {{(e + f) + g} {~\acirel~} {e + (f+g)}}$ (Associativity)
 	\item ${e + f} {~\acirel~} {f + e}$ (Commutativity)
@@ -199,7 +204,7 @@ We will write ${\aciq}$ for the quotient of $\RExp$ by the relation $\acirel$ an
 \begin{lemma}[{\cite[Theorem~4.3]{Brzozowski:1964:Expressions}}]\label{c2:lem:locally_finite}
     For any $e \in \RExp$, the set $\gen{e}{\mathcal{Q}} \subseteq \aciq$ is finite.
 \end{lemma}
-Through the identical line of reasoning to \Cref{c2:lem:adequacy}, we can show that:
+Through an identical line of reasoning to \Cref{c2:lem:adequacy}, we can show that:
 \begin{lemma}
 	For all $e \in \RExp$, $L_{\gen{[e]_{\acirel}}{\mathcal{Q}}}([e]_{\acirel}) = \sem{e}$
 \end{lemma}
@@ -214,7 +219,7 @@ for all $x,y,z \in X$. If additionally $d(x,y)=0$ implies $x=y$, $d$ is called a
 \begin{definition}
 	A pseudometric space is a pair $(X, d)$, where $X$ is a set and $d$ is a pseudometric on $X$. We call a function $f \colon X \to Y$ between pseudometric spaces $(X,d_1)$ and $(Y,d_2)$ nonexpansive, if $d_2(f(x),f(y))\leq d_1(x,y)$ for all $x,y \in X$. It is called isometry if it satisfies $d_Y(f(x),f(y))=d_X(x,y)$. 	
 \end{definition}
-Pseudometrics and nonexpansive functions form a category $\PMet$. This category is bicomplete, i.e. has all limits and colimits~\cite[Theorem~3.8]{Baldan:2018:Coalgebraic}. The categorical product in $\PMet$ is defined via the following:
+Pseudometrics and nonexpansive functions form a category $\PMet$. This category is bicomplete, i.e. has all limits and colimits~\cite[Theorem~3.8]{Baldan:2018:Coalgebraic}. The categorical product in $\PMet$ is defined as follows:
 \begin{definition}
 Let $(X,d_1)$ and $(Y, d_2)$ be pseudometrics. We define $(X, d_1) \times (Y, d_2) = (X \times Y, d_{X \times Y})$, where $d_{X \times Y}(\langle x,y \rangle,\langle x',y' \rangle ) = \max \{d_1(x,x'), d_2(y,y')\}$ for all $x,x' \in X$ and $y,y' \in Y$.
 \end{definition}
@@ -249,8 +254,8 @@ Crucially for our completeness proof, if we are dealing with descending chains, 
 	which completes the proof.
 \end{proof}
 Additionally, the set of pseudometrics can be equipped with a norm. We write $\eR = [-\infty, \infty]$ for the set of extended reals. For any set $X$, the set of functions $\eR^{X \times X }$, which is a superset of $D_X$, can be seen as a Banach space~\cite{Rudin:1990:Functional} (complete normed vector space) by means of the sup-norm $\|d\| = \sup_{x,y \in X} |d(x,y)|$. This structure will implicitly underly some of the claims used as intermediate steps in the proof of completeness in this and next chapter.
-\section{Behavioural distance}\label{c2:sec:behavioural_distance}
-We now move on to defining behavioural distance for deterministic automata through the abstract framework of coalgebraic behavioural distances~\cite{Baldan:2018:Coalgebraic}. We first recall the main definitions and then concretise the abstract results to the case of our interest.
+\section{Behavioural distance of deterministic automata}\label{c2:sec:behavioural_distance}
+We now focus on defining a behavioural distance for deterministic automata through the abstract framework of coalgebraic behavioural distances~\cite{Baldan:2018:Coalgebraic}. We first recall the main definitions and then concretise the abstract results to the case of our interest.
 \subsection{Coalgebraic behavioural distances}\label{c2:subsec:coalgebraic_behavioural_distances}
 In order to define a behavioural distance for $\funF$-coalgebras for a functor $\funF \colon \Set \to \Set$, we need to be able to \emph{lift} the functor $\funF$ describing the one-step dynamics of transition systems of interest to the category $\PMet$ of pseudometric spaces and nonexpansive functions. In terms of notation, we will write $\forget \colon \PMet \to \Set$ for the canonical faithful functor taking each pseudometric space $(X, d_X)$ to its underlying set $X$.
 \begin{definition}\label{c2:def:lifting}
@@ -364,8 +369,10 @@ if whenever $\Gamma \vdash t \equiv_\e s \in \U[]$, then $\Gamma \models_\qalgA 
 
 From now on, let's focus on the signature $\Sigma^{\qalgB} = \{\zero_0, \one_0, +_2, \seq_2, {(-)^\ast}_1\} \cup \{a_0 \mid a \in \alphabet\}$, where $\alphabet$ is a finite alphabet. This signature consists of all operations of regular expressions. We can easily interpret all those operations in the set $\RExp$ of all regular expressions, using trivial interpretation functions eg. $+^{\qalgB}(e,f) = e + f$, which interpret the operations by simply constructing the appropriate terms. Formally speaking, we can do this because the set $\RExp$ is the carrier of initial algebra~\cite{Burris:1981:Course} (free algebra over the empty set of generators) for the signature $\Sigma$. 
 
-To make this algebra into a quantitative algebra, we first equip the set $\RExp$ with a pseudometric, given by $
-d^{\qalgB}(e,f) = \langmetric(\sem{e}, \sem{f})$ for all $e, f \in \RExp$. 
+To make this algebra into a quantitative algebra, we first equip the set $\RExp$ with a pseudometric, given by 
+\begin{equation}\label{c2:eq:qalg_dist}
+	d^{\qalgB}(e,f) = \langmetric(\sem{e}, \sem{f}) \qquad \text{ for all } e, f \in \RExp
+\end{equation}
 
 Recall that $\langmetric$ used in the definition above is a behavioural pseudometric on the final deterministic automaton carried by the set $\pset (\alphabet^{\ast})$ of all formal languages over an alphabet $\alphabet$. In other words, we define the distance between arbitrary expressions $e$ and $f$ to be the distance between formal languages $\sem{e}$ and $\sem{f}$ calculated through the shortest-distinguishing-word metric. 
 It turns out, that in such a situation all the interpretation functions of $\Sigma$-algebra structure on $\RExp$ are nonexpansive with respect to the pseudometric defined above. In other words, we have that: 
@@ -400,8 +407,8 @@ Since $\langmetric$ is a pseudometric, then so is $d^{\qalgB} = \langmetric \cir
     \item We use the same line of reasoning as before. Assume that $\sem{e}$ and $\sem{g}$ agree on all words of length below $n$. Let $w \in \alphabet^\ast$, such that $|w| < n$. We have the following:
     \begin{align*}
         w \in \sem{e^\ast} &\iff w \in \sem{e}^\ast\\ 
-        &\iff w = \e \vee \left(\exists k \geq 1 \ldotp \exists u_1, \dots, u_k \in \alphabet^\ast \ldotp w = u_1\dots u_k \right.\\&\left. \qquad\qquad\wedge u_1 \in \sem{e} \wedge \dots \wedge u_k \in \sem{e}\right) \\
-        &\iff w = \e \vee \left(\exists k \geq 1 \ldotp \exists u_1, \dots, u_k \in \alphabet^\ast\ldotp w = u_1\dots u_k \right.\\&\left. \qquad\qquad\wedge u_1 \in \sem{g} \wedge \dots \wedge u_k \in \sem{g}\right) \tag{$|u_1| < n, \dots, |u_k| < n$ }\\
+        &\iff w = \emptyword \vee \left(\exists k \geq 1 \ldotp \exists u_1, \dots, u_k \in \alphabet^\ast \ldotp w = u_1\dots u_k \right.\\&\left. \qquad\qquad\wedge u_1 \in \sem{e} \wedge \dots \wedge u_k \in \sem{e}\right) \\
+        &\iff w = \emptyword \vee \left(\exists k \geq 1 \ldotp \exists u_1, \dots, u_k \in \alphabet^\ast\ldotp w = u_1\dots u_k \right.\\&\left. \qquad\qquad\wedge u_1 \in \sem{g} \wedge \dots \wedge u_k \in \sem{g}\right) \tag{$|u_1| < n, \dots, |u_k| < n$ }\\
         &\iff w \in \sem{g}^\ast \iff w \in \sem{g^*}
     \end{align*}
 \end{enumerate}
@@ -476,15 +483,15 @@ By the structural induction on the judgement $\Gamma \vdash e \equiv_{\e} f \in 
 
  Additionally, for all axioms in the form $\vdash e \equiv_0 f$ it suffices to show that $\sem{e} = \sem{f}$. \textsf{(SL1-SL4)}, \textsf{(1S)}, \textsf{(S)}, \textsf{(S1)}, \textsf{(0S)}, \textsf{(S0)}, \textsf{(D1-D2)}, \textsf{(Unroll)} and \textsf{(Tight)} are taken from Salomaa's axiomatisation of language equivalence of regular expressions~\cite{Salomaa:1966:Two} and thus both sides of those equations denote the same formal languages~\cite[Theorem~5.2]{Wagemaker:2019:Completeness}. For $(\dPref)$ assume that the premise is satisfied in the model, that is $\langmetric(\sem{e},\sem{f}) \leq \e$. Let $\e' \geq \lambda \cdot \e$. We show the following:
 \begin{align*}
-    d^{\qalgB}(a \seq e, a \seq f) &= \langmetric(\sem{a \seq e}, \sem{a \seq f}) \tag{Def. of $d^{\qalgB}$}\\
+    d^{\qalgB}(a \seq e, a \seq f) &= \langmetric(\sem{a \seq e}, \sem{a \seq f}) \tag{\Cref{c2:eq:qalg_dist}}\\
     & = \Phi_{\langle o_L, t_L \rangle}(\langmetric)(\sem{a \seq e}, \sem{a \seq f}) \tag{$\langmetric$ is a fixpoint of $\Phi_{\langle o_L, t_L \rangle}$}\\
     &= \max\{d_{\{0,1\}}(o_L(a \seq e), o_L(a \seq e')) \lambda \cdot \max_{a' \in \alphabet}  \langmetric(\sem{a \seq e}_{a'}, \sem{a \seq f}_{a'} )\}\\
     &= \lambda \cdot \langmetric(\sem{e}, \sem{f}) \tag{Def. of final automaton} \\
-    & \leq \lambda \cdot \e \leq \e' \tag{Assumptions} \\
+    & \leq \lambda \cdot \e \leq \e' \\
 \end{align*}
-Finally, \textsf{(SL5)} is derivable from other axioms; we included \textsf{(SL5)} as an axiom to highlight the similarity of our inference system with axiomatisations of language equivalence of regular expressions~\cite{Salomaa:1966:Two,Kozen:1994:Completeness} containing the axioms of semilattices with bottom. In the previous work~\cite{Mardare:2016:Quantitative}, \textsf{(SL1-SL5)} are precisely the axioms of \emph{Quantitative Semilattices with zero} axiomatising the Hausdorff distance.  If $\e = \max(\e, \e')$ then $\{e \equiv_\e g \} \vdash e \equiv_{\max(\e, \e')} g$ holds by $(\Assum)$. If $\e < \max(\e, \e')$, then we can derive the quantitative judgement above using $(\Max)$. By a similar line of reasoning, we can show that $\{f \equiv_{\e'} h \} \vdash f \equiv_{\max(\e, \e')} h$. Finally, using $(\Cut)$ and $(\Nexp)$, we can show that $\{e \equiv_{\e} g, f \equiv_{\e'} h\} \vdash e + f \equiv_{\max(\e,\e')} g + h$ as desired.
+Finally, \textsf{(SL5)} is derivable from other axioms; we included \textsf{(SL5)} as an axiom to highlight the similarity of our inference system with axiomatisations of language equivalence of regular expressions~\cite{Salomaa:1966:Two,Kozen:1994:Completeness} containing the axioms of semilattices with bottom. In the previous work~\cite{Mardare:2016:Quantitative}, \textsf{(SL1-SL5)} are precisely the axioms of \emph{quantitative semilattices with zero} axiomatising the Hausdorff distance.  If $\e = \max(\e, \e')$ then $\{e \equiv_\e g \} \vdash e \equiv_{\max(\e, \e')} g$ holds by $(\Assum)$. If $\e < \max(\e, \e')$, then we can derive the quantitative judgement above using $(\Max)$. By a similar line of reasoning, we can show that $\{f \equiv_{\e'} h \} \vdash f \equiv_{\max(\e, \e')} h$. Finally, using $(\Cut)$ and $(\Nexp)$, we can show that $\{e \equiv_{\e} g, f \equiv_{\e'} h\} \vdash e + f \equiv_{\max(\e,\e')} g + h$ as desired.
 \end{proof}
-We now revisit the example from \Cref{c2:fig:dfas}. Recall that states marked as initial of the left and middle automata can be respectively represented as $a^\ast$ and $a + \one$. The shortest word distinguishing languages representing those expressions is $aa$. If we fix $\lambda = \frac{1}{2}$, then $\langmetric(\sem{a^\ast}, \sem{a+ \one}) = \frac{1}{4}=\left(\frac{1}{2}\right)^{|aa|}$. We can derive this distance through the means of axiomatic reasoning using the quantitative equational theory \textsf{REG} in the following way: 
+We now revisit the example from \Cref{c2:fig:dfas}. Recall that states marked as initial of the left and middle automata can be respectively represented as $a^\ast$ and $a + \one$. The shortest word distinguishing languages representing those expressions is $aa$. If we fix $\lambda = \frac{1}{2}$, then $d^{\qalgB}(a^\ast, a + \one)= \langmetric(\sem{a^\ast}, \sem{a+ \one}) = \frac{1}{4}=\left(\frac{1}{2}\right)^{|aa|}$. We can derive this distance through the means of axiomatic reasoning using the quantitative equational theory \textsf{REG} in the following way: 
 \begin{example}
  	\begin{align*}
 		\vdash a^* &\equiv_1 \zero \tag{$\Top$} \\
@@ -496,7 +503,7 @@ We now revisit the example from \Cref{c2:fig:dfas}. Recall that states marked as
 		\vdash a^\ast &\equiv_{\frac{1}{4}} a + \one \tag{$\Triang$, \textsf{Unroll} and \textsf{S1}}\\
 	\end{align*}
 \end{example}
-\subsection{(The lack of) the fixpoint axiom}\label{c2:subsec:fixpoint_axiom}
+\subsection{The lack of the fixpoint axiom}\label{c2:subsec:fixpoint_axiom}
 
  Traditionally, completeness of inference systems for behavioural equivalence of languages of expressions featuring recursive constructs such as Kleene star or $\mu$-recursion~\cite{Milner:1984:Complete} rely crucially on fixpoint introduction rules. Those allow showing that an expression is provably equivalent to a looping construct if it exhibits some form of self-similarity, typically subject to productivity constraints. As an illustration, Salomaa's axiomatisation of language equivalence of regular expressions incorporates the following inference rule:
 \begin{equation}\label{c2:eq:salomaa}
@@ -556,11 +563,11 @@ Having the result above, we can now use the infinitary $(\Cont)$ rule capturing 
 To deduce that $\vdash g \equiv_0 e^{\ast} \seq f$ using $(\Cont)$ it suffices to show that $\vdash g \equiv_{\e} e^{\ast} \seq f$ for all $\e > 0$.  To do so, pick an arbitrary $\e > 0$ and let $N = \lceil \log_{\lambda} \e \rceil$. Observe that $\lambda^N = \lambda^{\lceil \log_{\lambda} \e \rceil} \leq \lambda^{\log_{\lambda} \e} = \e$. Because of \Cref{c2:lem:star_lemma} we have that $\vdash g \equiv_{\e} e^{\ast} \seq f$, which completes the proof.
 \end{proof}
 \section{Completeness}\label{c2:sec:completeness}
-We now move on to the central result of this paper, which is the completeness of \textsf{REG} with respect to the shortest-distinguishing-word metric on languages denoting regular expressions. We use the strategy from the proof of completeness of quantitative axiomatisation of probabilistic bisimilarity distance~\cite{Bacci:2018:Bisimilarity}. It turns out that the results from~\cite{Bacci:2018:Bisimilarity} rely on properties that are not unique to the Kantorovich/Wassertstein lifting and can be also established for instances of the abstract coalgebraic framework~\cite{Baldan:2018:Coalgebraic}.
+We now focus our attention on the central result of this paper, which is the completeness of \textsf{REG} with respect to the shortest-distinguishing-word metric on languages denoting regular expressions. We use the strategy from the proof of completeness of quantitative axiomatisation of probabilistic bisimilarity distance~\cite{Bacci:2018:Bisimilarity}. It turns out that the results from~\cite{Bacci:2018:Bisimilarity} rely on properties that are not unique to the Kantorovich/Wassertstein lifting and can be also established for instances of the abstract coalgebraic framework~\cite{Baldan:2018:Coalgebraic}.
 
 The heart of our argument relies on the fact that the distance between languages denoting regular expressions can be calculated in a simpler way than applying the Knaster-Tarski fixpoint theorem while looking at the infinite-state final automaton of all formal languages over some fixed alphabet. 
 
-In particular, regular expressions denote the behaviour of finite-state deterministic automata. Since automata homomorphisms are nonexpansive mappings, the distance between languages $\sem{e}$ and $\sem{f}$ of some arbitrary regular expressions $e, f \in \RExp$ is the same as the distance between states in some DFA whose languages corresponds to $\sem{e}$ and $\sem{f}$. To be precise, we will look at the finite subautomaton $\gen{[e]_{\acirel}, [f]_{\acirel}}{\mathcal{Q}}$ of the $\acirel$ quotient of the Brzozowski automaton. The reason we care about deterministic finite automata is that it turns out that one can calculate the behavioural distance between two states through an iterative approximation from above, which can be also derived axiomatically using the $(\Cont)$ rule of quantitative deduction systems. We start by showing how this simplification works and then we move on to establishing completeness.
+In particular, regular expressions denote the behaviour of finite-state deterministic automata. Since automata homomorphisms are nonexpansive mappings, the distance between languages $\sem{e}$ and $\sem{f}$ of some arbitrary regular expressions $e, f \in \RExp$ is the same as the distance between states in some DFA whose languages corresponds to $\sem{e}$ and $\sem{f}$. To be precise, we will look at the finite subautomaton $\gen{[e]_{\acirel}, [f]_{\acirel}}{\mathcal{Q}}$ of the $\acirel$ quotient of the Brzozowski automaton. The reason we care about deterministic finite automata is that it turns out that one can calculate the behavioural distance between two states through an iterative approximation from above, which can be also derived axiomatically using the $(\Cont)$ rule of quantitative deduction systems. We start by showing how this simplification works, and then we establish completeness.
 \subsection{Behavioural distance of finite-state automata}\label{c2:subsec:distance_finite_automata}
 Consider a deterministic automaton $\mathcal{M} = (M, \langle o_M, t_M\rangle)$. The least fixpoint of a monotone endomap $\Phi_{\langle o_M, t_M\rangle} \colon D_{M} \to D_{M}$ on the complete lattice of pseudometrics on the set $M$ results in $d_{\langle o_M, t_M\rangle}$.
 It is noteworthy that $\Phi_{\langle o_M, t_M\rangle}$ exhibits two generic properties. Firstly, $\Phi_{\langle o_M, t_M\rangle}$ behaves well within the Banach space structure defined by the supremum norm.
@@ -584,9 +591,9 @@ Secondly, contractivity of $\Phi_{\langle o_M, t_M\rangle}$ implies the followin
 \begin{corollary}\label{c2:lem:uniquefp}
     For any deterministic automaton $\mathcal{M} = (M, \langle o_M, t_M\rangle)$, $\Phi_{\langle o_M, t_M\rangle}$ has a unique fixed point.
 \end{corollary}
-This means that if we want to calculate $d_{\langle o_M, t_M\rangle}$ it suffices to look at any fixpoint of $\Phi_{\langle o_M, t_M\rangle}$. This will enable a simpler characterisation, than the one given by the Knaster-Tarski fixpoint theorem. In particular, we will rely on the characterisation given by the Kleene fixpoint theorem~\cite[Theorem~2.8.5]{Sangiorgi:2011:Coinduction}, which allows to obtain the greatest fixpoint of an endofunction on the lattice as the infimum of the decreasing sequence of finer approximations obtained by repeatedly applying the function to the top element of the lattice.
+This means that if we want to calculate $d_{\langle o_M, t_M\rangle}$ it suffices to look at any fixpoint of $\Phi_{\langle o_M, t_M\rangle}$. This will enable a simpler characterisation, than the one given by the Knaster-Tarski fixpoint theorem. In particular, we will rely on the characterisation given by the Kleene's fixpoint theorem~\cite[Theorem~2.8.5]{Sangiorgi:2011:Coinduction}, which allows to obtain the greatest fixpoint of an endofunction on the lattice as the infimum of the decreasing sequence of finer approximations obtained by repeatedly applying the function to the top element of the lattice.
 
-\begin{theorem}[Kleene fixpoint theorem]\label{c2:thm:kleene}
+\begin{theorem}[Kleene's fixpoint theorem]\label{c2:thm:kleene}
 	Let $(X, \sqsubseteq)$ be a complete lattice with a top element $\top$ and $f \colon X \to X$ an endofunction that is $\omega$-cocontinuous or in other words for any decreasing chain $\{x_i\}_{i \in \N}$ it holds that $$\inf_{i \in \N} \{f(x_i)\} = f \left( \inf_{i \in \N} \{ x_i \} \right)$$  
 	Then, $f$ possesses a greatest fixpoint, given by 
 	$\operatorname{gfp}(f) = \inf_{i \in \N }\{f^{(i)}(\top)\}$
@@ -605,7 +612,7 @@ We can now use the above to show the desired property, by re-adapting \cite[Theo
 \begin{proof}
  By \Cref{c2:lem:chain_conv_to_inf}, the chain $\{d_i\}_{i \in \N}$ converges to $\inf_{i \in \N} d_i$. Since $\Phi_{\langle o_M, t_M\rangle}$ is contractive (\Cref{c2:lem:operator_nonexpansive}) it is also continuous (in the sense of the Banach space continuity) and therefore $\{\Phi_{\langle o_M, t_M\rangle}(d_i)\}_{i \in \N}$ converges to $\Phi_{\langle o_M, t_M\rangle} \left(\inf_{i \in \N} d_i\right)$. Recall that $\Phi_{\langle o_M, t_M\rangle}$ is monotone, which makes $\{\Phi_{\langle o_M, t_M\rangle}(d_i)\}_{i \in \N}$ into a chain, which by \Cref{c2:lem:chain_pointwise_inf} and \Cref{c2:lem:chain_conv_to_inf} converges to $\inf_{i \in \N} \{\Phi_{\langle o_M, t_M\rangle} (d_i)\}$. Since limit points are unique, $\inf_{i \in \N} \{\Phi_{\langle o_M, t_M\rangle} (d_i)\} = \Phi_{\langle o_M, t_M\rangle} \left(\inf_{i \in \N} d_i\right)$.
 \end{proof}
-We can combine the preceding results and provide a straightforward characterisation of the distance between languages represented by arbitrary regular expressions, denoted as $e, f \in \RExp$. Utilising a simple argument based on \Cref{c2:lem:behavioural_distances_properties}, which asserts that automata homomorphisms are isometries, one can demonstrate that the distance between $\sem{e}$ and $\sem{f}$ in the final automaton is equivalent to the distance between $[e]_{\acirel}$ and $[f]_{\acirel}$ in $\gen{[e]_{\acirel},[f]_{\acirel}}{\mathcal{Q}}$. This is, the least subautomaton of $\mathcal{Q}$ that contains the derivatives (modulo $\acirel$) reachable from $[e]_{\acirel}$ and $[f]_{\acirel}$. Importantly, this automaton is finite (\Cref{c2:lem:locally_finite}), allowing us to apply the Kleene fixpoint theorem to calculate the distance.
+We can combine the preceding results and provide a straightforward characterisation of the distance between languages represented by arbitrary regular expressions, denoted as $e, f \in \RExp$. Utilising a simple argument based on \Cref{c2:lem:behavioural_distances_properties}, which asserts that automata homomorphisms are isometries, one can demonstrate that the distance between $\sem{e}$ and $\sem{f}$ in the final automaton is equivalent to the distance between $[e]_{\acirel}$ and $[f]_{\acirel}$ in $\gen{[e]_{\acirel},[f]_{\acirel}}{\mathcal{Q}}$. This is, the least subautomaton of $\mathcal{Q}$ that contains the derivatives (modulo $\acirel$) reachable from $[e]_{\acirel}$ and $[f]_{\acirel}$. Importantly, this automaton is finite (\Cref{c2:lem:locally_finite}), allowing us to apply the Kleene's fixpoint theorem to calculate the distance.
 
 Let ${\Psi}_{e,f}^{(0)}$ denote the discrete metric on the set $\gen{[e]{\acirel},[f]{\acirel}}{\mathcal{Q}}$ (the top element of the lattice of pseudometrics over that set). Define ${\Psi}_{e,f}^{(n+1)} = \Phi_{\gen{[e]{\acirel},[f]{\acirel}}{\mathcal{Q}}} \left({\Psi}_{e,f}^{(n)}\right)$. Additionally, leveraging the fact that infima of decreasing chains are calculated pointwise (\Cref{c2:lem:chain_pointwise_inf}), we can conclude with the following:
 \begin{lemma}\label{c2:lem:iterative_calculation}
@@ -619,73 +626,76 @@ For all $e,f \in \RExp$, the underlying pseudometric of the quantitative algebra
     &= \langmetric \circ (L_{\mathcal{Q}} \times L_{\mathcal{Q}}) \circ ([-]_{\acirel} \times [-]_{\acirel})\\
     &= d_{\langle o_{\mathcal{Q}}, t_{\mathcal{Q}} \rangle} \circ ([-]_{\acirel} \times [-]_{\acirel}) \tag{\Cref{c2:lem:behavioural_distances_properties}}
     \end{align*}
-    Additionally, since $\gen{[e]_{\acirel},[f]_{\acirel}}{\mathcal{Q}}$ is the subautomaton of $\mathcal{Q}$ containing all the derivatives (modulo $\acirel$) of $e$ and $f$, the canonical inclusion map $\iota \colon \gen{[e]_{\acirel},[f]_{\acirel}}{\mathcal{Q}} \hookrightarrow \mathcal{Q}$ is an automaton homomorphism. Because $\iota([e]_{\acirel})=[e]_{\acirel}$ and $\iota([f]_{\acirel})=[f]_{\acirel}$, we can again use \cref{c2:lem:behavioural_distances_properties} to show that
+    Additionally, since $\gen{[e]_{\acirel},[f]_{\acirel}}{\mathcal{Q}}$ is the subautomaton of $\mathcal{Q}$ containing all the derivatives (modulo $\acirel$) of $e$ and $f$, the canonical inclusion map $\iota \colon \gen{[e]_{\acirel},[f]_{\acirel}}{\mathcal{Q}} \hookrightarrow \mathcal{Q}$ is a deterministic automaton homomorphism. Because $\iota([e]_{\acirel})=[e]_{\acirel}$ and $\iota([f]_{\acirel})=[f]_{\acirel}$, we can again use \Cref{c2:lem:behavioural_distances_properties} to show that
     $$
-    d^{\qalgB}(e,f) = d_{\langle o_{\mathcal{Q}}, t_{\mathcal{Q}} \rangle} = d_{\gen{[e]_{\acirel},[f]_{\acirel}}{\mathcal{Q}}}([e]_{\acirel}, [f]_{\acirel})
+    d^{\qalgB}(e,f) = d_{\langle o_{\mathcal{Q}}, t_{\mathcal{Q}} \rangle}([e]_\acirel,[f]_\acirel) = d_{\gen{[e]_{\acirel},[f]_{\acirel}}{\mathcal{Q}}}([e]_{\acirel}, [f]_{\acirel})
     $$
     Because of the fact that $([e]_{\acirel}, [f]_{\acirel})$ has finitely many states (\cref{c2:lem:locally_finite}) then by \Cref{c2:lem:uniquefp}, \Cref{c2:lem:cocontinuous} and \Cref{c2:thm:kleene} one can use the simplified iterative formula to calculate the behavioural pseudometric of $\gen{[e]_{\acirel},[f]_{\acirel}}{\mathcal{Q}}$.
 \end{proof}
 
 In simpler terms, we have demonstrated that the behavioural distance between a pair of arbitrary regular expressions can be calculated as the infimum of decreasing approximations of the actual distance from above. 
 
-Alternatively, one could calculate the same distance as the supremum of increasing approximations from below using the Kleene fixpoint theorem for the least fixpoint. We chose the former approach because our proof of completeness relies on the $(\Cont)$ rule of quantitative deduction systems. This rule essentially states that to prove two terms are at a specific distance, we should be able to prove that for all approximations of that distance from above. This allows us to replicate the fixpoint calculation through axiomatic reasoning.
+Alternatively, one could calculate the same distance as the supremum of increasing approximations from below using the Kleene's fixpoint theorem for the least fixpoint. We chose the former approach because our proof of completeness relies on the $(\Cont)$ rule of quantitative deduction systems. This rule essentially states that to prove two terms are at a specific distance, we should be able to prove that for all approximations of that distance from above. This allows us to replicate the fixpoint calculation through axiomatic reasoning.
 \subsection{Completeness result}\label{c2:subsec:completeness_result}
 
-We start by recalling that regular expressions satisfy a certain decomposition property, stating that each expression can be reconstructed from its small-step semantics, up to $\equiv_0$. This property, often referred to as the fundamental theorem of Kleene Algebra/regular expressions (in analogy with the fundamental theorem of calculus and following the terminology of Rutten~\cite{Rutten:2000:Universal} and Silva~\cite{Silva:2010:Kleene}) is useful in further steps of the proof of completeness. We will make use of the $n$-ary generalised sum operator, which is well defined because of \textsf{(SL1-SL4)} axioms of \textsf{REG}.
-\begin{theorem}{(Fundamental theorem)}\label{c2:thm:fundamental_theorem}
+We start by recalling that regular expressions satisfy a certain decomposition property, stating that each expression can be reconstructed from its small-step semantics, up to $\equiv_0$. This property, often referred to as the fundamental theorem of regular expressions (in analogy with the fundamental theorem of calculus and following the terminology of Rutten~\cite{Rutten:2000:Universal} and Silva~\cite{Silva:2010:Kleene}) is useful in further steps of the proof of completeness. We will make use of the $n$-ary generalised sum operator, which is well defined because of \textsf{(SL1-SL4)} axioms of \textsf{REG}.
+\begin{theorem}{Fundamental Theorem}\label{c2:thm:fundamental_theorem}
     For any $e \in \RExp$, $$
     \vdash e \equiv_0 \sum_{a \in \alphabet} a \seq (e)_a + o_{\mathcal{R}}(e)
     $$ is derivable using the axioms of \textsf{REG}.
 \end{theorem}
 \begin{proof}
-We proceed by induction on $e \in \RExp$. The base cases are trivial, so we just demonstrate the case when $e = a$ for $a \in \alphabet$. 
-
-    \fbox{$e = a$} 
-    \begin{align*}
-       \vdash a &\equiv_{0} a \seq \one \tag{$\mathsf{S1}$}\\
-        &\equiv_0 a \seq 1 + \zero \tag{$\mathsf{SL4}$}\\
-        &\equiv_0 a \seq (a)_a + o_{\mathcal{R}}(a) \tag{Def. of derivatives}
-    \end{align*}
-    Now, observe that for all $a' \in \alphabet \setminus \{a\}$, we have that $(a)_a' = 0$. Using axiom ($\mathsf{S0}$), $a' \seq (a)_{a'} \equiv_0 0$. Through induction on the size of $A \setminus \{a\}$, using axioms ($\mathsf{SL1}$) and ($\mathsf{SL4}$), one can show that $\sum_{a' \in \alphabet \setminus \{a \}} a' \seq (a)_{a'} \equiv_0 0$. We can now combine the intermediate results into the following:
-    \begin{align*}
-       \vdash a &\equiv_0 a \seq (a)_a + o_{\mathcal{R}}(a) \tag{Previous derivations} \\
-        &\equiv_0  a \seq (a)_a + o_{\mathcal{R}}(a) + \zero \tag{$\mathsf{SL1}$} \\
-        &\equiv_0 a \seq (a)_a + \zero + o_{\mathcal{R}}(a) \tag{$\mathsf{SL2}$} \\
-        &\equiv_0 a \seq (a)_a + \sum_{a' \in \alphabet \setminus \{a\}} a' \seq (a)_{a'} + o_{\mathcal{R}}(a) \tag{Previous inductive argument} \\
-        &\equiv_0 \sum_{a' \in \alphabet} a' \seq (a)_{a'} + o_{\mathcal{R}}(a) \tag{Def. of $n$-ary sum}
-    \end{align*}
-
-    \fbox{$e = f + g$}
-    \begin{align*}
-        \vdash f + g &\equiv_0 \left(\sum_{a \in \alphabet} a \seq (f)_a + o_{\mathcal{R}}(f)\right) + \left(\sum_{a \in \alphabet} a \seq (g)_a + o_{\mathcal{R}}(g)\right) \tag{Induction hypothesis} \\
-        &\equiv_0 \sum_{a \in \alphabet}\left( a \seq (f)_a + a \seq (g)_a\right) + \left( o_{\mathcal{R}}(f) + o_{\mathcal{R}}(g)\right) \tag{$\mathsf{S3}$}\\
-        &\equiv_0 \sum_{a \in \alphabet}\left( a \seq \left((f)_a + (g)_a\right)\right) + \left( o_{\mathcal{R}}(f) + o_{\mathcal{R}}(g)\right) \tag{$\mathsf{D1}$}\\
-        &\equiv_0 \sum_{a \in \alphabet}\left( a \seq \left((f + g)_a\right)\right) + o_{\mathcal{R}}(f + g)  \tag{Def. of derivatives}\\
-    \end{align*}
-
-    \fbox{$e = f \seq g $}
-    \begin{align*}
-        \vdash f \seq g &\equiv_0 \left(\sum_{a \in \alphabet} a \seq (f)_a + o_{\mathcal{R}}(f)\right) \seq g \tag{Induction hypothesis} \\
-        &\equiv_0 \sum_{a \in \alphabet} a \seq (f)_a \seq g  + o_{\mathcal{R}}(f) \seq g \tag{$\mathsf{D2}$} \\
-        &\equiv_0 \sum_{a \in \alphabet} a \seq (f)_a \seq g  + o_{\mathcal{R}}(f) \seq \left(\sum_{a \in \alphabet} a \seq (g)_a + o_{\mathcal{R}}(g) \right) \tag{Induction hypothesis} \\
-        &\equiv_0 \sum_{a \in \alphabet} a \seq (f)_a \seq g  +  \left(\sum_{a \in \alphabet}  o_{\mathcal{R}}(f) \seq a \seq (g)_a + o_{\mathcal{R}}(f) \seq o_{\mathcal{R}}(g) \right) \tag{$\mathsf{D1}$} \\
-        &\equiv_0 \sum_{a \in \alphabet} a \seq (f)_a \seq g  +  \left(\sum_{a \in \alphabet} a \seq  o_{\mathcal{R}}(f) \seq (g)_a + o_{\mathcal{R}}(f) \seq o_{\mathcal{R}}(g) \right) \tag{($\mathsf{1S}$) and ($\mathsf{S1}$) if $o_{\mathcal{R}}(f)=1$ or ($\mathsf{0S}$) and ($\mathsf{S0}$) if $o_{\mathcal{R}}(f)=0$} \\
-        &\equiv_0 \sum_{a \in \alphabet} \left(a \seq (f)_a \seq g  +  a \seq  o_{\mathcal{R}}(f) \seq (g)_a \right) + o_{\mathcal{R}}(f) \seq o_{\mathcal{R}}(g) \tag{$\mathsf{SL3}$}\\
-        &\equiv_0 \sum_{a \in \alphabet} a \seq \left((f)_a \seq g  +  o_{\mathcal{R}}(f) \seq (g)_a \right) + o_{\mathcal{R}}(f) \seq o_{\mathcal{R}}(g) \tag{$\mathsf{D1}$}\\
-        &\equiv_0 \sum_{a \in \alphabet} a \seq \left(f \seq g\right)_a + o_{\mathcal{R}}(f \seq g) \tag{Def. of derivatives}\\
-    \end{align*}
-
-    \fbox{$e = f^\ast$}
-    \begin{align*}
-        \vdash f^{\ast} &\equiv_0 \left( \sum_{a \in \alphabet} a \seq (f)_a + o_{\mathcal{R}}(f)\right)^{\ast} \tag{Induction hypothesis}\\
-        &\equiv_0 \left(\sum_{a \in \alphabet} a \seq (f)_a\right)^{\ast} \tag{($\mathsf{Tight}$) if $o_{\mathcal{R}}=1$ or ($\mathsf{SL4}$) if $o_{\mathcal{R}}=0$} \\
-        &\equiv_0  \left(\sum_{a \in \alphabet} a \seq (f)_a\right) \seq  \left(\sum_{a \in \alphabet} a \seq (f)_a\right)^{\ast} + \one \tag{$\mathsf{Unroll}$}\\
-        &\equiv_0  \left(\sum_{a \in \alphabet} a \seq (f)_a\right) \seq  f^{\ast} + \one \tag{Steps 1-2 and $(\Nexp)$} \\
-        &\equiv_0 \left(\sum_{a \in \alphabet} a \seq (f)_a \seq  f^{\ast} \right)  + \one \tag{$\mathsf{D2}$}\\
-        &\equiv_0 \left(\sum_{a \in \alphabet} a \seq \left(f^{\ast}\right)_a \right)  + o_{\mathcal{R}}\left(f^{\ast}\right) \tag{Def. of derivatives}\\
-    \end{align*}
-    
+	See~\cite[Theorem~4.4]{Brzozowski:1964:Expressions} or~\cite[Lemma~4]{Salomaa:1966:Two}.
 \end{proof}
+%\begin{proof}
+%We proceed by induction on $e \in \RExp$. The base cases are trivial, so we just demonstrate the case when $e = a$ for $a \in \alphabet$. 
+%
+%    \fbox{$e = a$} 
+%    \begin{align*}
+%       \vdash a &\equiv_{0} a \seq \one \tag{$\mathsf{S1}$}\\
+%        &\equiv_0 a \seq 1 + \zero \tag{$\mathsf{SL4}$}\\
+%        &\equiv_0 a \seq (a)_a + o_{\mathcal{R}}(a) \tag{Def. of derivatives}
+%    \end{align*}
+%    Now, observe that for all $a' \in \alphabet \setminus \{a\}$, we have that $(a)_a' = 0$. Using axiom ($\mathsf{S0}$), $a' \seq (a)_{a'} \equiv_0 0$. Through induction on the size of $A \setminus \{a\}$, using axioms ($\mathsf{SL1}$) and ($\mathsf{SL4}$), one can show that $\sum_{a' \in \alphabet \setminus \{a \}} a' \seq (a)_{a'} \equiv_0 0$. We can now combine the intermediate results into the following:
+%    \begin{align*}
+%       \vdash a &\equiv_0 a \seq (a)_a + o_{\mathcal{R}}(a) \tag{Previous derivations} \\
+%        &\equiv_0  a \seq (a)_a + o_{\mathcal{R}}(a) + \zero \tag{$\mathsf{SL1}$} \\
+%        &\equiv_0 a \seq (a)_a + \zero + o_{\mathcal{R}}(a) \tag{$\mathsf{SL2}$} \\
+%        &\equiv_0 a \seq (a)_a + \sum_{a' \in \alphabet \setminus \{a\}} a' \seq (a)_{a'} + o_{\mathcal{R}}(a) \tag{Previous inductive argument} \\
+%        &\equiv_0 \sum_{a' \in \alphabet} a' \seq (a)_{a'} + o_{\mathcal{R}}(a) \tag{Def. of $n$-ary sum}
+%    \end{align*}
+%
+%    \fbox{$e = f + g$}
+%    \begin{align*}
+%        \vdash f + g &\equiv_0 \left(\sum_{a \in \alphabet} a \seq (f)_a + o_{\mathcal{R}}(f)\right) + \left(\sum_{a \in \alphabet} a \seq (g)_a + o_{\mathcal{R}}(g)\right) \tag{Induction hypothesis} \\
+%        &\equiv_0 \sum_{a \in \alphabet}\left( a \seq (f)_a + a \seq (g)_a\right) + \left( o_{\mathcal{R}}(f) + o_{\mathcal{R}}(g)\right) \tag{$\mathsf{S3}$}\\
+%        &\equiv_0 \sum_{a \in \alphabet}\left( a \seq \left((f)_a + (g)_a\right)\right) + \left( o_{\mathcal{R}}(f) + o_{\mathcal{R}}(g)\right) \tag{$\mathsf{D1}$}\\
+%        &\equiv_0 \sum_{a \in \alphabet}\left( a \seq \left((f + g)_a\right)\right) + o_{\mathcal{R}}(f + g)  \tag{Def. of derivatives}\\
+%    \end{align*}
+%
+%    \fbox{$e = f \seq g $}
+%    \begin{align*}
+%        \vdash f \seq g &\equiv_0 \left(\sum_{a \in \alphabet} a \seq (f)_a + o_{\mathcal{R}}(f)\right) \seq g \tag{Induction hypothesis} \\
+%        &\equiv_0 \sum_{a \in \alphabet} a \seq (f)_a \seq g  + o_{\mathcal{R}}(f) \seq g \tag{$\mathsf{D2}$} \\
+%        &\equiv_0 \sum_{a \in \alphabet} a \seq (f)_a \seq g  + o_{\mathcal{R}}(f) \seq \left(\sum_{a \in \alphabet} a \seq (g)_a + o_{\mathcal{R}}(g) \right) \tag{Induction hypothesis} \\
+%        &\equiv_0 \sum_{a \in \alphabet} a \seq (f)_a \seq g  +  \left(\sum_{a \in \alphabet}  o_{\mathcal{R}}(f) \seq a \seq (g)_a + o_{\mathcal{R}}(f) \seq o_{\mathcal{R}}(g) \right) \tag{$\mathsf{D1}$} \\
+%        &\equiv_0 \sum_{a \in \alphabet} a \seq (f)_a \seq g  +  \left(\sum_{a \in \alphabet} a \seq  o_{\mathcal{R}}(f) \seq (g)_a + o_{\mathcal{R}}(f) \seq o_{\mathcal{R}}(g) \right) \tag{($\mathsf{1S}$) and ($\mathsf{S1}$) if $o_{\mathcal{R}}(f)=1$ or ($\mathsf{0S}$) and ($\mathsf{S0}$) if $o_{\mathcal{R}}(f)=0$} \\
+%        &\equiv_0 \sum_{a \in \alphabet} \left(a \seq (f)_a \seq g  +  a \seq  o_{\mathcal{R}}(f) \seq (g)_a \right) + o_{\mathcal{R}}(f) \seq o_{\mathcal{R}}(g) \tag{$\mathsf{SL3}$}\\
+%        &\equiv_0 \sum_{a \in \alphabet} a \seq \left((f)_a \seq g  +  o_{\mathcal{R}}(f) \seq (g)_a \right) + o_{\mathcal{R}}(f) \seq o_{\mathcal{R}}(g) \tag{$\mathsf{D1}$}\\
+%        &\equiv_0 \sum_{a \in \alphabet} a \seq \left(f \seq g\right)_a + o_{\mathcal{R}}(f \seq g) \tag{Def. of derivatives}\\
+%    \end{align*}
+%
+%    \fbox{$e = f^\ast$}
+%    \begin{align*}
+%        \vdash f^{\ast} &\equiv_0 \left( \sum_{a \in \alphabet} a \seq (f)_a + o_{\mathcal{R}}(f)\right)^{\ast} \tag{Induction hypothesis}\\
+%        &\equiv_0 \left(\sum_{a \in \alphabet} a \seq (f)_a\right)^{\ast} \tag{($\mathsf{Tight}$) if $o_{\mathcal{R}}=1$ or ($\mathsf{SL4}$) if $o_{\mathcal{R}}=0$} \\
+%        &\equiv_0  \left(\sum_{a \in \alphabet} a \seq (f)_a\right) \seq  \left(\sum_{a \in \alphabet} a \seq (f)_a\right)^{\ast} + \one \tag{$\mathsf{Unroll}$}\\
+%        &\equiv_0  \left(\sum_{a \in \alphabet} a \seq (f)_a\right) \seq  f^{\ast} + \one \tag{Steps 1-2 and $(\Nexp)$} \\
+%        &\equiv_0 \left(\sum_{a \in \alphabet} a \seq (f)_a \seq  f^{\ast} \right)  + \one \tag{$\mathsf{D2}$}\\
+%        &\equiv_0 \left(\sum_{a \in \alphabet} a \seq \left(f^{\ast}\right)_a \right)  + o_{\mathcal{R}}\left(f^{\ast}\right) \tag{Def. of derivatives}\\
+%    \end{align*}
+%    
+%\end{proof}
  Let's now say that we are interested in the distance between some expressions $e,f \in \RExp$. As mentioned before, we will rely on $\gen{[e]_{\acirel},[f]_{\acirel}}{\mathcal{Q}}$, the least subautomaton of the $\acirel$ quotient of the Brzozowski automaton containing states reachable from $[e]_{\acirel}$ and $[f]_{\acirel}$. Recall that by \Cref{c2:lem:locally_finite} its state space is finite. It turns out that the approximations from above (from \Cref{c2:lem:iterative_calculation}) to the distance between any pair of states in that automaton can be derived through the means of axiomatic reasoning.
 \begin{lemma}\label{c2:lem:provability1}
 	Let $e,f \in \RExp$ be arbitrary regular expressions and let $[g]_{\acirel}, [h]_{\acirel} \in \gen{[e]_{\acirel},[f]_{\acirel}}{\mathcal{Q}}$. 
@@ -708,7 +718,7 @@ For the induction step, let $i = j + 1$ and derive the following:
     \iff &{\e \geq d_{\{0,1\}} (o_{\mathcal{R}}(g), o_{\mathcal{R}}(h))} \text{ and for all $a \in \alphabet$},~\e \cdot \lambda^{-1} \geq {\Psi}_{e,f}^{(j)}\left({[{(g)}_{a}]_{\acirel}}, {[{(h)}_{a}]_{\acirel}}\right)
 \end{align*}
 
-Firstly, since $d_\{0,1\}$ is the discrete pseudometric on the set $\{0,1\}$, we can use $(\Refl)$ or $(\Top)$ depending on whether $o_{\mathcal{R}}(g) = o_{\mathcal{R}}(h)$ and then apply $(\Max)$ to derive $\vdash o_{\mathcal{R}}(g) \equiv_\e o_{\mathcal{R}}(h)$. 
+Firstly, since $d_{\{0,1\}}$ is the discrete pseudometric on the set $\{0,1\}$, we can use $(\Refl)$ or $(\Top)$ depending on whether $o_{\mathcal{R}}(g) = o_{\mathcal{R}}(h)$ and then apply $(\Max)$ to derive $\vdash o_{\mathcal{R}}(g) \equiv_\e o_{\mathcal{R}}(h)$. 
 
 Let $a \in \alphabet$. We will show that $\vdash a\seq (g)_a \equiv_{\e} a \seq (h)_a $. Since $\e \cdot \lambda^{-1}$ is not guaranteed to be rational, we cannot immediately apply the induction hypothesis. Instead, we rely on \textsf{(Cont)} rule. 
 
@@ -741,7 +751,7 @@ The introduction of quantitative equational theories~\cite{Mardare:2016:Quantita
 
 An alternative approach was proposed by Bacci, Bacci, Larsen and Mardare~\cite{Bacci:2018:Bisimilarity}, who used a mild relaxation of quantitative equational theories and gave a sound and complete axiomatisation of bisimulation distance between terms of probabilistic process calculus of Stark and Smolka~\cite{Stark:2000:Complete} and later adapted their results to a coarser notion of total variation distance between infinite traces~\cite{Bacci:2018:TV}. 
 
-We have followed the strategy for proving completeness from~\cite{Bacci:2018:Bisimilarity}. The interesting insight about that strategy is that it relies on properties that are not exclusive to distances obtained through the Kantorovich/Wasserstein lifting and can be established for notions of behavioural distance for other kinds of transition systems stemming from the coalgebraic framework. In particular, one needs to show that the monotone map on the lattice of pseudometrics used in defining the distance of finite-state systems is nonexpansive with respect to the sup norm (and hence $\omega$-cocontinuous) and has a unique fixpoint, thus allowing to characterise the behavioural distance as the greatest fixpoint obtained through the Kleene fixpoint theorem. This point of view allows one to reconstruct the fixpoint calculation in terms of axiomatic manipulation involving the \textsf{(Cont)} rule, eventually leading to completeness.
+We have followed the strategy for proving completeness from~\cite{Bacci:2018:Bisimilarity}. The interesting insight about that strategy is that it relies on properties that are not exclusive to distances obtained through the Kantorovich/Wasserstein lifting and can be established for notions of behavioural distance for other kinds of transition systems stemming from the coalgebraic framework. In particular, one needs to show that the monotone map on the lattice of pseudometrics used in defining the distance of finite-state systems is nonexpansive with respect to the sup norm (and hence $\omega$-cocontinuous) and has a unique fixpoint, thus allowing to characterise the behavioural distance as the greatest fixpoint obtained through the Kleene's fixpoint theorem. This point of view allows one to reconstruct the fixpoint calculation in terms of axiomatic manipulation involving the \textsf{(Cont)} rule, eventually leading to completeness.
 
 We have additionally observed that in the presence of the infinitary \textsf{(Cont)} rule and the \textsf{(\dPref)} axiom, there is no need for a fixpoint introduction rule, which is commonplace in axiomatisations of language equivalence regular expressions but also other work on process calculi. Inrestingly, the previous work on axiomatising a discounted probabilistic bisimilarity distance from~\cite{Bacci:2018:Bisimilarity} includes both \textsf{(\dPref)} and the fixpoint introduction rule, but its proof of completeness~\cite[Theorem~6.4]{Bacci:2018:Bisimilarity} does not involve the fixpoint introduction rule at any point. We are highly confident that in the case of that axiomatisation, the fixpoint introduction rule could be derived from other axioms in a similar fashion to the way we derived Salomaa's rule for introducing the Kleene star~\cite{Salomaa:1966:Two}. Additionally, we are interested in how much this argument relates to the recent study of fixpoints in quantitative equational theories~\cite{Mardare:2021:Fixed}. 
 
