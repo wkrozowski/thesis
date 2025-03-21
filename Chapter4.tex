@@ -224,48 +224,6 @@ Given $\nu\in\distf X$ and $Y \subseteq X$, we will write $\nu[Y] = \sum_{x \in 
   $\distf$ is in fact a functor on the category $\Set$, which maps each set $X$ to $\distf X$ and maps each arrow $f \colon X \to Y$ to the function $\distf f \colon \distf X \to \distf Y$ given by $$\distf f (\nu)(x) = \sum_{y \in f^{-1}(x)} \nu(y)$$
    Moreover, $\distf$ also  carries a monad structure with unit  $\eta_X(x) = \delta_x$ and multiplication $\mu_X(\Phi)(x) = \sum_{\varphi \in \distf X }\Phi(\varphi)\varphi(x)$ for $\Phi \in \distf^2 X$. Using the free-forgetful adjunction between $\Set$ and category of $\distf$-algebras, given $f \colon X \to \distf Y$, there exists a unique map $f^\sharp \colon \distf X \to \distf Y$ satisfying $f = f^\sharp \circ \delta$ called the \emph{convex extension of $f$}, and explicitly given by $f^\sharp(\nu)(y) = \sum_{x \in X} \nu(x) f(x)(y)$.
    
-  Below, we recall the notions surrounding couplings of (sub)probability distributions, which will be used in one of the intermediate steps of the proof of soundness.
-\begin{definition}[{\cite[Definition~2.1.2]{Hsu:2017:Probabilistic}}]\label{def:coupling}
-    Given two subdistributions $\nu_1, \nu_2$ over $X$ and $Y$ respectively, a subdistribution $\nu$ over $X \times Y$ is called coupling if:
-    \begin{enumerate}
-        \item For all $x \in X$, $\nu_1(x) = \nu[\{x\}\times Y]$
-        \item For all $y \in Y$, $\nu_2(y)= \nu[X \times \{y\}]$
-    \end{enumerate} 
-\end{definition}
-It can be straightforwardly observed that a coupling $\nu$ of $(\nu_1, \nu_2)$ is finitely supported if and only if both $\nu_1$ and $\nu_2$ are finitely supported.
-\begin{definition}[{\cite[Definition~2.1.7]{Hsu:2017:Probabilistic}}]\label{def:lifting}
-    Let $\nu_1, \nu_2$ be subdistributions over $X$ and $Y$ respectively and let $R \subseteq X \times Y$ be a relation. A subdistribution $\nu$ over $X \times Y$ is a \emph{witness} for the $R$-\emph{lifting} of $(\nu_1, \nu_2)$ if:
-    \begin{enumerate}
-        \item $\nu$ is a coupling for $(\nu_1, \nu_2)$
-        \item $\supp(\mu) \subseteq R$
-    \end{enumerate}
-\end{definition}
-If there exists $\nu$ satisfying these two conditions, we say $\nu_1$ and $\nu_2$ are related by the \emph{lifting} of $R$ and write $\nu_1 \equiv_R \nu_2$. It can be immediately observed that $\nu_1 \equiv_R \nu_2$ implies $\nu_2 \equiv_{R^{-1}} \nu_1$.
-
-Given a relation ${R}\subseteq{X \times Y}$ and a set $B \subseteq X$, we will write $R(B) \subseteq Y$ for the set given by $R(B)= \{y \in Y \mid (x,y) \in R \text{ and } x \in B\}$. We will write $R^{-1} \subseteq Y \times X$ for the converse relation given by $R^{-1} = \{(y,x) \in Y \times X \mid (x,y) \in R\}$. 
-\begin{theorem}[{\cite[Theorem 2.1.11]{Hsu:2017:Probabilistic}}]\label{thm:coupling_theorem}
-Let $\nu_1$, $\nu_2$ be subdistributions over $X$ and $Y$ respectively and let $R \subseteq X \times Y$ be a relation. Then the lifting $\nu_1 \equiv_R \nu_2$ implies $\nu_1[B] \leq \nu_2[R(B)]$ for every subset $B \subseteq X$. The converse holds if $\mu_1$ and $\mu_2$ have equal weight.
-\end{theorem}
-\begin{lemma}\label{lem:coupling_lemma}
-Let $\nu_1$, $\nu_2$ be subdistributions over $X$ and $Y$ respectively and let $R \subseteq X \times Y$ be a relation. $\nu_1 \equiv_R \nu_2$ if and only if:
-\begin{enumerate}
-	\item For all $B \subseteq X$,  $\nu_1[B] \leq \nu_2[R(B)]$
-	\item For all $C \subseteq Y$, $\nu_2[C] \leq \nu_1[R^{-1}(C)]$
-\end{enumerate}
-\end{lemma}
-\begin{proof}
-	Assume that $\nu_1 \equiv_R \nu_2$. Recall, that in such a case $\nu_2 \equiv_{R^{-1}} \nu_2$. Applying \cref{thm:coupling_theorem} yields (1) and (2) respectively.
-	
-	For the converse, assume (1) and (2) do hold. We have the following:
-\begin{align*}
-	|\nu_1| &= \nu_1[X] \\
-	&\leq \nu_2[R(X)] \tag{1} \\
-	&\leq \nu_2[Y] \tag{$R(X) \subseteq Y$}\\
-	&= |\nu_2|
-\end{align*}
-By a symmetric reasoning involving (2), we can show that $|\nu_2| \leq |\nu_1|$ and therefore $|\nu_1| = |\nu_2|$. Since condition (1) holds, we can use \Cref{thm:coupling_theorem} to conclude that $\nu_1 \equiv_R \nu_2$.
-\end{proof}
-  
 \subsection{Positive convex algebras}\label{c4:subsec:positive}
 By $\sigpca$ we denote a signature given by
 $$\sigpca = \left\{\bigboxplus_{i \in I} p_i \cdot (-)_i \mid I \text{ finite}, \forall i \in I \ldotp p_i \in [0,1], \sum_{i \in I} p_i \leq 1\right\} $$
