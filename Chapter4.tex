@@ -483,9 +483,9 @@ We now have all ingredients to specify language semantics of $\distf \funF$-coal
 This can be summarised by the following commutative diagram:
 % https://q.uiver.app/#q=WzAsNixbMCwwLCJYIl0sWzAsMSwiXFxkaXN0ZiBcXGZ1bkYgWCJdLFsxLDAsIlxcZGlzdGYgWCJdLFswLDIsIlxcZnVuRyBcXGRpc3RmIFgiXSxbMywwLCJcXGludGVydmFsezB9ezF9XlxcYWxwaGFiZXQiXSxbMywyLCJcXGZ1bkcgXFxsZWZ0KFxcaW50ZXJ2YWx7MH17MX1ee1xcYWxwaGFiZXR9XFxyZ2l0aCkiXSxbMCwxLCJcXGJldGEiXSxbMSwzLCJcXGdhbW1hX1giXSxbMCwyLCJcXGV0YV9YIl0sWzIsMywiKFxcZ2FtbWFfWCBcXGNpcmMgXFxiZXRhKV5cXHNoYXJwIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzQsNSwidCJdLFsyLDQsIlxcYmVoeyhcXGdhbW1hX1ggXFxjaXJjIFxcYmV0YSleXFxzaGFycH0iLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMyw1LCJcXGZ1bkcgXFxiZWh7KFxcZ2FtbWFfWCBcXGNpcmMgXFxiZXRhKV5cXHNoYXJwfSIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
 \[\begin{tikzcd}
-	X & {\distf X} && {\interval{0}{1}^\alphabet} \\
+	X & {\distf X} && {\interval{0}{1}^{\alphabet^\ast}} \\
 	{\distf \funF X} \\
-	{\funG \distf X} &&& {\funG \left(\interval{0}{1}^{\alphabet}\right)}
+	{\funG \distf X} &&& {\funG \left(\interval{0}{1}^{\alphabet^\ast}\right)}
 	\arrow["{\eta_X}", from=1-1, to=1-2]
 	\arrow["\beta", from=1-1, to=2-1]
 	\arrow["{\beh{(\gamma_X \circ \beta)^\sharp}}", dashed, from=1-2, to=1-4]
@@ -518,26 +518,46 @@ The above is a consequence of $\gamma \colon \distf \funF \Rightarrow \funG \dis
 	{\distf X} && {\distf^2\funF X} && {\distf \funF X} && {\funG \distf X}
 	\arrow["{\distf \beta}", from=1-1, to=1-3]
 	\arrow["{(\gamma_X \circ \beta)^\sharp}", curve={height=-30pt}, from=1-1, to=1-7]
-	\arrow["{\mu_\funF}", from=1-3, to=1-5]
+	\arrow["{\mu_{\funF X}}", from=1-3, to=1-5]
 	\arrow["{\gamma_X}", from=1-5, to=1-7]
 \end{tikzcd}\]
 \end{proposition}
 \begin{proof}
-	{\color{red} Prove this}
+	We first argue that $ (\gamma_X \circ \beta)^\sharp \circ \eta_X =  \gamma_X \circ \mu_{\funF X} \circ \distf \beta \circ \eta_X  $
+	\begin{align*}
+		\eta_X \circ \distf \beta \circ \mu_{\funF X} \circ \gamma_X &= \beta\circ \eta_{\distf \funF X} \circ \mu_{\funF X} \circ \gamma_X \tag{$\eta$ is natural}\\
+		&= \beta \circ \gamma_X \tag{Monad laws}\\
+		&= (\beta \circ \gamma_X)^\sharp \circ \eta_X \tag{Kleisli extension} 
+	\end{align*}
+	Then, we argue that $\gamma_X \circ \mu_{\funF X} \circ \distf \beta$ is a $\pca$ homomorphism from the free $\pca$ $(X, \mu_X)$ to $\overline{G}(X, \mu_X)$, by checking the commutativity of the diagram below.
+	% https://q.uiver.app/#q=WzAsOSxbMCwyLCJcXGRpc3RmIFgiXSxbMCwwLCJcXGRpc3RmXjJYIl0sWzIsMiwiXFxkaXN0Zl4yXFxmdW5GIFgiXSxbMiwwLCJcXGRpc3RmXjMgXFxmdW5GIFxcYmV0YSJdLFs0LDIsIlxcZGlzdGYgXFxmdW5GIFgiXSxbNCwwLCJcXGRpc3RmXjIgXFxmdW5GIFgiXSxbNiwyLCJcXGZ1bkcgXFxkaXN0ZiBYIl0sWzYsMCwiXFxkaXN0ZiBcXGZ1bkYgXFxkaXN0ZlgiXSxbNiwxLCJcXGZ1bkdeMiBcXGRpc3RmIFgiXSxbMSwwLCJcXG11X1giLDJdLFswLDIsIlxcZGlzdGYgXFxiZXRhIiwyXSxbMSwzLCJcXGRpc3RmXjIgXFxiZXRhIl0sWzMsMiwiXFxtdV97XFxkaXN0ZiBcXGZ1bkYgWH0iXSxbMiw0LCJcXG11X3tcXGZ1bkYgWH0iXSxbNSw0LCJcXG11X3tcXGRpc3RmIFxcZnVuRiBYfSIsMl0sWzMsNSwiXFxkaXN0ZiBcXG11X3tcXGZ1bkYgWH0iXSxbNCw2LCJcXGdhbW1hX1giXSxbNSw3LCJcXGRpc3RmIFxcZ2FtbWFfWCJdLFs3LDgsIlxccmhvX3tcXGRpc3RmIFh9Il0sWzgsNiwiXFxmdW5HIFxcbXVfWCJdXQ==
+\[\begin{tikzcd}
+	{\distf^2X} && {\distf^3 \funF X} && {\distf^2 \funF X} && {\distf \funF \distf X} \\
+	&&&&&& {\funG^2 \distf X} \\
+	{\distf X} && {\distf^2\funF X} && {\distf \funF X} && {\funG \distf X}
+	\arrow["{\distf^2 \beta}", from=1-1, to=1-3]
+	\arrow["{\mu_X}"', from=1-1, to=3-1]
+	\arrow["{\distf \mu_{\funF X}}", from=1-3, to=1-5]
+	\arrow["{\mu_{\distf \funF X}}", from=1-3, to=3-3]
+	\arrow["{\distf \gamma_X}", from=1-5, to=1-7]
+	\arrow["{\mu_{\distf \funF X}}"', from=1-5, to=3-5]
+	\arrow["{\rho_{\distf X}}", from=1-7, to=2-7]
+	\arrow["{\funG \mu_X}", from=2-7, to=3-7]
+	\arrow["{\distf \beta}"', from=3-1, to=3-3]
+	\arrow["{\mu_{\funF X}}", from=3-3, to=3-5]
+	\arrow["{\gamma_X}", from=3-5, to=3-7]
+\end{tikzcd}\]
+The left diagram commutes because $\mu$ is natural, while the middle one commutes because of $\mu$ being a multiplication map of the monad. Finally, the commutativity of the rightmost subdiagram is guaranteed by $\gamma$ being an extension law (see discussion above).
+
+Since, $\mu_{\funF X} \circ \distf \beta \circ \eta_X $ is a $\pca$ homomorphism that factorises through $\eta$ in the same way as $(\gamma_X \circ \beta)^\sharp $, we have that  $ (\gamma_X \circ \beta)^\sharp =  \gamma_X \circ \mu_{\funF X} \circ \distf \beta$.
 \end{proof}
-
-
-
-
 \subsection{Antimirov derivatives}\label{c4:subsec:antimirov}
-
-
-	We use {GPTS} to equip {PRE} with an operational semantics. More precisely, we define a function $\partial : \PExp \to \distf (1+A\times \PExp)$. We refer to $\partial$ as the \emph{Antimirov derivative}, as it is reminiscent of the analogous construction
+We now equip $\PExp$ with a $\distf \funF$-coalgebra structure, that is, we define a function $\partial : \PExp \to \distf (1+A\times \PExp)$. We refer to $\partial$ as the \emph{Antimirov derivative}, as it is reminiscent of the analogous construction
 for regular expressions and nondeterminisic automata due to Antimirov~\cite{Antimirov:1996:Partial}. Given $a \in A$, $e,f \in \PExp$ and $p \in \interval{0}{1}$ we define:
 \begin{gather*}
-    \partial(\zero) = 0 \quad\quad \partial(\one)=\delta_{\checkmark} \quad\quad \partial(a)=\delta_{(a,\one)}  \\  \partial(e \oplus_p f)=p\partial(e) + (1-p)\partial(f)
+    \partial(\zero) = \emptydist \quad\quad \partial(\one)=\delta_{\checkmark} \quad\quad \partial(a)=\delta_{(a,\one)}  \\  \partial(e \oplus_p f)=p\partial(e) + (1-p)\partial(f)
 \end{gather*}
-The expression $\zero$ is mapped to the empty support subdistribution, intuitively representing a deadlock. On the other hand, the expression $\one$ represents immediate acceptance, that is it transitions to $\checkmark$ with probability $1$. For any letter $a \in A$ in the alphabet, the expression $a$ performs $a$-labelled transition to $\one$ with probability $1$. The outgoing transitions of the probabilistic choice $e \oplus_p f$ consist of the outgoing transitions of $e$ with
+The expression $\zero$ is mapped to the emptysubdistribution, intuitively representing a deadlock. On the other hand, the expression $\one$ represents immediate acceptance, that is it transitions to $\checkmark$ with probability $1$. For any letter $a \in A$ in the alphabet, the expression $a$ performs $a$-labelled transition to $\one$ with probability $1$. The outgoing transitions of the probabilistic choice $e \oplus_p f$ consist of the outgoing transitions of $e$ with
 probabilities scaled by $p$ and the outgoing transitions of $f$ scaled by $1-p$.
 
 The definition of $\partial(e;f)$ is slightly more involved. We need to factor in the possibility that $e$ may accept with some probability $t$, in which case the outgoing transitions of $f$ contribute to the outgoing transitions of $e \seq f$. Formally, $\partial(e \seq f) = \partial(e) \lhd f$ where for any $f \in \PExp$ the operation $( - \lhd f) : \distf (1+A\times \PExp) \to \distf (1+A\times \PExp)$ is given by $( - \lhd f) = {c_f}^{\star}$, the convex extension of $c_f : 1+A\times \PExp \to \distf (1+A \times \PExp)$ given below on the left.
