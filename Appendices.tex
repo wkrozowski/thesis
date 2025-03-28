@@ -4,9 +4,11 @@
 % The \appendix command resets the chapter counter, and changes the chapter numbering scheme to capital letters.
 %\chapter{Appendices}
 \appendix
-\chapter{Soundness of axioms for bisimilarity of probabilistic regular expressions}
+\chapter{Soundness of Bisimilarity Axioms of Probabilistic Regular Expressions}
 \label{appendixlabel1}
-Below, we recall the notions surrounding couplings of (sub)probability distributions, which will be used in one of the intermediate steps of the proof of soundness.
+
+\section{Couplings of subdistributions}
+Below, we recall the notions surrounding couplings of (sub)probability distributions, which we use to concretely characterise bisimulations of $\distf \funF$-coalgebras.
 \begin{definition}[{\cite[Definition~2.1.2]{Hsu:2017:Probabilistic}}]\label{def:coupling}
     Given two subdistributions $\nu_1, \nu_2$ over $X$ and $Y$ respectively, a subdistribution $\nu$ over $X \times Y$ is called coupling if:
     \begin{enumerate}
@@ -19,47 +21,435 @@ It can be straightforwardly observed that a coupling $\nu$ of $(\nu_1, \nu_2)$ i
     Let $\nu_1, \nu_2$ be subdistributions over $X$ and $Y$ respectively and let $R \subseteq X \times Y$ be a relation. A subdistribution $\nu$ over $X \times Y$ is a \emph{witness} for the $R$-\emph{lifting} of $(\nu_1, \nu_2)$ if:
     \begin{enumerate}
         \item $\nu$ is a coupling for $(\nu_1, \nu_2)$
-        \item $\supp(\mu) \subseteq R$
+        \item $\supp(\nu) \subseteq R$
     \end{enumerate}
 \end{definition}
-If there exists $\nu$ satisfying these two conditions, we say $\nu_1$ and $\nu_2$ are related by the \emph{lifting} of $R$ and write $\nu_1 \equiv_R \nu_2$. It can be immediately observed that $\nu_1 \equiv_R \nu_2$ implies $\nu_2 \equiv_{R^{-1}} \nu_1$.
+If there exists $\nu$ satisfying these two conditions, we say $\nu_1$ and $\nu_2$ are related by the \emph{lifting} of $R$ and write $\langle\nu_1 , \nu_2 \rangle \in \lift(R)$. It can be immediately observed that $\langle \nu_1 , \nu_2 \rangle \in \lift(R)$ implies $\langle \nu_2 , \nu_1 \rangle \in \lift({R^{-1}})$.
 
-Given a relation ${R}\subseteq{X \times Y}$ and a set $B \subseteq X$, we will write $R(B) \subseteq Y$ for the set given by $R(B)= \{y \in Y \mid (x,y) \in R \text{ and } x \in B\}$. We will write $R^{-1} \subseteq Y \times X$ for the converse relation given by $R^{-1} = \{(y,x) \in Y \times X \mid (x,y) \in R\}$. 
+Given a relation ${R}\subseteq{X \times Y}$ and a set $B \subseteq X$, we will write $R(B) \subseteq Y$ for the set given by $R(B)= \{y \in Y \mid \langle x,y \rangle \in R \text{ and } x \in B\}$. We will write $R^{-1} \subseteq Y \times X$ for the converse relation given by $R^{-1} = \{\langle y,x \rangle \in Y \times X \mid \langle x,y \rangle \in R\}$. 
 \begin{theorem}[{\cite[Theorem 2.1.11]{Hsu:2017:Probabilistic}}]\label{thm:coupling_theorem}
-Let $\nu_1$, $\nu_2$ be subdistributions over $X$ and $Y$ respectively and let $R \subseteq X \times Y$ be a relation. Then the lifting $\nu_1 \equiv_R \nu_2$ implies $\nu_1[B] \leq \nu_2[R(B)]$ for every subset $B \subseteq X$. The converse holds if $\nu_1$ and $\nu_2$ have equal weight.
+Let $\nu_1$, $\nu_2$ be subdistributions over $X$ and $Y$ respectively and let $R \subseteq X \times Y$ be a relation. Then $\langle \nu_1, \nu_2\rangle \in \lift (R) $ implies $\nu_1[B] \leq \nu_2[R(B)]$ for every subset $B \subseteq X$. The converse holds if $\nu_1$ and $\nu_2$ have equal weight.
 \end{theorem}
-\begin{lemma}\label{lem:coupling_lemma}
-Let $\nu_1$, $\nu_2$ be subdistributions over $X$ and $Y$ respectively and let $R \subseteq X \times Y$ be a relation. $\nu_1 \equiv_R \nu_2$ if and only if:
+\begin{lemma}\label{apx:lem:coupling_lemma}
+Let $\nu_1$, $\nu_2$ be subdistributions over $X$ and $Y$ respectively and let $R \subseteq X \times Y$ be a relation. $\langle \nu_1 , \nu_2 \rangle \in \lift(R)$ if and only if:
 \begin{enumerate}
 	\item For all $B \subseteq X$,  $\nu_1[B] \leq \nu_2[R(B)]$
 	\item For all $C \subseteq Y$, $\nu_2[C] \leq \nu_1[R^{-1}(C)]$
 \end{enumerate}
 \end{lemma}
 \begin{proof}
-	Assume that $\nu_1 \equiv_R \nu_2$. Recall, that in such a case $\nu_2 \equiv_{R^{-1}} \nu_2$. Applying \cref{thm:coupling_theorem} yields (1) and (2) respectively.
+	Assume that $\langle \nu_1 ,\nu_2 \rangle \in \lift(R)$. Recall, that in such a case $\langle \nu_2 ,\nu_1 \rangle \in \lift(R^{-1})$. Applying \Cref{thm:coupling_theorem} yields \circlednum{1} and \circlednum{2} respectively.
 	
-	For the converse, assume (1) and (2) do hold. We have the following:
+	For the converse, assume \circlednum{1} and \circlednum{2} do hold. We have the following:
 \begin{align*}
-	|\nu_1| &= \nu_1[X] \\
-	&\leq \nu_2[R(X)] \tag{1} \\
+	|\nu_1| &= \nu_1[X] \leq \nu_2[R(X)] \tag{\circlednum{1}} \\
 	&\leq \nu_2[Y] \tag{$R(X) \subseteq Y$}\\
 	&= |\nu_2|
 \end{align*}
-By a symmetric reasoning involving (2), we can show that $|\nu_2| \leq |\nu_1|$ and therefore $|\nu_1| = |\nu_2|$. Since condition (1) holds, we can use \Cref{thm:coupling_theorem} to conclude that $\nu_1 \equiv_R \nu_2$.
+By a symmetric reasoning involving \circlednum{2}, we can show that $|\nu_2| \leq |\nu_1|$ and therefore $|\nu_1| = |\nu_2|$. Since condition \circlednum{1} holds, we can use \Cref{thm:coupling_theorem} to conclude that $\langle \nu_1 ,\nu_2 \rangle \in \lift(R)$.
+\end{proof}
+\section{Relation lifting}
+\begin{definition}[{\cite[Definition~3.6.1]{Sokolova:2005:Coalgebraic}}]
+    Let $R \subseteq X \times Y$ be a relation, and $\funB$ a $\Set$ endofunctor. The relation $R$ can be lifted to relation $\Rel(\funB)(R) \subseteq \funB X \times \funB Y$ defined by
+    $$
+        \langle x,y \rangle \in \Rel(\funB)(R) \iff \exists z \in \funB R \text{ such that } \funB \pi_1(z)=x \text{ and } \funB \pi_2(z)=y
+    $$
+\end{definition}
+\begin{lemma}[{\cite[Lemma~3.6.4]{Sokolova:2005:Coalgebraic}}]\label{apx:lem:relation_lifting_bisim}
+    Let $\funB \colon \Set \to \Set$ be an arbitrary endofunctor on $\Set$. A relation $R \subseteq X \times Y$ is a bisimulation between the $\funB$-coalgebras $(X, \beta)$ and $(Y, \gamma)$ if and only if: 
+    $$\langle x,y\rangle \in R \implies \langle \beta(x), \gamma(y) \rangle \in \Rel(\funB)(R)$$
+\end{lemma}
+\begin{lemma}\label{apx:lem:concrete_liftings}
+    For any $R \subseteq {X \times Y}$
+    \begin{enumerate}
+        \item $\Rel(\funF)(R) = \{\langle \checkmark, \checkmark \rangle\} \cup \{\langle a,x \rangle,\langle a,y \rangle) \mid a \in \alphabet, \langle x,y \rangle \in R\}$
+        \item $\Rel(\distf \funF)(R) = \lift(\Rel(\funF)(R))$
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Using the inductive definition of relation liftings from \cite[Lemma~3.6.7]{Sokolova:2005:Coalgebraic}.
+\end{proof}
+\begin{lemma}\label{apx:lem:bisim_characterisation_sublemma}
+    Let $\nu_1 \in \distf F X$, $\nu_2 \in \distf F Y$ and let $R \subseteq X \times Y$. The necessary and sufficient conditions for $\langle \nu_1, \nu_2 \rangle \in \Rel(\distf \funF)(R)$ are:
+    \begin{enumerate}
+        \item $\nu_1(\checkmark)=\nu_2(\checkmark)$
+        \item For all $B \subseteq X$ and all $a \in \alphabet$, $\nu_1[\{a\}\times B] \leq \nu_2[\{a\}\times R(B)]$
+        \item For all $C \subseteq Y$ and all $a \in \alphabet$, $\nu_2[\{a\}\times C] \leq \nu_1[\{a\}\times R^{-1}(C)]$
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+Assume that $(\nu_1, \nu_2) \in \Rel(\distf F)(R)$. By \Cref{apx:lem:concrete_liftings}, it is equivalent to $\nu_1$ and $\nu_2$ being related by the lifting of $\Rel(\funF)(R)$. First, observe that:
+\begin{enumerate}
+	\item  $\Rel(\funF)(R)(\{\checkmark\})= \{\checkmark\}$
+	\item  $\Rel(\funF)(R)(\{a\} \times B) = \{a\} \times R(B)$ for all $a \in \alphabet$, and $B \subseteq X$
+\end{enumerate}
+First, we have the following:
+\begin{align*}
+\nu_1(\checkmark) &= \nu_1[\{\checkmark\}] \\
+&\leq \nu_2[R(\{\checkmark\})] \tag{\Cref{apx:lem:coupling_lemma}} \\
+&\leq \nu_2[\{\checkmark\}] \\
+&\leq \nu_1[R^{-1}(\{\checkmark\})] \\
+&\leq \nu_1(\checkmark)
+\end{align*}
+which proves $\nu_1(\checkmark) = \nu_2(\checkmark)$, establishing \circlednum{1}. Now, pick an arbitrary $a \in \alphabet$ and $B \subseteq X$. We have that:
+\begin{align*}
+\nu_1[\{a\} \times B] &\leq \nu_2[\Rel(\funF)(R)(\{a\} \times B)] \tag{\Cref{apx:lem:coupling_lemma}}\\
+&=\nu_2[\{a\} \times R(B)]
+\end{align*}
+which proves \circlednum{2}. Symmetric reasoning involving $R^{-1}$ allows to prove \circlednum{3}.
+
+For the converse, assume that conditions \circlednum{1}, \circlednum{2} and \circlednum{3} hold. Let $M \subseteq \funF X$. We can partition $M$ in the following way:
+$$M = \{o \mid o \in \{\checkmark\} \cap M\} \cup \bigcup_{a \in \alphabet} \{a\} \times \{x \mid (a,x) \in M\}$$
+We have the following:
+\begin{align*}
+\nu_1[B] &= \nu_1[\{o \mid o \in \{\checkmark\} \cap M\} ] + \sum_{a \in \alphabet} \nu_1[\{a\} \times \{x \mid (a,x) \in M\}] \\
+&= [\checkmark \in M]~\nu_1(\checkmark) + \sum_{a \in \alphabet} \nu_1[\{a\} \times \{x \mid (a,x) \in M\}] \\
+&\leq [\checkmark \in M]~\nu_2(\checkmark) + \sum_{a \in \alphabet} \nu_2[\{a\} \times R(\{x \mid (a,x) \in M\})] \tag{\circlednum{1} and \circlednum{2}}\\
+&=\nu_2[\{o \mid o \in \{\checkmark\} \cap M\} ] + \sum_{a \in \alphabet} \nu_2[\{a\} \times R(\{x \mid (a,x) \in M\})] \\
+&=\nu_2[\{o \mid o \in \{\checkmark\} \cap M\} ] + \nu_2[\Rel(\funF)(R)((A \times X)\cap M)] \\
+&=\nu_2[\Rel(\funF)(R)(M)]
+\end{align*}
+
+Recall that relation liftings preserve inverse relations~\cite{Hughes:2004:Simulations} and therefore $\Rel(\funF)(R)^{-1} = \Rel(\funF)(R^{-1})$. A similar reasoning to the one before allows us to conclude that for all $N \subseteq \funF Y$ we have that 
+$\nu_2[N] \leq \nu_1[\Rel(\funF)(R)^{-1}(N)]$. Finally, we can apply \Cref{apx:lem:coupling_lemma} to conclude that $\langle \nu_1 , \nu_2 \rangle \in \lift(\Rel(\funF)(R))$.
+\end{proof}
+
+\begin{lemma}\label{apx:lem:characterisation_of_bisimulation}
+    A relation ${R} \subseteq {X \times Y}$ is a bisimulation between $\distf F$-coalgebras $(X, \beta)$ and $(Y, \gamma)$ if and only if for all $(x,y) \in R$, we have that:
+    \begin{enumerate}
+        \item $\beta(x)(\checkmark) = \gamma(y)(\checkmark)$
+        \item For all $a \in \alphabet$, and for all $B \subseteq X$, we have that: $$\beta(x)[\{a\} \times B] \leq \gamma(y)[\{a\} \times R(B)]  $$
+        \item For all $a \in \alphabet$, and for all $C \subseteq Y$, we have that: $$\gamma(y)[\{a\} \times C] \leq \gamma(y)[\{a\} \times R^{-1}(C)]  $$ 
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Consequence of \Cref{apx:lem:relation_lifting_bisim} and \Cref{apx:lem:bisim_characterisation_sublemma}.
+\end{proof}
+\begin{lemma}\label{apx:lem:simpler_characterisation}
+    Let $(X, \beta)$ be a $\distf F$-coalgebra, $R \subseteq {X \times X}$ be an equivalence relation, $\langle x,y \rangle \in R$ and $a \in \alphabet$.
+    We have that: 
+    \begin{enumerate}
+        \item For all $G \subseteq X$, $\beta(x)[\{a\} \times G] \leq \beta(y)[\{a\} \times R(G)]$
+        \item For all $H \subseteq X$, $\beta(y)[\{a\} \times H] \leq \beta(x)[\{a\} \times R^{-1}(H)]$
+    \end{enumerate}
+    if and only if $\beta(x)[\{a\} \times Q] = \beta(y)[\{a\} \times Q]$ for all equivalence classes $Q \in X/R$.
+\end{lemma}
+\begin{proof}
+    First assume that \circlednum{1} and \circlednum{2} do hold.
+    We have that:
+    \begin{align*}
+        \beta(x)[\{a\} \times Q] &\leq \beta(y)[\{a\} \times R(Q)] \\
+        &= \beta(y)[\{a\} \times Q] \tag{$R$ is an equivalence relation}\\
+    \end{align*}
+    Since $R=R^{-1}$ we can employ the symmetric reasoning and show that $\beta(y)[\{a\} \times Q]\leq\beta(x)[\{a\} \times Q]$, which allows us to conclude that $\beta(x)[\{a\} \times Q]=\beta(y)[\{a\} \times Q]$.
+
+    For the converse, let $G \subseteq X$ be an arbitrary set. 
+    Let \(G / {R}\) be the quotient of \(G\) by the relation \(R\) and let \(X / {R}\) be the quotient of \(X\) by \(R\).
+    Observe that \(G / {R}\) is a partition of \(G\) and \(X / {R}\) is a partition of \(X\).
+
+    For each equivalence class \(P \in G / {R}\), there exists an equivalence class \(Q_P \in X / {R}\), such that \(P \subseteq Q_P = R(P)\), which implies that \(\beta(x)[\{a\} \times P] \leq \beta(x)[\{a\} \times Q_P]\).
+    Using additivity of subprobabilities of disjoint sets we can conclude the following:
+	\begin{align*}
+		\beta(x)[\{a\} \times G] &= \beta(x)\left[\{a\} \times \bigcup_{P \in G / {R}} P \right] \\
+        &= \sum_{P \in G / {R}} \beta(x)[\{a\} \times P]\\
+        &\leq \sum_{P \in G / {R}} \beta(y)[\{a\} \times Q_P]\\
+        &= \beta(y)\left[\{a\} \times \bigcup_{P \in G / {R}} Q_P\right]\\
+        &= \beta(y)\left[\{a\} \times \bigcup_{P \in G / {R}} R(P)\right]\\
+        &= \beta(y)[\{a\} \times R(G)]
+	\end{align*}
+    We can show \circlednum{2} via symmetric line of reasoning to the one above.
+\end{proof}
+\section{Soundness argument}
+Given a set $Q \subseteq \PExp$ and an expression $f \in \PExp$, we will write: 
+$$
+{Q}/{f} = \{e \in \PExp \mid e \seq f \in Q\}
+$$
+\begin{lemma}\label{apx:lem:cutting_postfixes}
+    If \(R \subseteq \PExp \times \PExp\) is a congruence relation and \(({e}, {f}) \in R\) then for all $G \subseteq \PExp$, \(R(G / {{e}}) \subseteq R(G) / {f} \).
+\end{lemma}
+\begin{proof}
+    If \({g} \in  R(G / {e})\), then there exists some \({h} \in G / {e}\) such that \(({h}, {g})\in R\).
+    Since \({h} \in G / {e}\), also \({h} \seq {e} \in G\).
+    Because \(R\) is a congruence relation, we have that \(({h}\seq {e}, {g}\seq {f})\in R\) and hence \({g}\seq {f} \in R(G)\), which in turn implies that \({g} \in G / {f}\).
+\end{proof}
+
+\begin{lemma}\label{apx:lem:associativity_of_cutting}
+    Let \(e,f \in \PExp\) and let \(Q \in \PExp / {\equiv_b}\).
+    Now \((Q/{f})/{e} = Q / {e}\seq{f}\)
+\end{lemma}
+\begin{proof}
+    Let \({g} \in Q\); we derive as follows
+    \begin{align*}
+        {g} \in (Q/ {f})/{e}
+            &\iff {g} \seq {e} \in Q/{f}
+            \iff ({g} \seq {e}) \seq{{f}} \in Q\\
+            &\iff {g} \seq ({e} \seq {f}) \in Q
+            \iff {g} \in Q / {{e} \seq {f}}
+    \end{align*}
+    Here, the second to last step follows by associativity (\textsf{S}).
+\end{proof}
+\begin{lemma}\label{apx:lem:swapping_ends}
+Let $e,f \in \PExp$, $R \subseteq {\PExp \times \PExp}$ a congruence relation and let $Q \in {\PExp}/{R}$. If $\langle e , f \rangle \in R$, then  $Q/e = Q/f$
+\end{lemma}
+\begin{proof}
+    $$
+    {g} \in Q / {e} \iff g \seq e \in Q \iff g \seq f \in Q \iff g \in Q/f
+    $$
+\end{proof}
+\begin{lemma}\label{apx:lem:simpler_sequencing_semantics}
+    For all $e,f \in \PExp$, $a \in \alphabet$, $G \subseteq \PExp$ we have that:
+    $$
+    \partial(e \seq f)[\{a\} \times G] = \partial(e)(\checkmark)\partial(f)[\{a\} \times G] + \partial(e)[\{a\} \times {G}/{f}]
+    $$
+\end{lemma}
+\begin{proof}
+    A straightforward calculation using the definition of the Antimirov derivative.
+    \begin{align*}
+        \partial(e \seq f)[\{a\} \times G] &= \sum_{g \in G} \partial(e \seq f)(a,g) \\
+        &=\sum_{g \in G} \partial(e)(\checkmark)\partial(f)(a,g) + \sum_{g \seq f \in G} \partial(e)(a,g) \\
+        &=\partial(e)(\checkmark)\sum_{g \in G}\partial(f)(a,g) + \sum_{g \seq f \in G} \partial(e)(a,g) \\
+        &=\partial(e)(\checkmark)\partial(f)[\{a\} \times G] + \partial(e)[\{a\} \times {G}/{f}] \\
+    \end{align*}
+\end{proof}
+\begin{lemma}\label{apx:lem:simpler_loop_semantics}
+    Let $e \in \PExp$, $r \in \interval{0}{1}$, $G \subseteq \PExp$ and $r\partial(e)(\checkmark) \neq 1$. We have that:
+    $$
+    \partial\left(e^{[r]}\right)[\{a\} \times G] =\frac{r\partial(e)[\{a\} \times {G}/{e^{[r]}}]}{1-r\partial(e)(\checkmark)}
+    $$
+\end{lemma}
+\begin{proof}
+    A straightforward calculation using the definition of the Antimirov derivative.
+    \begin{align*}
+        \partial\left(e^{[r]}\right)[\{a\} \times G] &= \sum_{g \in G}\partial\left(e^{[r]}\right)(a,g)\\
+        &=\sum_{g \seq e^{[r]} \in G} \frac{r\partial(e)(a,g)}{1-r\partial(e)(\checkmark)}\\
+        &=\frac{r\partial(e)[\{a\} \times {G}/{e^{[r]}}]}{1-r\partial(e)(\checkmark)}
+    \end{align*}
+\end{proof}
+\soundnessbisim*
+\begin{proof} We proceed by structural induction on the length derivation of $\equiv_b$, we show that all conditions of $\Cref{apx:lem:characterisation_of_bisimulation}$ are satisfied. In most of the cases, we will rely on simpler coinditions from \Cref{apx:lem:simpler_characterisation}. For the first few cases, we will rely on even simpler characterisation. In particular, observe that if for some $e,f \in \PExp$, $\partial(e) = \partial(f)$, then immediately $\partial(e)(\checkmark)=\partial(f)(\checkmark)$ and for all $a \in \alphabet$, $Q \in {\PExp}/{\equiv_b}$ we have that $\partial(e)[\{a\}\times Q] = \partial(f)[\{a\}\times Q]$. In other words, equality of subdistributions obtained by applying the coalgebra structure map to some pair states implies that they are bisimilar.
+    \begin{itemize}
+        \item[] \fbox{ $e \oplus_1 f \equiv_b e$}
+        For all $e,f \in \PExp$, $x \in\funF \PExp $ we have that: 
+        $$
+        \partial(e \oplus_1 f)(x) = 1\partial(e)(x) + 0 \partial(f)(x) = \partial(e)(x)
+        $$
+        Since $\partial(e \oplus_1 f) = \partial(e)$, then $e \oplus_1 f$ and $e$ are bisimilar.
+
+        \item[]  \fbox{ $e \oplus_p f \equiv_b f \oplus_{1-p} e$}
+        For all $e,f  \in \PExp$, $p \in \interval{0}{1}$ and $x \in\funF \PExp$ we have that
+        \begin{align*}
+            \partial(e \oplus_p f)(x) &= p \partial(e)(x) + (1-p) \partial(f)\\
+            &= (1-p) \partial(f)(x)  + (1-(1-p))\partial(e)(x)\\ &= \partial(f \oplus_{1-p} e)(x) 
+        \end{align*}
+
+        Since $\partial(e \oplus_p f) = \partial(f \oplus_{1-p} e )$, then $e \oplus_p f$ and $f \oplus_{1-p} e$ are bisimilar.
+
+        \item[] \fbox{ $(e \oplus_p f) \oplus_{q} g \equiv_b e \oplus_{pq} \left( f \oplus_{\frac{{(1-p)}q}{1-pq}} g\right)$}
+        For all $e,f,g  \in \PExp$, $p,q \in \interval{0}{1}$ such that $pq \neq 1$ and for all $x \in\funF \PExp$ we have the following:
+        \begin{align*}
+            \partial\left((e \oplus_p f) \oplus_{q} g \right)(x) &= q\partial(e \oplus_p f)(x) + (1-q) \partial(g)(x) \\
+            &=pq \partial(e)(x) + (1-p)q \partial(f)(x) + (1-q) \partial(g)(x)\\
+            &=pq \partial(e)(x)\\ &\quad\quad+ (1-pq)\left(\frac{(1-p)q}{1-pq} \partial(f)(x) + \frac{1-q}{1-pq} \partial(g)(x)\right)\\
+            &=pq \partial(e)(x) + (1-pq)\partial\left(f \oplus_{\frac{{(1-p)}q}{1-pq}}g \right)(x)\\
+            &=\partial\left(e \oplus_{pq} \left( f \oplus_{\frac{{(1-p)}q}{1-pq}} g\right)\right)(x)
+        \end{align*}
+        Since $\partial\left((e \oplus_p f) \oplus_{q} g \right) = \partial\left(e \oplus_{pq} \left( f \oplus_{\frac{(1-p)q}{1-pq}} g\right)\right)$, then $(e \oplus_p f) \oplus_{q} g$ and $e \oplus_{pq} \left( f \oplus_{\frac{(1-p)q}{1-pq}} g\right)$ are bisimilar.
+
+        \item[] \fbox{$e \seq \one \equiv_b e$}
+        For all $e \in \PExp$, we have that
+        $$\partial(e \seq \one)(\checkmark) = \partial(e)(\checkmark)\delta_{\checkmark}(\checkmark)=\partial(e)(\checkmark)$$
+        For all $a \in \alphabet$ and $Q \in {\PExp}/{\equiv_b}$ we have that:
+        \begin{align*}
+            \partial(e \seq \one)[\{a\} \times Q] &= \partial(e)[\{a\} \times {Q}/{\one}] + \partial(e)(\checkmark)\partial(\one)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_sequencing_semantics}}\\
+            &= \partial(e)[\{a\} \times {Q}/{\one}] \\
+            &= \sum_{q \seq \one \in Q}\partial(e)(a,q) \\
+            &= \sum_{q \in Q}\partial(e)(a,q) \tag{\textbf{S1}}\\
+            &= \partial(e)[\{a\} \times Q]
+        \end{align*}
+
+        \item[] \fbox{$\one \seq e \equiv_b e$}
+        For all $e \in \PExp$, we have that:
+        $$\partial(\one \seq e)(\checkmark) = \delta_{\checkmark}(\checkmark)\partial(e)(\checkmark)=\partial(e)(\checkmark)$$
+
+        For all $a \in \alphabet$ and $Q \in {\PExp}/{\equiv_b}$ we have that:
+        \begin{align*}
+            \partial(\one \seq e)[\{a\} \times Q] &= \partial(\one)[\{a\} \times {Q}/{e}] + \partial(\one)(\checkmark)\partial(e)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_sequencing_semantics}}\\
+            &= \partial(e)[\{a\} \times {Q}]
+        \end{align*}
+
+        \item[] \fbox{$\zero\seq e \equiv_b \zero$}
+        For all $e \in \PExp$ we have that: 
+        $$\partial(\zero \seq e)(\checkmark) = \partial(\zero)(\checkmark)\partial(e)(\checkmark) = 0 = \partial(\zero)(\checkmark)$$
+        
+        For all $a \in \alphabet$ and $Q \in {\PExp}/{\equiv_b}$ we have that:
+        \begin{align*}
+            \partial(\zero \seq e)[\{a\} \times Q] &= \partial(\zero)[\{a\} \times Q/{e}] + \partial(\zero)(\checkmark)\partial(e)[\{a\}\times Q]\\
+            &=0=\partial(\zero)[\{a\} \times Q]
+        \end{align*}
+
+        \item[] \fbox{$e \seq (f \seq g) \equiv_b (e \seq f) \seq g$}
+        For all $e,f,g \in \PExp$ we have that:
+        \begin{align*}
+            \partial(e \seq (f \seq g))(\checkmark) &= \partial(e)(\checkmark)\partial(f \seq g)(\checkmark)\\
+            &=\partial(e)(\checkmark)\partial(f)(\checkmark)\partial(g)(\checkmark)\\
+            &=\partial(e \seq f)(\checkmark)\partial(g)(\checkmark)\\
+            &=\partial((e \seq f) \seq g)(\checkmark)
+        \end{align*}
+
+        For all $a \in \alphabet$ and $Q \in {\PExp}/{\equiv_b}$ we have that:
+        \begin{align*}
+            \partial(e \seq (f \seq g))[\{a\} \times Q] &= \partial(e)[\{a\} \times {Q}/{f \seq g}] + \partial(e)(\checkmark)\partial(f \seq g)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_sequencing_semantics}} \\
+            &= \partial(e)[\{a\} \times {{Q}/{g}}/{f}] + \partial(e)(\checkmark)\partial(f)[\{a\} \times Q/{g}]\\
+            &\quad\quad+\partial(e)(\checkmark)\partial(f)(\checkmark)\partial(g)[\{a\} \times Q] \tag{\Cref{apx:lem:associativity_of_cutting}}\\
+            &=\partial(e \seq f)[\{a\} \times {Q}/{f}] + \partial(e \seq f)(\checkmark)\partial(g)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_sequencing_semantics}} \\
+            &=\partial((e \seq f) \seq g)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_sequencing_semantics}}
+        \end{align*}
+
+        \item[] \fbox{$(e \oplus_p f) \seq g \equiv_b e \seq g \oplus_p f \seq g$}
+        For all $e,f,g \in \PExp$ and $p \in \interval{0}{1}$ we have that:
+        \begin{align*}
+            \partial((e \oplus_p f) \seq g)(\checkmark) &= \partial(e \oplus_p f)(\checkmark)\partial(g)(\checkmark)\\
+            &=p \partial(e)(\checkmark)\partial(g)(\checkmark) + (1-p)\partial(f)(\checkmark)\partial(g)(\checkmark)\\
+            &= p \partial(e \seq g)(\checkmark) + (1-p)\partial(f \seq g)(\checkmark)\\
+            &= \partial(e \seq g \oplus_p f \seq g)(\checkmark)
+        \end{align*}
+        For all $a \in \alphabet$ and $Q \in {\PExp}/{\equiv_b}$ we have that:
+        \begin{align*}
+            &\partial((e \oplus_p f) \seq g )[\{a\} \times Q]\\ &\quad\quad= \partial(e \oplus_p f)[\{a\} \times {Q}/{g}] + \partial(e \oplus_p f)(\checkmark)\partial(g)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_sequencing_semantics}}\\
+            &\quad\quad=p \partial(e)[\{a\} \times Q ] + p \partial(e)(\checkmark)[\{a\} \times Q]\\
+            &\quad\quad\quad\quad (1-p) \partial(f)[\{a\} \times Q ] + (1-p) \partial(f)(\checkmark)[\{a\} \times Q] \\
+            &\quad\quad=p \partial(e \seq g)[\{a\} \times Q] + (1-p)\partial(f \seq g)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_sequencing_semantics}}\\
+            &\quad\quad=\partial(e \seq g \oplus_p f \seq g)[\{a\} \times Q]
+        \end{align*}
+
+        \item[] \fbox{$e^{[p]} \equiv_b e \seq e^{[p]} \oplus_p \one$} Let $e \in \PExp$ and $p \in \interval{0}{1}$. We distinguish two subcases. If $\partial(e)(\checkmark)=1$ and $p=1$, then:
+        $$
+        \partial(e^{[p]})(\checkmark) = 0 = \partial(e)(\checkmark)\partial(e^{[p]})(\checkmark) = \partial(e \seq e^{[p]} \oplus_p \one)(\checkmark)
+        $$
+        For all $a \in \alphabet$ and $Q \in {\PExp}/{\equiv_b}$ we have that:
+        \begin{align*}
+            \partial(e^{[p]})[\{a\} \times Q] &= 0 \\
+            &= \partial(e)[\{a\} \times Q] + \partial(e^{[p]})[\{a\} \times Q] \\
+            &= \partial(e)[\{a\} \times Q/{e^{[p]}}] + \partial(e)(\checkmark)\partial(e^{[p]})[\{a\} \times Q]\\
+            &= \partial(e \seq e^{[p]})[\{a\} \times Q]\\
+            &= \partial(e \seq e^{[p]} \oplus_p \one)[\{a\} \times Q]
+        \end{align*}
+        From now on, we can safely assume that $p\partial(e)(\checkmark)\neq 1$. We have that:
+        \begin{align*}
+            \partial(e^{[p]})(\checkmark) &= \frac{1-p}{1-p\partial(e)(\checkmark)}\\
+            &=\frac{(1-p)(\one + p\partial(e)(\checkmark) - p\partial(e)(\checkmark))}{1-p\partial(e)(\checkmark)}\\
+            &=\frac{(1-p)( p\partial(e)(\checkmark))}{1-p\partial(e)(\checkmark)} + \frac{(1-p)(1-p\partial(e)(\checkmark))}{1-p\partial(e)(\checkmark)}\\
+            &= p\partial(e)(\checkmark)\frac{1-p}{1-p\partial(e)(\checkmark)} + (1-p)\\
+            &= p\partial(e)(\checkmark)\partial(e^{[p]})(\checkmark) + (1-p)\\	        \end{align*}
+        Let $a \in \alphabet$ and $Q \in {\PExp}/{\equiv_b}$. We have that:
+        \begin{align*}
+            \partial(e^{[p]})[\{a\} \times Q] &= \frac{p\partial(e)[\{a\} \times {Q}/{e^{[p]}}]}{1-p\partial(e)(\checkmark)} \tag{\Cref{apx:lem:simpler_loop_semantics}} \\
+            &= p\partial(e)[\{a\} \times {Q}/{e^{[p]}}]\frac{1}{1-p\partial(e)(\checkmark)}\\
+            &= p\partial(e)[\{a\} \times {Q}/{e^{[p]}}]\frac{1-p\partial(e)(\checkmark) + p\partial(e)(\checkmark)}{1-p\partial(e)(\checkmark)}\\
+            &= p \partial(e)[\{a\} \times Q/{e^{[p]}}] \left( 1 + \frac{p\partial(e)(\checkmark)}{1-p\partial(e)(\checkmark)}\right)\\
+            &= p \partial(e)[\{a\} \times Q/{e^{[p]}}] + p\partial(e)(\checkmark)\frac{p\partial(e)[\{a\} \times {Q}/{e^{[p]}}]}{1-p\partial(e)(\checkmark)}\\
+            &= p \partial(e)[\{a\} \times Q/{e^{[p]}}] + p\partial(e)(\checkmark)\partial(e^{[p]})[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_loop_semantics}}\\
+            &= p \partial(e \seq e^{[p]})[\{a\} \times Q]\tag{\Cref{apx:lem:simpler_sequencing_semantics}}\\
+            &=\partial(e \seq e^{[p]} \oplus_p \one)[\{a\} \times Q]
+        \end{align*}
+
+        \item[] \fbox{$(e \oplus_p \one)^{[q]} \equiv_b e^{\left[\frac{pq}{1-(1-p)q}\right]}$}
+        \item[] Let $e \in \PExp$ and let $p,q \in \interval{0}{1}$ such that $(1-p)q \neq 1$. Observe, that in such a situation $\frac{pq}{1-(1-p)q}\neq 1$.
+        First, consider the following:
+        \begin{align*}
+            \partial\left((e \oplus_p \one)^{[q]}\right)(\checkmark) &= \frac{1-q}{1-q\partial(e \oplus_p \one)(\checkmark)} \\
+            &= \frac{1-q}{1-q(1-p)-pq\partial(e)(\checkmark)} \\
+            &= \frac{1-q}{(1-q(1-p))\left(1-\frac{pq}{1-q(1-p)}\partial(e)(\checkmark)\right)}\\
+            &=\frac{\frac{1-q}{1-q(1-p)}}{1-\frac{pq}{1-q(1-p)}\partial(e)(\checkmark)}\\
+            &=\frac{1-\frac{pq}{1-q(1-p)}}{1-\frac{pq}{1-q(1-p)}\partial(e)(\checkmark)}\\
+            &=\partial \left(e^{\left[\frac{pq}{1-(1-p)q}\right]}\right)(\checkmark)
+        \end{align*}
+
+        For all $a \in \alphabet$ and $Q \in {\PExp}/{\equiv_b}$ we have that the following holds:
+        \begin{align*}
+            \partial \left( (e \oplus_p \one)^{[q]}\right)[\{a\} \times Q] &= \frac{q\partial(e \oplus_p \one)[\{a\} \times {Q}/{(e \oplus_p \one)^{[q]}}]}{1-q\partial(e \oplus_p \one)(\checkmark)} \tag{\Cref{apx:lem:simpler_loop_semantics}} \\
+            &= \frac{pq\partial(e)[\{a\} \times {Q}/{(e \oplus_p \one)^{[q]}}]}{1-(1-p)q-pq\partial(e)(\checkmark)} \\
+            &= \frac{pq\partial(e)[\{a\} \times {Q}/{(e \oplus_p 1)^{[q]}}]}{(1-(1-p)q)\left(1-\frac{pq}{1-(1-p)q}\partial(e)(\checkmark)\right)} \\
+            &= \frac{\frac{pq}{1-(1-p)q}\partial(e)[\{a\} \times {Q}/{(e \oplus_p 1)^{[q]}}]}{(1-(1-p)q)\left(1-\frac{pq}{1-(1-p)q}\partial(e)(\checkmark)\right)} \\
+            &= \frac{\frac{pq}{1-(1-p)q}\partial(e)[\{a\} \times {Q}/{e^{\left[\frac{pq}{1-(1-p)q}\right]}}]}{(1-(1-p)q)\left(1-\frac{pq}{1-(1-p)q}\partial(e)(\checkmark)\right)} \tag{\Cref{apx:lem:swapping_ends}}\\
+            &=\partial\left(e^{\left[\frac{pq}{1-(1-p)q}\right]}\right)[\{a\} \times Q]
+        \end{align*}
+
+        \item[] \fbox{From $g \equiv_b e \seq g \oplus_p f$ and $E(g)=0$ derive $g \equiv_b e^{[p]} \seq f$} Let $e,f,g \in \PExp$, such that $g \equiv e\seq g \oplus_p f$ and $E(e) = 0$. Recall that by \Cref{apx:lem:exit_operator_lemma}, we have that $\partial(e)(\checkmark)=0$. First, observe that:
+        \begin{align*}
+            \partial(g)(\checkmark) &= \partial(e \seq g \oplus_p f)(\checkmark) \tag{Induction hypothesis} \\
+            &=p \partial(e)(\checkmark)\partial(g)(\checkmark) + (1-p)\partial(f)(\checkmark) \\
+            &= (1-p)\partial(f)(\checkmark) \\
+            &= \frac{1-p}{1-p\partial(e)(\checkmark)}\partial(f)(\checkmark) \\
+            &= \partial(e^{[p]})(\checkmark)\partial(f)(\checkmark)\\
+            &= \partial(e^{[p]} \seq f)(\checkmark)
+        \end{align*}
+
+        For all $a \in \alphabet$ and $Q \in {\PExp}/{\equiv_b}$ we have that:
+        \begin{align*}
+            \partial(g)[\{a\} \times Q] &= \partial(e \seq g \oplus_p f)[\{a\} \times Q] \\\tag{Induction hypothesis} \\
+            &=p \partial(e \seq g)[\{a\} \times Q] + (1-p)\partial(f)[\{a\} \times Q]\\
+            &= p \partial(e)[\{a\} \times Q/{g}] + p \partial(e)(\checkmark)\partial(g)[\{a\}\times Q]\\&\quad\quad + (1-p)\partial(f)[\{a\} \times Q] \\
+            &= p\partial(e)[\{a\} \times Q/g] + (1-p)\partial(f)[\{a\} \times Q] \\
+            &=p\partial(e)[\{a\} \times Q/{e^{[p]}\seq f}] + (1-p)\partial(f)[\{a\} \times Q] \tag{\Cref{apx:lem:swapping_ends}}\\
+            &=p\partial(e)[\{a\} \times {(Q/{f})}/{e^{[p]}}] + (1-p)\partial(f)[\{a\} \times Q] \tag{\Cref{apx:lem:associativity_of_cutting}}\\
+            &=\frac{p\partial(e)[\{a\} \times {(Q/{f})}/{e^{[p]}}]}{1-p\partial(e)(\checkmark)} + \frac{1-p}{1-p\partial(e)(\checkmark)}\partial(f)[\{a\} \times Q] \\
+            &= \partial(e^{[p]})[\{a\} \times Q/f] + \partial(e^{[p]})(\checkmark)\partial(f)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_loop_semantics}}\\
+            &=\partial(e^{[p]}\seq f)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_sequencing_semantics}}
+        \end{align*}
+    \end{itemize}
+
+    \item[] \fbox{reflexivity, transitivity and symmetry} We omit the proof, as it is trivial.
+
+    \item \fbox{From $e \equiv_b g$ and $f \equiv_b h$ derive that $e \oplus_p f \equiv_b g \oplus_p h$}
+    Let $e,f,g,h \in \PExp$, such that $e \equiv_b g$ and $f \equiv_b h$. We have that
+    \begin{align*}
+        \partial(e \oplus_p f)(\checkmark) &= p\partial(e)(\checkmark) + (1-p)\partial(f)(\checkmark) \\
+        &= p\partial(g)(\checkmark) + (1-p)\partial(h)(\checkmark) \tag{Induction hypothesis}\\
+        &= \partial(g \oplus_p h)(\checkmark)
+    \end{align*}
+    For all $a \in \alphabet$ and $Q \in {\PExp}/{\equiv_b}$ we have that:
+    \begin{align*}
+        \partial(e \oplus_p f)[\{a\} \times Q]&= p\partial(e)[\{a\} \times Q] + (1-p)\partial(f)[\{a\} \times Q] \\
+        &= p\partial(g)[\{a\} \times Q] + (1-p)\partial(h)[\{a\} \times Q] \tag{Induction hypothesis}\\
+        &= \partial(g \oplus_p h)[\{a\} \times Q]
+    \end{align*}
+    \item \fbox{From $e \equiv_b g$ and $f \equiv_b h$ derive that $e \seq f \equiv_b g \seq h$} Let $e,f,g,h \in \PExp$, such that $e \equiv_b g$ and $f \equiv_b h$.
+    We have that:
+    \begin{align*}
+        \partial(e \seq f)(\checkmark) &= \partial(e)(\checkmark)\partial(f)(\checkmark) \\
+        &=\partial(g)(\checkmark)\partial(h)(\checkmark) \tag{Induction hypothesis} \\
+        &=\partial(g \seq h)(\checkmark)
+    \end{align*}
+    For all $a \in \alphabet$ and $G \subseteq \PExp$, we have that:
+    \begin{align*}
+        \partial(e \seq f)[\{a\} \times G] &= \partial(e)[\{a\}\times G/{f}] + \partial(e)(\checkmark)\partial(f)[\{a\} \times G] \tag{\Cref{apx:lem:simpler_sequencing_semantics}}\\
+        &\leq \partial(g)[\{a\} \times R(G/f)] + \partial(g)(\checkmark)\partial(h)[\{a\} \times R(G)]\\
+        &\leq \partial(g)[\{a\} \times R(G)/h] + \partial(g)(\checkmark)\partial(h)[\{a\} \times R(G)] \tag{\Cref{apx:lem:cutting_postfixes}} \\
+        &= \partial(g \seq h)[\{a\} \times R(G)] \tag{\Cref{apx:lem:simpler_sequencing_semantics}}
+    \end{align*}
+
+    Condition that $\partial(g \seq h)[\{a\} \times G] \leq \partial(e \seq f)[\{a\} \times R^{-1}(G)]$ can be shown by a symmetric argument.
+
+    \item[] \fbox{From $e \equiv_b f$ derive $e^{[p]} \equiv_b f^{[p]}$}.Let $e,f \in \PExp$ such that $e\equiv_b f$. We distinguish two subcases. First, consider the situation when $p=1$ and $\partial(e)(\checkmark)=1$. Observe that by induction hypothesis we have that $\partial(f)(\checkmark)=1$.
+   	We have that $\partial(e^{[p]}) = \emptydist = \partial(f^{[p]})$. Hence, $e^{[p]}$ and $f^{[p]}$ are bisimilar.
+
+    From now on, we can safely assume that $p\partial(e)(\checkmark)\neq 1$ and $p\partial(f)(\checkmark)\neq 1$. We have that:
+    \begin{align*}
+        \partial \left( e^{[p]} \right) (\checkmark) &= \frac{1-p}{1-p\partial(e)(\checkmark)} \\
+        &= \frac{1-p}{1-p\partial(f)(\checkmark)} \tag{Induction hypothesis}\\
+        &= \partial \left( f^{[p]} \right) (\checkmark)
+    \end{align*}
+
+    For all $a \in \alphabet$ and $G \subseteq \PExp$ we have that:
+    \begin{align*}
+        \partial \left( e^{[p]} \right)[\{a\} \times G] &= \frac{p\partial(e)[\{a\}\times {{G}/{e^{[p]}}}]}{1-p\partial(e)(\checkmark)} \tag{\Cref{apx:lem:simpler_loop_semantics}} \\
+        &\leq \frac{p\partial(f)[\{a\}\times R({{G}/{e^{[p]}}})]}{1-p\partial(f)(\checkmark)} \tag{Induction hypothesis}\\
+        &\leq \frac{p\partial(f)[\{a\}\times {{R(G)}/{f^{[p]}}}]}{1-p\partial(f)(\checkmark)} \tag{\Cref{apx:lem:cutting_postfixes}} \\
+        &= \partial \left( e^{[p]} \right)[\{a\} \times R(G)]
+    \end{align*}
+
+    Condition that $\partial\left(f^{[p]}\right)[\{a\} \times G] \leq \partial\left(e^{[p]}\right)[\{a\} \times R^{-1}(G)]$ can be shown by a symmetric argument.
 \end{proof}
 
 
-%\chapter{Another Appendix About Things}
-%\label{appendixlabel2}
-%(things)
-
-%\chapter{Colophon}
-%\label{appendixlabel3}
-%\textit{This is a description of the tools you used to make your thesis. It helps people make future documents, reminds you, and looks good.}
-%
-%\textit{(example)} This document was set in the Times Roman typeface using \LaTeX\ and Bib\TeX , composed with a text editor. 
- % description of document, e.g. type faces, TeX used, TeXmaker, packages and things used for figures. Like a computational details section.
-% e.g. http://tex.stackexchange.com/questions/63468/what-is-best-way-to-mention-that-a-document-has-been-typeset-with-tex#63503
-
-% Side note:
-%http://tex.stackexchange.com/questions/1319/showcase-of-beautiful-typography-done-in-tex-friends

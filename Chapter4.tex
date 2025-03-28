@@ -422,7 +422,7 @@ Generalised determinisation extends the above idea to $HT$-coalgebras, where $T 
 
 
 
-{RPTS} can be intuitively viewed as a probabilistic counterpart of nondeterministic automata and they can be determinised to obtain probabilistic language semantics. In an {RPTS}, each state $x$ is mapped to a pair $\langle o_x,n_x \rangle$, where $o \in \interval{0}{1}$ is the acceptance probability of state $x$ and $n_x\colon \alphabet \to \distf(X)$ is the next-state function, which takes a letter $a \in \alphabet$ and returns the subprobability distribution over successor states. Formally speaking, let $\funG \colon \Set \to \Set$ be an endofunctor $\funG = [0,1] \times (-)^\alphabet$. RPTS are precisely $\funG\distf$-coalgebras, that is pairs $(X, \beta)$, where $X$ is a set of states and $\beta \colon X \to [0,1] \times \distf (X)^\alphabet$ is a transition function. Following the convention outlined before, we will use terms "$G\distf$-coalgebras" and "GPTS" interchangeably.
+{RPTS} can be intuitively viewed as a probabilistic counterpart of nondeterministic automata and they can be determinised to obtain probabilistic language semantics. In an {RPTS}, each state $x$ is mapped to a pair $\langle o_x,n_x \rangle$, where $o \in \interval{0}{1}$ is the acceptance probability of state $x$ and $n_x\colon \alphabet \to \distf(X)$ is the next-state function, which takes a letter $a \in \alphabet$ and returns the subprobability distribution over successor states. Formally speaking, let $\funG \colon \Set \to \Set$ be an endofunctor $\funG = [0,1] \times (-)^\alphabet$. RPTS are precisely $\funG\distf$-coalgebras, that is pairs $(X, \beta)$, where $X$ is a set of states and $\beta \colon X \to [0,1] \times \distf (X)^\alphabet$ is a transition function. Following the convention outlined before, we will use terms "$G\distf$-coalgebras" and "RPTS" interchangeably.
 
 $\funG \distf$-coalgebras fit into framework of generalised determinisation~\cite{Silva:2011:Sound}. In particular, there exists a distributive law $\rho \colon \distf \funG \Rightarrow \funG \distf$ of the monad $\distf$ over the functor $\funG$ that allows to lift $\funG \colon \Set \to \Set$ to $\funG \colon \pca \to \pca$. Speaking in concrete terms, if the set $X$ is equipped with a convex sum operation $\bigboxplus_{i \in I} p_i \cdot (-)$, then so is $\interval{0}{1} \times X^\alphabet$. Let $\{\langle o_i , t_i\rangle\}_{i \in I}$ be an indexed collection of elements of $\interval{0}{1} \times X^\alphabet$. Then, we can define
 $$
@@ -474,7 +474,7 @@ Such functions define components of the natural transformation.
 \begin{proposition}{\cite{Silva:2011:Sound}}
 	$\gamma \colon \distf \funF \Rightarrow \funG \distf$ is a natural transformation with injective components. 
 \end{proposition}
-We now have all ingredients to specify language semantics of $\distf \funF$-coalgebras. Given a $\distf \funF$-coalgebra  $(X, \beta)$, one can use the natural transformation $\gamma$ and obtain $\funG \distf$-coalgebra $(X, \gamma_X \circ \beta)$. Since $\funG$ can be lifted to $\pca$, we can obtain $\funG$-coalgebra $\left(\distf X, (\gamma_X \circ \beta)^\sharp\right)$. Note that this coalgebra carries an additional algebra structure and its transition map is a $\pca$ homomorphism, thus making $\left( (\distf X, \mu_X), (\gamma_X \circ \beta)^\sharp \right)$ into a $\overline{\funG}$-coalgebra. The resulting language semantics of $(X, \beta)$ are given by the map $\langmap_{(X, \beta)} \colon X \to \interval{0}{1}^\alphabet$ given by $$\langmap_{(X, \beta)} = \beh{(\gamma_X \circ \beta)^\sharp} \circ \eta_X$$ where $\eta \colon X \to \distf X$ is a unit of the monad $\distf$ taking each state $x \in X$ to its Dirac $\delta_x \in \distf X$.
+We now have all ingredients to specify language semantics of $\distf \funF$-coalgebras. Given a $\distf \funF$-coalgebra  $(X, \beta)$, one can use the natural transformation $\gamma$ and obtain $\funG \distf$-coalgebra $(X, \gamma_X \circ \beta)$. Since $\funG$ can be lifted to $\pca$, we can obtain $\funG$-coalgebra $\left(\distf X, (\gamma_X \circ \beta)^\sharp\right)$. Note that this coalgebra carries an additional algebra structure and its transition map is a $\pca$ homomorphism, thus making $\left( (\distf X, \mu_X), (\gamma_X \circ \beta)^\sharp \right)$ into a $\overline{\funG}$-coalgebra. The resulting language semantics of $(X, \beta)$ are given by the map $\langmap_{(X, \beta)} \colon X \to \interval{0}{1}^\alphabet$ explicitly given by $$\langmap_{(X, \beta)} = \beh{(\gamma_X \circ \beta)^\sharp} \circ \eta_X$$ where $\eta \colon X \to \distf X$ is a unit of the monad $\distf$ taking each state $x \in X$ to its Dirac $\delta_x \in \distf X$.
 
 This can be summarised by the following commutative diagram:
 % https://q.uiver.app/#q=WzAsNixbMCwwLCJYIl0sWzAsMSwiXFxkaXN0ZiBcXGZ1bkYgWCJdLFsxLDAsIlxcZGlzdGYgWCJdLFswLDIsIlxcZnVuRyBcXGRpc3RmIFgiXSxbMywwLCJcXGludGVydmFsezB9ezF9XlxcYWxwaGFiZXQiXSxbMywyLCJcXGZ1bkcgXFxsZWZ0KFxcaW50ZXJ2YWx7MH17MX1ee1xcYWxwaGFiZXR9XFxyZ2l0aCkiXSxbMCwxLCJcXGJldGEiXSxbMSwzLCJcXGdhbW1hX1giXSxbMCwyLCJcXGV0YV9YIl0sWzIsMywiKFxcZ2FtbWFfWCBcXGNpcmMgXFxiZXRhKV5cXHNoYXJwIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzQsNSwidCJdLFsyLDQsIlxcYmVoeyhcXGdhbW1hX1ggXFxjaXJjIFxcYmV0YSleXFxzaGFycH0iLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMyw1LCJcXGZ1bkcgXFxiZWh7KFxcZ2FtbWFfWCBcXGNpcmMgXFxiZXRhKV5cXHNoYXJwfSIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
@@ -553,10 +553,10 @@ for regular expressions and nondeterminisic automata due to Antimirov~\cite{Anti
 \begin{gather*}
     \partial(\zero) = \emptydist \quad\quad \partial(\one)=\delta_{\checkmark} \quad\quad \partial(a)=\delta_{(a,\one)}  \\  \partial(e \oplus_p f)=p\partial(e) + (1-p)\partial(f)
 \end{gather*}
-The expression $\zero$ is mapped to the emptysubdistribution, intuitively representing a deadlock. On the other hand, the expression $\one$ represents immediate acceptance, that is it transitions to $\checkmark$ with probability $1$. For any letter $a \in A$ in the alphabet, the expression $a$ performs $a$-labelled transition to $\one$ with probability $1$. The outgoing transitions of the probabilistic choice $e \oplus_p f$ consist of the outgoing transitions of $e$ with
+The expression $\zero$ is mapped to the empty subdistribution, intuitively representing a deadlock. On the other hand, the expression $\one$ represents immediate acceptance, that is it transitions to $\checkmark$ with probability $1$. For any letter $a \in A$ in the alphabet, the expression $a$ performs $a$-labelled transition to $\one$ with probability $1$. The outgoing transitions of the probabilistic choice $e \oplus_p f$ consist of the outgoing transitions of $e$ with
 probabilities scaled by $p$ and the outgoing transitions of $f$ scaled by $1-p$.
 
-The definition of $\partial(e;f)$ is slightly more involved. We need to factor in the possibility that $e$ may accept with some probability $t$, in which case the outgoing transitions of $f$ contribute to the outgoing transitions of $e \seq f$. Formally, $\partial(e \seq f) = \partial(e) \lhd f$ where for any $f \in \PExp$ the operation $( - \lhd f) : \distf (1+A\times \PExp) \to \distf (1+A\times \PExp)$ is given by $( - \lhd f) = {c_f}^{\star}$, the convex extension of $c_f : 1+A\times \PExp \to \distf (1+A \times \PExp)$ given below on the left.
+The definition of $\partial(e;f)$ is slightly more involved. We need to factor in the possibility that $e$ may accept with some probability $t$, in which case the outgoing transitions of $f$ contribute to the outgoing transitions of $e \seq f$. Formally, $\partial(e \seq f) = \partial(e) \lhd f$ where for any $f \in \PExp$ the operation $( - \lhd f) : \distf \funF \PExp \to \distf \funF \PExp$ is given by $( - \lhd f) = {c_f}^{\star}$, the convex extension of $c_f : 1+A\times \PExp \to \distf (1+A \times \PExp)$ given below on the left.
 \begin{gather*}
 c_f(x) = \begin{cases}
     \partial(f) & x = \checkmark \\
@@ -620,6 +620,30 @@ Having defined the Antimirov transition system, one can observe that the termina
 \begin{lemma}\label{c4:lem:exit_operator_lemma}
     For all $e \in \PExp$ it holds that $E(e)=\partial(e)(\checkmark)$.
 \end{lemma}
+\begin{proof}
+By structural induction. The base cases $E(\zero)=0=\partial(\zero)(\checkmark)$, $E(\one)=1=\partial(\one)(\checkmark)$ and $E(a)=0=\partial(a)(\checkmark)$ hold immediately. For the inductive steps, we have the following:
+\begin{itemize}
+	 \item[] \fbox{Probabilistic choice}
+	 	\begin{align*}
+	 		E(e \oplus_p f) &= pE(e) + (1-p)E(f)\\ &= p\partial(e)(\checkmark) + (1-p)\partial(f)(\checkmark)\\ &= \partial(e \oplus_p f)(\checkmark)
+	 	\end{align*}
+	 \item[] \fbox{Sequential compositon}
+	 \begin{align*}
+	 	E(e \seq f)&=E(e)E(f)\\
+	 	&=\partial(e)(\checkmark)\partial(f) (\checkmark)\\
+	 	&= (\partial (e) \lhd f)(\checkmark)\\
+	 	&=\partial(e \seq f)(\checkmark)
+	 \end{align*}
+	 \item[] \fbox{Loops} First, we consider the case when $\partial(e)(\checkmark)=1$ and the loop probability is $1$. By induction hypothesis, also $E(e)=1$ and hence $E\left(e^{[1]}\right)=\partial\left(e^{[1]}\right)(\checkmark)$. Otherwise, we have the following:
+	\begin{align*}
+		E(e^{[p]})&=\frac{1-p}{1-pE(e)}\\
+		&=\frac{1-p}{1-p\partial(e)(\checkmark)}\\
+		&=\partial\left(e^{[p]}\right)(\checkmark)
+	\end{align*}
+\end{itemize}
+\end{proof}
+
+
 Given an expression $e \in \PExp$, we write $\langle e\rangle \subseteq \PExp$ for the set of states reachable from $e$ by repeatedly applying $\partial$.
 It turns out that the operational semantics of every {PRE} can be always described by a finite-state {GPTS} given by $(\langle e \rangle, \partial)$.
 \begin{lemma}\label{lem:locally_finite}
@@ -698,19 +722,19 @@ In the picture above $[-] \colon \PExp \to {\PExp}/{\equiv}$ is a quotient map t
  We first check that a subset of axioms generating $\equiv$ is sound with respect to bisimilarity of $\distf \funF$-coalgebras, which is a coarser notion of equivalence than probabilistic langauge equivalence. Let ${\equiv_b} \subseteq {\PExp \times \PExp}$ denote the least congruence relation closed under the axioms on \Cref{c4:fig:axioms} except (\textsf{S0}) and (\textsf{D2}). 
 
 A straightforward induction on the length derivation of $\equiv_b$ allows us to show that this relation is a bisimulation equivalence on $(\PExp, \partial)$. As mentioned before, in the case of {GPTS} this notion corresponds to bisimulation equivalences in the sense of Larsen and Skou~\cite{Larsen:1991:Bisimulation}.
-\begin{lemma}\label{c4:lem:soundness_bisim}
+\begin{restatable}{lemma}{soundnessbisim}\label{c4:lem:soundness_bisim}
     The relation ${\equiv_b} \subseteq {\PExp \times \PExp}$ is a bisimulation equivalence.
- \end{lemma}
+ \end{restatable}
 As a consequence of \Cref{c4:lem:soundness_bisim}~\cite{Rutten:2000:Universal}, there exists a unique coalgebra structure $\qcoa \colon {\PExp}/{\equiv_b} \to \distf \funF {\PExp}/{\equiv_b}$, which makes the quotient map $[-]_{\equiv_b} \colon \PExp \to {\PExp}/{\equiv_0}$ into a $\distf F$-coalgebra homomorphism from $(\PExp, \partial)$ to $({{\PExp}/{\equiv_b}},\qcoa)$. It turns out, that upon converting those $\distf \funF$-coalgebras to $\funG \distf$-coalgebras using the natural transformation $\rho \colon \distf \funF \to \funG \distf$ and determinising them, $\distf [-]_{\equiv_b} \colon \distf \PExp \to \distf {\PExp}/{\equiv_b}$ becomes a homomorphism between the determinisations. This situation can be summed up by the following commutative diagram:
-%% https://q.uiver.app/#q=WzAsOCxbMCwxLCJcXFBFeHAiXSxbMCwyLCJcXGRpc3RmIFxcZnVuRiBcXFBFeHAiXSxbMCwzLCJcXGZ1bkdcXGRpc3RmIFxcUEV4cCJdLFsxLDAsIlxcZGlzdGYgXFxQRXhwIl0sWzIsMSwiXFxQRXhwL3tcXGVxdWl2X2J9Il0sWzMsMCwiXFxkaXN0ZiB7e1xcUEV4cH0ve1xcZXF1aXZfYn19Il0sWzIsMywiXFxmdW5HXFxkaXN0ZiB7XFxQRXhwfS97XFxlcXVpdl9ifSJdLFsyLDIsIlxcZGlzdGYgXFxmdW5GIHtcXFBFeHB9L3tcXGVxdWl2X2J9Il0sWzAsMSwiXFxwYXJ0aWFsIiwyXSxbMSwyLCJcXHJob197XFxQRXhwfSIsMl0sWzAsMywiXFxldGFfe1xcUEV4cH0iLDAseyJsYWJlbF9wb3NpdGlvbiI6NDB9XSxbNCw1LCJcXGV0YV97e1xcUEV4cH0ve1xcZXF1aXZfYn19IiwwLHsibGFiZWxfcG9zaXRpb24iOjEwfV0sWzMsNSwiXFxkaXN0ZiBbLV1fe1xcZXF1aXZfYn0iXSxbMCw0LCJbLV1fe1xcZXF1aXZfYn0iLDJdLFs0LDcsIlxccWNvYSIsMl0sWzcsNiwiXFxyaG9fe3tcXFBFeHB9L3tcXGVxdWl2X2J9fSIsMl0sWzIsNiwiXFxmdW5HIFxcZGlzdGYgWy1dX3tcXGVxdWl2X2J9Il0sWzMsMiwiKFxcZ2FtbWFfe1xcRXhwfSBcXGNpcmMgXFxwYXJ0aWFsKV5cXHNoYXJwIiwwLHsiY3VydmUiOi0zfV0sWzUsNiwiKFxcZ2FtbWFfe3tcXEV4cH0ve1xcZXF1aXZfMH19IFxcY2lyYyBcXHFjb2EpXlxcc2hhcnAiLDAseyJjdXJ2ZSI6LTR9XV0=
+% https://q.uiver.app/#q=WzAsOCxbMCwxLCJcXFBFeHAiXSxbMCwyLCJcXGRpc3RmIFxcZnVuRiBcXFBFeHAiXSxbMCwzLCJcXGZ1bkdcXGRpc3RmIFxcUEV4cCJdLFsxLDAsIlxcZGlzdGYgXFxQRXhwIl0sWzIsMSwiXFxQRXhwL3tcXGVxdWl2X2J9Il0sWzMsMCwiXFxkaXN0ZiB7e1xcUEV4cH0ve1xcZXF1aXZfYn19Il0sWzIsMywiXFxmdW5HXFxkaXN0ZiB7XFxQRXhwfS97XFxlcXVpdl9ifSJdLFsyLDIsIlxcZGlzdGYgXFxmdW5GIHtcXFBFeHB9L3tcXGVxdWl2X2J9Il0sWzAsMSwiXFxwYXJ0aWFsIiwyXSxbMSwyLCJcXHJob197XFxQRXhwfSIsMl0sWzAsMywiXFxldGFfe1xcUEV4cH0iLDAseyJsYWJlbF9wb3NpdGlvbiI6NDB9XSxbNCw1LCJcXGV0YV97e1xcUEV4cH0ve1xcZXF1aXZfYn19IiwwLHsibGFiZWxfcG9zaXRpb24iOjEwfV0sWzMsNSwiXFxkaXN0ZiBbLV1fe1xcZXF1aXZfYn0iXSxbMCw0LCJbLV1fe1xcZXF1aXZfYn0iLDJdLFs0LDcsIlxccWNvYSIsMl0sWzcsNiwiXFxyaG9fe3tcXFBFeHB9L3tcXGVxdWl2X2J9fSIsMl0sWzIsNiwiXFxmdW5HIFxcZGlzdGYgWy1dX3tcXGVxdWl2X2J9Il0sWzMsMiwiKFxcZ2FtbWFfe1xcUEV4cH0gXFxjaXJjIFxccGFydGlhbCleXFxzaGFycCIsMCx7ImN1cnZlIjotM31dLFs1LDYsIihcXGdhbW1hX3t7XFxQRXhwfS97XFxlcXVpdl9ifX0gXFxjaXJjIFxccWNvYSleXFxzaGFycCIsMCx7ImN1cnZlIjotNH1dXQ==
 \[\begin{tikzcd}
 	& {\distf \PExp} && {\distf {{\PExp}/{\equiv_b}}} \\
 	\PExp && {\PExp/{\equiv_b}} \\
 	{\distf \funF \PExp} && {\distf \funF {\PExp}/{\equiv_b}} \\
 	{\funG\distf \PExp} && {\funG\distf {\PExp}/{\equiv_b}}
 	\arrow["{\distf [-]_{\equiv_b}}", from=1-2, to=1-4]
-	\arrow["{(\gamma_{\Exp} \circ \partial)^\sharp}", curve={height=-18pt}, from=1-2, to=4-1]
-	\arrow["{(\gamma_{{\Exp}/{\equiv_0}} \circ \qcoa)^\sharp}", curve={height=-24pt}, from=1-4, to=4-3]
+	\arrow["{(\gamma_{\PExp} \circ \partial)^\sharp}", curve={height=-18pt}, from=1-2, to=4-1]
+	\arrow["{(\gamma_{{\PExp}/{\equiv_b}} \circ \qcoa)^\sharp}", curve={height=-24pt}, from=1-4, to=4-3]
 	\arrow["{\eta_{\PExp}}"{pos=0.4}, from=2-1, to=1-2]
 	\arrow["{[-]_{\equiv_b}}"', from=2-1, to=2-3]
 	\arrow["\partial"', from=2-1, to=3-1]
