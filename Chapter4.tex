@@ -5,7 +5,7 @@ In this section, we will introduce the syntax and the language semantics of prob
 
 \subsection{Syntax}\label{s4:subsec:syntax}
 Given a finite alphabet $\alphabet$, the syntax of {PRE} is given by:
-$$e,f \in \PExp ::= \zero \mid \one \mid a \in A \mid e \oplus_p f \mid e\seq f \mid e^{[p]} \quad\quad\quad p \in\interval{0}{1}$$
+$$e,f \in \PExp ::= \zero \mid \one \mid a \in \alphabet \mid e \oplus_p f \mid e\seq f \mid e^{[p]} \quad\quad\quad p \in\interval{0}{1}$$
 We denote the expressions that immediately abort and successfully terminate by $\zero$ and $\one$ respectively. For every letter $a \in \alphabet$ in the alphabet, there is a corresponding expression representing an atomic action. Given two expressions $e, f \in {\PExp}$ and $p \in \interval{0}{1}$, probabilistic choice $e \oplus_p f$ denotes an expression that performs $e$ with probability $p$ and performs $f$ with probability $1-p$. One can think of $ \oplus_p$ as the probabilistic analogue of the
  plus operator ($e + f$) in Kleene's regular expressions. $e \seq f$ represents sequential composition, while $e^{[p]}$ is a probabilistic analogue of Kleene star: it successfully terminates with probability $1-p$ or with probability $p$ performs $e$ and then iterates $e^{[p]}$ again.  In terms of the notational convention, the sequential composition $(\seq)$ has higher precedence than the probabilistic choice $(\oplus_p)$.
 
@@ -79,19 +79,19 @@ We define ${\equiv} \subseteq \PExp \times \PExp$ to be the least congruence rel
 &  (e \oplus_{p} f) \oplus_{q} g \equiv e \oplus_{pq} \left(f \oplus_{\frac{{(1-p)}q}{1-pq}} g\right)  \\\\
 &\textbf{Sequential composition}\\
 	(\mathsf{1S})\;\; 
-&  \one \seq e \equiv_0 e \,, \\
+&  \one \seq e \equiv e \,, \\
 (\mathsf{S})\;\; 
-&  e \seq (f \seq g) \equiv_0 (e \seq f) \seq g \,, \\
+&  e \seq (f \seq g) \equiv (e \seq f) \seq g \,, \\
 (\mathsf{S1})\;\; 
-&  e \seq \one \equiv_0 e \,, \\
+&  e \seq \one \equiv e \,, \\
 (\mathsf{0S})\;\; 
-&  \zero \seq e \equiv_0 \zero \,, \\
+&  \zero \seq e \equiv \zero \,, \\
 (\mathsf{S0})\;\; 
-&  e \seq \zero \equiv_0 \zero \,, \\
+&  e \seq \zero \equiv \zero \,, \\
 (\mathsf{D1})\;\; 
-&  e \seq (f \oplus_p g) \equiv_0 e \seq f \oplus_p e \seq g  \\
+&  e \seq (f \oplus_p g) \equiv e \seq f \oplus_p e \seq g  \\
 (\mathsf{D2})\;\; 
-&  (e \oplus_p f) \seq g \equiv_0 e \seq g \oplus_p f \seq g \\\\
+&  (e \oplus_p f) \seq g \equiv e \seq g \oplus_p f \seq g \\\\
 
 %% recursion
 &\textbf{Loops} \\
@@ -246,7 +246,7 @@ $\monadT$-algebras and $\monadT$-homomorphisms form a category $\Set^\monadT$. T
 Given a function $f \colon X \to Y$, where $Y$ is a carrier of a $\monadT$-algebra $(Y, h)$, there is a unique homomorphism $f^\sharp \colon (TX, \mu_X) \to (Y,h)$ satisfying $f^\sharp \circ \eta_X = f$ that is explicitly given by $f^\sharp = h \circ Tf$.
 
 \subsection{Generalised determinisation}\label{sec:c4:generalised_determinisation}
-Language acceptance of nondeterministic automata (NDA) can be captured via determinisation. {NDA} can be viewed as coalgebras for the functor $N = 2 \times {\powf}^\alphabet$, where $\powf$ is the finite powerset monad. Determinisation converts a {NDA} $(X, \beta \colon X \to 2 \times {\powf X}^\alphabet)$ into a deterministic automaton $\left({\powf X}, \beta^{\sharp} \colon {\powf X} \to 2 \times {(\powf X)}^\alphabet \right)$, where for $A \subseteq X$, we define $\beta^{\sharp}(A) = \bigcup_{x \in A} \beta(a)$. Additionally, $\beta^\sharp$ satisfies $\beta^\sharp(\{x\}) = \beta(x)$ for all $x \in X$. A language of the state $x \in X$ of {NDA}, is given by the language accepted by the state $\{x\}$ in the determinised automaton $({\powf X}, \beta^\sharp)$. 
+Language acceptance of nondeterministic automata (NDA) can be captured via determinisation. {NDA} can be viewed as coalgebras for the functor $N = 2 \times {\powf}^\alphabet$, where $\powf$ is the finite powerset monad. Determinisation converts a {NDA} $(X, \beta \colon X \to 2 \times {\powf X}^\alphabet)$ into a deterministic automaton $\left({\powf X}, \beta^{\sharp} \colon {\powf X} \to 2 \times {(\powf X)}^\alphabet \right)$, where for $A \subseteq X$, we define $\beta^{\sharp}(A) = \bigcup_{x \in \alphabet} \beta(a)$. Additionally, $\beta^\sharp$ satisfies $\beta^\sharp(\{x\}) = \beta(x)$ for all $x \in X$. A language of the state $x \in X$ of {NDA}, is given by the language accepted by the state $\{x\}$ in the determinised automaton $({\powf X}, \beta^\sharp)$. 
 
 
 This construction can be generalised~\cite{Silva:2010:Generalizing} to $HT$-coalgebras, where $T \colon \Set \to \Set$ is an underlying functor of finitary monad $\monadT$ and $H \colon \Set \to \Set$ an endofunctor that admits a final coalgebra that can be lifted to the functor $\overline{H} \colon \Set^\monadT \to \Set^\monadT$. Liftings of functors $H \colon \Set \to \Set$ to $\overline{H} \colon \Set^\monadT \to \Set^\monadT$, are in one-to-one correspondence with distributive laws of the monad $\mathsf{T}$ over the functor $H$~\cite{Jacobs:2015:Trace}, which are natural transformations $\rho \colon TH \Rightarrow HT$ satisfying
@@ -335,7 +335,7 @@ Below we state several properties of positive convex algebras, that we will use 
     \end{align*}
     Finally, \circlednum{4} follows from \cite[Lemma~3.4]{Sokolova:2015:Congruences}, while \circlednum{5} was proved in \cite[Proposition~3.1]{Doberkat:2008:Erratum}.
 \end{proof}
-\begin{lemma}\label{lem:flattening_convex_sums}
+\begin{lemma}\label{c4:lem:flattening_convex_sums}
     Let $I, J$ be finite index sets, $\left\{p_i\right\}_{i \in I}$, $\{q_{i,j}\}_{(i,j) \in I\times J}$ and $\{x_{i,j}\}_{(i,j) \in I \times J}$ indexed collections such that for all $i \in I$ and $j \in J$, $p_i, q_{i,j} \in \interval{0}{1}$ and $x_{i,j} \in X$. If $X$ carries $\pca$ structure, then:
     $$\bigboxplus_{i \in I} p_i \cdot \left(\bigboxplus_{j \in J} q_{i,j} \cdot x_{i,j}\right) = \bigboxplus_{(i,j) \in I \times J} p_iq_{i,j} \cdot x_{i,j}$$
 \end{lemma}
@@ -359,7 +359,7 @@ Below we state several properties of positive convex algebras, that we will use 
     We have the following:
     \begin{align*}
         \bigboxplus_{i \in I} (p_i + q_i) \cdot \left(\frac{p_i}{p_i + q_i} \cdot x_i \boxplus \frac{q_i}{p_i + q_i} \cdot y_i\right) &= \bigboxplus_{i \in I} (p_i + q_i) \cdot \left(\bigboxplus_{j \in J} r_{i,j} \cdot z_{i,j} \right) \\
-        &= \bigboxplus_{(i,j) \in I \times J} (p_i + q_i)r_{i_j} \cdot z_{i,j} \tag{\Cref{lem:flattening_convex_sums}} \\
+        &= \bigboxplus_{(i,j) \in I \times J} (p_i + q_i)r_{i_j} \cdot z_{i,j} \tag{\Cref{c4:lem:flattening_convex_sums}} \\
         &= \left(\bigboxplus_{i \in I} p_i \cdot x_{i}\right) \boxplus \left(\bigboxplus_{i \in I} q_i \cdot y_i\right)
     \end{align*}
 \end{proof}
@@ -422,7 +422,7 @@ Generalised determinisation extends the above idea to $HT$-coalgebras, where $T 
 
 
 
-{RPTS} can be intuitively viewed as a probabilistic counterpart of nondeterministic automata and they can be determinised to obtain probabilistic language semantics. In an {RPTS}, each state $x$ is mapped to a pair $\langle o_x,n_x \rangle$, where $o \in \interval{0}{1}$ is the acceptance probability of state $x$ and $n_x\colon \alphabet \to \distf(X)$ is the next-state function, which takes a letter $a \in \alphabet$ and returns the subprobability distribution over successor states. Formally speaking, let $\funG \colon \Set \to \Set$ be an endofunctor $\funG = [0,1] \times (-)^\alphabet$. RPTS are precisely $\funG\distf$-coalgebras, that is pairs $(X, \beta)$, where $X$ is a set of states and $\beta \colon X \to [0,1] \times \distf (X)^\alphabet$ is a transition function. Following the convention outlined before, we will use terms "$G\distf$-coalgebras" and "RPTS" interchangeably.
+{RPTS} can be intuitively viewed as a probabilistic counterpart of nondeterministic automata and they can be determinised to obtain probabilistic language semantics. In an {RPTS}, each state $x$ is mapped to a pair $\langle o_x,n_x \rangle$, where $o \in \interval{0}{1}$ is the acceptance probability of state $x$ and $n_x\colon \alphabet \to \distf(X)$ is the next-state function, which takes a letter $a \in \alphabet$ and returns the subprobability distribution over successor states. Formally speaking, let $\funG \colon \Set \to \Set$ be an endofunctor $\funG = \interval{0}{1} \times (-)^\alphabet$. RPTS are precisely $\funG\distf$-coalgebras, that is pairs $(X, \beta)$, where $X$ is a set of states and $\beta \colon X \to \interval{0}{1} \times \distf (X)^\alphabet$ is a transition function. Following the convention outlined before, we will use terms "$G\distf$-coalgebras" and "RPTS" interchangeably.
 
 $\funG \distf$-coalgebras fit into framework of generalised determinisation~\cite{Silva:2011:Sound}. In particular, there exists a distributive law $\rho \colon \distf \funG \Rightarrow \funG \distf$ of the monad $\distf$ over the functor $\funG$ that allows to lift $\funG \colon \Set \to \Set$ to $\funG \colon \pca \to \pca$. Speaking in concrete terms, if the set $X$ is equipped with a convex sum operation $\bigboxplus_{i \in I} p_i \cdot (-)$, then so is $\interval{0}{1} \times X^\alphabet$. Let $\{\langle o_i , t_i\rangle\}_{i \in I}$ be an indexed collection of elements of $\interval{0}{1} \times X^\alphabet$. Then, we can define
 $$
@@ -549,11 +549,11 @@ Since, $\mu_{\funF X} \circ \distf \beta \circ \eta_X $ is a $\pca$ homomorphism
 \end{proof}
 \subsection{Antimirov derivatives}\label{c4:subsec:antimirov}
 We now equip $\PExp$ with a $\distf \funF$-coalgebra structure, that is, we define a function $\partial : \PExp \to \distf (1+A\times \PExp)$. We refer to $\partial$ as the \emph{Antimirov derivative}, as it is reminiscent of the analogous construction
-for regular expressions and nondeterminisic automata due to Antimirov~\cite{Antimirov:1996:Partial}. Given $a \in A$, $e,f \in \PExp$ and $p \in \interval{0}{1}$ we define:
+for regular expressions and nondeterminisic automata due to Antimirov~\cite{Antimirov:1996:Partial}. Given $a \in \alphabet$, $e,f \in \PExp$ and $p \in \interval{0}{1}$ we define:
 \begin{gather*}
     \partial(\zero) = \emptydist \quad\quad \partial(\one)=\delta_{\checkmark} \quad\quad \partial(a)=\delta_{(a,\one)}  \\  \partial(e \oplus_p f)=p\partial(e) + (1-p)\partial(f)
 \end{gather*}
-The expression $\zero$ is mapped to the empty subdistribution, intuitively representing a deadlock. On the other hand, the expression $\one$ represents immediate acceptance, that is it transitions to $\checkmark$ with probability $1$. For any letter $a \in A$ in the alphabet, the expression $a$ performs $a$-labelled transition to $\one$ with probability $1$. The outgoing transitions of the probabilistic choice $e \oplus_p f$ consist of the outgoing transitions of $e$ with
+The expression $\zero$ is mapped to the empty subdistribution, intuitively representing a deadlock. On the other hand, the expression $\one$ represents immediate acceptance, that is it transitions to $\checkmark$ with probability $1$. For any letter $a \in \alphabet$ in the alphabet, the expression $a$ performs $a$-labelled transition to $\one$ with probability $1$. The outgoing transitions of the probabilistic choice $e \oplus_p f$ consist of the outgoing transitions of $e$ with
 probabilities scaled by $p$ and the outgoing transitions of $f$ scaled by $1-p$.
 
 The definition of $\partial(e;f)$ is slightly more involved. We need to factor in the possibility that $e$ may accept with some probability $t$, in which case the outgoing transitions of $f$ contribute to the outgoing transitions of $e \seq f$. Formally, $\partial(e \seq f) = \partial(e) \lhd f$ where for any $f \in \PExp$ the operation $( - \lhd f) : \distf \funF \PExp \to \distf \funF \PExp$ is given by $( - \lhd f) = {c_f}^{\star}$, the convex extension of $c_f : 1+A\times \PExp \to \distf (1+A \times \PExp)$ given below on the left.
@@ -603,14 +603,14 @@ Formally speaking, the definition of $\partial\left({e}^{[{p}]}\right)$ can be g
 \end{cases}
 \end{gather*}
 % Having defined the semantics, we can easily observe that the termination operator $E : \PExp \to \interval{0}{1}$ captures the probability of immediate acceptance.
-% \begin{restatable}{lemma}{exitoperatorlemma}\label{lem:exit_operator_lemma}
+% \begin{restatable}{lemma}{exitoperatorlemma}\label{c4:lem:exit_operator_lemma}
 % For all $e \in \PExp$ it holds that $E(e)=\partial(e)(\checkmark)$
 % \end{restatable}
 % In our case, the canonical concept of coalgebraic bisimilarity (which in the case of {GPTS} directly corresponds to the notion from~\cite{Larsen:1991:Bisimulation}) is too discriminating notion of equivalence. For example, the states in the Brzozowski transition system for expressions $(a \oplus_{\frac{1}{2}} \zero) \seq (b \oplus_{\frac{1}{3}} \zero) $ and $(a \oplus_{\frac{1}{3}} \zero) \seq (b \oplus_{\frac{1}{2}} \zero) $ both generate a word $ab$ with probability $\frac{1}{6}$, while not being bisimilar. The state for the first expression can perform an $a$-transition with probability $\frac{1}{2}$, while the second one performs the same action with the probability of $\frac{1}{3}$, thus making them distinguished by the notion of bisimilarity.
 
 % As mentioned before, if we omit the axioms marked with $\heartsuit$ from \cref{fig:axioms}, we obtain a coarser congruence relation ${\equiv_0} \subseteq \PExp \times \PExp$, sound wrt. coalgebraic bisimilarity. 
 % % We will later use it in the proof of soundness of our axiomatisation wrt. language equivalence, as an intermediate step.
-% \begin{restatable}{lemma}{soundnessbisim}\label{lem:soundness_bisim}
+% \begin{restatable}{lemma}{soundnessbisim}\label{c4:lem:soundness_bisim}
 %     The relation ${\equiv_0} \subseteq {\PExp \times \PExp}$ is a bisimulation equivalence
 % \end{restatable}
 % As a consequence~\cite{Rutten:2000:Universal}, there exists a unique coalgebra structure $\ol{\partial} : {\PExp}/{\equiv_0} \to \distf F {\PExp}/{\equiv_0}$, which makes the quotient map $[-]_{\equiv_0} : \PExp \to {\PExp}/{\equiv_0}$ into $\distf F$-coalgebra homomorphism from $(\PExp, \equiv)$ to $({{\PExp}/{\equiv_0}}, \ol{\partial})$.
@@ -646,7 +646,7 @@ By structural induction. The base cases $E(\zero)=0=\partial(\zero)(\checkmark)$
 
 Given an expression $e \in \PExp$, we write $\langle e\rangle \subseteq \PExp$ for the set of states reachable from $e$ by repeatedly applying $\partial$.
 It turns out that the operational semantics of every {PRE} can be always described by a finite-state {GPTS} given by $(\langle e \rangle, \partial)$.
-\begin{lemma}\label{lem:locally_finite}
+\begin{lemma}\label{c4:lem:locally_finite}
     For all $e \in \PExp$, the set $\langle e \rangle$ is finite. In fact, the number of of states is bounded above by $\#(-) \colon \PExp \
     \to \N$, where $\#(-)$ is defined recursively by:
     \begin{align*}
@@ -725,8 +725,10 @@ A straightforward induction on the length derivation of $\equiv_b$ allows us to 
 \begin{restatable}{lemma}{soundnessbisim}\label{c4:lem:soundness_bisim}
     The relation ${\equiv_b} \subseteq {\PExp \times \PExp}$ is a bisimulation equivalence.
  \end{restatable}
-As a consequence of \Cref{c4:lem:soundness_bisim}~\cite{Rutten:2000:Universal}, there exists a unique coalgebra structure $\qcoa \colon {\PExp}/{\equiv_b} \to \distf \funF {\PExp}/{\equiv_b}$, which makes the quotient map $[-]_{\equiv_b} \colon \PExp \to {\PExp}/{\equiv_0}$ into a $\distf F$-coalgebra homomorphism from $(\PExp, \partial)$ to $({{\PExp}/{\equiv_b}},\qcoa)$. It turns out, that upon converting those $\distf \funF$-coalgebras to $\funG \distf$-coalgebras using the natural transformation $\rho \colon \distf \funF \to \funG \distf$ and determinising them, $\distf [-]_{\equiv_b} \colon \distf \PExp \to \distf {\PExp}/{\equiv_b}$ becomes a homomorphism between the determinisations. This situation can be summed up by the following commutative diagram:
-% https://q.uiver.app/#q=WzAsOCxbMCwxLCJcXFBFeHAiXSxbMCwyLCJcXGRpc3RmIFxcZnVuRiBcXFBFeHAiXSxbMCwzLCJcXGZ1bkdcXGRpc3RmIFxcUEV4cCJdLFsxLDAsIlxcZGlzdGYgXFxQRXhwIl0sWzIsMSwiXFxQRXhwL3tcXGVxdWl2X2J9Il0sWzMsMCwiXFxkaXN0ZiB7e1xcUEV4cH0ve1xcZXF1aXZfYn19Il0sWzIsMywiXFxmdW5HXFxkaXN0ZiB7XFxQRXhwfS97XFxlcXVpdl9ifSJdLFsyLDIsIlxcZGlzdGYgXFxmdW5GIHtcXFBFeHB9L3tcXGVxdWl2X2J9Il0sWzAsMSwiXFxwYXJ0aWFsIiwyXSxbMSwyLCJcXHJob197XFxQRXhwfSIsMl0sWzAsMywiXFxldGFfe1xcUEV4cH0iLDAseyJsYWJlbF9wb3NpdGlvbiI6NDB9XSxbNCw1LCJcXGV0YV97e1xcUEV4cH0ve1xcZXF1aXZfYn19IiwwLHsibGFiZWxfcG9zaXRpb24iOjEwfV0sWzMsNSwiXFxkaXN0ZiBbLV1fe1xcZXF1aXZfYn0iXSxbMCw0LCJbLV1fe1xcZXF1aXZfYn0iLDJdLFs0LDcsIlxccWNvYSIsMl0sWzcsNiwiXFxyaG9fe3tcXFBFeHB9L3tcXGVxdWl2X2J9fSIsMl0sWzIsNiwiXFxmdW5HIFxcZGlzdGYgWy1dX3tcXGVxdWl2X2J9Il0sWzMsMiwiKFxcZ2FtbWFfe1xcUEV4cH0gXFxjaXJjIFxccGFydGlhbCleXFxzaGFycCIsMCx7ImN1cnZlIjotM31dLFs1LDYsIihcXGdhbW1hX3t7XFxQRXhwfS97XFxlcXVpdl9ifX0gXFxjaXJjIFxccWNvYSleXFxzaGFycCIsMCx7ImN1cnZlIjotNH1dXQ==
+As a consequence of \Cref{c4:lem:soundness_bisim} and \Cref{c2:lem:quotient_coalgebra}, there exists a unique coalgebra structure $\qcoa \colon {\PExp}/{\equiv_b} \to \distf \funF {\PExp}/{\equiv_b}$, which makes the quotient map $[-]_{\equiv_b} \colon \PExp \to {\PExp}/{\equiv_b}$ into a $\distf F$-coalgebra homomorphism from $(\PExp, \partial)$ to $({{\PExp}/{\equiv_b}},\qcoa)$. It turns out, that upon converting those $\distf \funF$-coalgebras to $\funG \distf$-coalgebras using the natural transformation $\rho \colon \distf \funF \to \funG \distf$ and determinising them, $\distf [-]_{\equiv_b} \colon \distf \PExp \to \distf {\PExp}/{\equiv_b}$ becomes a homomorphism between the determinisations. 
+\begin{lemma}\label{c4:lem:homom_of_determinisations}
+	$\distf [-]_{\equiv_b} \colon \distf \PExp \to \distf {\PExp}/{\equiv_b}$ is a $\funG$-coalgebra homomorphism from $(\distf \PExp, (\rho_{\PExp} \circ \partial)^\sharp)$ to  $(\distf {\PExp}/{\equiv_b}, (\rho_{{\PExp}/{\equiv_b}} \circ \qcoa)^\sharp)$. In other words, the following diagram commutes:
+% https://q.uiver.app/#q=WzAsOCxbMCwxLCJcXFBFeHAiXSxbMCwyLCJcXGRpc3RmIFxcZnVuRiBcXFBFeHAiXSxbMCwzLCJcXGZ1bkdcXGRpc3RmIFxcUEV4cCJdLFsxLDAsIlxcZGlzdGYgXFxQRXhwIl0sWzIsMSwiXFxQRXhwL3tcXGVxdWl2X2J9Il0sWzMsMCwiXFxkaXN0ZiB7e1xcUEV4cH0ve1xcZXF1aXZfYn19Il0sWzIsMywiXFxmdW5HXFxkaXN0ZiB7XFxQRXhwfS97XFxlcXVpdl9ifSJdLFsyLDIsIlxcZGlzdGYgXFxmdW5GIHtcXFBFeHB9L3tcXGVxdWl2X2J9Il0sWzAsMSwiXFxwYXJ0aWFsIiwyXSxbMSwyLCJcXGdhbW1hX3tcXFBFeHB9IiwyXSxbMCwzLCJcXGV0YV97XFxQRXhwfSIsMCx7ImxhYmVsX3Bvc2l0aW9uIjo0MH1dLFs0LDUsIlxcZXRhX3t7XFxQRXhwfS97XFxlcXVpdl9ifX0iLDAseyJsYWJlbF9wb3NpdGlvbiI6MTB9XSxbMyw1LCJcXGRpc3RmIFstXV97XFxlcXVpdl9ifSJdLFswLDQsIlstXV97XFxlcXVpdl9ifSIsMl0sWzQsNywiXFxxY29hIiwyXSxbNyw2LCJcXGdhbW1hX3t7XFxQRXhwfS97XFxlcXVpdl9ifX0iLDJdLFsyLDYsIlxcZnVuRyBcXGRpc3RmIFstXV97XFxlcXVpdl9ifSJdLFszLDIsIihcXGdhbW1hX3tcXFBFeHB9IFxcY2lyYyBcXHBhcnRpYWwpXlxcc2hhcnAiLDAseyJjdXJ2ZSI6LTN9XSxbNSw2LCIoXFxnYW1tYV97e1xcUEV4cH0ve1xcZXF1aXZfYn19IFxcY2lyYyBcXHFjb2EpXlxcc2hhcnAiLDAseyJjdXJ2ZSI6LTR9XV0=
 \[\begin{tikzcd}
 	& {\distf \PExp} && {\distf {{\PExp}/{\equiv_b}}} \\
 	\PExp && {\PExp/{\equiv_b}} \\
@@ -740,10 +742,118 @@ As a consequence of \Cref{c4:lem:soundness_bisim}~\cite{Rutten:2000:Universal}, 
 	\arrow["\partial"', from=2-1, to=3-1]
 	\arrow["{\eta_{{\PExp}/{\equiv_b}}}"{pos=0.1}, from=2-3, to=1-4]
 	\arrow["\qcoa"', from=2-3, to=3-3]
-	\arrow["{\rho_{\PExp}}"', from=3-1, to=4-1]
-	\arrow["{\rho_{{\PExp}/{\equiv_b}}}"', from=3-3, to=4-3]
+	\arrow["{\gamma_{\PExp}}"', from=3-1, to=4-1]
+	\arrow["{\gamma_{{\PExp}/{\equiv_b}}}"', from=3-3, to=4-3]
 	\arrow["{\funG \distf [-]_{\equiv_b}}", from=4-1, to=4-3]
 \end{tikzcd}\]
+\end{lemma}
+\begin{proof}
+	Front face of the diagram commutes because $[-]_{\equiv_b}$ is $\distf \funF$-coalgebra homomorphism and because of \cite[Theorem~15.1]{Rutten:2000:Universal}. The sides of the diagram commute, because of the free-forgetful adjunction between $\Set$ and $\pca$. Finally, the commutativity of the square at the back of the diagram above follows from \cite[Theorem~4.1]{Silva:2010:Generalizing}.
+\end{proof}
+\subsection{Step 2a: Fundamental theorem}  We show that every PRE is provably equivalent (modulo the axioms of $\equiv_b$) to a decomposition involving sub-expressions obtained in its small-step semantics. This property, often referred to as the fundamental theorem (in analogy with the fundamental theorem of calculus) is useful in proving soundness. In order to encode elements of $\funF \PExp$ using the syntax of $\PExp$, we define a function $\ex \colon \funF \PExp \to \PExp$, given by $\ex(\checkmark)=1$ and $\ex(a,e')=a;e'$ for all $a \in \alphabet$ and $e' \in \PExp$. To be able to syntactically express finitely supported subdistributions, we will use $n$-ary convex sum of elements of $\PExp$ obeying the axioms of positive convex algebras, that exists because of \Cref{c4:prop:binary} and axioms (\textsf{C1-C4}). Using it, we can state the following:
+
+\begin{restatable}{theorem}{fundamentaltheorem}\label{c4:thm:fundamental_theorem}
+    For all $e \in \PExp$ we have that 
+    $$
+    e \equiv_0 \bigoplus_{d \in \supp(\partial(e))} \partial(e)(d) \cdot \ex(d)
+    $$
+\end{restatable}
+Before we give the proof of the result above, we start by establishing a couple of intermediate results. Firstly, we show that the binary probabilistic choice satisfies the following identities:
+\begin{lemma}\label{c4:lem:binary_sum_properties}
+    The following facts are derivable in $\equiv_0$
+    \begin{enumerate}
+        \item $e \oplus_p (f 
+        \oplus_q g) \equiv_0 \left( e \oplus_{\frac{p}{1-(1-p)(1-q)}} f \right) \oplus_{1-(1-p)(1-q)} g $
+        \item $(e \oplus_p f) \oplus_q (g \oplus_p h) \equiv_0 (e \oplus_q g) \oplus_p (f \oplus_q h)$
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+For \circlednum{1}, let $k = \frac{p}{1-(1-p)(1-q)} $ and $l = 1-(1-p)(1-q)$. We derive the following:
+    \begin{align*}
+        e \oplus_p (f \oplus_q g) &\equiv_0  (f \oplus_q g) \oplus_{1-{p}} e \tag{\textsf{C3}} \\
+        &\equiv_0 (g \oplus_{1-{q}} f) \oplus_{1-{p}} e \tag{\textsf{C3}} \\
+        &\equiv_0 g \oplus_{1-{l}} (f \oplus_{1-{k}} e) \tag{\textsf{C4}} \\
+        &\equiv_0 (f \oplus_{1-{k}} e) \oplus_{{l}} g\tag{\textsf{C3}} \\
+        &\equiv_0 (e \oplus_{{k}} f) \oplus_{{l}} g\tag{\textsf{C3}} \\
+    \end{align*}
+For \circlednum{2} we show the following:
+    \begin{align*}
+        (e \oplus_p f) \oplus_q (g \oplus_p h) &\equiv_0 e \oplus_{pq} \left(f \oplus_{\frac{1-{p}q}{1-pq}} (g \oplus_p h)\right) \tag{\textsf{C4}}\\
+        &\equiv_0 e \oplus_{pq} \left((g \oplus_p h) \oplus_{\frac{1-{q}}{1-pq}} f \right) \tag{\textsf{C3}} \\
+        &\equiv_0 e \oplus_{pq} \left(g \oplus_{\frac{p(1-{q})}{1-pq}} \left(h \oplus_{1-{q}} f\right) \right) \tag{\textsf{C4}} \\
+        &\equiv_0 e \oplus_{pq} \left(g \oplus_{\frac{p(1-{q})}{1-pq}} \left(f \oplus_{{q}} h\right) \right) \tag{\textsf{C3}}\\
+        &\equiv_0 \left(e \oplus_q g\right) \oplus_p \left(f \oplus_q h\right) \tag{\circlednum{1}}
+    \end{align*}
+
+\end{proof}
+
+
+
+Then, we argue that any non-empty $n$-ary convex sum can be expressed as a binary probabilistic choice and an $(n-1)$-nary convex sum.
+\begin{lemma}\label{c4:lem:sum_unrolling}
+    Let $\{p_i\}_{i \in I}$ and $\{e_i\}_{i \in I}$ be non-empty collections indexed by a finite set $I$, such that for all $i \in I$, $p_i \in \interval{0}{1}$ and $e_i \in \PExp$. For any $j \in I$ it holds that:
+    \[
+        \bigoplus_{i \in I} p_i \cdot e_i \equiv_b e_j \oplus_{p_j} \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{1-{p_j}}\cdot e_i\right) 
+    \]
+\end{lemma}
+\begin{proof}
+    In the edge case, when $p_j = 1$ (and therefore $I = \{j\}$) we have that $\bigoplus_{i \in I} p_i \cdot e _i \equiv_b e_j$ and therefore
+    \begin{align*}
+        e_j &\equiv_b e_j \oplus_1 0 \tag{\textsf{C2}} \\
+        &\equiv_b e_j \oplus_{p_j} \left( \bigoplus_{i \in \emptyset} \frac{p_i}{{1-p_j}} \cdot e_i \right) \tag{Def. of empty $n$-ary convex sum}\\
+        &\equiv_b e_j \oplus_{p_j} \left( \bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{{1-p_j}} \cdot e_i \right) \tag{$I = \{j\}$}\\
+    \end{align*}
+    Note that despite the fact that ${p_j} = 1$, the $n$-ary sum on the right is well-defined as it ranges over an empty index set and thus division by zero never happens. The remaining case, when $p_j \neq 1$ holds because of \Cref{c4:prop:binary}.
+\end{proof}
+Using the above result, we can also split the normal form used in \Cref{c4:thm:fundamental_theorem} into two parts; one describing acceptance and one describing labelled transitions.
+\begin{lemma}\label{c4:lem:safe_unrolling_lemma}
+    For all $e \in \PExp$, 
+    $$
+    \bigoplus_{d \in \supp(\partial(e))} \partial(e)(d) \cdot \ex(d) \equiv_b \one \oplus_{\partial(e)(\checkmark)} \left(\bigoplus_{d \in \supp(\partial(e)) \setminus \{\checkmark\}} \frac{\partial(e)(d)}{1-{\partial(e)(\checkmark)}} \cdot \ex(d)\right)
+    $$
+\end{lemma}
+\begin{proof}
+    If $\supp(\partial(e)) = \emptyset$, then 
+    \begin{align*}
+        \bigoplus_{d \in \supp(\partial(e))} \partial(e)(d) \cdot \ex(d) &\equiv_b \zero \tag{Def. of empty $n$-ary convex sum}\\
+        &\equiv_b 0 \oplus_1 1 \tag{\textsf{C2}} \\
+        &\equiv_b 1 \oplus_0 0 \tag{\textsf{C3}} \\
+        &\equiv_b 1 \oplus_{\partial(e)(\checkmark)} 0 \tag{$\partial(e)(\checkmark)=0$}\\
+        &\equiv_b 1 \oplus_{\partial(e)(\checkmark)} \left( 
+            \bigoplus_{d \in \emptyset } \frac{\partial(e)(d)}{1-{\partial(e)(\checkmark)}} \cdot \ex (d)\right)\\ 
+        &\equiv_b 1 \oplus_{\partial(e)(\checkmark)} \left( 
+                \bigoplus_{d \in \supp(\partial(e)(\checkmark))\setminus \{\checkmark\} } \frac{\partial(e)(d)}{1-{\partial(e)(\checkmark)}} \cdot \ex(d)\right)\\ 
+    \end{align*}
+    
+    The remaining case when $\supp(\partial(e)) \neq 0$ holds by \Cref{c4:lem:sum_unrolling} and the fact that $\ex(\checkmark) = 1$.
+\end{proof}
+Finally, we generalise the axiom (\textsf{D1}) to $n$-ary convex sums.
+\begin{lemma}\label{c4:lem:generalised_right_distributivity}
+    Let $f \in \PExp$, $I$ be a finite index set and let $\{p_i\}_{i \in I}$ and $\{e_i\}_{i \in I}$ indexed collections of probabilities and expressions respectively. Then,
+    $$\left(\bigoplus_{i \in I} p_i \cdot e_i\right) \seq f \equiv_b \bigoplus_{i \in I} p_i \cdot e_i \seq f$$
+\end{lemma}
+\begin{proof}
+    By induction. If $I = \emptyset$, then using (\textsf{0S}) we can show that
+    \[
+        \left(\bigoplus_{i \in I} p_i \cdot e_i\right) \seq f \equiv_b \zero \seq f \equiv_b \zero \equiv_b \bigoplus_{i \in I} p_i \cdot e_i \seq f 
+    \]
+    If there exists $j \in I$, such that $p_j = 1$, then
+    \[
+        \left(\bigoplus_{i \in I} p_i \cdot e_i\right) \seq f \equiv_b e_j \seq f\equiv_b \left(\bigoplus_{i \in I} p_i \cdot e_i \seq f\right)
+    \]
+    Finally, for the induction step, we have that
+    \begin{align*}
+         \left(\bigoplus_{i \in I} p_i \cdot e_i\right) \seq f &\equiv_b \left( e_j \oplus_{p_j} \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{{1-p_j}} \cdot e_i\right) \right) \seq f \\
+         &\equiv_b  e_j\seq f \oplus_{p_j} \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{1-{p_j}} \cdot e_i\right)\seq f \tag{\textsf{D1}} \\
+         &\equiv_b  e_j\seq f \oplus_{p_j} \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{1-{p_j}} \cdot e_i\seq f\right) \tag{Induction hypothesis}\\
+         &\equiv_b \left(\bigoplus_{i \in I} p_i \cdot e_i \seq f\right)
+    \end{align*}
+\end{proof}
+We now have all the ingredients to show the fundamental theorem. 
+\begin{proof}[Proof of \Cref{c4:thm:fundamental_theorem}]
+	
+\end{proof}
+
  
 
  
