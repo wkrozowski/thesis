@@ -1,5 +1,6 @@
 \chapter{Completeness Theorem for Probabilistic Regular Expressions}
 \label{chapter4}
+{\color{red} Write introduction!}
 \section{Overview}\label{c4:sec:overview}
 In this section, we will introduce the syntax and the language semantics of probabilistic regular expressions ({PRE}), as well as a candidate inference system to reason about the equivalence of {PRE}. 
 
@@ -389,7 +390,7 @@ Speaking more abstractly, positive convex algebras and their homomorphisms (in t
 Following~{\cite[Corollary~3.10, Theorem~3.12]{Milius:2020:New}}, if finitely presentable and finitely generated objects coincide in $\C$ and $B : \C \to \C$ is a finitary endofunctor preserving non-empty monomorphisms, then rational fixpoint is fully abstract - ie. $(\varrho B, r)$ is a subcoalgebra of the final coalgebra $(\nu B, t)$.
 
 \section{Operational semantics}\label{c4:sec:operational}
-
+{\color{red} Write introduction for the section!}
 \subsection{Language semantics of GPTS}\label{c4:subsec:language_semantics}
 Let $\funF \colon \Set \to \Set$ be an endofunctor given by $\funF = \{\checkmark\} + \alphabet \times (-)$. GPTS are precisely $\distf \funF$-coalgebras, that is pairs $(X, \beta)$, where $X$ is a set of states and $\beta \colon X \to \distf (\{\checkmark\} + \alphabet \times X)$ is a transition structure. Because of this, we will interchangeably use terms "$\distf \funF$-coalgebra" and "GPTS".
 
@@ -471,7 +472,7 @@ $$
 \gamma_X(\zeta) = \langle \zeta(\checkmark), \lambda a \ldotp \lambda x\ldotp \zeta(a,x)\rangle
 $$
 Such functions define components of the natural transformation.
-\begin{proposition}{\cite{Silva:2011:Sound}}
+\begin{proposition}{\cite{Silva:2011:Sound}}\label{c4:prop:natural}
 	$\gamma \colon \distf \funF \Rightarrow \funG \distf$ is a natural transformation with injective components. 
 \end{proposition}
 We now have all ingredients to specify language semantics of $\distf \funF$-coalgebras. Given a $\distf \funF$-coalgebra  $(X, \beta)$, one can use the natural transformation $\gamma$ and obtain $\funG \distf$-coalgebra $(X, \gamma_X \circ \beta)$. Since $\funG$ can be lifted to $\pca$, we can obtain $\funG$-coalgebra $\left(\distf X, (\gamma_X \circ \beta)^\sharp\right)$. Note that this coalgebra carries an additional algebra structure and its transition map is a $\pca$ homomorphism, thus making $\left( (\distf X, \mu_X), (\gamma_X \circ \beta)^\sharp \right)$ into a $\overline{\funG}$-coalgebra. The resulting language semantics of $(X, \beta)$ are given by the map $\langmap_{(X, \beta)} \colon X \to \interval{0}{1}^\alphabet$ explicitly given by $$\langmap_{(X, \beta)} = \beh{(\gamma_X \circ \beta)^\sharp} \circ \eta_X$$ where $\eta \colon X \to \distf X$ is a unit of the monad $\distf$ taking each state $x \in X$ to its Dirac $\delta_x \in \distf X$.
@@ -717,9 +718,14 @@ In the picture above $[-] \colon \PExp \to {\PExp}/{\equiv}$ is a quotient map t
  e\equiv f\Rightarrow [e]=[f] \Rightarrow \dagger d ([e])  = \dagger d ( [f] ) \Rightarrow \llbracket e\rrbracket = \llbracket f\rrbracket 
  \end{equation}
  To obtain completeness we want to reverse all implications in \Cref{eq:sound}--and they all are easily reversible except $[e]=[f] \Rightarrow \beh{d} ( [e] )  =  \beh{d} ( [f] )$. To obtain this reverse implication we will need to show that $\beh{d} $ is {\em injective}.
+ 
+ {\color{red} Complete the roadmap!}
  \section{Soundness}\label{c4:sec:soundness}
  \subsection{Step 1: Soundness with respect to bisimilarity}
- We first check that a subset of axioms generating $\equiv$ is sound with respect to bisimilarity of $\distf \funF$-coalgebras, which is a coarser notion of equivalence than probabilistic langauge equivalence. Let ${\equiv_b} \subseteq {\PExp \times \PExp}$ denote the least congruence relation closed under the axioms on \Cref{c4:fig:axioms} except (\textsf{S0}) and (\textsf{D2}). 
+ We first check that a subset of axioms generating $\equiv$ is sound with respect to bisimilarity of $\distf \funF$-coalgebras, which is a coarser notion of equivalence than probabilistic language equivalence. 
+ {\color{red} Define the quotient maps!}
+ 
+ Let ${\equiv_b} \subseteq {\PExp \times \PExp}$ denote the least congruence relation closed under the axioms on \Cref{c4:fig:axioms} except (\textsf{S0}) and (\textsf{D2}). 
 
 A straightforward induction on the length derivation of $\equiv_b$ allows us to show that this relation is a bisimulation equivalence on $(\PExp, \partial)$. As mentioned before, in the case of {GPTS} this notion corresponds to bisimulation equivalences in the sense of Larsen and Skou~\cite{Larsen:1991:Bisimulation}.
 \begin{restatable}{lemma}{soundnessbisim}\label{c4:lem:soundness_bisim}
@@ -1080,7 +1086,7 @@ In fact, this allows to equip the set ${\PExp}/{\equiv_b}$ with a positive conve
     \end{align*}
 \end{proof}
 Using the isomorphism between $\pca$ and $\Set^\distf$ one can calculate the concrete formula for $\pca$ structure on ${\PExp}/{\equiv_b}$.
-\begin{lemma}
+\begin{lemma}\label{c4:lem:concrete}
 	The $\pca$ structure on $\PExp/{\equiv_b}$ is concretely given by:
 	$$
 	\bigboxplus_{i \in I} p_i \cdot [e_i]_{\equiv_b} = \left[\bigoplus_{i \in I} p_i \cdot e_i \right]_{\equiv_b}
@@ -1101,6 +1107,23 @@ Using the isomorphism between $\pca$ and $\Set^\distf$ one can calculate the con
 	&\quad=\left[ \bigoplus_{i \in I} p_i \cdot e_i \right]_{\equiv_b} \tag{\Cref{c4:thm:fundamental_theorem}}
 \end{align*}
 }
+\end{proof}
+We can also equip the coarser quotient, that is ${\PExp}/{\equiv}$, with a $\pca$ structure.  
+\begin{lemma}\label{c4:lem:coarser_quotient_is_a_pca}
+The set ${\PExp}/{\equiv}$ can be equipped with a positive convex algebra structure, given by the following:
+$$
+\bigboxplus_{i \in I} p_i \cdot [e_i] = \left[\bigoplus_{i \in I} p_i \cdot e_i \right]
+$$
+Moreover, $[-]_{\equiv} \colon {\PExp}/{\equiv_b} \to {\PExp}/{\equiv}$ is a $\pca$ homomorphism.
+\end{lemma}
+\begin{proof}
+The positive convex algebra structure on ${\PExp}/{\equiv}$ is well-defined, because $\equiv$ is a congruence and the definition on $n$-ary probabilistic choice (\Cref{c4:prop:binary}). To show that $[-]_{\equiv}$ is a $\pca$ homomorphism, we argue the following:
+	 \begin{align*}
+        \left[\bigboxplus_{i \in I} p_i \cdot [e_i]_{\equiv_b}\right]_{\equiv} &= \left[\left[\bigoplus_{i \in I} p_i \cdot e_i \right]_{\equiv_b}\right]_{\equiv} \tag{\Cref{c4:lem:concrete}}\\
+        &= \left[\bigoplus_{i \in I} p_i \cdot e_i \right]\\
+        &= \bigboxplus_{i \in I} p_i \cdot[e_i] \tag{Def. of $\pca$ structure on ${\PExp}/{\equiv}$}\\
+        &= \bigboxplus_{i \in I}^n p_i \left[[e_i]_{\equiv_b}\right]_{\equiv} \\
+    \end{align*}
 \end{proof}
 \subsection{Step 3: Coalgebra structure}
 Having established the necessary algebraic structure, we move on to showing how we can equip the quotient ${\PExp}/{\equiv}$ with a structure of coalgebra for the functor $\funG \colon \Set \to \Set$. First, we focus on the $\funG$-coalgebra structure on the finer quotient $\PExp/{\equiv_b}$, given by the following composition of maps:
@@ -1178,7 +1201,7 @@ Let ${\uaequiv} \subseteq {\PExp \times \PExp}$ be the least congruence relation
 
         \item[] \fbox{$e \equiv f \implies e \uaequiv f$}
         
-        Axioms of $\equiv$ are either axioms of $\equiv_b$, which are already contained in $\uaequiv$ or are (\textsf{D2})/(\textsf{S0}) axioms. It suffices to show that latter two are derivable in $\uaequiv$. First, we show by induction that for all $e \in \PExp$, $e \seq \zero \uaequiv \zero$.
+        Axioms of $\equiv$ are either axioms of $\equiv_b$, which are already contained in $\uaequiv$ or are instances of (\textsf{D2})/(\textsf{S0}) axioms. It suffices to show that latter two are derivable in $\uaequiv$. First, we show by induction that for all $e \in \PExp$, $e \seq \zero \uaequiv \zero$.
 
         \begin{itemize}
             \item[]\fbox{$e = \zero$} 
@@ -1293,6 +1316,64 @@ Let ${\uaequiv} \subseteq {\PExp \times \PExp}$ be the least congruence relation
             This completes the proof.
         \end{itemize}
     \end{itemize}
+\end{proof}
+We are now ready to show the desired result.
+\begin{proof}[Proof of \Cref{c4:lem:coalg_on_quotient_left_dist}]
+    We proceed by induction on length derivation of $\equiv$. We use diagonal fill-in property~\cite[Lemma~3.17]{Gumm:2000:Elements} to show the existence of $d$. Because of that,  it suffices to argue the following: 
+    \begin{equation}\label{c4:eqn:kernel}
+    	\ker([-]_\equiv) \subseteq \ker(\funG[-]_\equiv \circ \funG\alpha_{\equiv_b} \circ \gamma_{{\PExp}/{\equiv_b}} \circ \qcoa)
+    \end{equation}
+ 
+ Let $e,f \in \PExp$. Since $\equiv$ can be equivalently presented as $\uaequiv$ (\Cref{c4:lem:simpler_equivalence}), we have only three cases to consider.
+ \begin{itemize}
+	\item[] \fbox{$e \equiv_b f$}
+		 If $e \equiv_b f$, then $\qcoa([e]_{\equiv_b}) = \qcoa([f]_{\equiv_b})$, which immediately implies \Cref{c4:eqn:kernel}.
+ \end{itemize}
+ Before we proceed with remaining two cases, we make the following observation:
+ \begin{align*}
+        \funG [-]_\equiv \circ \funG\alpha_{\equiv_b} \circ \gamma_{{\PExp}/{\equiv_b}} \circ \qcoa \circ [-]_{\equiv_b} &= \funG\alpha_{\equiv} \circ \funG \distf[-]_\equiv \circ \gamma_{{\PExp}/{\equiv_b}} \circ \qcoa \circ [-]_{\equiv_b} \tag{\Cref{c4:lem:coarser_quotient_is_a_pca}}\\
+        &= \funG\alpha_{\equiv} \circ \funG \distf[-]_\equiv \circ \gamma_{{\PExp}/{\equiv_b}} \circ \distf \funF [-]_{\equiv_b} \circ \partial \tag{$[-]_{\equiv_b}$ is a $\distf \funF$-coalgebra homomorphism}\\
+        &= \funG\alpha_{\equiv} \circ \funG \distf[-]_\equiv \circ \funG \distf [-]_{\equiv_b} \circ \gamma_{{\PExp}} \circ \partial \tag{\Cref{c4:prop:natural}} \\
+        &= \funG\alpha_{\equiv} \circ \funG \distf[-] \circ \gamma_{{\PExp}} \circ \partial \tag{Definition of $[-]$}\\
+		&= \funG\alpha_{\equiv} \circ \gamma_{{\PExp}/{\equiv_b}} \circ \distf \funF[-] \circ \partial \tag{\Cref{c4:prop:natural}}\\
+    \end{align*}
+	{\color{red} Complete the lemma!}
+   
+%    \fbox{$a \seq (e \oplus_p f) \uaequiv a \seq e \oplus_p a \seq f$} Let $a \in A$, $p \in [0,1]$ and $e,f \in \PExp$.
+%    We have that: $$(\distf F[-] \circ \partial) (a \seq (e \oplus_p f)) = \delta_{(a, [e \oplus_p f])} $$
+%    After applying $\gamma_{{\PExp}/{\equiv_b}}$ we obtain
+%    $$(\gamma_{{\PExp}/{\equiv_b}} \circ \distf F[-] \circ \partial) (a \seq (e \oplus_p f)) = \langle 0, l_b \rangle$$
+%    where $l_b = \delta_{[e \oplus_p f]}$ if $a= b$ or $l_b(x) = 0$ otherwise. For the right hand side of the (simplified version of) left distributivity (\textbf{D2}) axiom, we have that
+%    $$(\distf F[-] \circ \partial) (a \seq e \oplus_p a \seq f) = p\delta_{(a, [e])} + (1-p)\delta_{(a, [f])} $$
+%    After applying $\gamma_{{\PExp}/{\equiv_b}}$ we obtain
+%    $$(\gamma_{{\PExp}/{\equiv_b}} \circ \distf F[-] \circ \partial) (a \seq e \oplus_p a \seq f) = \langle 0, r_b \rangle$$
+%    where $r_b = p\delta_{[ e]} + (1-p)\delta_{[ f]}$ if $a= b$ or $r_b(x) = 0$ otherwise. Hence, we are left with showing that 
+%    $\alpha_{\equiv} \left(\delta_{[e \oplus_p f]}\right)=\alpha_{\equiv} \left(p \delta_{[e]} + (1-p)\delta_{[f]}\right)$.
+%    We will use the isomorphism between $\Set^\distf$ and $\pca$. First, we consider the case when $e \not\equiv f$.
+%    \begin{align*}
+%        \bigboxplus_{d \in \supp\left(\delta_{[e \oplus_p f]}\right)} \delta_{[e \oplus_p f]}(d) \cdot d &= [e \oplus_p f] \\
+%        &= \bigboxplus_{d \in \supp\left(p\delta_{[e]} + (1-p)\delta_{[f]}\right)} \left(p\delta_{[e]} + (1-p)\delta_{[f]}\right)(d) \cdot d\\
+%    \end{align*}
+%    In the case when $e \equiv f$, we have the following:
+%        \begin{align*}
+%        \bigboxplus_{d \in \supp\left(\delta_{[e \oplus_p f]}\right)} \delta_{[e \oplus_p f]}(d) \cdot d &= [e \oplus_p f] \\
+%        &= [e] \tag{\textbf{C1}} \\
+%        &= \bigboxplus_{d \in \supp\left(p\delta_{[e]} + (1-p)\delta_{[f]}\right)} \left(p\delta_{[e]} + (1-p)\delta_{[f]}\right)(d) \cdot d\\
+%    \end{align*}
+%    \fbox{$a \seq 0 \uaequiv 0$}
+%    Now, consider the second axiom we need to check. We have that: $$(\distf F[-] \circ \partial) (a \seq \zero) = \delta_{(a, [\zero])} $$
+%    After applying $\gamma_{{\PExp}/{\equiv_b}}$ we obtain
+%    $(\gamma_{{\PExp}/{\equiv_b}} \circ \distf F[-] \circ \partial) (a \seq \zero) = \langle 0, l_b \rangle$
+%    where $l_b = \delta_{[\zero]}$ if $a= b$ or $l_b(x) = 0$ otherwise. For the right hand side of the right annihilation axiom (\textbf{S0}), we have that:
+%    $$(\gamma_{{\PExp}/{\equiv_b}} \circ \distf F[-] \circ \partial) (\zero) = \langle 0, r_b \rangle$$
+%    where $r_b(x) = 0$. Hence, we are left with showing that 
+%    $\alpha_{\equiv}(\delta_{[\zero]})=\alpha_{\equiv}(r_b)$.
+%    We have the following:
+%    \begin{align*}
+%        \bigboxplus_{d \in \supp \left(\delta_{[\zero]}\right)} \left(\delta_{[\zero]}\right)(d) \cdot d = [\zero] = \bigboxplus_{d \in r_b} r_b(d) \cdot d \tag{$\supp(r_b) = \emptyset$}
+%    \end{align*}
+%    which completes the proof.
+
 \end{proof}
 
 
