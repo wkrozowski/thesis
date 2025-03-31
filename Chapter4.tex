@@ -507,7 +507,7 @@ Moreover, the natural transformation $\gamma \colon \distf \funF \Rightarrow \fu
 	\arrow["{\funG \mu}"', from=2-3, to=2-5]
 \end{tikzcd}\]
 The above is a consequence of $\gamma \colon \distf \funF \Rightarrow \funG \distf$ being so-called extension law -- for more details see~\cite[Section~7.2]{Jacobs:2015:Trace}. Using this fact, we can show the following:
-\begin{proposition}
+\begin{proposition}\label{c4:prop:extension}
 	For any $\distf \funF$-coalgebra $(X, \beta)$, the following diagram commutes:
 	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGRpc3RmIFgiXSxbMiwwLCJcXGRpc3RmXjJcXGZ1bkYgWCJdLFs0LDAsIlxcZGlzdGYgXFxmdW5GIFgiXSxbNiwwLCJcXGZ1bkcgXFxkaXN0ZiBYIl0sWzAsMSwiXFxkaXN0ZiBcXGJldGEiXSxbMSwyLCJcXG11X1xcZnVuRiJdLFsyLDMsIlxcZ2FtbWFfWCJdLFswLDMsIihcXGdhbW1hX1ggXFxjaXJjIFxcYmV0YSleXFxzaGFycCIsMCx7ImN1cnZlIjotNX1dXQ==
 \[\begin{tikzcd}
@@ -997,7 +997,7 @@ Observe that the body of the loop above is an $n$-ary probabilistic sum involvin
 \end{proof}
 \subsection{Step 2b: Algebra structure}
 As a consequence of \Cref{c4:thm:fundamental_theorem}, we have that $\qcoa \colon {\PExp}/{\equiv_b} \to \distf \funF {\PExp}/{\equiv_b}$ is an isomorphism.
-\begin{corollary}\label{c4:or:quotient_coalgebra_inverse}
+\begin{corollary}\label{c4:cor:quotient_coalgebra_inverse}
     The structure map $\qcoa : {\PExp}/{\equiv_b} \to \distf \funF {\PExp}/{\equiv_b}$ of the quotient coalgebra $({\PExp}/{\equiv_b},\qcoa)$ is an isomorphism.
 \end{corollary}
 \begin{proof}
@@ -1065,17 +1065,18 @@ In fact, this allows to equip the set ${\PExp}/{\equiv_b}$ with a positive conve
 \begin{proof}
     We first verify that $\alpha_{\equiv_b} \circ \eta_{{\PExp}/{\equiv_{b}}} = \id_{{\PExp}/{\equiv_{b}}}$.
     \begin{align*}
-        \alpha_{\equiv_b} \circ \eta_X &= \qcoa^{-1} \circ \mu_{\funF {\PExp}/{\equiv_{b}}} \circ \distf {\qcoa} \circ \eta_{{\PExp}/{\equiv_{b}}} \\
-        &=\qcoa^{-1} \circ \mu_{\funF {\PExp}/{\equiv_{b}}} \circ \eta_{\distf F{\PExp}/{\equiv_{b}}} \circ {\qcoa} \tag{$\eta$ is natural} \\
+        \alpha_{\equiv_b} \circ \eta_X &= \qcoa^{-1} \circ \mu_{\funF {\PExp}/{\equiv_{b}}} \circ \distf {\qcoa} \circ \eta_{{\PExp}/{\equiv_{b}}} \tag{Def. of $\alpha_{\equiv_b}$}\\
+        &=\qcoa^{-1} \circ \mu_{\funF {\PExp}/{\equiv_{b}}} \circ \eta_{\distf \funF{\PExp}/{\equiv_{b}}} \circ {\qcoa} \tag{$\eta$ is natural} \\
         &=\qcoa^{-1} \circ \qcoa \tag{Monad laws} \\
-        &=\id_{{\PExp}/{\equiv_{b}}}
+        &=\id_{{\PExp}/{\equiv_{b}}} \tag{\Cref{c4:cor:quotient_coalgebra_inverse}}
     \end{align*}
     Then, we show that $\alpha_{\equiv_b} \circ \distf \alpha_{\equiv_b} = \alpha_{\equiv_b} \circ \mu_{{\PExp}/{\equiv_b}}$
     \begin{align*}
-        \alpha_{\equiv_b} \circ \distf \alpha_{\equiv_b} &= \qcoa^{-1} \circ \mu_{\funF {\PExp}/{\equiv_{b}}} \circ \distf {\qcoa} \circ \distf\qcoa^{-1} \circ \distf\mu_{F {\PExp}/{\equiv_{b}}} \circ \distf^2 {\qcoa} \\
-        &=\qcoa^{-1} \circ \mu_{\funF {\PExp}/{\equiv_{b}}}  \circ \distf\mu_{F {\PExp}/{\equiv_{b}}} \circ \distf^2 {\qcoa} \tag{Monad laws}\\
+        \alpha_{\equiv_b} \circ \distf \alpha_{\equiv_b} &= \qcoa^{-1} \circ \mu_{\funF {\PExp}/{\equiv_{b}}} \circ \distf {\qcoa} \circ \distf\qcoa^{-1} \circ \distf\mu_{\funF {\PExp}/{\equiv_{b}}} \circ \distf^2 {\qcoa} \tag{Def. of $\alpha_{\equiv_b}$}\\
+        &=\qcoa^{-1} \circ \mu_{\funF {\PExp}/{\equiv_{b}}}  \circ \distf\mu_{\funF {\PExp}/{\equiv_{b}}} \circ \distf^2 {\qcoa} \tag{\Cref{c4:cor:quotient_coalgebra_inverse}}\\
+        &=\qcoa^{-1} \circ \mu_{\funF {\PExp}/{\equiv_{b}}}  \circ \mu_{\distf \funF {\PExp}/{\equiv_{b}}} \circ \distf^2 {\qcoa}  \tag{Monad laws}\\
         &=\qcoa^{-1} \circ \mu_{\funF {\PExp}/{\equiv_{b}}} \circ \distf {\qcoa} \circ \mu_{{\PExp}/{\equiv_b}} \tag{$\mu$ is natural}\\ 
-        &= \alpha_{\equiv_{b}} \circ \mu_{{\PExp}/{\equiv_b}}
+        &= \alpha_{\equiv_{b}} \circ \mu_{{\PExp}/{\equiv_b}} \tag{Def. of $\alpha_{\equiv_b}$
     \end{align*}
 \end{proof}
 Using the isomorphism between $\pca$ and $\Set^\distf$ one can calculate the concrete formula for $\pca$ structure on ${\PExp}/{\equiv_b}$.
@@ -1097,11 +1098,47 @@ Using the isomorphism between $\pca$ and $\Set^\distf$ one can calculate the con
 	&\quad= \left[ \left( \sum_{i \in I} p_i \partial(e_i)(\checkmark)\right) \cdot \one \oplus \left( \bigoplus_{ (a,[e']_{\equiv_b}) \in \alphabet \times {\PExp}/{\equiv_b}} \left(\sum_{i \in I} p_i \partial(e_i)(a,[e']_{\equiv_b})\right)\right) \cdot a \seq e'\right]_{\equiv_b} \tag{Def. of $\qcoa^{-1}$ and \Cref{c4:prop:properties_of_positive_convex_algebras}}\\
 	&\quad=\left[\bigoplus_{i \in I}p_i \cdot \left( \partial(e_i)(\checkmark) \cdot \one \oplus \left(\bigoplus_{ (a,[e']_{\equiv_b}) \in \alphabet \times {\PExp}/{\equiv_b}}  \partial(e_i)(a,[e']_{\equiv_b}) \cdot a \seq e' \right)\right)\right]_{\equiv_b} \tag{Barycenter axiom}\\
 	&\quad=\left[\bigoplus_{i \in I}p_i \cdot \left( \partial(e_i)(\checkmark) \cdot \one \oplus \left(\bigoplus_{ (a,[e']_{\equiv_b}) \in \supp(\partial(e_i))}  \partial(e_i)(a,[e']_{\equiv_b}) \cdot a \seq e' \right)\right)\right]_{\equiv_b} \tag{\Cref{c4:prop:properties_of_positive_convex_algebras}}\\
-	&\quad=\left[ \bigoplus_{i \in I} p_i \cdot e_i \right]_{\equiv_b}
+	&\quad=\left[ \bigoplus_{i \in I} p_i \cdot e_i \right]_{\equiv_b} \tag{\Cref{c4:thm:fundamental_theorem}}
 \end{align*}
-}	
+}
 \end{proof}
-
- 
+\subsection{Step 3: Coalgebra structure}
+Having established the necessary algebraic structure, we move on to showing how we can equip the quotient ${\PExp}/{\equiv}$ with a structure of coalgebra for the functor $\funG \colon \Set \to \Set$. First, we focus on the $\funG$-coalgebra structure on the finer quotient $\PExp/{\equiv_b}$, given by the following composition of maps:
+\[\begin{tikzcd}
+	{{\PExp}/{\equiv_b}} & {\distf \funF {\PExp}/{\equiv_b}} & {\funG \distf {\PExp}/{\equiv_b}} & {\funG {\PExp}/{\equiv_b}}
+	\arrow["{\qcoa}", from=1-1, to=1-2]
+	\arrow["\gamma_{{\PExp}/{\equiv}}", from=1-2, to=1-3]
+	\arrow["\funG \alpha_{\equiv_b}", from=1-3, to=1-4]
+\end{tikzcd}\]
+Intuitively, we take a $\distf \funF$-coalgebra structure on the quotient ${\PExp}/{\equiv_b}$, which exists as a consequence of soundness of ${\equiv_b}$ wrt. bisimilarity and then make it a $\funG \distf$-coalgebra using the natural transformation $\gamma \colon \distf \funF \Rightarrow \funG \distf$. Instead of determinising it, we flatten each reachable subdistribution using the algebra map $\alpha_{\equiv_b} \colon \distf \funF {\PExp}/{\equiv_b} \to {\PExp}/{\equiv_b}$, thus obtaining a $\funG$-coalgebra structure. It turns out that this coalgebra is inherently related to the determinisation of $\left({{\PExp}/{\equiv_b}},{\gamma_{{\PExp}/{\equiv_b}} \circ \qcoa}\right)$. More precisely, the following holds:
+\begin{lemma}\label{c4:lem:algebra_map_coalgebra_homomorphism}
+    The $\pca$ structure map $\alpha_{\equiv_b} \colon \distf {\PExp}/{\equiv_b} \to {\PExp}/{\equiv_b}$ is a $\funG$-coalgebra homomorphism of the following type: $$\alpha_{\equiv_b} \colon \left(\distf {\PExp}/{\equiv_b}, (\gamma_{{\PExp}/{\equiv_b}} \circ \qcoa )^\sharp\right) \to \left({\PExp}/{\equiv_b}, G \alpha_{\equiv_b} \circ \gamma_{{\PExp}/{\equiv_b}} \circ \qcoa\right)$$
+\end{lemma}
+ \begin{proof}
+ 	 We show that the following diagram commutes:
+        \[\begin{tikzcd}
+		{\distf{\PExp}/{\equiv_b}} && {{\PExp}/{\equiv_b}} \\
+		& {\distf\distf \funF{\PExp}/{\equiv_b}} & {\distf \funF{\PExp}/{\equiv_b}} \\
+		&& {\funG\distf {\PExp}/{\equiv_b}} \\
+		{\funG\distf{\PExp}/{\equiv_b}} && {\funG{\PExp}/{\equiv_b}}
+		\arrow["\qcoa"', from=1-3, to=2-3]
+		\arrow["\gamma_{{\PExp}/{\equiv}_0}"', from=2-3, to=3-3]
+		\arrow["{\funG \alpha_{\equiv_b}}"', from=3-3, to=4-3]
+		\arrow["(\gamma_{{\PExp}/{\equiv_b}} \circ \qcoa )^\star"', from=1-1, to=4-1]
+		\arrow["{\alpha_{\equiv_b}}", from=1-1, to=1-3]
+		\arrow["{\funG\alpha_{\equiv_b}}", from=4-1, to=4-3]
+		\arrow["{\distf\qcoa}", from=1-1, to=2-2]
+		\arrow["\mu_{\funF {\PExp}/{\equiv_b}}", from=2-2, to=2-3]
+	\end{tikzcd}\]
+	
+ \end{proof}
+ \begin{proof}
+ 	For the top right square, we have the following:
+ 	\begin{align*}
+ 		\qcoa \circ \alpha_{\equiv_b} &= \qcoa \circ \qcoa^{-1} \circ \mu_{\funF {\PExp}/{\equiv_{b}}} \circ \distf {\qcoa} \tag{Def. of $\alpha_{\equiv_b}$}\\
+ 		&= \mu_{\funF {\PExp}/{\equiv_{b}}} \circ \distf {\qcoa} \tag{\Cref{c4:cor:quotient_coalgebra_inverse}}
+ 	\end{align*}
+ 	The commutativity of the bottom hexagon diagram is a direct consequence of \Cref{c4:prop:extension}.
+ \end{proof}
 
  
