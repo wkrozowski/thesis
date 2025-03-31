@@ -1076,7 +1076,7 @@ In fact, this allows to equip the set ${\PExp}/{\equiv_b}$ with a positive conve
         &=\qcoa^{-1} \circ \mu_{\funF {\PExp}/{\equiv_{b}}}  \circ \distf\mu_{\funF {\PExp}/{\equiv_{b}}} \circ \distf^2 {\qcoa} \tag{\Cref{c4:cor:quotient_coalgebra_inverse}}\\
         &=\qcoa^{-1} \circ \mu_{\funF {\PExp}/{\equiv_{b}}}  \circ \mu_{\distf \funF {\PExp}/{\equiv_{b}}} \circ \distf^2 {\qcoa}  \tag{Monad laws}\\
         &=\qcoa^{-1} \circ \mu_{\funF {\PExp}/{\equiv_{b}}} \circ \distf {\qcoa} \circ \mu_{{\PExp}/{\equiv_b}} \tag{$\mu$ is natural}\\ 
-        &= \alpha_{\equiv_{b}} \circ \mu_{{\PExp}/{\equiv_b}} \tag{Def. of $\alpha_{\equiv_b}$
+        &= \alpha_{\equiv_{b}} \circ \mu_{{\PExp}/{\equiv_b}} \tag{Def. of $\alpha_{\equiv_b}$}
     \end{align*}
 \end{proof}
 Using the isomorphism between $\pca$ and $\Set^\distf$ one can calculate the concrete formula for $\pca$ structure on ${\PExp}/{\equiv_b}$.
@@ -1131,8 +1131,6 @@ Intuitively, we take a $\distf \funF$-coalgebra structure on the quotient ${\PEx
 		\arrow["\mu_{\funF {\PExp}/{\equiv_b}}", from=2-2, to=2-3]
 	\end{tikzcd}\]
 	
- \end{proof}
- \begin{proof}
  	For the top right square, we have the following:
  	\begin{align*}
  		\qcoa \circ \alpha_{\equiv_b} &= \qcoa \circ \qcoa^{-1} \circ \mu_{\funF {\PExp}/{\equiv_{b}}} \circ \distf {\qcoa} \tag{Def. of $\alpha_{\equiv_b}$}\\
@@ -1140,5 +1138,162 @@ Intuitively, we take a $\distf \funF$-coalgebra structure on the quotient ${\PEx
  	\end{align*}
  	The commutativity of the bottom hexagon diagram is a direct consequence of \Cref{c4:prop:extension}.
  \end{proof}
+ Secondly, we can use that $\funG$-coalgebra structure on ${\PExp}/{\equiv_b}$ in order to endow the coarser quotient ${\PExp}/{\equiv}$ with a $\funG$-coalgebra structure.
+ \begin{lemma}\label{c4:lem:coalg_on_quotient_left_dist}
+    There exists a unique $\funG$-coalgebra structure $d \colon {\PExp}/{\equiv} \to \funG{\PExp}/{\equiv}$ such that the following diagram commutes:
+% https://q.uiver.app/#q=WzAsOCxbMCwwLCJcXFBFeHAiXSxbMCwxLCJcXGRpc3RmIFxcZnVuRiBcXFBFeHAiXSxbMiwwLCJ7XFxQRXhwfS97XFxlcXVpdl9ifSJdLFsyLDEsIlxcZGlzdGYgXFxmdW5GIHtcXFBFeHB9L3tcXGVxdWl2X2J9Il0sWzQsMCwie1xcUEV4cH0ve1xcZXF1aXZ9Il0sWzIsMiwiXFxmdW5HIFxcZGlzdGYge1xcUEV4cH0ve3tcXGVxdWl2fV9ifSJdLFsyLDMsIlxcZnVuR3tcXFBFeHB9L3tcXGVxdWl2X2J9Il0sWzQsMywiXFxmdW5HIHtcXFBFeHB9L3tcXGVxdWl2fSJdLFswLDEsIlxccGFydGlhbCIsMl0sWzAsMiwiWy1dX3tcXGVxdWl2X2J9Il0sWzIsMywiXFxxY29hIiwyXSxbMSwzLCJcXGRpc3RmIFxcZnVuRiBbLV1fe1xcZXF1aXZfYn0iLDJdLFsyLDQsIlstXV97XFxlcXVpdn0iLDJdLFszLDUsIlxcZ2FtbWFfe3tcXFBFeHB9L3tcXGVxdWl2X2J9fSIsMl0sWzUsNiwiR1xcYWxwaGFfe1xcZXF1aXZfMH0iLDJdLFs2LDcsIlxcZnVuR1stXV97XFxlcXVpdn0iLDJdLFs0LDcsImQiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\[\begin{tikzcd}
+	\PExp && {{\PExp}/{\equiv_b}} && {{\PExp}/{\equiv}} \\
+	{\distf \funF \PExp} && {\distf \funF {\PExp}/{\equiv_b}} \\
+	&& {\funG \distf {\PExp}/{{\equiv}_b}} \\
+	&& {\funG{\PExp}/{\equiv_b}} && {\funG {\PExp}/{\equiv}}
+	\arrow["{[-]_{\equiv_b}}", from=1-1, to=1-3]
+	\arrow["\partial"', from=1-1, to=2-1]
+	\arrow["{[-]_{\equiv}}"', from=1-3, to=1-5]
+	\arrow["\qcoa"', from=1-3, to=2-3]
+	\arrow["d", dashed, from=1-5, to=4-5]
+	\arrow["{\distf \funF [-]_{\equiv_b}}"', from=2-1, to=2-3]
+	\arrow["{\gamma_{{\PExp}/{\equiv_b}}}"', from=2-3, to=3-3]
+	\arrow["{G\alpha_{\equiv_b}}"', from=3-3, to=4-3]
+	\arrow["{\funG[-]_{\equiv}}"', from=4-3, to=4-5]
+\end{tikzcd}\]
+\end{lemma}
+The above lemma encapsulates the key step of the soundness proof. We argue the uniqueness through induction on the length of derivation of $\equiv$ using the diagonal fill-in property~\cite[Lemma~3.17]{Gumm:2000:Elements}. Since the proof involves going through the quotient ${\PExp}/{\equiv_b}$, which identifies the expressions modulo the axioms of the finer relation $\equiv_b$, it just remains to verify the soundness of axioms (\textsf{S0}) and (\textsf{D2}) present in the finer relation $\equiv$. Before we proceed, we show that (\textsf{S0}) and (\textsf{D2}) can be presented in simpler, yet equally expressive form, that makes checking the soundness easier.
+
+Let ${\uaequiv} \subseteq {\PExp \times \PExp}$ be the least congruence relation such that for all $e,f \in \PExp$, $p \in \interval{0}{1}$ and $a \in A$ closed under the following rules:
+\begin{enumerate}
+    \item If $e \equiv_b f$, then $e \uaequiv f$
+    \item $a \seq (e \oplus_p f) \uaequiv a\seq e \oplus_p a \seq f$
+    \item $a \seq \zero \uaequiv \zero$
+\end{enumerate}
+\begin{lemma}\label{c4:lem:simpler_equivalence}
+    For all $e,f \in \PExp$, $e \equiv f$ if and only if $e \uaequiv f$
+\end{lemma}
+\begin{proof}
+    We split the proof into two cases.
+    \begin{itemize}
+        \item[] \fbox{$e \uaequiv f \implies e \equiv f$}
+
+        This implication holds immediately. If $e \equiv_b f $, then $e \equiv f$. The remaining rules stating that $a \seq (e \oplus_p f) \uaequiv a\seq e \oplus_p a \seq f$ and $a \seq \zero \uaequiv \zero$ are special cases of (\textsf{D2}) and (\textsf{S0}) axioms of $\equiv$ specialised to single letters of the alphabet.
+
+        \item[] \fbox{$e \equiv f \implies e \uaequiv f$}
+        
+        Axioms of $\equiv$ are either axioms of $\equiv_b$, which are already contained in $\uaequiv$ or are (\textsf{D2})/(\textsf{S0}) axioms. It suffices to show that latter two are derivable in $\uaequiv$. First, we show by induction that for all $e \in \PExp$, $e \seq \zero \uaequiv \zero$.
+
+        \begin{itemize}
+            \item[]\fbox{$e = \zero$} 
+            \begin{align*}
+                e \seq \zero &\uaequiv \zero \seq \zero \tag{$e = \zero$}\\
+                &\uaequiv \zero \tag{\textsf{0S}}
+            \end{align*}
+
+            \item[]\fbox{$e=\one$}
+            \begin{align*}
+                e \seq \zero &\uaequiv \one \seq \zero \tag{$e=\one$}\\
+                &\uaequiv \zero \tag{\textsf{1S}}
+            \end{align*}   
+
+            \item[]\fbox{$e = a$}
+            \begin{align*}
+                e \seq \zero &\uaequiv a \seq \zero \tag{$e = a$}\\
+                &\uaequiv \zero \tag{Def. of $\uaequiv$}
+            \end{align*}
+
+            \item[]\fbox{$e = f \oplus_p g$}
+            \begin{align*}
+                e \seq \zero &\uaequiv (f \oplus_p g) \seq \zero \tag{$e = f \oplus_p g$}\\
+                &\uaequiv f \seq \zero \oplus_p g \seq \zero \tag{\textsf{D1}} \\
+                &\uaequiv \zero \oplus_p \zero \tag{Induction hypothesis} \\
+                &\uaequiv \zero \tag{\textsf{C1}}
+            \end{align*}
+
+            \item[]\fbox{$e = f\seq g$}
+            \begin{align*}
+                e \seq \zero &\uaequiv (f \seq g) \seq \zero \tag{$e = f \seq g$}\\
+                &\uaequiv f \seq (g \seq \zero) \tag{\textsf{S}} \\
+                &\uaequiv f \seq \zero\tag{Induction hypothesis} \\
+                &\uaequiv \zero \tag{Induction hypothesis}
+            \end{align*}
+
+            \item[]\fbox{$e = f^{[p]}$}
+
+            First, by \Cref{c4:cor:productive_loop} we know that $f^{[p]} \uaequiv g^{[r]}$, such that $E(g)=0$.
+
+            \begin{align*}
+                \zero &\uaequiv \zero \oplus_r \zero \tag{\textsf{C1}} \\
+                &\uaequiv g \seq \zero \oplus_r \zero \tag{Induction hypothesis}
+            \end{align*}
+            Since $E(g)= 0$, we can use unique fixpoint axiom and obtain:
+            \begin{align*}
+                \zero &\uaequiv g^{[r]}\seq \zero \tag{\textsf{Unique}}\\
+                &\uaequiv f^{[p]} \seq \zero \tag{\Cref{c4:cor:productive_loop}}
+            \end{align*}
+        \end{itemize}
+        Secondly, we show by induction that for all $e,f,g \in \PExp$ and $p \in \interval{0}{1}$ we have that $e \seq (f \oplus_p g) \uaequiv e \seq f \oplus_p e \seq g$.
+        \begin{itemize}
+            \item[] \fbox{$e = \zero$}
+            \begin{align*}
+                e \seq (f \oplus_p g ) &\uaequiv \zero \seq (f \oplus_p g ) \tag{$e = \zero$} \\
+                &\uaequiv \zero \tag{\textsf{0S}} \\
+                &\uaequiv \zero \oplus_p \zero \tag{\textsf{C1}} \\
+                &\uaequiv \zero\seq f \oplus_p \zero \seq g \tag{\textsf{0S}}\\
+            \end{align*}
+
+            \item[] \fbox{$e=\one$}
+            \begin{align*}
+                e \seq (f \oplus_p g) &\uaequiv \one \seq (f \oplus_p g) \tag{$e=\one$}\\
+                &\uaequiv f \oplus_p g \tag{\textsf{1S}} \\
+                &\uaequiv \one \seq f \oplus_p \one \seq g \tag{\textsf{1S}}\\
+            \end{align*}
+
+            \item[] \fbox{$e=a$}
+            \begin{align*}
+                e \seq (f \oplus_p g) &\uaequiv a \seq (f \oplus_p g) \tag{$e = a$}\\
+                &\uaequiv a \seq f \oplus_p a \seq g \tag{Def. of $\uaequiv$} \\
+            \end{align*}
+
+            \item[] \fbox{$e=h \oplus_r i$}
+            \begin{align*}
+                e \seq (f \oplus_p g) &\uaequiv (g \oplus_r h) \seq (f \oplus_p g) \tag{$e = h \oplus_r i$}\\
+                &\uaequiv h\seq(f \oplus_p g) \oplus_r i \seq (f \oplus_p g) \tag{\textsf{D1}} \\
+                &\uaequiv (h\seq f \oplus_p h\seq g) \oplus_r (i \seq f \oplus_p i \seq g) \tag{Induction hypothesis} \\
+                &\uaequiv (h \seq f \oplus_r i \seq f) \oplus_p (h \seq g \oplus_r i \seq g) \tag{\Cref{c4:lem:binary_sum_properties}}\\
+                &\uaequiv (h \oplus_r i)\seq f \oplus_p (h \oplus_r i) \seq g \tag{\textsf{D1}} \\
+            \end{align*}
+            
+            \item[] \fbox{$e = h \seq i$}
+            \begin{align*}
+            	e \seq (f \oplus_p g) &\uaequiv (h \seq i) \seq  (f \oplus_p g) \tag{$e = h \seq i$} \\
+            	&\uaequiv h \seq (i\seq  (f \oplus_p g)) \tag{\textsf{S}} \\
+            	&\uaequiv h \seq   (i\seq f \oplus_p i\seq g) \tag{Induction hypothesis}\\
+            	&\uaequiv  ( h \seq (i\seq f) \oplus_p h \seq (i\seq g)) \tag{Induction hypothesis}\\
+            	&\uaequiv   (h \seq i) \seq  f \oplus_p  (h \seq i) \seq g \tag{\textsf{S}}
+            \end{align*}
+
+            \item[] \fbox{$e = h^{[r]}$}
+            
+             First, by \Cref{c4:cor:productive_loop} we know that $h^{[r]} \uaequiv i^{[q]}$, such that $E(i)=0$.
+
+             Next, we derive the following:
+             \begin{align*}
+                 i^{[q]} \seq f \oplus_p i^{[q]} \seq g  &\uaequiv (i \seq i^{[q]} \oplus_q \one) \seq f \oplus_p  (i \seq i^{[q]} \oplus_q \one) \seq g \tag{\textsf{Unroll}}\\
+                 &\uaequiv (i \seq i^{[q]} \seq f \oplus_q \one \seq f)  \oplus_p  (i \seq i^{[q]} \seq g \oplus_q \one \seq g) \tag{\textsf{D1}}\\
+                 &\uaequiv (i \seq i^{[q]} \seq f \oplus_q f)  \oplus_p  (i \seq i^{[q]} \seq g \oplus_q g) \tag{\textsf{0S}} \\
+                 &\uaequiv (i \seq i^{[q]} \seq f \oplus_p i \seq i^{[q]} \seq g) \oplus_q (f \oplus_p g) \tag{\Cref{c4:lem:binary_sum_properties}}\\
+                 &\uaequiv i \seq (i^{[q]} \seq f \oplus_p i^{[q]} \seq g) \oplus_q (f \oplus_p g) \tag{Induction hypothesis}
+             \end{align*}
+            Since $E(i)=0$, we can use \textsf{Unique} fixpoint axiom to derive
+            \begin{align*}
+                 i^{[q]} \seq f \oplus_p i^{[q]} \seq g \uaequiv i^{[q]} \seq (f \oplus_p g)
+            \end{align*}
+            Since $h^{[r]} \uaequiv i^{[q]}$, we have that
+            \begin{align*}
+                 h^{[r]} \seq f \oplus_p h^{[r]} \seq g \uaequiv h^{[r]} \seq (f \oplus_p g)
+            \end{align*}
+            This completes the proof.
+        \end{itemize}
+    \end{itemize}
+\end{proof}
+
 
  
