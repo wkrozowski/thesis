@@ -99,7 +99,7 @@ We define ${\equiv} \subseteq \PExp \times \PExp$ to be the least congruence rel
 (\mathsf{Tight})\;\; & (e \oplus_p 1)^{[q]}  \equiv e^{\left[\frac{pq}{1-(1-p)q}\right]}  \\[1.2ex]
 (\mathsf{Div})\;\; & 1^{[1]}  \equiv 0  \\[1.2ex]
 (\mathsf{Unique})\;\; & \inferrule{g \equiv e\seq g \oplus_p f \quad \fcolorbox{red}{white}{$E(e)=0$}}{g \equiv e^{[p]}\seq f} \\\\
-%%(\Fix)\;\; & \{ s \equiv_0 t[s / X] \}  s \equiv_0 \rec{X}{t} \,, \text{ for $X$ guarded in $t$} \,, \\
+%%(\Fix)\;\; & \{ s \equiv_b t[s / X] \}  s \equiv_b \rec{X}{t} \,, \text{ for $X$ guarded in $t$} \,, \\
 %% distance
 \
 \end{array}
@@ -195,12 +195,12 @@ We define ${\equiv} \subseteq \PExp \times \PExp$ to be the least congruence rel
 %        \caption{\label{fig:axioms} For $p \in \interval{0}{1}$, we write $\ol{p}=1-p$. The rules involving the division of probabilities are defined only when the denominator is non-zero. The function $E(-)$ provides a termination side condition to the \textbf{Unique} fixpoint axiom.}
 %            \vspace{-.4cm}
 %    \end{figure*}
-%We will also write ${\equiv_0} \subseteq {\PExp \times \PExp}$ for the least congruence relation containing all the above rules except the two marked with $\heartsuit$. Intuitively, removing these rules axiomatises bisimilarity, which is the finer notion of equivalence. This relation will be used in the intermediate step of the proof of soundness. We will use the following notation for the quotient maps:
+%We will also write ${\equiv_b} \subseteq {\PExp \times \PExp}$ for the least congruence relation containing all the above rules except the two marked with $\heartsuit$. Intuitively, removing these rules axiomatises bisimilarity, which is the finer notion of equivalence. This relation will be used in the intermediate step of the proof of soundness. We will use the following notation for the quotient maps:
 %% https://q.uiver.app/?q=WzAsMyxbMSwwLCJ7XFxFeHB9L3tcXGVxdWl2XzB9Il0sWzIsMCwie1xcRXhwfS97XFxlcXVpdn0iXSxbMCwwLCJcXEV4cCJdLFswLDEsIlstXV97XFxlcXVpdn0iLDJdLFsyLDAsIlstXV97XFxlcXVpdl8wfSIsMl0sWzIsMSwiWy1dIiwwLHsiY3VydmUiOi0zfV1d
 %\[\begin{tikzcd}
-%	\PExp & {{\PExp}/{\equiv_0}} & {{\PExp}/{\equiv}}
+%	\PExp & {{\PExp}/{\equiv_b}} & {{\PExp}/{\equiv}}
 %	\arrow["{[-]_{\equiv}}"', from=1-2, to=1-3]
-%	\arrow["{[-]_{\equiv_0}}"', from=1-1, to=1-2]
+%	\arrow["{[-]_{\equiv_b}}"', from=1-1, to=1-2]
 %	\arrow["{[-]}", curve={height=-18pt}, from=1-1, to=1-3]
 %\end{tikzcd}\]
 
@@ -309,7 +309,7 @@ Below we state several properties of positive convex algebras, that we will use 
         \item Let ${=_R} \subseteq {X \times X}$ be a congruence relation, with $[-]_R \colon X \to X/{=_R}$ being its canonical quotient map. Then, 
         $${\bigboxplus_{i \in I} p_i \cdot x_i} =_R {\bigboxplus_{[x]_R \in \bigcup_{i \in I} \left\{[x_i]_R\right\}} \left(\sum_{x_i =_R x} p_i\right)\cdot x}$$
         \item All terms $\bigboxplus_{i \in I } 0 \cdot x_i $ coincide and are all provably equivalent to the empty convex sum.
-        \item If $J \subseteq I$ and $J \supseteq \{i \in I \mid p_i \neq 0\}$, then 
+        \item If $J \subseteq I$ and $\{i \in I \mid p_i \neq 0\} \subseteq J$, then 
         $$
         \bigboxplus_{i \in I} p_i \cdot x_i = \bigboxplus_{j \in J} p_j \cdot x_j
         $$
@@ -608,12 +608,12 @@ Formally speaking, the definition of $\partial\left({e}^{[{p}]}\right)$ can be g
 % \end{restatable}
 % In our case, the canonical concept of coalgebraic bisimilarity (which in the case of {GPTS} directly corresponds to the notion from~\cite{Larsen:1991:Bisimulation}) is too discriminating notion of equivalence. For example, the states in the Brzozowski transition system for expressions $(a \oplus_{\frac{1}{2}} \zero) \seq (b \oplus_{\frac{1}{3}} \zero) $ and $(a \oplus_{\frac{1}{3}} \zero) \seq (b \oplus_{\frac{1}{2}} \zero) $ both generate a word $ab$ with probability $\frac{1}{6}$, while not being bisimilar. The state for the first expression can perform an $a$-transition with probability $\frac{1}{2}$, while the second one performs the same action with the probability of $\frac{1}{3}$, thus making them distinguished by the notion of bisimilarity.
 
-% As mentioned before, if we omit the axioms marked with $\heartsuit$ from \cref{fig:axioms}, we obtain a coarser congruence relation ${\equiv_0} \subseteq \PExp \times \PExp$, sound wrt. coalgebraic bisimilarity. 
+% As mentioned before, if we omit the axioms marked with $\heartsuit$ from \cref{fig:axioms}, we obtain a coarser congruence relation ${\equiv_b} \subseteq \PExp \times \PExp$, sound wrt. coalgebraic bisimilarity. 
 % % We will later use it in the proof of soundness of our axiomatisation wrt. language equivalence, as an intermediate step.
 % \begin{restatable}{lemma}{soundnessbisim}\label{c4:lem:soundness_bisim}
-%     The relation ${\equiv_0} \subseteq {\PExp \times \PExp}$ is a bisimulation equivalence
+%     The relation ${\equiv_b} \subseteq {\PExp \times \PExp}$ is a bisimulation equivalence
 % \end{restatable}
-% As a consequence~\cite{Rutten:2000:Universal}, there exists a unique coalgebra structure $\ol{\partial} : {\PExp}/{\equiv_0} \to \distf F {\PExp}/{\equiv_0}$, which makes the quotient map $[-]_{\equiv_0} : \PExp \to {\PExp}/{\equiv_0}$ into $\distf F$-coalgebra homomorphism from $(\PExp, \equiv)$ to $({{\PExp}/{\equiv_0}}, \ol{\partial})$.
+% As a consequence~\cite{Rutten:2000:Universal}, there exists a unique coalgebra structure $\qcoa : {\PExp}/{\equiv_b} \to \distf F {\PExp}/{\equiv_b}$, which makes the quotient map $[-]_{\equiv_b} : \PExp \to {\PExp}/{\equiv_b}$ into $\distf F$-coalgebra homomorphism from $(\PExp, \equiv)$ to $({{\PExp}/{\equiv_b}}, \qcoa)$.
 
 Having defined the Antimirov transition system, one can observe that the termination operator $E(-) \colon \PExp \to \interval{0}{1}$ precisely captures the probability of an expression transitioning to $\checkmark$ (successful termination) when viewed as a state in the Antimirov {GPTS}.
 
@@ -748,41 +748,41 @@ As a consequence of \Cref{c4:lem:soundness_bisim} and \Cref{c2:lem:quotient_coal
 \end{tikzcd}\]
 \end{lemma}
 \begin{proof}
-	Front face of the diagram commutes because $[-]_{\equiv_b}$ is $\distf \funF$-coalgebra homomorphism and because of \cite[Theorem~15.1]{Rutten:2000:Universal}. The sides of the diagram commute, because of the free-forgetful adjunction between $\Set$ and $\pca$. Finally, the commutativity of the square at the back of the diagram above follows from \cite[Theorem~4.1]{Silva:2010:Generalizing}.
+	Front face of the diagram commutes because $[-]_{\equiv_b}$ is $\distf \funF$-coalgebra homomorphism and because of \cite[Theorem~15.1]{Rutten:2000:Universal}. The sides of the diagram commute because of the free-forgetful adjunction between $\Set$ and $\pca$. Finally, the commutativity of the square at the back of the diagram above follows from \cite[Theorem~4.1]{Silva:2010:Generalizing}.
 \end{proof}
 \subsection{Step 2a: Fundamental theorem}  We show that every PRE is provably equivalent (modulo the axioms of $\equiv_b$) to a decomposition involving sub-expressions obtained in its small-step semantics. This property, often referred to as the fundamental theorem (in analogy with the fundamental theorem of calculus) is useful in proving soundness. In order to encode elements of $\funF \PExp$ using the syntax of $\PExp$, we define a function $\ex \colon \funF \PExp \to \PExp$, given by $\ex(\checkmark)=1$ and $\ex(a,e')=a;e'$ for all $a \in \alphabet$ and $e' \in \PExp$. To be able to syntactically express finitely supported subdistributions, we will use $n$-ary convex sum of elements of $\PExp$ obeying the axioms of positive convex algebras, that exists because of \Cref{c4:prop:binary} and axioms (\textsf{C1-C4}). Using it, we can state the following:
 
 \begin{restatable}{theorem}{fundamentaltheorem}\label{c4:thm:fundamental_theorem}
     For all $e \in \PExp$ we have that 
     $$
-    e \equiv_0 \bigoplus_{d \in \supp(\partial(e))} \partial(e)(d) \cdot \ex(d)
+    e \equiv_b \bigoplus_{d \in \supp(\partial(e))} \partial(e)(d) \cdot \ex(d)
     $$
 \end{restatable}
 Before we give the proof of the result above, we start by establishing a couple of intermediate results. Firstly, we show that the binary probabilistic choice satisfies the following identities:
 \begin{lemma}\label{c4:lem:binary_sum_properties}
-    The following facts are derivable in $\equiv_0$
+    The following facts are derivable in $\equiv_b$
     \begin{enumerate}
         \item $e \oplus_p (f 
-        \oplus_q g) \equiv_0 \left( e \oplus_{\frac{p}{1-(1-p)(1-q)}} f \right) \oplus_{1-(1-p)(1-q)} g $
-        \item $(e \oplus_p f) \oplus_q (g \oplus_p h) \equiv_0 (e \oplus_q g) \oplus_p (f \oplus_q h)$
+        \oplus_q g) \equiv_b \left( e \oplus_{\frac{p}{1-(1-p)(1-q)}} f \right) \oplus_{1-(1-p)(1-q)} g $
+        \item $(e \oplus_p f) \oplus_q (g \oplus_p h) \equiv_b (e \oplus_q g) \oplus_p (f \oplus_q h)$
     \end{enumerate}
 \end{lemma}
 \begin{proof}
 For \circlednum{1}, let $k = \frac{p}{1-(1-p)(1-q)} $ and $l = 1-(1-p)(1-q)$. We derive the following:
     \begin{align*}
-        e \oplus_p (f \oplus_q g) &\equiv_0  (f \oplus_q g) \oplus_{1-{p}} e \tag{\textsf{C3}} \\
-        &\equiv_0 (g \oplus_{1-{q}} f) \oplus_{1-{p}} e \tag{\textsf{C3}} \\
-        &\equiv_0 g \oplus_{1-{l}} (f \oplus_{1-{k}} e) \tag{\textsf{C4}} \\
-        &\equiv_0 (f \oplus_{1-{k}} e) \oplus_{{l}} g\tag{\textsf{C3}} \\
-        &\equiv_0 (e \oplus_{{k}} f) \oplus_{{l}} g\tag{\textsf{C3}} \\
+        e \oplus_p (f \oplus_q g) &\equiv_b  (f \oplus_q g) \oplus_{1-{p}} e \tag{\textsf{C3}} \\
+        &\equiv_b (g \oplus_{1-{q}} f) \oplus_{1-{p}} e \tag{\textsf{C3}} \\
+        &\equiv_b g \oplus_{1-{l}} (f \oplus_{1-{k}} e) \tag{\textsf{C4}} \\
+        &\equiv_b (f \oplus_{1-{k}} e) \oplus_{{l}} g\tag{\textsf{C3}} \\
+        &\equiv_b (e \oplus_{{k}} f) \oplus_{{l}} g\tag{\textsf{C3}} \\
     \end{align*}
 For \circlednum{2} we show the following:
     \begin{align*}
-        (e \oplus_p f) \oplus_q (g \oplus_p h) &\equiv_0 e \oplus_{pq} \left(f \oplus_{\frac{1-{p}q}{1-pq}} (g \oplus_p h)\right) \tag{\textsf{C4}}\\
-        &\equiv_0 e \oplus_{pq} \left((g \oplus_p h) \oplus_{\frac{1-{q}}{1-pq}} f \right) \tag{\textsf{C3}} \\
-        &\equiv_0 e \oplus_{pq} \left(g \oplus_{\frac{p(1-{q})}{1-pq}} \left(h \oplus_{1-{q}} f\right) \right) \tag{\textsf{C4}} \\
-        &\equiv_0 e \oplus_{pq} \left(g \oplus_{\frac{p(1-{q})}{1-pq}} \left(f \oplus_{{q}} h\right) \right) \tag{\textsf{C3}}\\
-        &\equiv_0 \left(e \oplus_q g\right) \oplus_p \left(f \oplus_q h\right) \tag{\circlednum{1}}
+        (e \oplus_p f) \oplus_q (g \oplus_p h) &\equiv_b e \oplus_{pq} \left(f \oplus_{\frac{1-{p}q}{1-pq}} (g \oplus_p h)\right) \tag{\textsf{C4}}\\
+        &\equiv_b e \oplus_{pq} \left((g \oplus_p h) \oplus_{\frac{1-{q}}{1-pq}} f \right) \tag{\textsf{C3}} \\
+        &\equiv_b e \oplus_{pq} \left(g \oplus_{\frac{p(1-{q})}{1-pq}} \left(h \oplus_{1-{q}} f\right) \right) \tag{\textsf{C4}} \\
+        &\equiv_b e \oplus_{pq} \left(g \oplus_{\frac{p(1-{q})}{1-pq}} \left(f \oplus_{{q}} h\right) \right) \tag{\textsf{C3}}\\
+        &\equiv_b \left(e \oplus_q g\right) \oplus_p \left(f \oplus_q h\right) \tag{\circlednum{1}}
     \end{align*}
 
 \end{proof}
@@ -851,8 +851,181 @@ Finally, we generalise the axiom (\textsf{D1}) to $n$-ary convex sums.
 \end{proof}
 We now have all the ingredients to show the fundamental theorem. 
 \begin{proof}[Proof of \Cref{c4:thm:fundamental_theorem}]
-	
+	We proceed by the structural induction on $e \in \PExp$. For the base cases, we have the following:
+	 \begin{itemize}
+        \item[]\fbox{$e = \zero$}
+        \begin{align*}
+            \zero &\equiv_b \bigoplus_{d \in \emptyset} \partial(\zero)(d) \cdot \ex(d) \tag{\Cref{c4:prop:properties_of_positive_convex_algebras}}\\
+            &\equiv_b \bigoplus_{d \in \supp(\partial(\zero))} \partial(\zero)(d) \cdot \ex(d) \tag{$\supp(\partial(\zero))=\emptyset$}\\
+        \end{align*}
+        \item[]\fbox{$e=\one$}
+        \begin{align*}
+            \one &\equiv_b \ex(\checkmark) \tag{Def. of $\ex$}\\ 
+            &\equiv_b \bigoplus_{d \in \supp(\partial(\one))} \partial(\one)(d) \cdot \ex (d) \tag{$\partial(\one) = \delta_{\checkmark} $}
+        \end{align*}
+        \item[]\fbox{$e = a$}
+        \begin{align*}
+            a &\equiv_b a \seq \one \tag{\textsf{S1}}\\ 
+            &\equiv_b \ex((a,\checkmark)) \tag{Def. of $\ex$}\\
+            &\equiv_b \bigoplus_{d \in \supp(\partial(a))} \partial(a)(d) \cdot \ex (d) \tag{$\partial(a) = \delta_{(a, \checkmark)}$}
+        \end{align*}
+    \end{itemize}
+    We now move on to inductive steps.
+    \begin{itemize}
+        \item[]\fbox{$e = f \oplus_p g $}
+        \begin{align*}
+            f \oplus_p g &\equiv_b \left( \bigoplus_{d \in \supp(\partial(f))} \partial(f)(d) \cdot \ex(d) \right)\\&\quad\quad\quad\quad \oplus_p  \left( \bigoplus_{d \in \supp(\partial(g))} \partial(g)(d) \cdot \ex(g) \right) \tag{Induction hypothesis}\\
+            &\equiv_b \left( \bigoplus_{d \in \supp(\partial(f \oplus_p g))}\partial(f)(d) \cdot \ex(d) \right)\\&\quad\quad\quad\quad  \oplus_p  \left( \bigoplus_{d \in \supp(\partial(f \oplus_p g))} \partial(g)(d) \cdot \ex(g) \right) \tag{\Cref{c4:prop:properties_of_positive_convex_algebras}}\\
+            &\equiv_b \bigoplus_{d \in \supp(\partial(f \oplus_p g))} \left(p\partial(f)(d) + {(1-p)}\partial(g)(d)\right) \cdot \ex(d) \tag{Barycenter axiom}\\
+             &\equiv_b \bigoplus_{d \in \supp(\partial(f \oplus_p g))} \partial(f \oplus_p g)(d) \cdot \ex(d) \tag{Def. of $\partial$}
+        \end{align*}
+        \item[]\fbox{$e = f\seq g $}
+        \begin{align*}
+            f \seq g &\equiv_b \left(\bigoplus_{d \in \supp(\partial(f))} \partial(f)(d) \cdot \ex(d) \right) \seq g \tag{Induction hypothesis} \\
+            &\equiv_b \left(\one \oplus_{\partial(f)(\checkmark)} \left(\bigoplus_{d \in \supp(\partial(f)) \setminus \{\checkmark\}} \frac{\partial(f)(d)}{{1-\partial(f)(\checkmark)}} \cdot \ex(d) \right) \right) \seq g \tag{\Cref{c4:lem:safe_unrolling_lemma}}\\
+            &\equiv_b \left(\one\seq g \oplus_{\partial(f)(\checkmark)} \left(\bigoplus_{d \in \supp(\partial(f)) \setminus \{\checkmark\}} \frac{\partial(f)(d)}{{1-\partial(f)(\checkmark)}} \cdot \ex(d)  \right)\seq g \right) \tag{\textsf{D1}}\\
+            &\equiv_b g \oplus_{\partial(f)(\checkmark)} \left(\bigoplus_{d \in \supp(\partial(f)) \setminus \{\checkmark\}} \frac{\partial(f)(d)}{{1-\partial(f)(\checkmark)}} \cdot \ex(d)\seq g  \right)\\ \tag{\Cref{c4:lem:generalised_right_distributivity} and \textsf{1S}} \\
+            &\equiv_b \left(\bigoplus_{d \in \supp(\partial(g))}\partial(g)(d) \cdot \ex(d)\right)\\&\quad\quad\quad\quad \oplus_{\partial(f)(\checkmark)} \left(\bigoplus_{d \in \supp(\partial(f)) \setminus \{\checkmark\}} \frac{\partial(f)(d)}{{1-\partial(f)(\checkmark)}} \cdot \ex(d)\seq g  \right) \tag{Induction hypothesis}\\
+            &\equiv_b\left( \bigoplus_{d \in \supp(\partial(f \seq g))}\partial(g)(d) \cdot \ex(d)\right)\\&\quad\quad\quad\quad  \oplus_{\partial(f)(\checkmark)}  \left(\bigoplus_{d \in \supp(\partial(f)) \setminus \{\checkmark\}} \frac{\partial(f)(d)}{{1-\partial(f)(\checkmark)}} \cdot \ex(d)\seq g \right) \tag{\Cref{c4:prop:properties_of_positive_convex_algebras}}
+        \end{align*}
+        Now, we simplify the subexpression on the right part of the convex sum. Define
+        $n \colon F \PExp \to \interval{0}{1}$ to be: 
+        $$n(d) = \begin{cases}
+            \partial(f)(a, f') & d = (a, f' \seq g) \\
+            0 & \text{otherwise}
+        \end{cases}$$
+    	By applying \Cref{c4:prop:properties_of_positive_convex_algebras} and the preceding definition, it follows that:
+        \begin{align*}
+            \bigoplus_{d \in \supp(\partial(f)) \setminus \{\checkmark\}} \frac{\partial(f)(d)}{{1-\partial(f)(\checkmark)}} \cdot \ex(d)\seq g &\equiv_b \bigoplus_{d \in \supp(\partial(f \seq g))} \frac{n(d)}{{1-\partial(f)(\checkmark)}} \cdot \ex(d)
+        \end{align*}
+       	By combining this with the previous derivation and applying the barycenter axiom, we can conclude that $$f \seq g \equiv_b \bigoplus_{d \in \supp(\partial(f \seq g))} \left(\partial(f)(\checkmark)\partial(g)(d) + n(d)\right) \cdot \ex(d) $$
+       	Combining it with the previous derivation, using the barycenter axiom, we can show that:
+        $$f \seq g \equiv_b \bigoplus_{d \in \supp(\partial(f \seq g))} \left(\partial(f)(\checkmark)\partial(g)(d) + n(d)\right) \cdot \ex(d) $$
+       	Observe that for $d = (a, f' \seq g)$, we obtain
+        $$\partial(f)(\checkmark)\partial(g)(d) + n(d) = \partial(f)(\checkmark)\partial(g)(a, f' \seq g) + \partial(f)(a, f') = \partial(f \seq g)(d)$$
+        When $d = \checkmark$,  it follows that
+        $$\partial(f)(\checkmark)\partial(g)(d) + n(d) = \partial(f)(\checkmark)\partial(g)(d) = \partial(f \seq g)(d)$$
+    	In all remaining cases, both functions assign the value $0$ to $d$. Consequently, we conclude that
+        $$f \seq g \equiv_b \bigoplus_{d \in \supp(\partial(f \seq g))} \partial(f \seq g)(d) \cdot \ex(d)$$
+        which establishes the desired result for this case.
+
+        \item[] \fbox{$e = f^{[p]}$}
+        
+        We begin by considering the case where $\partial(f)(\checkmark) = 1$ and $p = 1$. 
+        \begin{align*}
+            f^{[p]} &\equiv_b \left(\bigoplus_{d \in \supp(\partial(f))} \partial(f)(d) \cdot \ex(d) \right)^{[1]} \tag{Induction hypothesis}\\
+            &\equiv_b \one^{[1]} \tag{$\partial(f)(\checkmark)=1$}\\
+            &\equiv_b \zero \tag{\textsf{Div}}\\
+            &\equiv_b \bigoplus_{d \in \supp \left(\partial\left(f^{[1]}\right)\right)} \partial\left(f^{[1]}\right)(d) \cdot \ex(d)
+        \end{align*}
+        Otherwise, we first apply the (\textsf{Tight}) axiom to the loop body as follows:
+        \begin{align*}
+            f^{[p]} &\equiv_b \left(\bigoplus_{d \in \supp(\partial(f))} \partial(f)(d)\cdot \ex(d)\right)^{[p]} \tag{Induction hypothesis} \\
+            &\equiv_b \left(\one \oplus_{\partial(f)(\checkmark)} \left( \bigoplus_{d \in \supp(\partial(f)) \setminus \{\checkmark\}} \frac{\partial(f)(d)}{{1-\partial(f)(\checkmark)}}\cdot \ex(d)\right)\right)^{[p]} \tag{\Cref{c4:lem:safe_unrolling_lemma}}\\
+            &\equiv_b \left(\left( \bigoplus_{d \in \supp(\partial(f)) \setminus \{\checkmark\}} \frac{\partial(f)(d)}{{1-\partial(f)(\checkmark)}}\cdot \ex(d)\right) \oplus_{1-{\partial(f)(\checkmark)}} \one\right)^{[p]} \tag{\textsf{C3}}\\
+            &\equiv_b \left(\bigoplus_{d \in \supp(\partial(f)) \setminus \{\checkmark\}} \frac{\partial(f)(d)}{{1-\partial(f)(\checkmark)}} \cdot \ex(d)\right)^{\left[\frac{{(1-\partial(f)(\checkmark))}p}{1-p\partial(f)(\checkmark)}\right]} \tag{\textsf{Tight}}\\
+        \end{align*}
+        For convenience, we denote by $g^{[r]}$ the expression obtained from the preceding derivation. We proceed by applying the (\textsf{Unroll}) axiom.
+        \begin{align*}
+            g^{[r]}&\equiv_b \left(\bigoplus_{d \in \supp(\partial(f)) \setminus \{\checkmark\}} \frac{\partial(f)(d)}{{1-\partial(f)(\checkmark)}} \cdot \ex(d)\right)\seq g^{[r]} \oplus_{r} \one \tag{\textsf{Unroll}}\\
+            &\equiv_b \left(\bigoplus_{d \in \supp(\partial(f)) \setminus \{\checkmark\}} \frac{\partial(f)(d)}{{1-\partial(f)(\checkmark)}} \cdot \ex(d)\right)\seq f^{[p]} \oplus_r \one \tag{$f^{[p]} \equiv_b g^{[r]}$}\\
+            &\equiv_b \left(\bigoplus_{d \in \supp(\partial(f)) \setminus \{\checkmark\}} \frac{\partial(f)(d)}{{1-\partial(f)(\checkmark)}} \cdot \ex(d)\seq f^{[p]}\right) \oplus_r \one \tag{\Cref{c4:lem:generalised_right_distributivity}} \\
+            &\equiv_b \left(\bigoplus_{d \in \supp(\partial(f)) \setminus \{\checkmark\}} \frac{\partial(f)(d)}{{1-\partial(f)(\checkmark)}} \cdot \ex(d)\seq f^{[p]}\right)\\&\quad\quad\quad\oplus_r \left(\bigoplus_{d \in \supp \left(\partial\left(f^{[p]}\right)\right)} \delta_{\checkmark}(d) \cdot \ex(d)\right)
+        \end{align*}
+       Next, we simplify the left-hand side of the binary convex sum. Define $n \colon F \PExp \to \interval{0}{1}$ as follows
+        $$n(d) = \begin{cases}
+            {\partial(f)(a,f')} & d = \left(a, f' \seq f^{[p]}\right) \\
+            0 & \text{otherwise}
+        \end{cases}$$
+        By applying \Cref{c4:prop:properties_of_positive_convex_algebras} and the definition above, we obtain
+        $$
+            \bigoplus_{d \in \supp(\partial(f)) \setminus \{\checkmark\}} \frac{\partial(f)(d)}{{1-\partial(f)(\checkmark)}} \cdot \ex(d)\seq f^{[p]} \equiv_b \bigoplus_{d \in \supp \left(\partial\left(f^{[p]}\right)\right)} \frac{n(d)}{{1-\partial(f)(\checkmark)}} \cdot \ex(d)
+        $$
+        By combining the above with the previous derivation and applying the barycenter axiom, we obtain:
+        $$
+        f^{[p]} \equiv_b \bigoplus_{d \in \supp \left(\partial\left(f^{[p]}\right)\right)} \left(\frac{pn(d)}{1-p\partial(f)(\checkmark)} + \frac{1-p\delta_{\checkmark}(d)}{1-\partial(f)(\checkmark)p}\right) \cdot \ex(d)
+        $$
+       Observe that for $d = (a, f' \seq g)$, we obtain
+        $$\frac{pn(d)}{1-p\partial(f)(\checkmark)} + \frac{1-p\delta_{\checkmark}(d)}{1-p\partial(f)(\checkmark)} = \frac{p\partial(f)(a,f')}{1-p\partial(f)(\checkmark)}  = \partial \left(f^{[p]}\right)(d)$$ 
+        When $d = \checkmark$,  it follows that
+        $$\frac{pn(d)}{1-p\partial(f)(\checkmark)} + \frac{1-p\delta_{\checkmark}(d)}{1-p\partial(f)(\checkmark)} = \frac{1-p}{1-p\partial(f)(\checkmark)} = \partial \left(f^{[p]}\right)(d)$$
+       	In all remaining cases, we have that
+        $$\frac{pn(d)}{1-p\partial(f)(\checkmark)} + \frac{1-p\delta_{\checkmark}(d)}{1-p\partial(f)(\checkmark)} = 0 = \partial \left(f^{[p]}\right)(d)$$
+        Thus, we obtain the following:
+        $$f^{[p]}\equiv_b \bigoplus_{d \in \supp \left(\partial \left(f^{[p]}\right)\right)} \partial\left(f^{[p]}\right)(d) \cdot \ex(d)$$
+        This establishes the desired result.
+    \end{itemize}
 \end{proof}
+A direct corollary of the result established above is that every loop is provably equivalent to a loop whose body does not assign any probability to transitions to $\checkmark$.
+\begin{corollary}[Productive loop]\label{c4:cor:productive_loop}
+    Let $e \in \PExp$ and $p \in \interval{0}{1}$. We have that $e^{[p]} \equiv_b f^{[r]}$ for some $f \in \PExp$ and $r \in \interval{0}{1}$, such that $E(f)=0$.
+\end{corollary}
+\begin{proof}
+    If $\partial(e)(\checkmark)=1$ and $p=1$, then it follows that:
+    \begin{align*}
+        e^{[1]} &\equiv_b \left(\bigoplus_{d \in \supp(\partial(e))} \partial(e)(d) \cdot \ex(d)\right)^{[1]} \tag{\Cref{c4:thm:fundamental_theorem}}\\
+        &\equiv_b \one^{[1]} \\
+        &\equiv_b \zero \tag{\textsf{Div}}\\
+        &\equiv_b \zero\seq \zero \oplus_1 \one \tag{\textsf{0S} and \textsf{C2}}\\
+        &\equiv_b \zero^{[1]} \tag{\textsf{Unique} fixpoint rule and $E(\zero)=0$}
+    \end{align*}
+    Therefore, $e^{[1]}=\zero^{[1]}$. In this case, it follows that $E(\zero)=0$.
+    In the remaining cases, we obtain the following:
+    \begin{align*}
+        e^{[p]} &\equiv_b \left(\bigoplus_{d \in \supp(\partial(e))} \partial(e)(d) \cdot \ex(d)\right)^{[p]} \tag{\Cref{c4:thm:fundamental_theorem}}\\
+        &\equiv_b \left(\one \oplus_{\partial(e)(\checkmark)} \left(\bigoplus_{d \in \supp(\partial(e)) \setminus \{\checkmark\}} \frac{\partial(e)(d)}{{1-\partial(e)(\checkmark)}} \cdot \ex(d)\right)\right)^{[p]} \tag{\Cref{c4:lem:safe_unrolling_lemma}} \\
+        &\equiv_b \left(\left(\bigoplus_{d \in \supp(\partial(e)) \setminus \{\checkmark\}} \frac{\partial(e)(d)}{{1-\partial(e)(\checkmark)}} \cdot \ex(d)\right)\oplus_{{1-\partial(e)(\checkmark)}}  \one\right)^{[p]} \tag{\textsf{C3}}\\
+        &\equiv_b \left(\left(\bigoplus_{(a,e') \in \supp(\partial(e))} \frac{\partial(e)(a,e')}{{1-\partial(e)(\checkmark)}} \cdot a \seq e'\right)\oplus_{{1-\partial(e)(\checkmark)}}  \one\right)^{[p]} \tag{Def. of $\ex$}\\
+        &\equiv_b \left(\bigoplus_{(a,e') \in \supp(\partial(e))} \frac{\partial(e)(a,e')}{{1-\partial(e)(\checkmark)}} \cdot a \seq e' \right)^{\left[\frac{p{(1-\partial(e)(\checkmark))}}{1-p\partial(e)(\checkmark)}\right]} \tag{\textsf{Tight}}
+    \end{align*}
+Observe that the body of the loop above is an $n$-ary probabilistic sum involving terms of the form $a \seq e'$ (where $a \in \alphabet$, $e' \in \PExp$), for which $E(a \seq e') = 0$. By examining the definition of the $n$-ary sum (\Cref{c4:prop:binary}) and the termination operator $E(-)$ (\Cref{c4:fig:axioms}), we immediately conclude that the loop body is mapped to $0$ by $E(-)$, which completes the proof.
+\end{proof}
+Another important consequence of \Cref{c4:thm:fundamental_theorem} is the fact that the map $\qcoa$ is an isomorphism.
+\begin{corollary}\label{c4:or:quotient_coalgebra_inverse}
+    The structure map $\qcoa : {\PExp}/{\equiv_b} \to \distf \funF {\PExp}/{\equiv_b}$ of the quotient coalgebra $({\PExp}/{\equiv_b},\qcoa)$ is an isomorphism.
+\end{corollary}
+\begin{proof}
+    Given $\nu \in \distf \funF {{\PExp}/{\equiv_b}}$ define a function $\qcoa^{-1} \colon \distf \funF {{\PExp}/{\equiv_b}} \to {{\PExp}/{\equiv_b}} $ as follows:
+    $$
+    \qcoa^{-1}(\nu) = \left[\nu(\checkmark) \cdot \one \oplus \left(\bigoplus_{(a,[e']_{\equiv_b}) \in \supp(\nu)} \nu(a,[e']_{\equiv_b}) \cdot a \seq e'\right)\right]_{\equiv_b}
+    $$
+    First, observe that for arbitrary $\nu \in \distf \funF {{\PExp}/{\equiv_b}}$ we have that:
+    {
+    \small
+    \begin{align*}
+    \left(\qcoa \circ \qcoa^{-1}\right)(\nu)(\checkmark) &=  \left(\qcoa \circ [-]_{\equiv_b}\right) \left(\nu(\checkmark) \cdot \one \left(\oplus \bigoplus_{(a,[e']_{\equiv_b}) \in \supp(\nu)} \nu(a,[e']_{\equiv_b}) \cdot a \seq e'\right)\right)(\checkmark)\\
+    &= (\distf \funF [-]_{\equiv_b} \circ \partial) \left(\nu(\checkmark) \cdot \one \oplus \left(\bigoplus_{(a,[e']_{\equiv_b}) \in \supp(\nu)} \nu(a,[e']_{\equiv_b}) \cdot a \seq e'\right)\right)(\checkmark) \tag{${\qcoa}$ is a $\distf \funF$-coalgebra homomorphism} \\
+    &= \partial \left(\nu(\checkmark) \cdot \one \oplus \bigoplus_{(a,[e']_{\equiv_b}) \in \supp(\nu)} \nu(a,[e']_{\equiv_b}) \cdot a \seq e'\right) (\checkmark) \\
+    &= \nu(\checkmark) \tag{Def. of $\partial$}
+    \end{align*}
+    }
+   Similarly, for any $(b, [f']_{\equiv_b}) \in \supp(\nu)$, it follows that:
+   {
+   	\small
+    \begin{align*}
+    &(\qcoa \circ \qcoa^{-1})(\nu)(b, [f']_{\equiv_b})\\ &\quad=  \qcoa\left(\left[\nu(\checkmark) \cdot \one \oplus \bigoplus_{(a,[e']_{\equiv_b}) \in \supp(\nu)} \nu(a,[e']_{\equiv_b}) \cdot a \seq e'\right]_{\equiv_b}\right)(b, [f']_{\equiv_b}) \\
+    &\quad= (\distf F [-]_{\equiv_b} \circ \partial) \left(\nu(\checkmark) \cdot \one\right. \\&\left.\quad\quad\quad\quad\oplus \bigoplus_{(a,[e']_{\equiv_b}) \in \supp(\nu)} \nu(a,[e']_{\equiv_b}) \cdot a \seq e'\right)(b, [f']_{\equiv_b})  \tag{$\qcoa$ is a coalgebra homomorphism} \\
+    &\quad= \sum_{g \equiv f'} \partial\left(\nu(\checkmark) \cdot \one \oplus \bigoplus_{(a,[e']_{\equiv_b}) \in \supp(\nu)} \nu(a,[e']_{\equiv_b}) \cdot a \seq e'\right)(b,g) \\
+    &\quad= \nu(b, [f']_{\equiv_b}) \tag{Def. of $\partial$}
+    \end{align*}
+   }
+%    For the second part of the proof, let $ e \in \PExp$. As a consequence of \Cref{c4:thm:fundamental_theorem}, we have that:
+%    \begin{align*}
+%        e &\equiv_b \bigoplus_{d \in \supp(\partial(e))} \partial(e)(d) \cdot \ex(d) \tag{\Cref{c4:thm:fundamental_theorem}} \\
+%        &\equiv_b \partial(e)(\checkmark) \cdot \one \oplus \bigoplus_{(a,e') \in \supp(\partial(e))} \partial(e)(a,e') \cdot a \seq e'\\
+%        &\equiv_b \partial(e)(\checkmark) \cdot \one \oplus \bigoplus_{(a,[e']_{\equiv_b}) \in A \times {\PExp}/{\equiv_b}} \left(\sum_{g \equiv e'} \partial(e)(a,g)\right) \cdot a \seq e' \tag{\Cref{c4:prop:properties_of_positive_convex_algebras}}
+%    \end{align*}
+%    Now, observe that:
+%    \begin{align*}
+%        &(\qcoa^{-1} \circ \qcoa)[e]_{\equiv_b}\\ &\quad= (\qcoa^{-1} \circ \distf F [-]_{\equiv_b} \circ {\partial})(e)\\
+%        &\quad= \left[ \partial(e)(\checkmark) \cdot \one \oplus\right.\\&\quad\quad\quad\left. \bigoplus_{(a,[e']_{\equiv_b}) \in \supp((\distf F [-]_{\equiv_b} \circ \partial)(e))}(\distf F [-]_{\equiv_b} \circ \partial)(e)(a,[e']_{\equiv_b}))\cdot a\seq e'\right]_{\equiv_b}\\
+%        &\quad= \left[ \partial(e)(\checkmark) \cdot \one \oplus \bigoplus_{(a,[e']_{\equiv_b}) \in A \times {\PExp}/{\equiv_b}}(\distf F [-]_{\equiv_b} \circ \partial)(e)(a,[e']_{\equiv_b}))\cdot a\seq e'\right]_{\equiv_b} \tag{\Cref{c4:prop:properties_of_positive_convex_algebras}}\\
+%        &\quad= \left[ \partial(e)(\checkmark) \cdot \one\oplus \bigoplus_{(a,[e']_{\equiv_b}) \in A \times {\PExp}/{\equiv_b}} \left(\sum_{g \equiv e'} \partial(e)(a,g) \right) \cdot a \seq e'\right]_{\equiv_b}\\
+%        &\quad = [e]_{\equiv_b}
+%    \end{align*}
+%    which completes the proof.
+\end{proof}
+
 
  
 
