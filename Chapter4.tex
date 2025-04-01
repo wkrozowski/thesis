@@ -1125,7 +1125,7 @@ The positive convex algebra structure on ${\PExp}/{\equiv}$ is well-defined, bec
         &= \bigboxplus_{i \in I}^n p_i \left[[e_i]_{\equiv_b}\right]_{\equiv} \\
     \end{align*}
 \end{proof}
-\subsection{Step 3: Coalgebra structure}
+\subsection{Step 3: Coalgebra structure}\label{c4:sec:soundness_coalgebra}
 Having established the necessary algebraic structure, we move on to showing how we can equip the quotient ${\PExp}/{\equiv}$ with a structure of coalgebra for the functor $\funG \colon \Set \to \Set$. First, we focus on the $\funG$-coalgebra structure $c \colon \PExp/{\equiv_b} \to \funG \PExp/{\equiv_b}$ on the finer quotient $\PExp/{\equiv_b}$,  defined as the following composition of maps:
 {
 \small
@@ -1504,5 +1504,145 @@ It can be immediately observed that $\hat{G}$ is a subfunctor of $G$. Whenever t
 
     For the converse, observe that every arrow $\xi \colon (\distf X, \mu_X) \to \hat{\funG} \distf (\distf X, \mu_X)$ in $\pca$ arises as an extension of $\zeta \colon X \to \forget\hat{\funG} (\distf X, \mu_X)$. Furthermore, any such $\zeta$ can be expressed as composition $\gamma_X \circ \beta$, where $\beta(x)(\checkmark) = \pi_1 \circ \zeta(x)$ and $\beta(x)(a,x') = \pi_2 \circ \zeta(x)(a)(x')$. The fact that $\zeta(x) \in \hat{\funG}\distf X$ ensures that $\beta(x)$ is a well-defined subdistribution. Finally, since $\gamma_X$ is injective (\Cref{c4:prop:natural}), $\beta$ is unique.
 \end{proof}
+Next, we argue that the coalgebra structure on ${\PExp}/{\equiv}$, which is at the centre of attention of the completeness proof, happens also to be a $\hat{\funG}$-coalgebra. 
+\begin{lemma}\label{c4:lem:determinisations_correspond_to_df_coalgebras}
+    $(({\PExp}/{\equiv}, \alpha_{\equiv}), d)$ is a $\hat{\funG}$-coalgebra.
+\end{lemma}
+Before we prove the lemma above, we establish two intermediate results. First, we show the lemma allowing to establish that the coalgebra structure on ${\PExp}/{\equiv}$ defined in \Cref{c4:sec:soundness_coalgebra} is also a $\hat{\funG}$-coalgebra.
+\begin{lemma}\label{c4:lem:iamge_of_natural_transformation}
+    Let $(X, \alpha)$ be a $\pca$. Then for every $\zeta \in \distf \funF X$ we have that $\funG\alpha \circ \gamma_X (\zeta)\in \forget\hat{\funG} (X, \alpha)$.
+\end{lemma}
+\begin{proof}
+	Let $\zeta \in \distf \funF X$. Recall that $\gamma_X(\zeta) = \langle \zeta(\checkmark), \lambda a \ldotp \lambda x \ldotp \zeta(a,x)\rangle$.
+    Let $S = \{x \in X \mid \exists a \in \alphabet \ldotp (a,x) \in \supp(\zeta)\}$. Without the loss of generality, we can assume that $S = \{s_i\}_{i \in I}$ for some finite set $I$. For every $a \in \alphabet$ define $p_i^a = \zeta(a,s_i)$. This implies that $(\pi_2 \circ \gamma_X)(\zeta)(a)(x_i) = p_i^a$ if $x_i \in S$ or  $(\pi_2 \circ \gamma_X)(\zeta)(a)(x_i) =0 $ otherwise. Therefore, we have the following:
+        $$
+    (\funG\alpha \circ \gamma_X)(\zeta) = \left\langle
+    \zeta(\checkmark), \lambda a\ldotp \bigboxplus_{i\in I} p_i^a \cdot s_i
+    \right\rangle
+    $$
+    Finally, since $\zeta \in \distf \funF X$ we have that $\sum_{a \in \alphabet} \sum_{i \in I} p_i^a \leq 1 - \zeta(\checkmark)$ which proves that indeed the image of $G \alpha \circ \gamma_X$ belongs to $\forget \hat{\funG} (X, \alpha)$.
+\end{proof}
+Next, we show that surjective $\overline{G}$-coalgebra homomorphisms preserve $\hat{\funG}$.
+\begin{lemma}\label{c4:lem:closed_under_quotients}
+    $\hat{\funG}$-coalgebras are closed under quotients.
+\end{lemma}
+\begin{proof}
+ Let $((X, \alpha_X), \beta_X)$ be a $\hat{\funG}$-coalgebra, $((Y, \alpha_Y), \beta_Y)$ be a $\overline{\funG}$-coalgebra and let $e \colon X \to Y$ be a surjective $\overline{\funG}$-homomorphism $e \colon ((X, \alpha_X), \beta_X) \to ((Y, \alpha_Y),\beta_Y)$. We need to show that for all $y \in Y$, $\beta_Y(y) \in \forget \hat{\funG} (Y, \alpha_Y)$. 
+ Pick an arbitrary $y \in Y $. Since $e \colon X \to Y $ is surjective, we know that $y=e(x)$. Let $\beta_X(x) = \langle o, f\rangle$. We have that: 
+ $$\beta_Y(y) = (\beta_Y \circ e) (x) = ({\funG} e \circ \beta_X)(x) = \langle o, e \circ f \rangle $$
+Since $\beta_X(x) \in \hat{\funG}X$, we have that for all $a \in A$ there exist $p_a^i \in \interval{0}{1}$ and $x_a^i \in X$ such that $f(a)=\bigboxplus_{i \in I} p_a^i x_a^i$ and $\sum_a \sum_{i \in I} p_a^i \leq 1 - o$. Let $e(x_a^i)=y_a^i$.
+For all $a \in \alphabet$, we have that:
+$$(e \circ f)(a) = e \left( \bigboxplus_{i \in I} p_a^i \cdot x_a^i \right) = \bigboxplus_{i \in I} p_a^i \cdot e(x_a^i)= \bigboxplus_{i \in I} p_a^i \cdot y_a^i$$
+Therefore, for all $a \in \alphabet$ there exist $p_a^i \in \interval{0}{1}$ and $y_a^i \in X$ such that $f(a)=\bigboxplus_{i \in I} p_a^i y_a^i$ and $\sum_a \sum_{i \in I} p_a^i \leq 1 - o$, which completes the proof.
+\end{proof}
+We are ready to prove the desired result.
+\begin{proof}[Proof of \Cref{c4:lem:determinisations_correspond_to_df_coalgebras}]
+	    Recall that $({({\PExp}/{\equiv}, \alpha_{\equiv})},d)$ is a quotient coalgebra of $$({\PExp}/{\equiv_b}, \funG\alpha_{\equiv_b} \circ \gamma_{{\PExp}/{\equiv_b}} \circ \qcoa)$$
+	     which by \Cref{c4:lem:iamge_of_natural_transformation} is a $\hat{\funG}$-coalgebra. Because of \Cref{c4:lem:closed_under_quotients} so is $({{\PExp}/{\equiv}}, d)$.
+\end{proof}
+\subsection{Step 3: Systems of equations}
+In order to establish that ${\PExp}/{\equiv}$ is isomorphic to the rational fixpoint (which is the property that will eventually imply completeness), we establish the conditions of \Cref{c4:thm:proper}. One of the required things we need to show is that the determinisation of an arbitrary finite-state GPTS admits a unique homomorphism to the coalgebra carried by ${\PExp}/{\equiv}$. In other words, we need to convert states of an arbitrary finite-state GPTS to language equivalent expressions in a way which is unique up to the axioms of $\equiv$. This can be thought of as an abstract reformulation of one direction of the Kleene theorem to the case of PRE. To make that possible, we give a construction inspired by Brzozowski's equation solving method~\cite{Brzozowski:1964:Expressions} of converting a DFA to the corresponding regular expression. We start by stating the necessary definitions.
+\begin{definition}
+	A left-affine system on finite set \(Q\) of unknowns is a quadruple
+\begin{align*}
+	\mathcal{S}=\langle &M \colon Q \times Q \to \PExp, p \colon Q \times Q \to \interval{0}{1}, b \colon Q \to \PExp, r \colon Q \to \interval{0}{1} \rangle
+\end{align*}
+such that for all $q,q' \in Q$, \(\sum_{q' \in Q}p_{q,q'} + r_q = 1\) and $E(M_{q,q'})=0$.
+\end{definition}
+\begin{definition}
+	Let \({\equiv_c} \subseteq {\PExp \times \PExp}\) be a congruence relation. A map \(h \colon Q \to \PExp\) is \(\equiv_b\)-solution if for all \(q \in Q\) we have that:
+\[
+    h(q) \equiv_b \left(\bigoplus_{q' \in Q} p_{q,q'} \cdot M_{q,q'}\seq h(q')\right) \oplus r_{q} \cdot b_{q}
+\]
+\end{definition}
+
+ The original Brzozowski's equation-solving method is purely semantic, as it crucially relies on Arden's rule~\cite{Arden:1961:Delayed} by providing solutions up to the language equivalence to the systems of equations. As much as it would be enough for an analogue of the one direction of Kleene's theorem, for the purposes of our completeness argument, we need to argue something stronger. Namely, we show that we can uniquely solve each system purely through the means of syntactic manipulation using the axioms of $\equiv$. This is where the main complexity of the completeness proof is located. We show this property, by re-adapting the key result of Salomaa~\cite{Salomaa:1966:Two} to the systems of equations of our interest.
+\begin{theorem}\label{c4:thm:unique_solutions}
+    Every left-affine system of equations admits a unique $\equiv$-solution.
+\end{theorem}
+\begin{proof}
+    Let $\mathcal{M}=(M, p, b, r)$ be an arbitrary left-affine system of equations.
+    We proceed by induction on the size of $Q$. Since $Q$ is finite, we can safely assume that $Q=\{q_1, \dots q_n\}$. We will write $M_{i, j}$ instead of $M_{q_i, q_j}$ and similarly $p_i$ for $p_{q_i}$, $b_i$ for $b_{q_i}$ and $r_i$ for $r_{q_i}$.
+    
+    If $Q=\{q_1\}$, then we set $h(q_1) = {M_{1,1}}^{[p_{1,1}]}\seq b_1$. To see that it is indeed a $\equiv$-solution, observe the following:
+    \begin{align*}
+        h(q_1) &= {M_{1,1}}^{[p_{1,1}]}\seq b_{1} \\
+        &\equiv \left(M_{1,1} \seq {M_{1,1}}^{[p_{1,1}]} \oplus_{p_{1,1}} \one \right) \seq b_{1} \tag{\textsf{Unroll}}\\
+        &\equiv M_{1,1} \seq {M_{1,1}}^{[p_{1,1}]} \seq b_{1} \oplus_{p_{1,1}} b_{1} \tag{\textsf{D1}}\\
+        &\equiv M_{1,1} \seq h(q_{1}) \oplus_{p_{1,1}} b_{1}\\
+        &\equiv p_{1,1} \cdot M_{1,1} \seq h(q_{1}) \oplus {(1 - p_{1,1})} \cdot b_1 \\
+        &\equiv p_{1,1} \cdot M_{1,1} \seq h(q_{1}) \oplus {r_1} \cdot b_1 \tag{$r_1 = 1 - p_{1,1}$}\\
+    \end{align*}
+%    Given an another $\equiv$-solution $g : Q \to \Exp$, we have that:
+%    \begin{align*}
+%        g(q_1) &\equiv  p_{1,1} \cdot{M_{1,1}} \seq g(q_1) \oplus r_1 \cdot b_1 \\
+%        &\equiv  p_{1,1} \cdot{M_{1,1}} \seq g(q_1) \oplus \ol{p_{1,1}} \cdot b_1  \tag{$r_1 = 1 - p_{1,1}$} \\
+%        &\equiv  {M_{1,1}} \seq g(q_1) \oplus_{p_{1,1}} b_1\\  
+%        &\equiv {M_{1,1}}^{[p_{1,1}]}\seq b_1 \tag{\textbf{Unique} and $E(M_{1,1})=0$}\\
+%        &\equiv h(q_1)
+%    \end{align*}
+%    For the induction step, assume that all systems of the size \(n\) admit a unique $\equiv$-solution. First, we show that problem of finding $\equiv$-solution to the system of \(n+1\) unknowns can be reduced to the problem of finding $\equiv$-solution to the system with $n$ unknowns. Let $Q=\{q_1, \dots, q_{n+1}\}$. One of the equivalences that need to hold for $h : Q \to \Exp$ to be a $\equiv$-solution to the system $\mathcal{M}=(p, M, r, b)$ of size $n+1$ is the following:
+%    $$
+%    h(q_{n+1}) \equiv \left(\bigoplus_{i=1}^{n+1} p_{{n+1}, i} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus r_{{n+1}} \cdot b_{{n+1}} 
+%    $$
+%    We can unroll the $n+1$-ary sum (\Cref{lem:sum_unrolling}) to obtain:
+%    \begin{align*}
+%         h(q_{n+1}) &\equiv M_{n+1, n+1} \seq h(q_{n+1}) \oplus_{p_{n+1, n+1}} \\ &\quad\quad \left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{\ol{p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus \frac{r_{{n+1}}}{\ol{p_{n+1, n+1}}} \cdot b_{{n+1}} \right)
+%    \end{align*}
+%    Since $E(M_{n+1, n+1}) = 0$ we can apply the \textbf{Unique} fixpoint axiom and obtain:
+%    \begin{align*}
+%        h(q_{n+1}) &\equiv M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{\ol{p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus \frac{r_{{n+1}}}{\ol{p_{n+1, n+1}}} \cdot b_{{n+1}} \right)
+%    \end{align*}
+%    Observe that the above only depends on $h(q_1), \dots h(q_n)$ and we can substitute it in the equations for $h(q_1), \dots, h(q_n)$. For an arbitrary $q_j$, such that $ j \leq n$, we have that:
+%    \begin{align*}
+%         h(q_{j}) &\equiv p_{j, n+1}\cdot M_{j, n+1} \seq h(q_{n+1}) \oplus \left(\bigoplus_{i=1}^{n} {p_{{j}, i}} \cdot M_{{j}, i}\seq h(q_{i}) \right) \oplus {r_{{j}}} \cdot b_{{j}} 
+%    \end{align*}
+%    Now, substitute $h(q_{n+1})$ to obtain the following:
+%        \begin{align*}
+%         h(q_{j}) &\equiv \left(\bigoplus_{i=1}^{n} {p_{{j}, i}} \cdot M_{{j}, i}\seq h(q_{i}) \right) \oplus {r_{{j}}} \cdot b_{{j}}\\& \quad \oplus p_{j, n+1}\cdot M_{j, n+1} \seq M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{\ol{p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus \frac{r_{{n+1}}}{\ol{p_{n+1, n+1}}} \cdot b_{{n+1}} \right)\\
+%    \end{align*}
+%    We can apply \Cref{lem:generalised_left_distributivity} to rearrange the above into:
+%    \begin{align*}
+%         h(q_{j}) &\equiv \left(\bigoplus_{i=1}^{n} {p_{{j}, i}} \cdot M_{{j}, i}\seq h(q_{i}) \right)\\& \quad \oplus \left(\bigoplus_{i=1}^{n} \frac{p_{j, n+1}p_{{n+1}, i}}{\ol{p_{n+1, n+1}}} \cdot M_{j, n+1} \seq M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq M_{{n+1}, i}\seq h(q_{i}) \right) \\
+%         &\quad \oplus {r_{{j}}} \cdot b_{{j}} \oplus \frac{p_{j, n+1}r_{{n+1}}}{\ol{p_{n+1, n+1}}} \cdot M_{j, n+1} \seq M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq b_{{n+1}}\\
+%    \end{align*}
+%    To simplify the expression above, we introduce the following shorthands:
+%    \begin{gather*}
+%        s_{j,i} = p_{j,i} + \frac{p_{j, n+1} p_{n+1, i}}{\ol{p_{n+1, n+1}}}\\
+%        N_{j,i} = \frac{p_{{j}, i}}{s_{j,i}} \cdot M_{{j}, i} \oplus \frac{p_{j, n+1}p_{{n+1}, i}}{s_{j,i}\ol{p_{n+1, n+1}}} \cdot M_{j, n+1} \seq M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq M_{{n+1}, i}\\
+%        t_j = r_j + \frac{p_{j, n+1}r_{{n+1}}}{\ol{p_{n+1, n+1}}}\\
+%        c_j = \frac{r_j}{t_j}\cdot b_j \oplus \frac{p_{j, n+1}r_{{n+1}}}{t_j\ol{p_{n+1, n+1}}} \cdot M_{j, n+1} \seq M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq b_{{n+1}}
+%    \end{gather*}
+%    Observe that $E(N_{j,i})=0$.
+%    \noindent
+%    Because of \cref{lem:grouping_probabilities} and \Cref{lem:generalised_right_distributivity}, we have that:
+%    \begin{align*}
+%        h(q_j) = \left(\bigoplus_{i=1}^n s_{j, i} \cdot N_{j,i} \seq h(q_i)\right) \oplus t_j \cdot c_j
+%    \end{align*}
+%    In other words, $h$ restricted to $\{q_1, \dots, q_n\}$ must be a $\equiv$-solution to the left affine system $\mathcal{T}=(N, s, c, t)$, which by induction hypothesis admits a unique solution. We can extend the solution to $\mathcal{T}$ to the solution to the whole system $\mathcal{S}$, by setting $h({q_n})$ to be: 
+%    \begin{align*}
+%        h(q_{n+1}) &\equiv M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{\ol{p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus \frac{r_{{n+1}}}{\ol{p_{n+1, n+1}}} \cdot b_{{n+1}} \right)
+%    \end{align*}
+%    By using \textbf{Unroll} axiom and performing analogous axiomatic manipulation as before, one can show that it is an indeed a $\equiv$-solution to $\mathcal{S}$.
+%
+%    For the uniqueness, assume that we have $g : Q \to \Exp$, an another $\equiv$-solution to system $\mathcal{M}$. Because of \textbf{Unique} fixpoint axiom, we have that:
+%    \begin{align*}
+%        g(q_{n+1}) &\equiv M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{\ol{p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq g(q_{i}) \right) \oplus \frac{r_{{n+1}}}{\ol{p_{n+1, n+1}}} \cdot b_{{n+1}} \right)
+%    \end{align*}
+%     Substituting it to equations for $h(q_1), \dots, h(q_n)$ and performing the steps as earlier would lead to requiring that for all $1 \leq j \leq n$, we have that:
+%    \begin{align*}
+%        g(q_j) = \left(\bigoplus_{i=1}^n s_{j, i} \cdot N_{j,i} \seq g(q_i)\right) \oplus t_j \cdot c_j
+%    \end{align*}
+%    By induction hypothesis left-affine system of equations $\mathcal{T}$, admits a unique $\equiv$-solution. Therefore for all $1 \leq j \leq n$, we have that
+%    $g(q_j)\equiv h(q_j)$.
+%    Because of this, we have that:
+%    \begin{align*}
+%        g(q_{n+1}) &\equiv M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{\ol{p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq g(q_{i}) \right) \oplus \frac{r_{{n+1}}}{\ol{p_{n+1, n+1}}} \cdot b_{{n+1}} \right)\\
+%        &\equiv M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{\ol{p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus \frac{r_{{n+1}}}{\ol{p_{n+1, n+1}}} \cdot b_{{n+1}} \right)\\
+%        &\equiv h(q_{n+1})
+%    \end{align*}
+%    which completes the proof.
+\end{proof}
+
 
  
