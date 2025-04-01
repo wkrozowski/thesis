@@ -425,10 +425,10 @@ Generalised determinisation extends the above idea to $HT$-coalgebras, where $T 
 
 {RPTS} can be intuitively viewed as a probabilistic counterpart of nondeterministic automata and they can be determinised to obtain probabilistic language semantics. In an {RPTS}, each state $x$ is mapped to a pair $\langle o_x,n_x \rangle$, where $o \in \interval{0}{1}$ is the acceptance probability of state $x$ and $n_x\colon \alphabet \to \distf(X)$ is the next-state function, which takes a letter $a \in \alphabet$ and returns the subprobability distribution over successor states. Formally speaking, let $\funG \colon \Set \to \Set$ be an endofunctor $\funG = \interval{0}{1} \times (-)^\alphabet$. RPTS are precisely $\funG\distf$-coalgebras, that is pairs $(X, \beta)$, where $X$ is a set of states and $\beta \colon X \to \interval{0}{1} \times \distf (X)^\alphabet$ is a transition function. Following the convention outlined before, we will use terms "$G\distf$-coalgebras" and "RPTS" interchangeably.
 
-$\funG \distf$-coalgebras fit into framework of generalised determinisation~\cite{Silva:2011:Sound}. In particular, there exists a distributive law $\rho \colon \distf \funG \Rightarrow \funG \distf$ of the monad $\distf$ over the functor $\funG$ that allows to lift $\funG \colon \Set \to \Set$ to $\funG \colon \pca \to \pca$. Speaking in concrete terms, if the set $X$ is equipped with a convex sum operation $\bigboxplus_{i \in I} p_i \cdot (-)$, then so is $\interval{0}{1} \times X^\alphabet$. Let $\{\langle o_i , t_i\rangle\}_{i \in I}$ be an indexed collection of elements of $\interval{0}{1} \times X^\alphabet$. Then, we can define
-$$
-\bigboxplus_{i \in I} p_i \cdot \langle o_i, t_i \rangle = \left\langle \sum_{i \in I} p_i\cdot o_i, \lambda a\ldotp \bigboxplus_{i \in I} p_i \cdot t_i(a) \right\rangle
-$$
+$\funG \distf$-coalgebras fit into framework of generalised determinisation~\cite{Silva:2011:Sound}. In particular, there exists a distributive law $\rho \colon \distf \funG \Rightarrow \funG \distf$ of the monad $\distf$ over the functor $\funG$ that allows to lift $\funG \colon \Set \to \Set$ to $\overline{\funG} \colon \pca \to \pca$. Speaking in concrete terms, if the set $X$ is equipped with a convex sum operation $\bigboxplus_{i \in I} p_i \cdot (-)$, then so is $\interval{0}{1} \times X^\alphabet$. Let $\{\langle o_i , t_i\rangle\}_{i \in I}$ be an indexed collection of elements of $\interval{0}{1} \times X^\alphabet$. Then, we can define
+\begin{equation}\label{c4:eqn:pca_on_G}
+	\bigboxplus_{i \in I} p_i \cdot \langle o_i, t_i \rangle = \left\langle \sum_{i \in I} p_i\cdot o_i, \lambda a\ldotp \bigboxplus_{i \in I} p_i \cdot t_i(a) \right\rangle
+\end{equation}
 The final coalgebra for the functor $\funG$ is precisely carried by the set $\interval{0}{1}$ of probabilistic languages.
 
 In order to talk about language semantics of $\distf \funF$-coalgebras, we first provide an informal intuition that each $\distf \funF$-coalgebra can be seen as a special case of a $\funG \distf$-coalgebra.
@@ -526,7 +526,7 @@ The above is a consequence of $\gamma \colon \distf \funF \Rightarrow \funG \dis
 		&= \beta \circ \gamma_X \tag{Monad laws}\\
 		&= (\beta \circ \gamma_X)^\sharp \circ \eta_X \tag{Kleisli extension} 
 	\end{align*}
-	Then, we argue that $\gamma_X \circ \mu_{\funF X} \circ \distf \beta$ is a $\pca$ homomorphism from the free $\pca$ $(X, \mu_X)$ to $\overline{G}(X, \mu_X)$, by checking the commutativity of the diagram below.
+	Then, we argue that $\gamma_X \circ \mu_{\funF X} \circ \distf \beta$ is a $\pca$ homomorphism from the free $\pca$ $(X, \mu_X)$ to $\overline{\funG}(X, \mu_X)$, by checking the commutativity of the diagram below.
 	% https://q.uiver.app/#q=WzAsOSxbMCwyLCJcXGRpc3RmIFgiXSxbMCwwLCJcXGRpc3RmXjJYIl0sWzIsMiwiXFxkaXN0Zl4yXFxmdW5GIFgiXSxbMiwwLCJcXGRpc3RmXjMgXFxmdW5GIFxcYmV0YSJdLFs0LDIsIlxcZGlzdGYgXFxmdW5GIFgiXSxbNCwwLCJcXGRpc3RmXjIgXFxmdW5GIFgiXSxbNiwyLCJcXGZ1bkcgXFxkaXN0ZiBYIl0sWzYsMCwiXFxkaXN0ZiBcXGZ1bkYgXFxkaXN0ZlgiXSxbNiwxLCJcXGZ1bkdeMiBcXGRpc3RmIFgiXSxbMSwwLCJcXG11X1giLDJdLFswLDIsIlxcZGlzdGYgXFxiZXRhIiwyXSxbMSwzLCJcXGRpc3RmXjIgXFxiZXRhIl0sWzMsMiwiXFxtdV97XFxkaXN0ZiBcXGZ1bkYgWH0iXSxbMiw0LCJcXG11X3tcXGZ1bkYgWH0iXSxbNSw0LCJcXG11X3tcXGRpc3RmIFxcZnVuRiBYfSIsMl0sWzMsNSwiXFxkaXN0ZiBcXG11X3tcXGZ1bkYgWH0iXSxbNCw2LCJcXGdhbW1hX1giXSxbNSw3LCJcXGRpc3RmIFxcZ2FtbWFfWCJdLFs3LDgsIlxccmhvX3tcXGRpc3RmIFh9Il0sWzgsNiwiXFxmdW5HIFxcbXVfWCJdXQ==
 \[\begin{tikzcd}
 	{\distf^2X} && {\distf^3 \funF X} && {\distf^2 \funF X} && {\distf \funF \distf X} \\
@@ -715,7 +715,7 @@ The heart of both arguments will rely on arguing that the semantics map $\llbrac
 \end{tikzcd}\] 
 In the picture above $[-] \colon \PExp \to {\PExp}/{\equiv}$ is a quotient map taking expressions to their equivalence class modulo the axioms of $\equiv$, while $\beh{d} \colon {\PExp}/{\equiv} \to \interval{0}{1}^{\alphabet^\ast}$ is a map taking each equivalence class to the corresponding probabilistic language. In such a case, soundness follows as a sequence of three steps:
 \begin{equation}\label{eq:sound}
- e\equiv f\Rightarrow [e]=[f] \Rightarrow \dagger d ([e])  = \dagger d ( [f] ) \Rightarrow \llbracket e\rrbracket = \llbracket f\rrbracket 
+ e\equiv f\Rightarrow [e]=[f] \Rightarrow \beh{d} ([e])  = \beh{d} ( [f] ) \Rightarrow \llbracket e\rrbracket = \llbracket f\rrbracket 
  \end{equation}
  To obtain completeness we want to reverse all implications in \Cref{eq:sound}--and they all are easily reversible except $[e]=[f] \Rightarrow \beh{d} ( [e] )  =  \beh{d} ( [f] )$. To obtain this reverse implication we will need to show that $\beh{d} $ is {\em injective}.
  
@@ -1126,16 +1126,22 @@ The positive convex algebra structure on ${\PExp}/{\equiv}$ is well-defined, bec
     \end{align*}
 \end{proof}
 \subsection{Step 3: Coalgebra structure}
-Having established the necessary algebraic structure, we move on to showing how we can equip the quotient ${\PExp}/{\equiv}$ with a structure of coalgebra for the functor $\funG \colon \Set \to \Set$. First, we focus on the $\funG$-coalgebra structure on the finer quotient $\PExp/{\equiv_b}$, given by the following composition of maps:
+Having established the necessary algebraic structure, we move on to showing how we can equip the quotient ${\PExp}/{\equiv}$ with a structure of coalgebra for the functor $\funG \colon \Set \to \Set$. First, we focus on the $\funG$-coalgebra structure $c \colon \PExp/{\equiv_b} \to \funG \PExp/{\equiv_b}$ on the finer quotient $\PExp/{\equiv_b}$,  defined as the following composition of maps:
+{
+\small
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJ7XFxQRXhwfS97XFxlcXVpdl9ifSJdLFsyLDAsIlxcZGlzdGYgXFxmdW5GIHtcXFBFeHB9L3tcXGVxdWl2X2J9Il0sWzQsMCwiXFxmdW5HIFxcZGlzdGYge1xcUEV4cH0ve1xcZXF1aXZfYn0iXSxbNiwwLCJcXGZ1bkcge1xcUEV4cH0ve1xcZXF1aXZfYn0iXSxbMCwxLCJcXHFjb2EiXSxbMSwyLCJcXGdhbW1hX3t7XFxQRXhwfS97XFxlcXVpdl9ifX0iXSxbMiwzLCJcXGZ1bkcgXFxhbHBoYV97XFxlcXVpdl9ifSJdLFswLDMsImMiLDIseyJjdXJ2ZSI6NX1dXQ==
 \[\begin{tikzcd}
-	{{\PExp}/{\equiv_b}} & {\distf \funF {\PExp}/{\equiv_b}} & {\funG \distf {\PExp}/{\equiv_b}} & {\funG {\PExp}/{\equiv_b}}
-	\arrow["{\qcoa}", from=1-1, to=1-2]
-	\arrow["\gamma_{{\PExp}/{\equiv}}", from=1-2, to=1-3]
-	\arrow["\funG \alpha_{\equiv_b}", from=1-3, to=1-4]
+	{{\PExp}/{\equiv_b}} && {\distf \funF {\PExp}/{\equiv_b}} && {\funG \distf {\PExp}/{\equiv_b}} && {\funG {\PExp}/{\equiv_b}}
+	\arrow["\qcoa", from=1-1, to=1-3]
+	\arrow["c"', curve={height=30pt}, from=1-1, to=1-7]
+	\arrow["{\gamma_{{\PExp}/{\equiv_b}}}", from=1-3, to=1-5]
+	\arrow["{\funG \alpha_{\equiv_b}}", from=1-5, to=1-7]
 \end{tikzcd}\]
-Intuitively, we take a $\distf \funF$-coalgebra structure on the quotient ${\PExp}/{\equiv_b}$, which exists as a consequence of soundness of ${\equiv_b}$ wrt. bisimilarity and then make it a $\funG \distf$-coalgebra using the natural transformation $\gamma \colon \distf \funF \Rightarrow \funG \distf$. Instead of determinising it, we flatten each reachable subdistribution using the algebra map $\alpha_{\equiv_b} \colon \distf \funF {\PExp}/{\equiv_b} \to {\PExp}/{\equiv_b}$, thus obtaining a $\funG$-coalgebra structure. It turns out that this coalgebra is inherently related to the determinisation of $\left({{\PExp}/{\equiv_b}},{\gamma_{{\PExp}/{\equiv_b}} \circ \qcoa}\right)$. More precisely, the following holds:
+}
+
+Formally, we equip a quotient ${\PExp}/{\equiv_b}$ with $\distf \funF$-coalgebra structure, which exists due to soundness of ${\equiv_b}$ with respect to bisimilarity. Then, we transform it into a $\funG \distf$-coalgebra using the natural transformation $\gamma \colon \distf \funF \Rightarrow \funG \distf$. Rather than determinising this coalgebra directly, we instead flatten each reachable subdistribution using the algebra map $\alpha_{\equiv_b} \colon \distf \funF {\PExp}/{\equiv_b} \to {\PExp}/{\equiv_b}$, thereby inducing a $\funG$-coalgebra structure. This construction is closely related to the determinisation of $\left({{\PExp}/{\equiv_b}},{\gamma_{{\PExp}/{\equiv_b}} \circ \qcoa}\right)$. In particular, we have the following result
 \begin{lemma}\label{c4:lem:algebra_map_coalgebra_homomorphism}
-    The $\pca$ structure map $\alpha_{\equiv_b} \colon \distf {\PExp}/{\equiv_b} \to {\PExp}/{\equiv_b}$ is a $\funG$-coalgebra homomorphism of the following type: $$\alpha_{\equiv_b} \colon \left(\distf {\PExp}/{\equiv_b}, (\gamma_{{\PExp}/{\equiv_b}} \circ \qcoa )^\sharp\right) \to \left({\PExp}/{\equiv_b}, G \alpha_{\equiv_b} \circ \gamma_{{\PExp}/{\equiv_b}} \circ \qcoa\right)$$
+    The $\pca$ structure map $\alpha_{\equiv_b} \colon \distf {\PExp}/{\equiv_b} \to {\PExp}/{\equiv_b}$ is a $\funG$-coalgebra homomorphism of the following type: $$\alpha_{\equiv_b} \colon \left(\distf {\PExp}/{\equiv_b}, (\gamma_{{\PExp}/{\equiv_b}} \circ \qcoa )^\sharp\right) \to \left({\PExp}/{\equiv_b}, c\right)$$
 \end{lemma}
  \begin{proof}
  	 We show that the following diagram commutes:
@@ -1159,11 +1165,13 @@ Intuitively, we take a $\distf \funF$-coalgebra structure on the quotient ${\PEx
  		\qcoa \circ \alpha_{\equiv_b} &= \qcoa \circ \qcoa^{-1} \circ \mu_{\funF {\PExp}/{\equiv_{b}}} \circ \distf {\qcoa} \tag{Def. of $\alpha_{\equiv_b}$}\\
  		&= \mu_{\funF {\PExp}/{\equiv_{b}}} \circ \distf {\qcoa} \tag{\Cref{c4:cor:quotient_coalgebra_inverse}}
  	\end{align*}
- 	The commutativity of the bottom hexagon diagram is a direct consequence of \Cref{c4:prop:extension}.
+ 	The commutativity of the bottom hexagon diagram follows directly from \Cref{c4:prop:extension}.
  \end{proof}
- Secondly, we can use that $\funG$-coalgebra structure on ${\PExp}/{\equiv_b}$ in order to endow the coarser quotient ${\PExp}/{\equiv}$ with a $\funG$-coalgebra structure.
+We can utilise the aformentioned $\funG$-coalgebra structure on ${\PExp}/{\equiv_b}$ to induce a corresponding $\funG$-coalgebra structure on the coarser quotient ${\PExp}/{\equiv}$.
  \begin{lemma}\label{c4:lem:coalg_on_quotient_left_dist}
     There exists a unique $\funG$-coalgebra structure $d \colon {\PExp}/{\equiv} \to \funG{\PExp}/{\equiv}$ such that the following diagram commutes:
+    {
+    \small
 % https://q.uiver.app/#q=WzAsOCxbMCwwLCJcXFBFeHAiXSxbMCwxLCJcXGRpc3RmIFxcZnVuRiBcXFBFeHAiXSxbMiwwLCJ7XFxQRXhwfS97XFxlcXVpdl9ifSJdLFsyLDEsIlxcZGlzdGYgXFxmdW5GIHtcXFBFeHB9L3tcXGVxdWl2X2J9Il0sWzQsMCwie1xcUEV4cH0ve1xcZXF1aXZ9Il0sWzIsMiwiXFxmdW5HIFxcZGlzdGYge1xcUEV4cH0ve3tcXGVxdWl2fV9ifSJdLFsyLDMsIlxcZnVuR3tcXFBFeHB9L3tcXGVxdWl2X2J9Il0sWzQsMywiXFxmdW5HIHtcXFBFeHB9L3tcXGVxdWl2fSJdLFswLDEsIlxccGFydGlhbCIsMl0sWzAsMiwiWy1dX3tcXGVxdWl2X2J9Il0sWzIsMywiXFxxY29hIiwyXSxbMSwzLCJcXGRpc3RmIFxcZnVuRiBbLV1fe1xcZXF1aXZfYn0iLDJdLFsyLDQsIlstXV97XFxlcXVpdn0iLDJdLFszLDUsIlxcZ2FtbWFfe3tcXFBFeHB9L3tcXGVxdWl2X2J9fSIsMl0sWzUsNiwiR1xcYWxwaGFfe1xcZXF1aXZfMH0iLDJdLFs2LDcsIlxcZnVuR1stXV97XFxlcXVpdn0iLDJdLFs0LDcsImQiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
 \[\begin{tikzcd}
 	\PExp && {{\PExp}/{\equiv_b}} && {{\PExp}/{\equiv}} \\
@@ -1180,15 +1188,52 @@ Intuitively, we take a $\distf \funF$-coalgebra structure on the quotient ${\PEx
 	\arrow["{G\alpha_{\equiv_b}}"', from=3-3, to=4-3]
 	\arrow["{\funG[-]_{\equiv}}"', from=4-3, to=4-5]
 \end{tikzcd}\]
+}
 \end{lemma}
-The above lemma encapsulates the key step of the soundness proof. We argue the uniqueness through induction on the length of derivation of $\equiv$ using the diagonal fill-in property~\cite[Lemma~3.17]{Gumm:2000:Elements}. Since the proof involves going through the quotient ${\PExp}/{\equiv_b}$, which identifies the expressions modulo the axioms of the finer relation $\equiv_b$, it just remains to verify the soundness of axioms (\textsf{S0}) and (\textsf{D2}) present in the finer relation $\equiv$. Before we proceed, we show that (\textsf{S0}) and (\textsf{D2}) can be presented in simpler, yet equally expressive form, that makes checking the soundness easier.
+The above lemma encapsulates the key step of the soundness proof. To establish the existence of $\funG$-coalgebra structure on ${\PExp}/{\equiv}$, we will rely on diagonal fill-in property~\cite[Lemma~3.17]{Gumm:2000:Elements} to show the existence of the $\funG$-coalgebra structure on ${\PExp}/{\equiv}$. Consequently, it suffices to demonstrate for all $e,f \in \PExp$ the following:
+    \begin{equation}\label{c4:eqn:kernel}
+    	e \equiv f \implies \funG[-]_\equiv \circ c (e) = \funG[-]_\equiv \circ c (f)
+    \end{equation}
+   We begin by demonstrating that the map on the right-hand side of the equation above can be expressed explicitly.
+   \begin{lemma}\label{c4:lem:concrete_quotient}
+    	For all $o \in \interval{0}{1}$ and indexed collections $\{p_i\}_{i \in I}$, $\{a_i\}_{i \in I}$, and $\{e_i\}_{i \in I}$, such that $p_i \in \interval{0}{1}$, $a_i \in \alphabet$ and $e_i \in \PExp$ for all $i \in I$ and $\sum_{i \in I} p_i \leq 1 - o$, we have that:
+    	$$(\funG [-]_\equiv \circ c)\left( \left[ o \cdot \one \oplus \left( \bigoplus_{i \in I} p_i \cdot a_i \seq e_i\right) \right]_{\equiv_b} \right) = \left\langle o, \lambda a \ldotp \left[ \bigoplus_{a_i = a} p_i \cdot e_i\right]\right\rangle $$
+    \end{lemma}
+    \begin{proof}
+    We first observe the following:
+   	\begin{align*}
+   		c &= \funG [-]_\equiv \circ \funG\alpha_{\equiv_b} \circ \gamma_{{\PExp}/{\equiv_b}} \circ \qcoa \circ [-]_{\equiv_b} \tag{Def. of $c$}\\
+   		 &= \funG\alpha_{\equiv} \circ \funG \distf[-]_\equiv \circ \gamma_{{\PExp}/{\equiv_b}} \circ \qcoa \circ [-]_{\equiv_b} \tag{\Cref{c4:lem:coarser_quotient_is_a_pca}}\\
+        &= \funG\alpha_{\equiv} \circ \funG \distf[-]_\equiv \circ \gamma_{{\PExp}/{\equiv_b}} \circ \distf \funF [-]_{\equiv_b} \circ \partial \tag{$[-]_{\equiv_b}$ is a $\distf \funF$-coalgebra homomorphism}\\
+        &= \funG\alpha_{\equiv} \circ \funG \distf[-]_\equiv \circ \funG \distf [-]_{\equiv_b} \circ \gamma_{{\PExp}} \circ \partial \tag{\Cref{c4:prop:natural}} \\
+        &= \funG\alpha_{\equiv} \circ \funG \distf[-] \circ \gamma_{{\PExp}} \circ \partial \tag{Definition of $[-]$}\\
+		&= \funG\alpha_{\equiv} \circ \gamma_{{\PExp}/{\equiv}} \circ \distf \funF[-] \circ \partial \tag{\Cref{c4:prop:natural}}\\
+    \end{align*}
+    Using the above reasoning, we can obtain the following:
+    \begin{align*}
+		&\funG\alpha_{\equiv} \circ \gamma_{{\PExp}/{\equiv}} \circ \distf \funF[-] \circ \partial  \left(o \cdot \one \oplus \left( \bigoplus_{i \in I} p_i \cdot a_i \seq e_i \right)\right)\\
+		&\quad= \funG\alpha_{\equiv} \circ \gamma_{{\PExp}/{\equiv}} \circ \distf \funF[-] \left(o \delta_{\checkmark} + \left( \sum_{i \in I} p_i  \delta_{(a_i, e_i)}\right)\right) \tag{Def. of $\partial$}\\
+		&\quad= \funG\alpha_{\equiv} \circ \gamma_{{\PExp}/{\equiv}} \left(o \delta_{\checkmark} + \left( \sum_{i \in I} p_i  \delta_{(a_i, [e_i])}\right)\right)\\
+		&\quad= \funG\alpha_{\equiv} \left\langle o, \lambda a\ldotp  \sum_{ a_i = a} p_i  \delta_{[e_i]}\right \rangle \tag{Def. of $\gamma$}\\
+		&\quad= \left\langle o, \lambda a\ldotp  \left[\bigoplus_{ a_i = a} p_i \cdot e \right]\right \rangle \tag{\Cref{c4:thm:correspondence}}\\
+	\end{align*}
+    \end{proof}
 
-Let ${\uaequiv} \subseteq {\PExp \times \PExp}$ be the least congruence relation such that for all $e,f \in \PExp$, $p \in \interval{0}{1}$ and $a \in A$ closed under the following rules:
+	
+
+
+Since the proof of \Cref{c4:lem:coalg_on_quotient_left_dist} equires passing through the quotient ${\PExp}/{\equiv_b}$, which identifies the expressions modulo the axioms of the finer relation $\equiv_b$, emains only to verify the soundness of axioms (\textsf{S0}) and (\textsf{D2}) present in the finer relation $\equiv$. 
+
+Before proceeding, we first show that (\textsf{S0}) and (\textsf{D2}) can be reformulated in a simpler yet equally expressive form, which simplifies checking their soundness. Define the relation ${\uaequiv}\subseteq {\PExp \times \PExp}$ as follows:
+Let ${\uaequiv} \subseteq {\PExp \times \PExp}$ be a relation defined by the following
 \begin{enumerate}
     \item If $e \equiv_b f$, then $e \uaequiv f$
     \item $a \seq (e \oplus_p f) \uaequiv a\seq e \oplus_p a \seq f$
     \item $a \seq \zero \uaequiv \zero$
 \end{enumerate}
+for all $e,f \in \PExp$, $p \in \interval{0}{1}$ and $a \in \alphabet$. 
+
+It can be easily seen that both relations are equal. 
 \begin{lemma}\label{c4:lem:simpler_equivalence}
     For all $e,f \in \PExp$, $e \equiv f$ if and only if $e \uaequiv f$
 \end{lemma}
@@ -1305,7 +1350,7 @@ Let ${\uaequiv} \subseteq {\PExp \times \PExp}$ be the least congruence relation
                  &\uaequiv (i \seq i^{[q]} \seq f \oplus_p i \seq i^{[q]} \seq g) \oplus_q (f \oplus_p g) \tag{\Cref{c4:lem:binary_sum_properties}}\\
                  &\uaequiv i \seq (i^{[q]} \seq f \oplus_p i^{[q]} \seq g) \oplus_q (f \oplus_p g) \tag{Induction hypothesis}
              \end{align*}
-            Since $E(i)=0$, we can use \textsf{Unique} fixpoint axiom to derive
+            Since $E(i)=0$, we can use (\textsf{Unique}) rule to derive
             \begin{align*}
                  i^{[q]} \seq f \oplus_p i^{[q]} \seq g \uaequiv i^{[q]} \seq (f \oplus_p g)
             \end{align*}
@@ -1317,64 +1362,84 @@ Let ${\uaequiv} \subseteq {\PExp \times \PExp}$ be the least congruence relation
         \end{itemize}
     \end{itemize}
 \end{proof}
-We are now ready to show the desired result.
+We now have all the ingredients to obtain the desired result.
 \begin{proof}[Proof of \Cref{c4:lem:coalg_on_quotient_left_dist}]
-    We proceed by induction on length derivation of $\equiv$. We use diagonal fill-in property~\cite[Lemma~3.17]{Gumm:2000:Elements} to show the existence of $d$. Because of that,  it suffices to argue the following: 
-    \begin{equation}\label{c4:eqn:kernel}
-    	\ker([-]_\equiv) \subseteq \ker(\funG[-]_\equiv \circ \funG\alpha_{\equiv_b} \circ \gamma_{{\PExp}/{\equiv_b}} \circ \qcoa)
-    \end{equation}
- 
- Let $e,f \in \PExp$. Since $\equiv$ can be equivalently presented as $\uaequiv$ (\Cref{c4:lem:simpler_equivalence}), we have only three cases to consider.
+	Assume $e \equiv f$. Because of \Cref{c4:lem:simpler_equivalence}, we have that $e \uaequiv f$. We will argue that $(\funG [-]_{\equiv} \circ c)\left( [e]_{\equiv_b} \right) = (\funG [-]_{\equiv} \circ c)\left([f]_{\equiv_b}\right)$. Because of the definition of $\uaequiv$ we have only three cases to consider.
  \begin{itemize}
 	\item[] \fbox{$e \equiv_b f$}
-		 If $e \equiv_b f$, then $\qcoa([e]_{\equiv_b}) = \qcoa([f]_{\equiv_b})$, which immediately implies \Cref{c4:eqn:kernel}.
+	
+		 In this case, it follows immediately that $[e]_{\equiv_b} = [f]_{\equiv_\beta}$, which implies \Cref{c4:eqn:kernel}.
+	\item[] \fbox{$b \seq (g \oplus_p h) \uaequiv b \seq g \oplus_p b \seq h$}
+	
+		Applying $\funG [-]_\equiv \circ c$ and using \Cref{c4:lem:concrete_quotient} to both sides immediately gives
+		$$
+			(\funG [-]_{\equiv} \circ c)[b \seq (g \oplus_p h)]_{\equiv} = \left\langle 0, s \right\rangle = (\funG [-]_{\equiv} \circ c)[b \seq g \oplus_p b \seq h]_{\equiv}
+		$$
+		where $s \colon \alphabet \to {\PExp}/{\equiv}$ is a function given by
+		$$
+			s(a) = \begin{cases}
+				[g \oplus_p h] & \text{if } a=b\\
+				[\zero] & \text{ otherwise} 
+			\end{cases}
+		$$
+	\item[] \fbox{$b \seq \zero \uaequiv \zero$}
+	
+	Once again, we apply \Cref{c4:lem:concrete_quotient} and obtain the following:
+		$$
+			(\funG [-]_{\equiv} \circ c)[b \seq \zero]_{\equiv} = \left\langle 0, \lambda a. [\zero] \right\rangle = (\funG [-]_{\equiv} \circ c)[\zero]_{\equiv}
+		$$
  \end{itemize}
- Before we proceed with remaining two cases, we make the following observation:
- \begin{align*}
-        \funG [-]_\equiv \circ \funG\alpha_{\equiv_b} \circ \gamma_{{\PExp}/{\equiv_b}} \circ \qcoa \circ [-]_{\equiv_b} &= \funG\alpha_{\equiv} \circ \funG \distf[-]_\equiv \circ \gamma_{{\PExp}/{\equiv_b}} \circ \qcoa \circ [-]_{\equiv_b} \tag{\Cref{c4:lem:coarser_quotient_is_a_pca}}\\
-        &= \funG\alpha_{\equiv} \circ \funG \distf[-]_\equiv \circ \gamma_{{\PExp}/{\equiv_b}} \circ \distf \funF [-]_{\equiv_b} \circ \partial \tag{$[-]_{\equiv_b}$ is a $\distf \funF$-coalgebra homomorphism}\\
-        &= \funG\alpha_{\equiv} \circ \funG \distf[-]_\equiv \circ \funG \distf [-]_{\equiv_b} \circ \gamma_{{\PExp}} \circ \partial \tag{\Cref{c4:prop:natural}} \\
-        &= \funG\alpha_{\equiv} \circ \funG \distf[-] \circ \gamma_{{\PExp}} \circ \partial \tag{Definition of $[-]$}\\
-		&= \funG\alpha_{\equiv} \circ \gamma_{{\PExp}/{\equiv_b}} \circ \distf \funF[-] \circ \partial \tag{\Cref{c4:prop:natural}}\\
-    \end{align*}
-	{\color{red} Complete the lemma!}
-   
-%    \fbox{$a \seq (e \oplus_p f) \uaequiv a \seq e \oplus_p a \seq f$} Let $a \in A$, $p \in [0,1]$ and $e,f \in \PExp$.
-%    We have that: $$(\distf F[-] \circ \partial) (a \seq (e \oplus_p f)) = \delta_{(a, [e \oplus_p f])} $$
-%    After applying $\gamma_{{\PExp}/{\equiv_b}}$ we obtain
-%    $$(\gamma_{{\PExp}/{\equiv_b}} \circ \distf F[-] \circ \partial) (a \seq (e \oplus_p f)) = \langle 0, l_b \rangle$$
-%    where $l_b = \delta_{[e \oplus_p f]}$ if $a= b$ or $l_b(x) = 0$ otherwise. For the right hand side of the (simplified version of) left distributivity (\textbf{D2}) axiom, we have that
-%    $$(\distf F[-] \circ \partial) (a \seq e \oplus_p a \seq f) = p\delta_{(a, [e])} + (1-p)\delta_{(a, [f])} $$
-%    After applying $\gamma_{{\PExp}/{\equiv_b}}$ we obtain
-%    $$(\gamma_{{\PExp}/{\equiv_b}} \circ \distf F[-] \circ \partial) (a \seq e \oplus_p a \seq f) = \langle 0, r_b \rangle$$
-%    where $r_b = p\delta_{[ e]} + (1-p)\delta_{[ f]}$ if $a= b$ or $r_b(x) = 0$ otherwise. Hence, we are left with showing that 
-%    $\alpha_{\equiv} \left(\delta_{[e \oplus_p f]}\right)=\alpha_{\equiv} \left(p \delta_{[e]} + (1-p)\delta_{[f]}\right)$.
-%    We will use the isomorphism between $\Set^\distf$ and $\pca$. First, we consider the case when $e \not\equiv f$.
-%    \begin{align*}
-%        \bigboxplus_{d \in \supp\left(\delta_{[e \oplus_p f]}\right)} \delta_{[e \oplus_p f]}(d) \cdot d &= [e \oplus_p f] \\
-%        &= \bigboxplus_{d \in \supp\left(p\delta_{[e]} + (1-p)\delta_{[f]}\right)} \left(p\delta_{[e]} + (1-p)\delta_{[f]}\right)(d) \cdot d\\
-%    \end{align*}
-%    In the case when $e \equiv f$, we have the following:
-%        \begin{align*}
-%        \bigboxplus_{d \in \supp\left(\delta_{[e \oplus_p f]}\right)} \delta_{[e \oplus_p f]}(d) \cdot d &= [e \oplus_p f] \\
-%        &= [e] \tag{\textbf{C1}} \\
-%        &= \bigboxplus_{d \in \supp\left(p\delta_{[e]} + (1-p)\delta_{[f]}\right)} \left(p\delta_{[e]} + (1-p)\delta_{[f]}\right)(d) \cdot d\\
-%    \end{align*}
-%    \fbox{$a \seq 0 \uaequiv 0$}
-%    Now, consider the second axiom we need to check. We have that: $$(\distf F[-] \circ \partial) (a \seq \zero) = \delta_{(a, [\zero])} $$
-%    After applying $\gamma_{{\PExp}/{\equiv_b}}$ we obtain
-%    $(\gamma_{{\PExp}/{\equiv_b}} \circ \distf F[-] \circ \partial) (a \seq \zero) = \langle 0, l_b \rangle$
-%    where $l_b = \delta_{[\zero]}$ if $a= b$ or $l_b(x) = 0$ otherwise. For the right hand side of the right annihilation axiom (\textbf{S0}), we have that:
-%    $$(\gamma_{{\PExp}/{\equiv_b}} \circ \distf F[-] \circ \partial) (\zero) = \langle 0, r_b \rangle$$
-%    where $r_b(x) = 0$. Hence, we are left with showing that 
-%    $\alpha_{\equiv}(\delta_{[\zero]})=\alpha_{\equiv}(r_b)$.
-%    We have the following:
-%    \begin{align*}
-%        \bigboxplus_{d \in \supp \left(\delta_{[\zero]}\right)} \left(\delta_{[\zero]}\right)(d) \cdot d = [\zero] = \bigboxplus_{d \in r_b} r_b(d) \cdot d \tag{$\supp(r_b) = \emptyset$}
-%    \end{align*}
-%    which completes the proof.
-
 \end{proof}
+As a direct corollary of \Cref{c4:lem:concrete_quotient} and the result established above, we obtain a concrete characterisation of the map  $d$. 
+\begin{corollary}\label{c4:cor:concrete_coalgebra}
+	For all $\left[ o \cdot \one \bigoplus_{i \in I} p_i \cdot a_i \seq e_i\right] \in {\PExp}/{\equiv}$, we have that
+	$$
+		d \left( \left[ o \cdot \one \bigoplus_{i \in I} p_i \cdot a_i \seq e_i\right] \right) = \left\langle o, \lambda a \ldotp \left[ \bigoplus_{a_i = a} p_i \cdot e_i\right]\right\rangle
+	$$
+\end{corollary}
+\subsection{Step 4: Soundness result}
+Through a simple finality argument, we can show that the unique $\funG$-coalgebra homomorphism from the determinisation of the Antimirov transition system, can be viewed as the following composition of homomorphisms, which we have obtained in the earlier steps.
+
+\begin{lemma}\label{c4:lem:factoring_lemma}
+	The following diagram commutes:
+	% https://q.uiver.app/#q=WzAsNSxbMiwwLCJ7XFxQRXhwfS97XFxlcXVpdl9ifSJdLFszLDAsIlxcUEV4cC97XFxlcXVpdn0iXSxbMSwwLCJcXGRpc3Rme3tcXFBFeHB9L3tcXGVxdWl2X3tifX19Il0sWzQsMCwiWzAsMV1ee0FeKn0iXSxbMCwwLCJcXGRpc3RmIFxcUEV4cCJdLFswLDEsIlstXV97XFxlcXVpdn0iXSxbMiwwLCJcXGFscGhhX3tcXGVxdWl2X2J9Il0sWzEsMywiXFxiZWh7ZH0iLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbNCwyLCJcXGRpc3RmIFstXV97XFxlcXVpdl9ifSJdLFs0LDMsIlxcYmVoIHsoXFxnYW1tYV97XFxQRXhwfSBcXGNpcmMgXFxwYXJ0aWFsKV57XFxzaGFycH19IiwyLHsiY3VydmUiOjN9XV0=
+\[\begin{tikzcd}
+	{\distf \PExp} & {\distf{{\PExp}/{\equiv_{b}}}} & {{\PExp}/{\equiv_b}} & {\PExp/{\equiv}} & {\interval{0}{1}^{\alphabet^*}}
+	\arrow["{\distf [-]_{\equiv_b}}", from=1-1, to=1-2]
+	\arrow["{\beh {(\gamma_{\PExp} \circ \partial)^{\sharp}}}"', curve={height=18pt}, from=1-1, to=1-5]
+	\arrow["{\alpha_{\equiv_b}}", from=1-2, to=1-3]
+	\arrow["{[-]_{\equiv}}", from=1-3, to=1-4]
+	\arrow["{\beh{d}}", dashed, from=1-4, to=1-5]
+\end{tikzcd}\]	
+\end{lemma}
+\begin{proof}
+	By combining \Cref{c4:lem:homom_of_determinisations}, \Cref{c4:lem:algebra_map_coalgebra_homomorphism}, and \Cref{c4:lem:coalg_on_quotient_left_dist}, we conclude that $\distf [-]_{\equiv_b} \circ \alpha_{\equiv_b} \circ [-]_{\equiv_b}$ is a $\funG$-coalgebra homomorphism from $\left(\distf \PExp, (\gamma_{\PExp} \circ \partial)^\sharp\right)$ to $({\PExp}/{\equiv}, d)$. Composing with a final map $\beh{d}$ into it, we obtain a $\funG$-coalgebra homomorphism  rom $\left(\distf \PExp, (\gamma_{\PExp} \circ \partial)^\sharp\right)$ into the final coalgebra $\left( \interval{0}{1}^{\alphabet^\ast}, t \right)$, which, by finality must be equal to $\beh {(\gamma_{\PExp} \circ \partial)^{\sharp}}$.
+\end{proof}
+Since the language-assigning map relies on the homomorphism described above, we can show the following:
+\begin{lemma}\label{c4:lem:factoring_lemma2} The function $\sem{-} \colon \PExp \to \interval{0}{1}^{\alphabet^\ast}$ assigning each expression to its semantics satisfies:
+$
+    \llbracket - \rrbracket = \beh{d} \circ [-]
+$. 
+\end{lemma}
+ \begin{proof}
+    \begin{align*}
+        \llbracket - \rrbracket &= \dagger (\gamma_{\PExp} \circ \partial)^{\sharp} \circ \eta_{\PExp} \tag{Def. of $\llbracket - \rrbracket$}\\
+        &=\beh{d} \circ [-]_{\equiv} \circ \alpha_{\equiv_b} \circ \distf [-]_{\equiv_b} \circ \eta_{\PExp}\tag{\Cref{c4:lem:factoring_lemma}}\\
+        &=\beh{d} \circ [-]_{\equiv} \circ \alpha_{\equiv_b} \circ \eta_{{\PExp}/{\equiv_b}} \circ [-]_{\equiv_b} \tag{$\eta$ is natural}\\
+        &=\beh{d} \circ [-]_{\equiv} \circ [-]_{\equiv_b} \tag{$\alpha_\equiv$ is an Eilenberg-Moore algebra}\\
+        &= \beh{d} \circ [-] \tag{$[-] = [-]_{\equiv} \circ [-]_{\equiv_b} $}\\
+    \end{align*}
+ \end{proof}
+ We can now immediately conclude that provably equivalent expressions are mapped to the same probabilistic languages, thus establishing soundness.
+% We can now conclude with the desired soundness result.
+\begin{theorem}[Soundness]\label{c4:thm:soundness}
+    For all $e,f \in \PExp$, if $e \equiv f$ then $\sem {e} = \sem{f}$.
+\end{theorem}
+\section{Completeness}\label{c4:sec:completeness}
+We now move on to showing completeness through the steps described in \Cref{c4:sec:roadmap}. 
+\subsection{Step 1: Algebra structure}
+Throughout the soundness proof, we have shown that the semantics of any expression $e \in \PExp$ can also be seen as the language of the state corresponding to the equivalence class $[e]$ in the deterministic transition system ($\funG$-coalgebra) defined on the set ${\PExp}/{\equiv}$. The completeness proof will rely on establishing that this coalgebra possesses a universal property of rational fixpoint, that will imply completeness. A first step in arguing so is observing that the coalgebra $\left({\PExp}/{\equiv},d \right)$ interacts well with an algebra structure on ${\PExp}/{\equiv}$ defined in \Cref{c4:lem:coarser_quotient_is_a_pca}. 
+Thanks to the fact that we can lift $\funG \colon \Set \to \Set$ to $\overline{\funG} \colon \pca \to \pca$, the set $\funG{\PExp}/{\equiv}$ also carries the algebra structure. In such a setting, the transition function $d \colon {\PExp}/{\equiv} \to \funG {\PExp}/{\equiv}$ becomes an algebra homomorphism.
 
 
  

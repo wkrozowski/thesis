@@ -94,8 +94,8 @@ To formalise this approach, we adopt string diagrams~\cite{Selinger_2010,piedele
   Syntax & $\tikzfig{lr-copy}\quad\tikzfig{lr-delete}\quad\tikzfig{lr-merge}\quad\tikzfig{lr-generate} \quad\tikzfig{cap-down} \quad\tikzfig{cup-down}\quad \scalar{a} \quad (a\in \alphabet)$ \\
   Semantics & bisimulation distance of regular behaviours\\
   Example fact & $\tikzfig{ex-diag-1-l} \disteq{1/4} \tikzfig{a-star-b}$\\
-  Soundness & Theorem \Cref{c2:soundness} \\
-  Completeness	& Theorem \Cref{c2:completeness} \\
+  Soundness & \Cref{c3:soundness} \\
+  Completeness	& \Cref{c3:completeness} \\
   \hline
 \end{tabular}
 \end{center}
@@ -114,8 +114,8 @@ The findings presented in this chapter are the content of the following paper:
   Model & generative probabilistic transition systems~\cite{Glabbeek:1995:Reactive}\\
   Syntax & $e,f \in \PExp ::= \zero \mid \one \mid a \in \alphabet \mid e \oplus_p f \mid e \seq f \mid e^{\left[ p \right]}$ \\  Semantics & probabilistic language equivalence \\
   Example fact & $a \seq a^{\left[1/4\right]} \equiv a \oplus_{3/4} \left( a \seq a^{\left[1/4\right]}\seq a\right)$\\
-  Soundness & Theorem \Cref{c2:soundness} \\
-  Completeness 	& Theorem \Cref{c2:completeness} \\
+  Soundness & \Cref{c4:thm:soundness} \\
+  Completeness 	& \Cref{c4:completeness} \\
   \hline
 \end{tabular}
 \end{center}
