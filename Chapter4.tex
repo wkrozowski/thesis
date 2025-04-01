@@ -1555,8 +1555,60 @@ such that for all $q,q' \in Q$, \(\sum_{q' \in Q}p_{q,q'} + r_q = 1\) and $E(M_{
     h(q) \equiv_b \left(\bigoplus_{q' \in Q} p_{q,q'} \cdot M_{q,q'}\seq h(q')\right) \oplus r_{q} \cdot b_{q}
 \]
 \end{definition}
-
+\begin{definition}
+	A system representing the finite-state $\distf \funF$-coalgebra $(X, \beta)$ is given by $\mathcal{S}(\beta) = \langle M^\beta, p^\beta, b^\beta, r^\beta\rangle $ where for all $x, x' \in X$ we have:
+\begin{gather*}
+p^\beta_{x, x'} = \sum_{a ' \in A}\beta(x)(a', x') \qquad\qquad r^\beta_x = 1 - \sum_{(a',x') \in \supp (\beta(x))}\beta(x)(a',x')\\
+M^\beta_{x, x'} = \begin{cases}
+    \bigoplus_{a \in A} \frac{\beta(x)(a,x')}{p^{\beta}_{x,x'}} \cdot a & \text{if } p^\beta_{x,x'}\neq 0\\
+    \zero & \text{otherwise}
+\end{cases}\qquad\qquad
+ b^\beta_x = \begin{cases}
+    \frac{\beta(x)(\checkmark)}{r^\beta_x} \cdot \one & \text{if } r^\beta_x \neq 0\\
+    \zero & \text{otherwise}
+\end{cases} 
+\end{gather*}
+\end{definition}
  The original Brzozowski's equation-solving method is purely semantic, as it crucially relies on Arden's rule~\cite{Arden:1961:Delayed} by providing solutions up to the language equivalence to the systems of equations. As much as it would be enough for an analogue of the one direction of Kleene's theorem, for the purposes of our completeness argument, we need to argue something stronger. Namely, we show that we can uniquely solve each system purely through the means of syntactic manipulation using the axioms of $\equiv$. This is where the main complexity of the completeness proof is located. We show this property, by re-adapting the key result of Salomaa~\cite{Salomaa:1966:Two} to the systems of equations of our interest.
+ 
+ The proof of the uniqueness of solutions theorem will proceeds by induction on the size of the systems of equations. We first show that systems with only one unknown can be solved via the (\textsf{Unique}) fixpoint axiom. Systems of the size $n+1$ can be reduced to systems of size $n$, by solving for one of the unknowns and substituting the obtained equation with $n$ unknowns to the remaining $n$ equations. We note that this reduction step is highly reliant on axioms (\textsf{D2}) and (\textsf{S0}). In particular, we will rely on the following property to generalise left distributivity to arbitrary $n$-ary convex sums.
+ \begin{lemma}\label{c4:lem:generalised_left_distributivity}
+    Let $f \in \PExp$, $I$ be a finite index set and let $\{p_i\}_{i \in I}$ and $\{e_i\}_{i \in I}$ be indexed collections of probabilities and expressions, respectively. Then:
+    $$\left(\bigoplus_{i \in I} p_i \cdot e_i\right) \seq f \equiv_0 \bigoplus_{i \in I} p_i \cdot e_i \seq f$$
+\end{lemma}
+\begin{proof}
+    By induction. If $I = \emptyset$, then: 
+    \begin{align*}
+        f \seq \left(\bigoplus_{i \in I} p_i \cdot e_i\right)  &\equiv f \seq 0 \\
+        &\equiv \zero \tag{\textsf{S0}}\\
+        &\equiv \bigoplus_{i \in I} p_i \cdot f \seq e_i \tag{$I = \emptyset$}
+    \end{align*}
+    If there exists $j \in I$ such that $p_j = 1$, then:
+    \begin{align*}
+        f \seq \left(\bigoplus_{i \in I} p_i \cdot e_i\right) &\equiv_0 f \seq e_j \\
+        &\equiv     \left(\bigoplus_{i \in I} p_i \cdot f \seq e_i\right)
+    \end{align*}
+    Finally, for the induction step, we obtain the following:
+    \begin{align*}
+         f \seq \left(\bigoplus_{i \in I} p_i \cdot e_i\right) &\equiv f \seq \left( e_j \oplus_{p_j} \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{{1-p_j}} \cdot e_i\right) \right)  \\
+         &\equiv  f \seq e_j \oplus_{p_j} f \seq \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{{1-p_j}} \cdot e_i\right)\tag{\textbf{D1}} \\
+         &\equiv  f\seq e_j  \oplus_{p_j} \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{{1-p_j}} \cdot f \seq e_i\right) \tag{Induction hypothesis}\\
+         &\equiv \left(\bigoplus_{i \in I} p_i \cdot f \seq e_i \right)
+    \end{align*}
+\end{proof}
+
+Before proceeding, we demonstrate how to solve a system of equations with two unknowns.
+\begin{example}
+    Consider the transition system from the left-hand side of \Cref{c4:ex:systems}. A map $h \colon\{q_0, q_1\} \to \PExp $ is an $\equiv$-solution to the system associated with that transition system, if and only if:
+    \[
+        h(q_0) \equiv a \seq h(q_1) \qquad h(q_1) \equiv a \seq h(q_1) \oplus_{\frac{1}{4}} \one
+    \]
+    Since $E(a)=0$, we can apply the (\textsf{Unique}) axiom and $e \seq \one \equiv e$ to the equation on the right to deduce that 
+    $
+        h(q_1) \equiv a^{\left[\frac{1}{4}\right]}
+    $. Substituting it into the left equation yields $h(q_0)\equiv a \seq a^{\left[\frac{1}{4}\right]}$.
+\end{example}
+Finally, we proceed to the central result.
 \begin{theorem}\label{c4:thm:unique_solutions}
     Every left-affine system of equations admits a unique $\equiv$-solution.
 \end{theorem}
@@ -1644,14 +1696,85 @@ To prove the $\equiv$-uniqueness of $h$, assume that $g \colon Q \to \PExp$, is 
         g(q_j) = \left(\bigoplus_{i=1}^n s_{j, i} \cdot N_{j,i} \seq g(q_i)\right) \oplus t_j \cdot c_j
     \end{align*}
     By the induction hypothesis, the left-affine system of equations $\mathcal{T}$ admits a unique $\equiv$-solution. Therefore for all $j \in \{1, \dots, n\}$, we have that $g(q_j)\equiv h(q_j)$.
-	Consequently, we have that
-    \begin{align*}:
+	Consequently, we have that:
+    \begin{align*}
         g(q_{n+1}) &\equiv M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{{1-p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq g(q_{i}) \right) \oplus \frac{r_{{n+1}}}{{1-p_{n+1, n+1}}} \cdot b_{{n+1}} \right)\\
         &\equiv M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{{1-p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus \frac{r_{{n+1}}}{{1-p_{n+1, n+1}}} \cdot b_{{n+1}} \right)\\
         &\equiv h(q_{n+1})
     \end{align*}
 	This completes the proof.	
 \end{proof}
-
+\subsection{Step 3: Correspondence of solutions and homomorphisms}
+We are not done yet, as in the last step we only proved properties of systems of equations and their solutions, while our main interest is in appropriate $\hat{\funG}$-coalgebras and their homomorphisms. As desired, it turns out that $\equiv$-solutions are in one-to-one correspondence with $\hat{\funG}$-coalgebra homomorphisms from determinisations of (converted) finite state $\distf \funF$-coalgebras to the coalgebra structure on ${\PExp}/{\equiv}$.
+\begin{lemma}\label{c4:lem:solutions_homomorphisms}
+    For a finite set $X$, we have the following one-to-one correspondence:
+    $$
+    \mprset{fraction={===}}
+ \inferrule{
+ \text{$\hat{G}$-coalgebra homomorphisms } m \colon ((\distf X, \mu_{X}), (\gamma_X \circ \beta)^\sharp) \to (({\PExp}/{\equiv}, \alpha_{\equiv}), d) 	
+}{
+ \text{$\equiv$-solutions } h\colon X \to \PExp \text{ to a system } \mathcal{S}(\beta) \text{ associated with $\distf F$-coalgebra }(X, \beta)}$$ 
+\end{lemma}
+%\begin{proof}
+%
+%First, assume that $h : X \to \Exp$ is a solution to the system $\mathcal{S}(\beta)$ associated with $\distf F$-coalgebra $(X, \beta)$. We show that $([-]\o h)^\star : \distf X \to {\Exp}/{\equiv}$ is a $\hat{G}$-coalgebra homomorphism. Because of \cref{lem:simpler_solution_lemma}, we have that for all $x \in X$:
+%$$
+%h(x) \equiv \left(\bigoplus_{(a,x') \in A \times X} \beta(x)(a,x') \cdot a \seq h(x')\right) \oplus \beta(x)(\checkmark) \cdot \one
+%$$
+%Let $\nu \in \distf X$. The convex extension of the map $[-] \o h : X \to {\Exp}/{\equiv}$ is given by the following:
+%$$([-] \o h)^\star(\nu) = \left[\bigoplus_{x \in \supp(\nu)} \nu(x)\cdot h(x)\right]$$
+%Similarly, given $\beta : X \to \distf F X$ we have that:
+%$$(\gamma_X \o \beta)^\star(\nu) = \left\langle\sum_{x \in \supp(\nu)} \nu(x) \beta(x)(\checkmark),\lambda a . \lambda x'.\sum_{x \in \supp(\nu)}\nu(x)\beta(x)(a, x')\right\rangle$$
+%We now show the commutativity of the diagram below.
+%    % https://q.uiver.app/?q=WzAsNixbMCwwLCJYIl0sWzEsMSwiXFxkaXN0ZiBYIl0sWzQsMSwie1xcRXhwfS97XFxlcXVpdn0iXSxbMCwyLCJcXGRpc3RmIEYgWCJdLFswLDMsIkdcXGRpc3RmIFgiXSxbNCwzLCJHIHtcXEV4cH0ve1xcZXF1aXZ9Il0sWzAsMSwiXFxldGFfWCIsMl0sWzEsMiwiW2hdXlxcc3RhciIsMl0sWzAsMiwiW2hdIl0sWzAsMywiXFxiZXRhIiwyXSxbMyw0LCJcXGdhbW1hX1giLDJdLFsxLDQsIihcXGdhbW1hX1ggXFxvIFxcYmV0YSApXlxcc3RhciJdLFs0LDUsIkdbaF1eXFxzdGFyIl0sWzIsNSwiZCJdXQ==
+%\[\begin{tikzcd}
+%	X \\
+%	& {\distf X} &&& {{\Exp}/{\equiv}} \\
+%	{\distf F X} \\
+%	{\hat{G}\distf X} &&&& {\hat{G} {\Exp}/{\equiv}}
+%	\arrow["{\eta_X}"', from=1-1, to=2-2]
+%	\arrow["{([-]\o h)^\star}"', from=2-2, to=2-5]
+%	\arrow["{[-]\o h}", from=1-1, to=2-5]
+%	\arrow["\beta"', from=1-1, to=3-1]
+%	\arrow["{\gamma_X}"', from=3-1, to=4-1]
+%	\arrow["{(\gamma_X \o \beta )^\star}", from=2-2, to=4-1]
+%	\arrow["{\hat{G}([-]\o h)^\star}", from=4-1, to=4-5]
+%	\arrow["d", from=2-5, to=4-5]
+%\end{tikzcd}\]
+%For any distribution $\nu \in \distf X$:
+%\begin{align*}
+%&d \o ([-] \o h)^\star(\nu)\\ &= d \left[\bigoplus_{x \in \supp(\nu)}\nu(x) \cdot \left( \left(\bigoplus_{(a,x') \in A \times X} \beta(x)(a,x') \cdot a \seq h(x')\right) \oplus \beta(x)(\checkmark) \cdot \one\right) \right] \\
+%&= d \left[\left(\bigoplus_{(a, x') \in A \times X} \left( \sum_{x \in \supp(\nu)} \nu(x)\beta(x)(a,x').\right)\cdot a \seq h(x')\right)\right. \\&\quad\quad\quad\quad\left.\oplus \left(\sum_{x \in \supp(\nu)} \nu(x)\beta(x)(\checkmark)\right)\cdot \one\right] \tag{Barycenter axiom}\\
+%&= \left\langle \sum_{x \in \supp(\nu)} \nu(x)\beta(x)(\checkmark), \lambda a. \left[  
+%\bigoplus_{x' \in X} \left(\sum_{x \in \supp(\nu(x))}\nu(x)\beta(x)(a,x')\right)\cdot h(x')\right] \right\rangle
+%\end{align*}
+%Now, consider $\hat{G}([-] \o h)^\star \o (\gamma_X \o \beta)^\star (\nu)$. We have the following:
+%\begin{align*}
+%    &\hat{G}([-] \o h)^\star \o (\gamma_X \o \beta)^\star (\nu)\\
+%    &= \hat{G}([-] \o h)^\star \left\langle\sum_{x \in \supp(\nu)} \nu(x)\beta(x)(\checkmark), \lambda a. \lambda x'. \sum_{x \in \supp(\nu)} \nu(x)\beta(x)(a,x')\right\rangle\\
+%    &= \left\langle\sum_{x \in \supp(\nu)} \nu(x)\beta(x)(\checkmark), \lambda a. ([-] \o h)^\star \left(\lambda x'. \sum_{x \in \supp(\nu)} \nu(x)\beta(x)(a,x')\right)\right\rangle\\
+%    &=\left\langle\sum_{x \in \supp(\nu)} \nu(x)\beta(x)(\checkmark), \lambda a.\left[\bigoplus_{x' \in X} \left( \sum_{x \in \supp(\nu)} \nu(x)\beta(x)(a,x')\right)\cdot h(x')\right]\right\rangle
+%\end{align*}
+%and therefore:
+%$$d \o ([-] \o h)^\star(\nu) = \hat{G}([-] \o h)^\star \o (\gamma_X \o \beta)^\star$$
+%which shows that $([-] \o h)^\star$ is indeed a $\hat{G}$-coalgebra homomorphism.
+%
+%For the converse, let $((\distf X, \mu_X), (\gamma_X \circ \beta)^\star)$ be a $\hat{G}$-coalgebra and let $m : \distf X \to {\Exp}/{\equiv}$ be a $\hat{G}$-coalgebra homomorphism from $((\distf X, \mu_X), (\gamma_X \circ \beta)^\star)$ to $(({\Exp}/{\equiv}, \alpha_{\equiv}), d)$. $m$ arises uniquely as a convex extension of some map $\ol{h} : X \to {\Exp}/{\equiv}$. This map can be factorised as $\ol{h} = [-] \o h$, for some $h \to \Exp$. Observe that any two such factorisations determine the same $\equiv$-solution.
+%%In particular, let $s : {\Exp}/{\equiv} \to \Exp$ be a section of $[-] : \Exp \to {\Exp}/{\equiv}$ (which exists because of the Axiom of Choice) and define $h = s \o \ol{h}$. 
+%
+%Since $m$ is the homomorphism, the inner square in the diagram above commutes. Since the triangle diagrams commute, we have that outer diagram commutes.
+%Recall \cref{lem:isomorphism_quotient} stating that $d : {\Exp}/{\equiv} \to \hat{G} {\Exp}/{\equiv} $ is an isomorphism. Because of that we have the following for all $x \in X$:
+%\begin{align*}
+%    ([-] \o h)(x) &= (d^{-1} \o \hat{G}([-] \o h)^\star \o \gamma_x \o \beta) (x) \\
+%    &= (d^{-1} \o \hat{G}([-] \o h)^\star) \left\langle\beta(x)(\checkmark), \lambda a . \lambda x' . \beta(x)(a,x') \right\rangle\\
+%    &= d^{-1} \left\langle\beta(x)(\checkmark), \lambda a. ([-] \o h)^\star(\lambda x' . \beta(x)(a,x')) \right\rangle\\
+%    &= d^{-1} \left\langle\beta(x)(\checkmark), \lambda a. \left[\bigoplus_{x'\in X } \beta(x)(a,x') \cdot h(x')\right]\right\rangle\\
+%    &= d^{-1} \left\langle\beta(x)(\checkmark), \lambda a. \bigboxplus_{x'\in X } \beta(x)(a,x') \cdot \left[h(x')\right]\right\rangle \\
+%    &= \left[\left(\bigoplus_{(a,x')\in A \times X} \beta(x)(a,x')\cdot a \seq h(x')\right)\beta(x)(\checkmark) \cdot \one \right]
+%\end{align*}
+%Hence, for all $x \in X$, we have that:
+%$$h(x) \equiv \left(\bigoplus_{(a,x')\in A \times X} \beta(x)(a,x')\cdot a \seq h(x')\right)\beta(x)(\checkmark) \cdot \one $$
+%which by \cref{lem:simpler_solution_lemma} implies that $h : X \to \Exp$ is a $\equiv$-solution to the system $\mathcal{S}(\beta)$ associated with the $\distf F$-coalgebra $(X, \beta)$.
+%\end{proof}
 
  
