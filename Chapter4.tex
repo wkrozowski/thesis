@@ -1543,9 +1543,9 @@ We are ready to prove the desired result.
 \subsection{Step 3: Systems of equations}
 In order to establish that ${\PExp}/{\equiv}$ is isomorphic to the rational fixpoint (which is the property that will eventually imply completeness), we establish the conditions of \Cref{c4:thm:proper}. One of the required things we need to show is that the determinisation of an arbitrary finite-state GPTS admits a unique homomorphism to the coalgebra carried by ${\PExp}/{\equiv}$. In other words, we need to convert states of an arbitrary finite-state GPTS to language equivalent expressions in a way which is unique up to the axioms of $\equiv$. This can be thought of as an abstract reformulation of one direction of the Kleene theorem to the case of PRE. To make that possible, we give a construction inspired by Brzozowski's equation solving method~\cite{Brzozowski:1964:Expressions} of converting a DFA to the corresponding regular expression. We start by stating the necessary definitions.
 \begin{definition}
-	A left-affine system on finite set \(Q\) of unknowns is a quadruple
+	A left-affine system on finite non-empty set \(Q\) of unknowns is a quadruple
 \begin{align*}
-	\mathcal{S}=\langle &M \colon Q \times Q \to \PExp, p \colon Q \times Q \to \interval{0}{1}, b \colon Q \to \PExp, r \colon Q \to \interval{0}{1} \rangle
+	\mathcal{S}=\left( M \colon Q \times Q \to \PExp, p \colon Q \times Q \to \interval{0}{1}, b \colon Q \to \PExp, r \colon Q \to \interval{0}{1} \right)
 \end{align*}
 such that for all $q,q' \in Q$, \(\sum_{q' \in Q}p_{q,q'} + r_q = 1\) and $E(M_{q,q'})=0$.
 \end{definition}
@@ -1561,87 +1561,96 @@ such that for all $q,q' \in Q$, \(\sum_{q' \in Q}p_{q,q'} + r_q = 1\) and $E(M_{
     Every left-affine system of equations admits a unique $\equiv$-solution.
 \end{theorem}
 \begin{proof}
-    Let $\mathcal{M}=(M, p, b, r)$ be an arbitrary left-affine system of equations.
-    We proceed by induction on the size of $Q$. Since $Q$ is finite, we can safely assume that $Q=\{q_1, \dots q_n\}$. We will write $M_{i, j}$ instead of $M_{q_i, q_j}$ and similarly $p_i$ for $p_{q_i}$, $b_i$ for $b_{q_i}$ and $r_i$ for $r_{q_i}$.
-    
-    If $Q=\{q_1\}$, then we set $h(q_1) = {M_{1,1}}^{[p_{1,1}]}\seq b_1$. To see that it is indeed a $\equiv$-solution, observe the following:
+    We will write $\mathcal{M}=(M, p, b, r)$ for an arbitrary left-affine system of equations on some finite set $Q$. Since $Q$ is finite and non-empty, we can safely assume that $Q=\{q_1, \dots q_n\}$ for some positive $n \in \N$. We proceed by induction on $n$. 
+        
+    \fbox{Base case} If $Q=\{q_1\}$, then we set $h(q_1) = {M_{1,1}}^{[p_{1,1}]}\seq b_1$. To see that it is indeed a $\equiv$-solution, observe the following:
     \begin{align*}
-        h(q_1) &= {M_{1,1}}^{[p_{1,1}]}\seq b_{1} \\
+        h(q_1) &= {M_{1,1}}^{[p_{1,1}]}\seq b_{1} \tag{Def. of $h$}\\
         &\equiv \left(M_{1,1} \seq {M_{1,1}}^{[p_{1,1}]} \oplus_{p_{1,1}} \one \right) \seq b_{1} \tag{\textsf{Unroll}}\\
         &\equiv M_{1,1} \seq {M_{1,1}}^{[p_{1,1}]} \seq b_{1} \oplus_{p_{1,1}} b_{1} \tag{\textsf{D1}}\\
-        &\equiv M_{1,1} \seq h(q_{1}) \oplus_{p_{1,1}} b_{1}\\
-        &\equiv p_{1,1} \cdot M_{1,1} \seq h(q_{1}) \oplus {(1 - p_{1,1})} \cdot b_1 \\
-        &\equiv p_{1,1} \cdot M_{1,1} \seq h(q_{1}) \oplus {r_1} \cdot b_1 \tag{$r_1 = 1 - p_{1,1}$}\\
+        &\equiv M_{1,1} \seq h(q_{1}) \oplus_{p_{1,1}} b_{1} \tag{Def. of $h$}\\
+        &\equiv p_{1,1} \cdot \left( M_{1,1} \seq h(q_{1})\right) \oplus {(1 - p_{1,1})} \cdot b_1 \\
+        &\equiv p_{1,1} \cdot \left(M_{1,1} \seq h(q_{1})\right) \oplus {r_1} \cdot b_1 \tag{$r_1 = 1 - p_{1,1}$}\\
     \end{align*}
-%    Given an another $\equiv$-solution $g : Q \to \Exp$, we have that:
-%    \begin{align*}
-%        g(q_1) &\equiv  p_{1,1} \cdot{M_{1,1}} \seq g(q_1) \oplus r_1 \cdot b_1 \\
-%        &\equiv  p_{1,1} \cdot{M_{1,1}} \seq g(q_1) \oplus \ol{p_{1,1}} \cdot b_1  \tag{$r_1 = 1 - p_{1,1}$} \\
-%        &\equiv  {M_{1,1}} \seq g(q_1) \oplus_{p_{1,1}} b_1\\  
-%        &\equiv {M_{1,1}}^{[p_{1,1}]}\seq b_1 \tag{\textbf{Unique} and $E(M_{1,1})=0$}\\
-%        &\equiv h(q_1)
-%    \end{align*}
-%    For the induction step, assume that all systems of the size \(n\) admit a unique $\equiv$-solution. First, we show that problem of finding $\equiv$-solution to the system of \(n+1\) unknowns can be reduced to the problem of finding $\equiv$-solution to the system with $n$ unknowns. Let $Q=\{q_1, \dots, q_{n+1}\}$. One of the equivalences that need to hold for $h : Q \to \Exp$ to be a $\equiv$-solution to the system $\mathcal{M}=(p, M, r, b)$ of size $n+1$ is the following:
-%    $$
-%    h(q_{n+1}) \equiv \left(\bigoplus_{i=1}^{n+1} p_{{n+1}, i} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus r_{{n+1}} \cdot b_{{n+1}} 
-%    $$
-%    We can unroll the $n+1$-ary sum (\Cref{lem:sum_unrolling}) to obtain:
-%    \begin{align*}
-%         h(q_{n+1}) &\equiv M_{n+1, n+1} \seq h(q_{n+1}) \oplus_{p_{n+1, n+1}} \\ &\quad\quad \left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{\ol{p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus \frac{r_{{n+1}}}{\ol{p_{n+1, n+1}}} \cdot b_{{n+1}} \right)
-%    \end{align*}
-%    Since $E(M_{n+1, n+1}) = 0$ we can apply the \textbf{Unique} fixpoint axiom and obtain:
-%    \begin{align*}
-%        h(q_{n+1}) &\equiv M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{\ol{p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus \frac{r_{{n+1}}}{\ol{p_{n+1, n+1}}} \cdot b_{{n+1}} \right)
-%    \end{align*}
-%    Observe that the above only depends on $h(q_1), \dots h(q_n)$ and we can substitute it in the equations for $h(q_1), \dots, h(q_n)$. For an arbitrary $q_j$, such that $ j \leq n$, we have that:
-%    \begin{align*}
-%         h(q_{j}) &\equiv p_{j, n+1}\cdot M_{j, n+1} \seq h(q_{n+1}) \oplus \left(\bigoplus_{i=1}^{n} {p_{{j}, i}} \cdot M_{{j}, i}\seq h(q_{i}) \right) \oplus {r_{{j}}} \cdot b_{{j}} 
-%    \end{align*}
-%    Now, substitute $h(q_{n+1})$ to obtain the following:
-%        \begin{align*}
-%         h(q_{j}) &\equiv \left(\bigoplus_{i=1}^{n} {p_{{j}, i}} \cdot M_{{j}, i}\seq h(q_{i}) \right) \oplus {r_{{j}}} \cdot b_{{j}}\\& \quad \oplus p_{j, n+1}\cdot M_{j, n+1} \seq M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{\ol{p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus \frac{r_{{n+1}}}{\ol{p_{n+1, n+1}}} \cdot b_{{n+1}} \right)\\
-%    \end{align*}
-%    We can apply \Cref{lem:generalised_left_distributivity} to rearrange the above into:
-%    \begin{align*}
-%         h(q_{j}) &\equiv \left(\bigoplus_{i=1}^{n} {p_{{j}, i}} \cdot M_{{j}, i}\seq h(q_{i}) \right)\\& \quad \oplus \left(\bigoplus_{i=1}^{n} \frac{p_{j, n+1}p_{{n+1}, i}}{\ol{p_{n+1, n+1}}} \cdot M_{j, n+1} \seq M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq M_{{n+1}, i}\seq h(q_{i}) \right) \\
-%         &\quad \oplus {r_{{j}}} \cdot b_{{j}} \oplus \frac{p_{j, n+1}r_{{n+1}}}{\ol{p_{n+1, n+1}}} \cdot M_{j, n+1} \seq M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq b_{{n+1}}\\
-%    \end{align*}
-%    To simplify the expression above, we introduce the following shorthands:
-%    \begin{gather*}
-%        s_{j,i} = p_{j,i} + \frac{p_{j, n+1} p_{n+1, i}}{\ol{p_{n+1, n+1}}}\\
-%        N_{j,i} = \frac{p_{{j}, i}}{s_{j,i}} \cdot M_{{j}, i} \oplus \frac{p_{j, n+1}p_{{n+1}, i}}{s_{j,i}\ol{p_{n+1, n+1}}} \cdot M_{j, n+1} \seq M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq M_{{n+1}, i}\\
-%        t_j = r_j + \frac{p_{j, n+1}r_{{n+1}}}{\ol{p_{n+1, n+1}}}\\
-%        c_j = \frac{r_j}{t_j}\cdot b_j \oplus \frac{p_{j, n+1}r_{{n+1}}}{t_j\ol{p_{n+1, n+1}}} \cdot M_{j, n+1} \seq M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq b_{{n+1}}
-%    \end{gather*}
-%    Observe that $E(N_{j,i})=0$.
-%    \noindent
-%    Because of \cref{lem:grouping_probabilities} and \Cref{lem:generalised_right_distributivity}, we have that:
-%    \begin{align*}
-%        h(q_j) = \left(\bigoplus_{i=1}^n s_{j, i} \cdot N_{j,i} \seq h(q_i)\right) \oplus t_j \cdot c_j
-%    \end{align*}
-%    In other words, $h$ restricted to $\{q_1, \dots, q_n\}$ must be a $\equiv$-solution to the left affine system $\mathcal{T}=(N, s, c, t)$, which by induction hypothesis admits a unique solution. We can extend the solution to $\mathcal{T}$ to the solution to the whole system $\mathcal{S}$, by setting $h({q_n})$ to be: 
-%    \begin{align*}
-%        h(q_{n+1}) &\equiv M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{\ol{p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus \frac{r_{{n+1}}}{\ol{p_{n+1, n+1}}} \cdot b_{{n+1}} \right)
-%    \end{align*}
-%    By using \textbf{Unroll} axiom and performing analogous axiomatic manipulation as before, one can show that it is an indeed a $\equiv$-solution to $\mathcal{S}$.
-%
-%    For the uniqueness, assume that we have $g : Q \to \Exp$, an another $\equiv$-solution to system $\mathcal{M}$. Because of \textbf{Unique} fixpoint axiom, we have that:
-%    \begin{align*}
-%        g(q_{n+1}) &\equiv M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{\ol{p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq g(q_{i}) \right) \oplus \frac{r_{{n+1}}}{\ol{p_{n+1, n+1}}} \cdot b_{{n+1}} \right)
-%    \end{align*}
-%     Substituting it to equations for $h(q_1), \dots, h(q_n)$ and performing the steps as earlier would lead to requiring that for all $1 \leq j \leq n$, we have that:
-%    \begin{align*}
-%        g(q_j) = \left(\bigoplus_{i=1}^n s_{j, i} \cdot N_{j,i} \seq g(q_i)\right) \oplus t_j \cdot c_j
-%    \end{align*}
-%    By induction hypothesis left-affine system of equations $\mathcal{T}$, admits a unique $\equiv$-solution. Therefore for all $1 \leq j \leq n$, we have that
-%    $g(q_j)\equiv h(q_j)$.
-%    Because of this, we have that:
-%    \begin{align*}
-%        g(q_{n+1}) &\equiv M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{\ol{p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq g(q_{i}) \right) \oplus \frac{r_{{n+1}}}{\ol{p_{n+1, n+1}}} \cdot b_{{n+1}} \right)\\
-%        &\equiv M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{\ol{p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus \frac{r_{{n+1}}}{\ol{p_{n+1, n+1}}} \cdot b_{{n+1}} \right)\\
-%        &\equiv h(q_{n+1})
-%    \end{align*}
-%    which completes the proof.
+    Given an another $\equiv$-solution $g \colon Q \to \PExp$, we have that:
+    \begin{align*}
+        g(q_1) &\equiv  p_{1,1} \cdot \left({M_{1,1}} \seq g(q_1)\right) \oplus r_1 \cdot b_1 \\
+        &\equiv  p_{1,1} \cdot \left({M_{1,1}} \seq g(q_1)\right) \oplus {(1-p_{1,1})} \cdot b_1  \tag{$r_1 = 1 - p_{1,1}$} \\
+        &\equiv  {M_{1,1}} \seq g(q_1) \oplus_{p_{1,1}} b_1\\  
+        &\equiv {M_{1,1}}^{[p_{1,1}]}\seq b_1 \tag{(\textsf{Unique}) and $E(M_{1,1})=0$}\\
+        &\equiv h(q_1)
+    \end{align*}
+    
+    \fbox{Induction step} Assume that all systems of the size \(n\) admit a unique $\equiv$-solution. We begin by demonstrating that the problem of finding a $\equiv$-solution for a system with \(n+1\) unknowns can be reduced to finding $\equiv$-solution to the system with $n$ unknowns.     
+    	Let $Q=\{q_1, \dots, q_{n+1}\}$. For $h \colon Q \to \PExp$ to be a $\equiv$-solution to the system $\mathcal{M}$ of size $n+1$, it must satisfy the following equivalence:
+    $$
+    h(q_{n+1}) \equiv \left(\bigoplus_{i=1}^{n+1} p_{{n+1}, i} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus r_{{n+1}} \cdot b_{{n+1}} 
+    $$
+    We can expand the $(n+1)$-ary sum in the equation above using \Cref{c4:lem:sum_unrolling} and obtain the following:
+    {
+    \small
+    \begin{align*}
+         h(q_{n+1}) &\equiv M_{n+1, n+1} \seq h(q_{n+1}) \oplus_{p_{n+1, n+1}} \\ &\quad\quad \left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{{1-p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus \frac{r_{{n+1}}}{{1-p_{n+1, n+1}}} \cdot b_{{n+1}} \right)
+    \end{align*}
+    }
+    Since $E(M_{n+1, n+1}) = 0$, we can apply the (\textsf{Unique}) axiom to derive the following:
+    {
+    \small
+    \begin{align*}
+        h(q_{n+1}) &\equiv M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{{1-p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus \frac{r_{{n+1}}}{{1-p_{n+1, n+1}}} \cdot b_{{n+1}} \right)
+    \end{align*}
+    }
+    Observe that the above expression depends only on $h(q_1), \dots h(q_n)$. ). We now substitute the equation for $h(q_{n+1})$ into the equations for $h(q_1), \dots, h(q_n)$. Before proceeding, recall that for any $q_j$, such that $ j \leq n$, we have:
+    \begin{align*}
+         h(q_{j}) &\equiv p_{j, n+1}\cdot M_{j, n+1} \seq h(q_{n+1}) \oplus \left(\bigoplus_{i=1}^{n} {p_{{j}, i}} \cdot M_{{j}, i}\seq h(q_{i}) \right) \oplus {r_{{j}}} \cdot b_{{j}} 
+    \end{align*}
+	Substituting $h(q_{n+1})$ now yields the following:
+	{
+	\scriptsize
+    \begin{align*}
+         h(q_{j}) &\equiv \left(\bigoplus_{i=1}^{n} {p_{{j}, i}} \cdot M_{{j}, i}\seq h(q_{i}) \right) \oplus {r_{{j}}} \cdot b_{{j}}\\& \quad \oplus p_{j, n+1}\cdot M_{j, n+1} \seq M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{{1-p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus \frac{r_{{n+1}}}{{1-p_{n+1, n+1}}} \cdot b_{{n+1}} \right)\\
+    \end{align*}
+    }
+   	Applying \Cref{c4:lem:generalised_left_distributivity}, we can rewrite the above as:
+    \begin{align*}
+         h(q_{j}) &\equiv \left(\bigoplus_{i=1}^{n} {p_{{j}, i}} \cdot M_{{j}, i}\seq h(q_{i}) \right) \oplus {r_{{j}}} \cdot b_{{j}}\\& \quad \oplus \left(\bigoplus_{i=1}^{n} \frac{p_{j, n+1}p_{{n+1}, i}}{{1-p_{n+1, n+1}}} \cdot M_{j, n+1} \seq M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq M_{{n+1}, i}\seq h(q_{i}) \right) \\
+         &\quad \oplus \frac{p_{j, n+1}r_{{n+1}}}{{1-p_{n+1, n+1}}} \cdot \left( M_{j, n+1} \seq M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq b_{{n+1}} \right)\\
+    \end{align*}
+    To simplify the expression above, we introduce the following shorthand notation fo $i,j \in \{1, \dots, n\}$:
+    \begin{spreadlines}{20pt}
+    \begin{gather*}
+        s_{j,i} = p_{j,i} + \frac{p_{j, n+1} p_{n+1, i}}{{1-p_{n+1, n+1}}}\\
+        N_{j,i} = \frac{p_{{j}, i}}{s_{j,i}} \cdot M_{{j}, i} \oplus \frac{p_{j, n+1}p_{{n+1}, i}}{s_{j,i}{(1-p_{n+1, n+1})}} \cdot \left(M_{j, n+1} \seq M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq M_{{n+1}, i}\right)\\
+        t_j = r_j + \frac{p_{j, n+1}r_{{n+1}}}{{p_{n+1, n+1}}}\\
+        c_j = \frac{r_j}{t_j}\cdot b_j \oplus \frac{p_{j, n+1}r_{{n+1}}}{t_j{(1-p_{n+1, n+1})}} \cdot M_{j, n+1} \seq M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq b_{{n+1}}
+       \end{gather*}
+    \end{spreadlines}
+	Note that $E(N_{j,i})=0$ for all $i,j \in \{1, \dots, n\}$. Now, applying \Cref{c4:lem:grouping_probabilities} and \Cref{c4:lem:generalised_right_distributivity}, we obtain the following for all $j \in \{1, \dots, n\}$:
+    \begin{align*}
+        h(q_j) = \left(\bigoplus_{i=1}^n s_{j, i} \cdot N_{j,i} \seq h(q_i)\right) \oplus t_j \cdot c_j
+    \end{align*}
+In other words, the restriction of $h$ to $\{q_1, \dots, q_n\}$ must be a $\equiv$-solution to the left-affine system $\mathcal{T}=(N, s, c, t)$, which, by the induction hypothesis, has a unique solution. This solution can be extended to the entire system $\mathcal{S}$, by defining $h({q_n})$ as follows: 
+    \begin{align*}
+        h(q_{n+1}) &\equiv M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{{1-p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus \frac{r_{{n+1}}}{{1-p_{n+1, n+1}}} \cdot b_{{n+1}} \right)
+    \end{align*}
+ By applying the (\textsf{Unroll}) axiom and reversing the axiomatic manipulations outlined above, it can be shown that this is indeed a $\equiv$-solution to $\mathcal{S}$.
+ 
+To prove the $\equiv$-uniqueness of $h$, assume that $g \colon Q \to \PExp$, is another $\equiv$-solution to the system $\mathcal{S}$. Because of (\textsf{Unique}) axiom, we have that:
+    \begin{align*}
+        g(q_{n+1}) &\equiv M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{{1-p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq g(q_{i}) \right) \oplus \frac{r_{{n+1}}}{{1-p_{n+1, n+1}}} \cdot b_{{n+1}} \right)
+    \end{align*}
+     Substituting this into the equations for $h(q_1), \dots, h(q_n)$ and following the same steps as before leads to the requirement that, for all $j \in \{1, \dots, n\}$, we have:
+    \begin{align*}
+        g(q_j) = \left(\bigoplus_{i=1}^n s_{j, i} \cdot N_{j,i} \seq g(q_i)\right) \oplus t_j \cdot c_j
+    \end{align*}
+    By the induction hypothesis, the left-affine system of equations $\mathcal{T}$ admits a unique $\equiv$-solution. Therefore for all $j \in \{1, \dots, n\}$, we have that $g(q_j)\equiv h(q_j)$.
+	Consequently, we have that
+    \begin{align*}:
+        g(q_{n+1}) &\equiv M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{{1-p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq g(q_{i}) \right) \oplus \frac{r_{{n+1}}}{{1-p_{n+1, n+1}}} \cdot b_{{n+1}} \right)\\
+        &\equiv M_{n+1, n+1}^{[p_{n+1, n+1}]}\seq\left(\left(\bigoplus_{i=1}^{n} \frac{p_{{n+1}, i}}{{1-p_{n+1, n+1}}} \cdot M_{{n+1}, i}\seq h(q_{i}) \right) \oplus \frac{r_{{n+1}}}{{1-p_{n+1, n+1}}} \cdot b_{{n+1}} \right)\\
+        &\equiv h(q_{n+1})
+    \end{align*}
+	This completes the proof.	
 \end{proof}
 
 
