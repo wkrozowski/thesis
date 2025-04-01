@@ -1440,6 +1440,28 @@ We now move on to showing completeness through the steps described in \Cref{c4:s
 \subsection{Step 1: Algebra structure}
 Throughout the soundness proof, we have shown that the semantics of any expression $e \in \PExp$ can also be seen as the language of the state corresponding to the equivalence class $[e]$ in the deterministic transition system ($\funG$-coalgebra) defined on the set ${\PExp}/{\equiv}$. The completeness proof will rely on establishing that this coalgebra possesses a universal property of rational fixpoint, that will imply completeness. A first step in arguing so is observing that the coalgebra $\left({\PExp}/{\equiv},d \right)$ interacts well with an algebra structure on ${\PExp}/{\equiv}$ defined in \Cref{c4:lem:coarser_quotient_is_a_pca}. 
 Thanks to the fact that we can lift $\funG \colon \Set \to \Set$ to $\overline{\funG} \colon \pca \to \pca$, the set $\funG{\PExp}/{\equiv}$ also carries the algebra structure. In such a setting, the transition function $d \colon {\PExp}/{\equiv} \to \funG {\PExp}/{\equiv}$ becomes an algebra homomorphism.
+\begin{lemma}\label{c4:smappcahomom}
+    $d \colon {\PExp}/{\equiv} \to \funG{\PExp}/{\equiv}$ is a $\pca$ homomorphism $$d \colon ({\PExp}/{\equiv}, \alpha_{\equiv}) \to \overline{\funG}({\PExp}/{\equiv}, \alpha_{\equiv})$$
+\end{lemma}
+\begin{proof}
+        We need to show that $d \left(\bigboxplus_{i \in I} p_i \cdot [e_i]\right) = \bigboxplus_{i \in I} p_i \cdot d([e_i])$.
+        As a consequence of \Cref{c4:thm:fundamental_theorem}, we can safely assume that 
+        $e_i \equiv q^i \cdot \one \oplus \bigoplus_{j \in J} r^i_j \cdot a^i_j \seq e^i_j$ for all $i \in I$
+        and hence 
+        $d([e_i]) = \left\langle q^i , \lambda a. \left[\bigoplus_{a = a^i_j} r^i_j \cdot e^i_j\right] \right\rangle$.
+        We show the following:
+        \begin{align*}
+            d \left(\bigboxplus_{i \in I} p_i \cdot [e_i]\right) &= d \left(\left[\bigoplus_{i \in I} p_i \cdot e_i\right]\right) \tag{\Cref{c4:lem:coarser_quotient_is_a_pca}}\\
+            &=d \left(\left[ \bigoplus_{i \in I} p_i \cdot \left(q^i \cdot \one \oplus \bigoplus_{j \in J} r^i_j \cdot a^i_j \seq e^i_j\right) \right]\right) \tag{Def. of $e_i$}\\
+            &= d \left( \bigoplus_{i \in I} p_i q^i \cdot \one \oplus \bigoplus_{(i,j) \in I \times J} p_ir^i_j \cdot a^i_j \seq e^{i}_j\right) \tag{\Cref{c4:lem:flattening_convex_sums}} \\
+            &= \left\langle \sum_{i \in I} p_i q^i, \lambda a . \left[\bigoplus_{a = a^i_j} p_ir^i_j \cdot e^i_j\right]\right\rangle \tag{\Cref{c4:cor:concrete_coalgebra}}\\
+            &= \left\langle \sum_{i \in I} p_i q^i, \lambda a . \left[\bigoplus_{i \in I} p_i \cdot \left(\bigoplus_{a = a^i_j} r^i_j \cdot e^i_j\right)\right]\right\rangle \tag{\Cref{c4:lem:flattening_convex_sums}} \\
+            &= \left\langle \sum_{i \in I} p_i q^i, \lambda a . \bigboxplus_{i \in I} p_i \cdot \left[\bigoplus_{a = a^i_j} r^i_j \cdot e^i_j\right]\right\rangle \tag{\Cref{c4:lem:coarser_quotient_is_a_pca}}\\
+            &= \bigboxplus_{i \in I} p_i \left\langle q^i , \lambda a. \left[\bigoplus_{a = a^i_j} r^i_j \cdot e^i_j\right] \right\rangle \tag{Def. of $\overline{\funG}$}\\
+            &= \bigboxplus_{i \in I} p_i \cdot d(e_i) \tag{\Cref{c4:cor:concrete_coalgebra}}
+        \end{align*}
+  \end{proof}
+  As a consequence of the result showed above, we have that $\left({\PExp}/{\equiv}, d \colon {\PExp}/{\equiv} \to \overline{\funG}{\PExp}/{\equiv}\right)$ is a $\overline{\funG}$-coalgebra.
 
 
  
