@@ -1829,15 +1829,12 @@ Now, consider $\hat{\funG}([-] \circ h)^\sharp \circ (\gamma_X \circ \beta)^\sha
     &= \left\langle\sum_{x \in \supp(\nu)} \nu(x)\beta(x)(\checkmark), \lambda a\ldotp ([-] \circ h)^\sharp \left(\lambda x'. \sum_{x \in \supp(\nu)} \nu(x)\beta(x)(a,x')\right)\right\rangle\\
     &=\left\langle\sum_{x \in \supp(\nu)} \nu(x)\beta(x)(\checkmark), \lambda a.\left[\bigoplus_{x' \in X} \left( \sum_{x \in \supp(\nu)} \nu(x)\beta(x)(a,x')\right)\cdot h(x')\right]\right\rangle
 \end{align*}
-Hence, we obtain:
-$$d \circ ([-] \circ h)^\sharp(\nu) = \hat{\funG}([-] \circ h)^\sharp \circ (\gamma_X \circ \beta)^\sharp$$
-demonstrating that $([-] \circ h)^\sharp$ is indeed a $\hat{\funG}$-coalgebra homomorphism.
+Hence, we obtain $d \circ ([-] \circ h)^\sharp(\nu) = \hat{\funG}([-] \circ h)^\sharp \circ (\gamma_X \circ \beta)^\sharp$, thus demonstrating that $([-] \circ h)^\sharp$ is indeed a $\hat{\funG}$-coalgebra homomorphism.
 
 For the converse, let $((\distf X, \mu_X), (\gamma_X \circ \beta)^\sharp)$ be a $\hat{\funG}$-coalgebra and let $m \colon \distf X \to {\PExp}/{\equiv}$ be a $\hat{\funG}$-coalgebra homomorphism from $((\distf X, \mu_X), (\gamma_X \circ \beta)^\sharp)$ to $(({\PExp}/{\equiv}, \alpha_{\equiv}), d)$. Recall that $m$ arises uniquely as a convex extension of some map $\overline{h} \colon X \to {\PExp}/{\equiv}$. This map can be factored as $\overline{h} = [-] \circ h$, for some $h \to \PExp$. Observe that any two such factorisations determine the same $\equiv$-solution.
 In particular, let $s \colon {\PExp}/{\equiv} \to \PExp$ be a section of $[-] \colon \PExp \to {\PExp}/{\equiv}$ and define $h = s \circ \overline{h}$. 
 
-Since $m$ is the homomorphism, the inner square in the diagram above commutes. Since the triangle diagrams commute, we have that outer diagram commutes.
-Recall \Cref{c4:lem:isomorphism_quotient} stating that $d \colon {\PExp}/{\equiv} \to \hat{\funG} {\PExp}/{\equiv} $ is an isomorphism. Because of that we have the following for all $x \in X$:
+Since $m$ is a homomorphism, the inner square in the diagram above commutes. Moreover, as the triangle diagrams also commute, it follows that the outer diagram commutes as well. Recall \Cref{c4:lem:isomorphism_quotient}, which states that $d \colon {\PExp}/{\equiv} \to \hat{\funG} {\PExp}/{\equiv} $ is an isomorphism. Consequently, for all $x \in X$ we have the following:
 \begin{align*}
     ([-] \circ h)(x) &= (d^{-1} \circ \hat{\funG} ([-] \circ h)^\sharp \circ \gamma_x \circ \beta) (x) \\
     &= (d^{-1} \circ \hat{\funG}([-] \circ h)^\sharp) \left\langle\beta(x)(\checkmark), \lambda a \ldotp \lambda x' \ldotp \beta(x)(a,x') \right\rangle\\
@@ -1846,9 +1843,22 @@ Recall \Cref{c4:lem:isomorphism_quotient} stating that $d \colon {\PExp}/{\equiv
     &= d^{-1} \left\langle\beta(x)(\checkmark), \lambda a\ldotp \bigboxplus_{x'\in X } \beta(x)(a,x') \cdot \left[h(x')\right]\right\rangle \tag{\Cref{c4:lem:coarser_quotient_is_a_pca}}\\
     &= \left[\left(\bigoplus_{(a,x')\in \alphabet \times X} \beta(x)(a,x')\cdot a \seq h(x')\right)\beta(x)(\checkmark) \cdot \one \right] \tag{Def. of $d^{-1}$}
 \end{align*}
-Hence, for all $x \in X$, we have that:
-$$h(x) \equiv \left(\bigoplus_{(a,x')\in \alphabet \times X} \beta(x)(a,x')\cdot a \seq h(x')\right) \oplus \beta(x)(\checkmark) \cdot \one $$
-which by \Cref{c4:lem:simpler_solution_lemma} implies that $h \colon X \to \PExp$ is a $\equiv$-solution to the system $\mathcal{S}(\beta)$ associated with the $\distf \funF$-coalgebra $(X, \beta)$.
 \end{proof}
+Aside from the completeness argument, the above result also gives us an analogue of (one direction of) Kleene's theorem for $\distf \funF$-coalgebras as a corollary. The other direction, converting PRE to finite-state  $\distf \funF$-coalgebras is given by the Antimirov construction, described in \Cref{c4:sec:operational_semantics}.
+\begin{corollary}\label{c4:cor:kleene}
+	Let $(X, \beta)$ be a finite-state $\distf F$-coalgebra. For every state $x \in X$, there exists an expression $e_x \in \PExp$, such that the probabilistic language denoted by $x$ is the same as $\llbracket e_x \rrbracket$. 
+\end{corollary}
+\begin{proof}
+	Let $h \colon X \to \PExp$ be the solution to the system $\mathcal{S}(\beta)$ associated with a $\distf \funF$-coalgebra $(X, \beta)$ existing because of \Cref{c4:thm:unique_solutions}. For each $x \in X$, set $e_x = h(x)$. Recall that because of \Cref{c4:lem:solutions_homomorphisms}, $([-] \circ h)^{\sharp} \colon \distf X \to {\PExp}/{\equiv}$ is a $\hat{\funG}$-coalgebra homomorphism from $(\distf X, (\gamma_X \circ \beta)^{\sharp})$ to $({\PExp}/{\equiv}, d)$. For any $x \in X$, we have the following:
+		\begin{align*}
+			\llbracket e_x \rrbracket &= \llbracket h(x) \rrbracket \tag{Def. of $e_x$} \\
+			&= \beh{d}  ([h(x)]) \tag{\Cref{c4:lem:factoring_lemma2}} \\
+			&= \beh{d } \circ ([-] \circ h)^{\sharp} (\eta_{X}(x)) \tag{Free-forgetful adjunction} \\
+			&=  \beh {(\gamma_X \circ \beta)^{\sharp}} (\eta_{X}(x)) \tag{$([-] \circ h)^{\sharp}$ is a homomorphism}
+			&= \langmap_{(X, \beta)} (x)
+		\end{align*}
+\end{proof}
+\subsection{Step 4: Establish the universal property}
+
 
  
