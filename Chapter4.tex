@@ -557,7 +557,7 @@ for regular expressions and nondeterminisic automata due to Antimirov~\cite{Anti
 The expression $\zero$ is mapped to the empty subdistribution, intuitively representing a deadlock. On the other hand, the expression $\one$ represents immediate acceptance, that is it transitions to $\checkmark$ with probability $1$. For any letter $a \in \alphabet$ in the alphabet, the expression $a$ performs $a$-labelled transition to $\one$ with probability $1$. The outgoing transitions of the probabilistic choice $e \oplus_p f$ consist of the outgoing transitions of $e$ with
 probabilities scaled by $p$ and the outgoing transitions of $f$ scaled by $1-p$.
 
-The definition of $\partial(e;f)$ is slightly more involved. We need to factor in the possibility that $e$ may accept with some probability $t$, in which case the outgoing transitions of $f$ contribute to the outgoing transitions of $e \seq f$. Formally, $\partial(e \seq f) = \partial(e) \lhd f$ where for any $f \in \PExp$ the operation $( - \lhd f) : \distf \funF \PExp \to \distf \funF \PExp$ is given by $( - \lhd f) = {c_f}^{\star}$, the convex extension of $c_f : 1+A\times \PExp \to \distf (1+A \times \PExp)$ given below on the left.
+The definition of $\partial(e;f)$ is slightly more involved. We need to factor in the possibility that $e$ may accept with some probability $t$, in which case the outgoing transitions of $f$ contribute to the outgoing transitions of $e \seq f$. Formally, $\partial(e \seq f) = \partial(e) \lhd f$ where for any $f \in \PExp$ the operation $( - \lhd f) : \distf \funF \PExp \to \distf \funF \PExp$ is given by $( - \lhd f) = {c_f}^{\sharp}$, the convex extension of $c_f : 1+A\times \PExp \to \distf (1+A \times \PExp)$ given below on the left.
 \begin{gather*}
 c_f(x) = \begin{cases}
     \partial(f) & x = \checkmark \\
@@ -1049,8 +1049,8 @@ As a consequence of \Cref{c4:thm:fundamental_theorem}, we have that $\qcoa \colo
     \begin{align*}
         &(\qcoa^{-1} \circ \qcoa)[e]_{\equiv_b} = (\qcoa^{-1} \circ \distf \funF [-]_{\equiv_b} \circ {\partial})(e) \tag{${[-]_{\equiv}}$ is a $\distf \funF$-coalgebra homomorphism} \\
         &\quad= \left[ \partial(e)(\checkmark) \cdot \one \oplus \left( \bigoplus_{(a,[e']_{\equiv_b}) \in \supp((\distf \funF [-]_{\equiv_b} \circ \partial)(e))}(\distf \funF [-]_{\equiv_b} \circ \partial)(e)(a,[e']_{\equiv_b}))\cdot a\seq e' \right) \right]_{\equiv_b}\\
-        &\quad= \left[ \partial(e)(\checkmark) \cdot \one \oplus \left(\bigoplus_{(a,[e']_{\equiv_b}) \in A \times {\PExp}/{\equiv_b}}(\distf \funF [-]_{\equiv_b} \circ \partial)(e)(a,[e']_{\equiv_b}))\cdot a\seq e'\right)\right]_{\equiv_b} \tag{\Cref{c4:prop:properties_of_positive_convex_algebras}}\\
-        &\quad= \left[ \partial(e)(\checkmark) \cdot \one\oplus \left(\bigoplus_{(a,[e']_{\equiv_b}) \in A \times {\PExp}/{\equiv_b}} \left(\sum_{g \equiv e'} \partial(e)(a,g) \right) \cdot a \seq e'\right)\right]_{\equiv_b} \tag{Def. of $\qcoa$}\\
+        &\quad= \left[ \partial(e)(\checkmark) \cdot \one \oplus \left(\bigoplus_{(a,[e']_{\equiv_b}) \in \alphabet \times {\PExp}/{\equiv_b}}(\distf \funF [-]_{\equiv_b} \circ \partial)(e)(a,[e']_{\equiv_b}))\cdot a\seq e'\right)\right]_{\equiv_b} \tag{\Cref{c4:prop:properties_of_positive_convex_algebras}}\\
+        &\quad= \left[ \partial(e)(\checkmark) \cdot \one\oplus \left(\bigoplus_{(a,[e']_{\equiv_b}) \in \alphabet \times {\PExp}/{\equiv_b}} \left(\sum_{g \equiv e'} \partial(e)(a,g) \right) \cdot a \seq e'\right)\right]_{\equiv_b} \tag{Def. of $\qcoa$}\\
         &\quad = [e]_{\equiv_b} \tag{Derivation above}
     \end{align*}
     }
@@ -1153,7 +1153,7 @@ Formally, we equip a quotient ${\PExp}/{\equiv_b}$ with $\distf \funF$-coalgebra
 		\arrow["\qcoa"', from=1-3, to=2-3]
 		\arrow["\gamma_{{\PExp}/{\equiv}_0}"', from=2-3, to=3-3]
 		\arrow["{\funG \alpha_{\equiv_b}}"', from=3-3, to=4-3]
-		\arrow["(\gamma_{{\PExp}/{\equiv_b}} \circ \qcoa )^\star"', from=1-1, to=4-1]
+		\arrow["(\gamma_{{\PExp}/{\equiv_b}} \circ \qcoa )^\sharp"', from=1-1, to=4-1]
 		\arrow["{\alpha_{\equiv_b}}", from=1-1, to=1-3]
 		\arrow["{\funG\alpha_{\equiv_b}}", from=4-1, to=4-3]
 		\arrow["{\distf\qcoa}", from=1-1, to=2-2]
@@ -1475,13 +1475,13 @@ It can be easily noticed that the generalised determinisation of coalgebras with
 \end{theorem}
 As much as $\overline{\funG} \colon \pca \to \pca$ is known to be proper~\cite{Sokolova:2018:Proper}, not every $\overline{\funG}$-coalgebra with a free finitely generated carrier corresponds to a determinisation of some (converted) GPTS. This is simply too general, as some $\overline\funG$-coalgebras with free finitely generated carriers might be determinisations of RPTS not corresponding to any GPTS. To circumvent that, instead of looking at all coalgebras for the functor $\overline{\funG} \colon \pca \to \pca$, we can restrict our attention in a way that will exclude determinisations of {RPTS} not corresponding to any {GPTS}. To do so, define a functor $\hat{\funG} \colon \pca \to \pca$. Given a positive convex algebra $\mathbb{X}$ defined on a set $X$, we define:
 \begin{align*}
-    \hat{\funG} \mathbb{X}  = &\{(o, f) \in \interval{0}{1} \times X^\alphabet \mid \forall {a \in A}\ldotp\exists {p_a^i \in [0,1], x_a^i \in X}\ldotp \\ &f(a) = \bigboxplus_{i \in I} p_a^i x_a^i \text{ and } \sum_{a \in \alphabet} \sum_{i \in I} p_a^i \leq 1-o\}
+    \hat{\funG} \mathbb{X}  = &\{(o, f) \in \interval{0}{1} \times X^\alphabet \mid \forall {a \in \alphabet}\ldotp\exists {p_a^i \in [0,1], x_a^i \in X}\ldotp \\ &f(a) = \bigboxplus_{i \in I} p_a^i x_a^i \text{ and } \sum_{a \in \alphabet} \sum_{i \in I} p_a^i \leq 1-o\}
 \end{align*}
 The $\pca$ structure on $\hat{\funG}\mathbb{X}$, as well as the action of $\hat{\funG}$ on arrows is defined to be the same as in the case of $\funG$. 
-It can be immediately observed that $\hat{G}$ is a subfunctor of $G$. Whenever the algebra structure is clear from the context, we write $\hat{\funG}X$ for $\hat{\funG}\mathbb{X}$. Most importantly for us, thanks to the result of Sokolova and Woracek, we know that $\hat{\funG}$ is also proper~\cite{Sokolova:2018:Proper}. We can now see the following correspondence:
+It can be immediately observed that $\hat{\funG}$ is a subfunctor of $G$. Whenever the algebra structure is clear from the context, we write $\hat{\funG}X$ for $\hat{\funG}\mathbb{X}$. Most importantly for us, thanks to the result of Sokolova and Woracek, we know that $\hat{\funG}$ is also proper~\cite{Sokolova:2018:Proper}. We can now see the following correspondence:
 \begin{lemma}\label{lem:onetoone_sublemma}
     $\distf \funF$-coalgebras with finite carriers are in one-to-one correspondence with $\hat{\funG}$-coalgebras with free finitely generated carriers.
-    % $$\inferrule{\beta : X \to \distf F X \text{ on } \Set}{(\gamma_X \o \beta)^\star : (\distf X, \mu_X) \to \hat{G} (\distf X, \mu_X) \text{ on } \pca}$$    
+    % $$\inferrule{\beta : X \to \distf F X \text{ on } \Set}{(\gamma_X \circ \beta)^\sharp : (\distf X, \mu_X) \to \hat{\funG} (\distf X, \mu_X) \text{ on } \pca}$$    
     $$\mprset{fraction={===}}
       \inferrule {\beta \colon X \to \distf \funF X \text{ in } \Set} {\xi : (\distf X, \mu_X) \to \hat{\funG} (\distf X, \mu_X) \text{ in } \pca}$$ 
       In other words, every coalgebra structure map $\xi \colon (\distf X, \mu_X) \to \hat{\funG} (\distf X, \mu_X)$ is given by $\xi = (\gamma_X \circ \beta)^\sharp$ for some unique $\beta \colon X \to \distf \funF X$.
@@ -1530,7 +1530,7 @@ Next, we show that surjective $\overline{G}$-coalgebra homomorphisms preserve $\
  Let $((X, \alpha_X), \beta_X)$ be a $\hat{\funG}$-coalgebra, $((Y, \alpha_Y), \beta_Y)$ be a $\overline{\funG}$-coalgebra and let $e \colon X \to Y$ be a surjective $\overline{\funG}$-homomorphism $e \colon ((X, \alpha_X), \beta_X) \to ((Y, \alpha_Y),\beta_Y)$. We need to show that for all $y \in Y$, $\beta_Y(y) \in \forget \hat{\funG} (Y, \alpha_Y)$. 
  Pick an arbitrary $y \in Y $. Since $e \colon X \to Y $ is surjective, we know that $y=e(x)$. Let $\beta_X(x) = \langle o, f\rangle$. We have that: 
  $$\beta_Y(y) = (\beta_Y \circ e) (x) = ({\funG} e \circ \beta_X)(x) = \langle o, e \circ f \rangle $$
-Since $\beta_X(x) \in \hat{\funG}X$, we have that for all $a \in A$ there exist $p_a^i \in \interval{0}{1}$ and $x_a^i \in X$ such that $f(a)=\bigboxplus_{i \in I} p_a^i x_a^i$ and $\sum_a \sum_{i \in I} p_a^i \leq 1 - o$. Let $e(x_a^i)=y_a^i$.
+Since $\beta_X(x) \in \hat{\funG}X$, we have that for all $a \in \alphabet$ there exist $p_a^i \in \interval{0}{1}$ and $x_a^i \in X$ such that $f(a)=\bigboxplus_{i \in I} p_a^i x_a^i$ and $\sum_a \sum_{i \in I} p_a^i \leq 1 - o$. Let $e(x_a^i)=y_a^i$.
 For all $a \in \alphabet$, we have that:
 $$(e \circ f)(a) = e \left( \bigboxplus_{i \in I} p_a^i \cdot x_a^i \right) = \bigboxplus_{i \in I} p_a^i \cdot e(x_a^i)= \bigboxplus_{i \in I} p_a^i \cdot y_a^i$$
 Therefore, for all $a \in \alphabet$ there exist $p_a^i \in \interval{0}{1}$ and $y_a^i \in X$ such that $f(a)=\bigboxplus_{i \in I} p_a^i y_a^i$ and $\sum_a \sum_{i \in I} p_a^i \leq 1 - o$, which completes the proof.
@@ -1539,6 +1539,46 @@ We are ready to prove the desired result.
 \begin{proof}[Proof of \Cref{c4:lem:determinisations_correspond_to_df_coalgebras}]
 	    Recall that $({({\PExp}/{\equiv}, \alpha_{\equiv})},d)$ is a quotient coalgebra of $$({\PExp}/{\equiv_b}, \funG\alpha_{\equiv_b} \circ \gamma_{{\PExp}/{\equiv_b}} \circ \qcoa)$$
 	     which by \Cref{c4:lem:iamge_of_natural_transformation} is a $\hat{\funG}$-coalgebra. Because of \Cref{c4:lem:closed_under_quotients} so is $({{\PExp}/{\equiv}}, d)$.
+\end{proof}
+Moreover, when regarded as $\hat{\funG}$-coalgebra, $\left((\PExp/{\equiv}, \alpha_{\equiv}), d \right)$ forms a fixpoint of the functor, meaning $d$ is an isomorphism.
+\begin{lemma}\label{c4:lem:isomorphism_quotient}
+	$d \colon (\PExp, \alpha_{\equiv}) \to \hat{\funG}(\PExp, \alpha_{\equiv})$ is an isomorphism
+\end{lemma}
+\begin{proof}
+	We construct a map $d^{-1} \colon \hat{\funG} ({\PExp}/{\equiv}, \alpha_{\equiv}) \to ({\PExp}/{\equiv}, \alpha_{\equiv})$ and show that $d \circ d^{-1} = \id = d^{-1} \circ d$. Given that the forgetful functor $\forget \colon \pca \to \Set$ is conservative (reflects isomorphisms), this will immediately imply that $d^{-1}$ is a $\pca$ homomorphism.
+    Given $\langle o , f \rangle \in \hat{\funG} X$, such that for any $a \in \alphabet$, and $f(a) = \bigboxplus_{i \in I} p_a^i [e_a^i]$ for some $p_a^i \in \interval{0}{1}$, and $[e_a^i] \in {\PExp}/{\equiv}$, we define the following:
+    $$
+    d^{-1} \langle o, f\rangle = \left[ o \cdot \one \oplus \left(\bigoplus_{(a,i) \in \alphabet\times I} p_a^i \cdot a \seq e_a^i\right) \right]
+    $$
+    The expression inside the brackets is well defined as $\sum_{a} \sum_{i \in I} p_a^i \leq 1-o$. To show that $d^{-1}$ is well-defined, assume that we have $g \colon \alphabet \to {\PExp}/{\equiv}$, such that $f(a)=g(a) = \bigboxplus_{i \in I} q_a^i [h_a^i]$ for all $a \in \alphabet$ and some $q_a^i \in [0,1]$ and $[h_a^i] \in {\PExp}/{\equiv}$. To begin, due to the definition of the $\pca$ structure on ${\PExp}/{\equiv}$ (\Cref{c4:lem:coarser_quotient_is_a_pca}), we have that:
+    $$
+    \left[\bigoplus_{i \in I} p_a^i \cdot e_a^i\right] = \bigboxplus_{i \in I} p_a^i [e_a^i] = \bigboxplus_{i \in I} q_a^i [h_a^i]  =  \left[\bigoplus_{i \in I} q_a^i \cdot h_a^i\right]
+    $$
+    Using the above, we can show:
+    \begin{align*}
+        d^{-1}\langle o, f\rangle &= \left[ o \cdot \one \oplus \left( \bigoplus_{(a,i) \in \alphabet \times I} p^i_a \cdot a  \seq e^i_a\right) \right]\\
+               &= \left[ o \cdot \one \oplus \left( \bigoplus_{(a,i) \in \alphabet \times I} q^i_a \cdot a  \seq h^i_a\right) \right]\tag{$\equiv$ is a congruence}\\
+        &= d^{-1}\langle o, g \rangle
+    \end{align*}
+    This establishes the well-definedness of $d^{-1}$. To verify one side of the isomorphism, consider the following:
+    \begin{align*}
+        (d \circ d^{-1}) (\langle o, f\rangle) &= d \left(\left[o \cdot \one \oplus \left(\bigoplus_{(a,i) \in \alphabet\times I} p_a^i \cdot a \seq e_a^i\right)\right]\right) \tag{Def. of $d^{-1}$}\\
+        &= \left\langle o, \lambda a \ldotp \left[\bigoplus_{i \in I} p_a^i \cdot e_a^i\right]\right\rangle \tag{\Cref{c4:cor:concrete_coalgebra}}\\
+        &= \left\langle o, \bigboxplus_{i \in I} p_a^i \cdot [e_a^i] \right\rangle \tag{\Cref{c4:lem:coarser_quotient_is_a_pca}}\\
+        &= \langle o, f \rangle
+    \end{align*}
+	For the converse direction, let$[e] \in {\PExp}/{\equiv}$. By \Cref{c4:thm:fundamental_theorem}, we have that:
+    $$
+    e \equiv o \cdot \one \oplus \left( \bigoplus_{(a,i) \in \alphabet \times I} p_a^i \cdot a \seq e_a^i \right)
+    $$
+   Next, note that:
+    \begin{align*}
+        (d^{-1} \circ d) ([e]) &= d^{-1}\left\langle o , \lambda a \ldotp \left[ \bigoplus_{i \in I} p_a^i \cdot e_a^i\right] \right\rangle \tag{\Cref{c4:cor:concrete_coalgebra}}\\
+        &= d^{-1}\left\langle o , \lambda a \ldotp \bigboxplus_{i \in I} p_a^i \cdot \left[ e_a^i\right] \right\rangle \tag{\Cref{c4:lem:coarser_quotient_is_a_pca}}\\
+        &= \left[o \cdot \one \oplus \left(\bigoplus_{(a,i) \in \alphabet \times I} p_a^i \cdot a \seq e_a^i\right)\right] \tag{Def. of $d^{-1}$}\\
+        &= d([e])
+    \end{align*}
+    This completes the proof.
 \end{proof}
 \subsection{Step 3: Systems of equations}
 In order to establish that ${\PExp}/{\equiv}$ is isomorphic to the rational fixpoint (which is the property that will eventually imply completeness), we establish the conditions of \Cref{c4:thm:proper}. One of the required things we need to show is that the determinisation of an arbitrary finite-state GPTS admits a unique homomorphism to the coalgebra carried by ${\PExp}/{\equiv}$. In other words, we need to convert states of an arbitrary finite-state GPTS to language equivalent expressions in a way which is unique up to the axioms of $\equiv$. This can be thought of as an abstract reformulation of one direction of the Kleene theorem to the case of PRE. To make that possible, we give a construction inspired by Brzozowski's equation solving method~\cite{Brzozowski:1964:Expressions} of converting a DFA to the corresponding regular expression. We start by stating the necessary definitions.
@@ -1558,9 +1598,9 @@ such that for all $q,q' \in Q$, \(\sum_{q' \in Q}p_{q,q'} + r_q = 1\) and $E(M_{
 \begin{definition}
 	A system representing the finite-state $\distf \funF$-coalgebra $(X, \beta)$ is given by $\mathcal{S}(\beta) = \langle M^\beta, p^\beta, b^\beta, r^\beta\rangle $ where for all $x, x' \in X$ we have:
 \begin{gather*}
-p^\beta_{x, x'} = \sum_{a ' \in A}\beta(x)(a', x') \qquad\qquad r^\beta_x = 1 - \sum_{(a',x') \in \supp (\beta(x))}\beta(x)(a',x')\\
+p^\beta_{x, x'} = \sum_{a ' \in \alphabet}\beta(x)(a', x') \qquad\qquad r^\beta_x = 1 - \sum_{(a',x') \in \supp (\beta(x))}\beta(x)(a',x')\\
 M^\beta_{x, x'} = \begin{cases}
-    \bigoplus_{a \in A} \frac{\beta(x)(a,x')}{p^{\beta}_{x,x'}} \cdot a & \text{if } p^\beta_{x,x'}\neq 0\\
+    \bigoplus_{a \in \alphabet} \frac{\beta(x)(a,x')}{p^{\beta}_{x,x'}} \cdot a & \text{if } p^\beta_{x,x'}\neq 0\\
     \zero & \text{otherwise}
 \end{cases}\qquad\qquad
  b^\beta_x = \begin{cases}
@@ -1569,6 +1609,7 @@ M^\beta_{x, x'} = \begin{cases}
 \end{cases} 
 \end{gather*}
 \end{definition}
+
  The original Brzozowski's equation-solving method is purely semantic, as it crucially relies on Arden's rule~\cite{Arden:1961:Delayed} by providing solutions up to the language equivalence to the systems of equations. As much as it would be enough for an analogue of the one direction of Kleene's theorem, for the purposes of our completeness argument, we need to argue something stronger. Namely, we show that we can uniquely solve each system purely through the means of syntactic manipulation using the axioms of $\equiv$. This is where the main complexity of the completeness proof is located. We show this property, by re-adapting the key result of Salomaa~\cite{Salomaa:1966:Two} to the systems of equations of our interest.
  
  The proof of the uniqueness of solutions theorem will proceeds by induction on the size of the systems of equations. We first show that systems with only one unknown can be solved via the (\textsf{Unique}) fixpoint axiom. Systems of the size $n+1$ can be reduced to systems of size $n$, by solving for one of the unknowns and substituting the obtained equation with $n$ unknowns to the remaining $n$ equations. We note that this reduction step is highly reliant on axioms (\textsf{D2}) and (\textsf{S0}). In particular, we will rely on the following property to generalise left distributivity to arbitrary $n$-ary convex sums.
@@ -1711,70 +1752,103 @@ We are not done yet, as in the last step we only proved properties of systems of
     $$
     \mprset{fraction={===}}
  \inferrule{
- \text{$\hat{G}$-coalgebra homomorphisms } m \colon ((\distf X, \mu_{X}), (\gamma_X \circ \beta)^\sharp) \to (({\PExp}/{\equiv}, \alpha_{\equiv}), d) 	
+ \text{$\hat{\funG}$-coalgebra homomorphisms } m \colon ((\distf X, \mu_{X}), (\gamma_X \circ \beta)^\sharp) \to (({\PExp}/{\equiv}, \alpha_{\equiv}), d) 	
 }{
  \text{$\equiv$-solutions } h\colon X \to \PExp \text{ to a system } \mathcal{S}(\beta) \text{ associated with $\distf F$-coalgebra }(X, \beta)}$$ 
 \end{lemma}
-%\begin{proof}
-%
-%First, assume that $h : X \to \Exp$ is a solution to the system $\mathcal{S}(\beta)$ associated with $\distf F$-coalgebra $(X, \beta)$. We show that $([-]\o h)^\star : \distf X \to {\Exp}/{\equiv}$ is a $\hat{G}$-coalgebra homomorphism. Because of \cref{lem:simpler_solution_lemma}, we have that for all $x \in X$:
-%$$
-%h(x) \equiv \left(\bigoplus_{(a,x') \in A \times X} \beta(x)(a,x') \cdot a \seq h(x')\right) \oplus \beta(x)(\checkmark) \cdot \one
-%$$
-%Let $\nu \in \distf X$. The convex extension of the map $[-] \o h : X \to {\Exp}/{\equiv}$ is given by the following:
-%$$([-] \o h)^\star(\nu) = \left[\bigoplus_{x \in \supp(\nu)} \nu(x)\cdot h(x)\right]$$
-%Similarly, given $\beta : X \to \distf F X$ we have that:
-%$$(\gamma_X \o \beta)^\star(\nu) = \left\langle\sum_{x \in \supp(\nu)} \nu(x) \beta(x)(\checkmark),\lambda a . \lambda x'.\sum_{x \in \supp(\nu)}\nu(x)\beta(x)(a, x')\right\rangle$$
-%We now show the commutativity of the diagram below.
-%    % https://q.uiver.app/?q=WzAsNixbMCwwLCJYIl0sWzEsMSwiXFxkaXN0ZiBYIl0sWzQsMSwie1xcRXhwfS97XFxlcXVpdn0iXSxbMCwyLCJcXGRpc3RmIEYgWCJdLFswLDMsIkdcXGRpc3RmIFgiXSxbNCwzLCJHIHtcXEV4cH0ve1xcZXF1aXZ9Il0sWzAsMSwiXFxldGFfWCIsMl0sWzEsMiwiW2hdXlxcc3RhciIsMl0sWzAsMiwiW2hdIl0sWzAsMywiXFxiZXRhIiwyXSxbMyw0LCJcXGdhbW1hX1giLDJdLFsxLDQsIihcXGdhbW1hX1ggXFxvIFxcYmV0YSApXlxcc3RhciJdLFs0LDUsIkdbaF1eXFxzdGFyIl0sWzIsNSwiZCJdXQ==
-%\[\begin{tikzcd}
-%	X \\
-%	& {\distf X} &&& {{\Exp}/{\equiv}} \\
-%	{\distf F X} \\
-%	{\hat{G}\distf X} &&&& {\hat{G} {\Exp}/{\equiv}}
-%	\arrow["{\eta_X}"', from=1-1, to=2-2]
-%	\arrow["{([-]\o h)^\star}"', from=2-2, to=2-5]
-%	\arrow["{[-]\o h}", from=1-1, to=2-5]
-%	\arrow["\beta"', from=1-1, to=3-1]
-%	\arrow["{\gamma_X}"', from=3-1, to=4-1]
-%	\arrow["{(\gamma_X \o \beta )^\star}", from=2-2, to=4-1]
-%	\arrow["{\hat{G}([-]\o h)^\star}", from=4-1, to=4-5]
-%	\arrow["d", from=2-5, to=4-5]
-%\end{tikzcd}\]
-%For any distribution $\nu \in \distf X$:
-%\begin{align*}
-%&d \o ([-] \o h)^\star(\nu)\\ &= d \left[\bigoplus_{x \in \supp(\nu)}\nu(x) \cdot \left( \left(\bigoplus_{(a,x') \in A \times X} \beta(x)(a,x') \cdot a \seq h(x')\right) \oplus \beta(x)(\checkmark) \cdot \one\right) \right] \\
-%&= d \left[\left(\bigoplus_{(a, x') \in A \times X} \left( \sum_{x \in \supp(\nu)} \nu(x)\beta(x)(a,x').\right)\cdot a \seq h(x')\right)\right. \\&\quad\quad\quad\quad\left.\oplus \left(\sum_{x \in \supp(\nu)} \nu(x)\beta(x)(\checkmark)\right)\cdot \one\right] \tag{Barycenter axiom}\\
-%&= \left\langle \sum_{x \in \supp(\nu)} \nu(x)\beta(x)(\checkmark), \lambda a. \left[  
-%\bigoplus_{x' \in X} \left(\sum_{x \in \supp(\nu(x))}\nu(x)\beta(x)(a,x')\right)\cdot h(x')\right] \right\rangle
-%\end{align*}
-%Now, consider $\hat{G}([-] \o h)^\star \o (\gamma_X \o \beta)^\star (\nu)$. We have the following:
-%\begin{align*}
-%    &\hat{G}([-] \o h)^\star \o (\gamma_X \o \beta)^\star (\nu)\\
-%    &= \hat{G}([-] \o h)^\star \left\langle\sum_{x \in \supp(\nu)} \nu(x)\beta(x)(\checkmark), \lambda a. \lambda x'. \sum_{x \in \supp(\nu)} \nu(x)\beta(x)(a,x')\right\rangle\\
-%    &= \left\langle\sum_{x \in \supp(\nu)} \nu(x)\beta(x)(\checkmark), \lambda a. ([-] \o h)^\star \left(\lambda x'. \sum_{x \in \supp(\nu)} \nu(x)\beta(x)(a,x')\right)\right\rangle\\
-%    &=\left\langle\sum_{x \in \supp(\nu)} \nu(x)\beta(x)(\checkmark), \lambda a.\left[\bigoplus_{x' \in X} \left( \sum_{x \in \supp(\nu)} \nu(x)\beta(x)(a,x')\right)\cdot h(x')\right]\right\rangle
-%\end{align*}
-%and therefore:
-%$$d \o ([-] \o h)^\star(\nu) = \hat{G}([-] \o h)^\star \o (\gamma_X \o \beta)^\star$$
-%which shows that $([-] \o h)^\star$ is indeed a $\hat{G}$-coalgebra homomorphism.
-%
-%For the converse, let $((\distf X, \mu_X), (\gamma_X \circ \beta)^\star)$ be a $\hat{G}$-coalgebra and let $m : \distf X \to {\Exp}/{\equiv}$ be a $\hat{G}$-coalgebra homomorphism from $((\distf X, \mu_X), (\gamma_X \circ \beta)^\star)$ to $(({\Exp}/{\equiv}, \alpha_{\equiv}), d)$. $m$ arises uniquely as a convex extension of some map $\ol{h} : X \to {\Exp}/{\equiv}$. This map can be factorised as $\ol{h} = [-] \o h$, for some $h \to \Exp$. Observe that any two such factorisations determine the same $\equiv$-solution.
-%%In particular, let $s : {\Exp}/{\equiv} \to \Exp$ be a section of $[-] : \Exp \to {\Exp}/{\equiv}$ (which exists because of the Axiom of Choice) and define $h = s \o \ol{h}$. 
-%
-%Since $m$ is the homomorphism, the inner square in the diagram above commutes. Since the triangle diagrams commute, we have that outer diagram commutes.
-%Recall \cref{lem:isomorphism_quotient} stating that $d : {\Exp}/{\equiv} \to \hat{G} {\Exp}/{\equiv} $ is an isomorphism. Because of that we have the following for all $x \in X$:
-%\begin{align*}
-%    ([-] \o h)(x) &= (d^{-1} \o \hat{G}([-] \o h)^\star \o \gamma_x \o \beta) (x) \\
-%    &= (d^{-1} \o \hat{G}([-] \o h)^\star) \left\langle\beta(x)(\checkmark), \lambda a . \lambda x' . \beta(x)(a,x') \right\rangle\\
-%    &= d^{-1} \left\langle\beta(x)(\checkmark), \lambda a. ([-] \o h)^\star(\lambda x' . \beta(x)(a,x')) \right\rangle\\
-%    &= d^{-1} \left\langle\beta(x)(\checkmark), \lambda a. \left[\bigoplus_{x'\in X } \beta(x)(a,x') \cdot h(x')\right]\right\rangle\\
-%    &= d^{-1} \left\langle\beta(x)(\checkmark), \lambda a. \bigboxplus_{x'\in X } \beta(x)(a,x') \cdot \left[h(x')\right]\right\rangle \\
-%    &= \left[\left(\bigoplus_{(a,x')\in A \times X} \beta(x)(a,x')\cdot a \seq h(x')\right)\beta(x)(\checkmark) \cdot \one \right]
-%\end{align*}
-%Hence, for all $x \in X$, we have that:
-%$$h(x) \equiv \left(\bigoplus_{(a,x')\in A \times X} \beta(x)(a,x')\cdot a \seq h(x')\right)\beta(x)(\checkmark) \cdot \one $$
-%which by \cref{lem:simpler_solution_lemma} implies that $h : X \to \Exp$ is a $\equiv$-solution to the system $\mathcal{S}(\beta)$ associated with the $\distf F$-coalgebra $(X, \beta)$.
-%\end{proof}
+Before diving into the main argument, we establish the following helper lemma, which provides a concrete characterization of $\equiv$-solutions to systems associated with $\distf \funF$-coalgebras.
+\begin{lemma}\label{c4:lem:simpler_solution_lemma}
+    Let $(X, \beta)$ be a finite-state $\distf \funF$-coalgebra. A map $h \colon X \to \PExp$ is a $\equiv$-solution to the system $\mathcal{S}(\beta)$ if and only if for all $x \in X$, we have that:
+    $$
+    	h(x) \equiv \left(\bigoplus_{(a, x') \in \alphabet \times X} \beta(x)(a,x') \cdot a \seq h(x')\right) \oplus \beta(x)(\checkmark) \cdot \one
+    $$
+\end{lemma}
+\begin{proof}
+    Fix an arbitrary $x \in X$. Recall that, if $p^\beta_{x,x'}=0$, then $M^\beta_{x,x'}=\zero\equiv \bigoplus_{a \in \alphabet} 0 \cdot a$.
+    Because of that, we can safely assume that $M^\beta_{x,x'}$ can be always written out in the following form:
+    $$
+        M^\beta_{x,x'} \equiv \bigoplus_{a \in \alphabet} s^a_{x,x'} \cdot a
+    $$
+    where $s^a_{x,x'} \in \interval{0}{1}$. By definition of $\equiv$-solution, we the following:
+    \begin{align*}
+        h(x) &\equiv \left(\bigoplus_{x' \in X} p^{\beta}_{x, x'} \cdot M^\beta_{x,x'}\seq h(x')\right) \oplus r^{\beta}_x \cdot b^{\beta}_x \\
+        &\equiv  \left(\bigoplus_{x' \in X} p^\beta_{x,x'} \cdot \left(\bigoplus_{a \in \alphabet} s^a_{x,x'} \cdot a\right)\seq h(x') \right)\oplus r^\beta_x \cdot b^\beta_x \\
+        &\equiv  \left(\bigoplus_{x' \in X} p^\beta_{x,x'} \cdot \left(\bigoplus_{a \in \alphabet} s^a_{x,x'} \cdot a\seq h(x')\right) \right)\oplus r^\beta_x \cdot b^\beta_x \tag{\Cref{c4:lem:generalised_right_distributivity}}\\
+        &\equiv \left(\bigoplus_{(a , x') \in \alphabet \times X} p^\beta_{x,x'}s^a_{x,x'} \cdot a \seq h(x')\right) \oplus \beta(x)(\checkmark) \cdot \one \tag{\Cref{c4:lem:flattening_convex_sums}}\\
+        &\equiv \left(\bigoplus_{(a , x') \in \alphabet \times X} \beta(x)(a,x') \cdot a \seq h(x')\right) \oplus \beta(x)(\checkmark) \cdot \one
+    \end{align*}
+    The last step of the proof relies on the observation that for both cases of how $M^\beta_{x,x'}$ is defined, we have that
+    $
+        p^\beta_{x,x'} s^{a}_{x,x'} = \beta(x)(a,x')
+    $.
+    Similarly, in the passage between the third and fourth line, we have used the observation that:
+    $
+        r^\beta_x \cdot b^\beta_x \equiv \beta(x)(\checkmark) \cdot \one
+    $
+    for both possible cases.
+\end{proof}
+We are now ready to prove the main claim.
+\begin{proof}[Proof of \Cref{c4:lem:solutions_homomorphisms}]
+
+First, assume that $h \colon X \to \PExp$ is a solution to the system $\mathcal{S}(\beta)$ associated with $\distf \funF$-coalgebra $(X, \beta)$. We show that $([-]\circ h)^\sharp \colon \distf X \to {\PExp}/{\equiv}$ is a $\hat{\funG}$-coalgebra homomorphism. In other words, we will claim the commutativity of the diagram below.
+    % https://q.uiver.app/?q=WzAsNixbMCwwLCJYIl0sWzEsMSwiXFxkaXN0ZiBYIl0sWzQsMSwie1xcRXhwfS97XFxlcXVpdn0iXSxbMCwyLCJcXGRpc3RmIEYgWCJdLFswLDMsIkdcXGRpc3RmIFgiXSxbNCwzLCJHIHtcXEV4cH0ve1xcZXF1aXZ9Il0sWzAsMSwiXFxldGFfWCIsMl0sWzEsMiwiW2hdXlxcc3RhciIsMl0sWzAsMiwiW2hdIl0sWzAsMywiXFxiZXRhIiwyXSxbMyw0LCJcXGdhbW1hX1giLDJdLFsxLDQsIihcXGdhbW1hX1ggXFxvIFxcYmV0YSApXlxcc3RhciJdLFs0LDUsIkdbaF1eXFxzdGFyIl0sWzIsNSwiZCJdXQ==
+\[\begin{tikzcd}
+	X \\
+	& {\distf X} &&& {{\PExp}/{\equiv}} \\
+	{\distf \funF X} \\
+	{\hat{\funG}\distf X} &&&& {\hat{\funG} {\PExp}/{\equiv}}
+	\arrow["{\eta_X}"', from=1-1, to=2-2]
+	\arrow["{([-]\circ h)^\sharp}"', from=2-2, to=2-5]
+	\arrow["{[-]\circ h}", from=1-1, to=2-5]
+	\arrow["\beta"', from=1-1, to=3-1]
+	\arrow["{\gamma_X}"', from=3-1, to=4-1]
+	\arrow["{(\gamma_X \circ \beta )^\sharp}", from=2-2, to=4-1]
+	\arrow["{\hat{\funG}([-]\circ h)^\sharp}", from=4-1, to=4-5]
+	\arrow["d", from=2-5, to=4-5]
+\end{tikzcd}\]
+
+Because of \Cref{c4:lem:simpler_solution_lemma}, we have that for all $x \in X$:
+$$
+h(x) \equiv \left(\bigoplus_{(a,x') \in \alphabet \times X} \beta(x)(a,x') \cdot a \seq h(x')\right) \oplus \beta(x)(\checkmark) \cdot \one
+$$
+Let $\nu \in \distf X$. The convex extension of the map $[-] \circ h \colon X \to {\PExp}/{\equiv}$ is given by the following:
+$$([-] \circ h)^\sharp(\nu) = \left[\bigoplus_{x \in \supp(\nu)} \nu(x)\cdot h(x)\right]$$
+Similarly, given $\beta : X \to \distf \funF X$ we have that:
+$$(\gamma_X \circ \beta)^\sharp (\nu) = \left\langle\sum_{x \in \supp(\nu)} \nu(x) \beta(x)(\checkmark),\lambda a \ldotp \lambda x'\ldotp\sum_{x \in \supp(\nu)}\nu(x)\beta(x)(a, x')\right\rangle$$
+For any distribution $\nu \in \distf X$, we have the following:
+\begin{align*}
+&d \circ ([-] \circ h)^\sharp(\nu)\\ &= d \left[\bigoplus_{x \in \supp(\nu)}\nu(x) \cdot \left( \left(\bigoplus_{(a,x') \in \alphabet \times X} \beta(x)(a,x') \cdot a \seq h(x')\right) \oplus \beta(x)(\checkmark) \cdot \one\right) \right] \\
+&= d \left[\left(\bigoplus_{(a, x') \in \alphabet \times X} \left( \sum_{x \in \supp(\nu)} \nu(x)\beta(x)(a,x').\right)\cdot a \seq h(x')\right)\right. \\&\quad\quad\quad\quad\left.\oplus \left(\sum_{x \in \supp(\nu)} \nu(x)\beta(x)(\checkmark)\right)\cdot \one\right] \tag{Barycenter axiom}\\
+&= \left\langle \sum_{x \in \supp(\nu)} \nu(x)\beta(x)(\checkmark), \lambda a. \left[  
+\bigoplus_{x' \in X} \left(\sum_{x \in \supp(\nu(x))}\nu(x)\beta(x)(a,x')\right)\cdot h(x')\right] \right\rangle
+\end{align*}
+Now, consider $\hat{\funG}([-] \circ h)^\sharp \circ (\gamma_X \circ \beta)^\sharp (\nu)$. We have the following:
+\begin{align*}
+    &\hat{\funG}([-] \circ h)^\sharp \circ (\gamma_X \circ \beta)^\sharp (\nu)\\
+    &= \hat{\funG}([-] \circ  h)^\sharp \left\langle\sum_{x \in \supp(\nu)} \nu(x)\beta(x)(\checkmark), \lambda a\ldotp \lambda x'\ldotp \sum_{x \in \supp(\nu)} \nu(x)\beta(x)(a,x')\right\rangle\\
+    &= \left\langle\sum_{x \in \supp(\nu)} \nu(x)\beta(x)(\checkmark), \lambda a\ldotp ([-] \circ h)^\sharp \left(\lambda x'. \sum_{x \in \supp(\nu)} \nu(x)\beta(x)(a,x')\right)\right\rangle\\
+    &=\left\langle\sum_{x \in \supp(\nu)} \nu(x)\beta(x)(\checkmark), \lambda a.\left[\bigoplus_{x' \in X} \left( \sum_{x \in \supp(\nu)} \nu(x)\beta(x)(a,x')\right)\cdot h(x')\right]\right\rangle
+\end{align*}
+Hence, we obtain:
+$$d \circ ([-] \circ h)^\sharp(\nu) = \hat{\funG}([-] \circ h)^\sharp \circ (\gamma_X \circ \beta)^\sharp$$
+demonstrating that $([-] \circ h)^\sharp$ is indeed a $\hat{\funG}$-coalgebra homomorphism.
+
+For the converse, let $((\distf X, \mu_X), (\gamma_X \circ \beta)^\sharp)$ be a $\hat{\funG}$-coalgebra and let $m \colon \distf X \to {\PExp}/{\equiv}$ be a $\hat{\funG}$-coalgebra homomorphism from $((\distf X, \mu_X), (\gamma_X \circ \beta)^\sharp)$ to $(({\PExp}/{\equiv}, \alpha_{\equiv}), d)$. Recall that $m$ arises uniquely as a convex extension of some map $\overline{h} \colon X \to {\PExp}/{\equiv}$. This map can be factored as $\overline{h} = [-] \circ h$, for some $h \to \PExp$. Observe that any two such factorisations determine the same $\equiv$-solution.
+In particular, let $s \colon {\PExp}/{\equiv} \to \PExp$ be a section of $[-] \colon \PExp \to {\PExp}/{\equiv}$ and define $h = s \circ \overline{h}$. 
+
+Since $m$ is the homomorphism, the inner square in the diagram above commutes. Since the triangle diagrams commute, we have that outer diagram commutes.
+Recall \Cref{c4:lem:isomorphism_quotient} stating that $d \colon {\PExp}/{\equiv} \to \hat{\funG} {\PExp}/{\equiv} $ is an isomorphism. Because of that we have the following for all $x \in X$:
+\begin{align*}
+    ([-] \circ h)(x) &= (d^{-1} \circ \hat{\funG} ([-] \circ h)^\sharp \circ \gamma_x \circ \beta) (x) \\
+    &= (d^{-1} \circ \hat{\funG}([-] \circ h)^\sharp) \left\langle\beta(x)(\checkmark), \lambda a \ldotp \lambda x' \ldotp \beta(x)(a,x') \right\rangle\\
+    &= d^{-1} \left\langle\beta(x)(\checkmark), \lambda a\ldotp ([-] \circ h)^\sharp(\lambda x' \ldotp \beta(x)(a,x')) \right\rangle\\
+    &= d^{-1} \left\langle\beta(x)(\checkmark), \lambda a\ldotp \left[\bigoplus_{x'\in X } \beta(x)(a,x') \cdot h(x')\right]\right\rangle\\
+    &= d^{-1} \left\langle\beta(x)(\checkmark), \lambda a\ldotp \bigboxplus_{x'\in X } \beta(x)(a,x') \cdot \left[h(x')\right]\right\rangle \tag{\Cref{c4:lem:coarser_quotient_is_a_pca}}\\
+    &= \left[\left(\bigoplus_{(a,x')\in \alphabet \times X} \beta(x)(a,x')\cdot a \seq h(x')\right)\beta(x)(\checkmark) \cdot \one \right] \tag{Def. of $d^{-1}$}
+\end{align*}
+Hence, for all $x \in X$, we have that:
+$$h(x) \equiv \left(\bigoplus_{(a,x')\in \alphabet \times X} \beta(x)(a,x')\cdot a \seq h(x')\right) \oplus \beta(x)(\checkmark) \cdot \one $$
+which by \Cref{c4:lem:simpler_solution_lemma} implies that $h \colon X \to \PExp$ is a $\equiv$-solution to the system $\mathcal{S}(\beta)$ associated with the $\distf \funF$-coalgebra $(X, \beta)$.
+\end{proof}
 
  
