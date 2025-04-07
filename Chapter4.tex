@@ -387,8 +387,14 @@ Speaking more abstractly, positive convex algebras and their homomorphisms (in t
 	\subsection{Rational fixpoint}\label{c4:subsec:rational}
 	Let $B \colon \C \to \C$ be a finitary functor. We write $\coaf{B}$ for the subcategory of $\coa{B}$ consisting only of $B$-coalgebras with finitely presentable carrier. The \emph{rational fixpoint} is defined as $(\varrho B,r) = \colim(\coaf{B} \hookrightarrow \coa{B})$ -- a colimit of the inclusion functor from the subcategory of coalgebras with finitely presentable carriers. We call it a fixpoint, as the map $r \colon \varrho B \to B (\varrho B) $ is an isomorphism~\cite{Adamek:2006:Iterative}. 
 % The rational fixpoint can be both viewed as a final locally finitely presentable $F$-coalgebra and an initial iterative $F$-algebra~\cite{Adamek:2006:Iterative}. 
-Following~{\cite[Corollary~3.10, Theorem~3.12]{Milius:2020:New}}, if finitely presentable and finitely generated objects coincide in $\C$ and $B : \C \to \C$ is a finitary endofunctor preserving non-empty monomorphisms, then rational fixpoint is fully abstract - ie. $(\varrho B, r)$ is a subcoalgebra of the final coalgebra $(\nu B, t)$.
+Following~{\cite[Corollary~3.10, Theorem~3.12]{Milius:2020:New}}, if finitely presentable and finitely generated objects coincide in $\C$ and $B : \C \to \C$ is a finitary endofunctor preserving non-empty monomorphisms, then rational fixpoint is fully abstract - i.e. $(\varrho B, r)$ is a subcoalgebra of the final coalgebra $(\nu B, t)$.
 
+\begin{lemma}\label{c4:lem:nonempty_monos}
+	Let $H \colon \Set \to \Set$ be an endofunctor and let $\monadT$ be a finitary monad on $\Set$. Then, the lifting $\overline{H} \colon \Set^\monadT \to \Set^\monadT$ preserves non-empty monomorphisms. 
+\end{lemma}
+\begin{proof}
+	Follows from \cite[Corollary~3.16]{Gumm:2000:Elements} and \cite[Lemma~2.4]{Milius:2020:New}.
+\end{proof}
 \section{Operational semantics}\label{c4:sec:operational}
 {\color{red} Write introduction for the section!}
 \subsection{Language semantics of GPTS}\label{c4:subsec:language_semantics}
@@ -1477,8 +1483,14 @@ As much as $\overline{\funG} \colon \pca \to \pca$ is known to be proper~\cite{S
 \begin{align*}
     \hat{\funG} \mathbb{X}  = &\{(o, f) \in \interval{0}{1} \times X^\alphabet \mid \forall {a \in \alphabet}\ldotp\exists {p_a^i \in [0,1], x_a^i \in X}\ldotp \\ &f(a) = \bigboxplus_{i \in I} p_a^i x_a^i \text{ and } \sum_{a \in \alphabet} \sum_{i \in I} p_a^i \leq 1-o\}
 \end{align*}
-The $\pca$ structure on $\hat{\funG}\mathbb{X}$, as well as the action of $\hat{\funG}$ on arrows is defined to be the same as in the case of $\funG$. 
-It can be immediately observed that $\hat{\funG}$ is a subfunctor of $G$. Whenever the algebra structure is clear from the context, we write $\hat{\funG}X$ for $\hat{\funG}\mathbb{X}$. Most importantly for us, thanks to the result of Sokolova and Woracek, we know that $\hat{\funG}$ is also proper~\cite{Sokolova:2018:Proper}. We can now see the following correspondence:
+The $\pca$ structure on $\hat{\funG}\mathbb{X}$, as well as the action of $\hat{\funG}$ on arrows is defined to be the same as in the case of $\funG$.  
+It can be immediately observed that $\hat{\funG}$ is a subfunctor of $\overline{\funG}$.
+\begin{remark}\label{c4:rem:preserves_monos}
+	Given that $\overline{\funG}$ preserves non-empty monomorphisms (\Cref{c4:lem:nonempty_monos}) and $\hat{\funG}$ coincides with $\overline{\funG}$ on arrows, it follows that $\hat{\funG}$ also preserves non-empty monomorphisms.
+\end{remark}
+
+
+Whenever the algebra structure is clear from the context, we write $\hat{\funG}X$ for $\hat{\funG}\mathbb{X}$. Most importantly for us, thanks to the result of Sokolova and Woracek, we know that $\hat{\funG}$ is also proper~\cite{Sokolova:2018:Proper}. We can now see the following correspondence:
 \begin{lemma}\label{lem:onetoone_sublemma}
     $\distf \funF$-coalgebras with finite carriers are in one-to-one correspondence with $\hat{\funG}$-coalgebras with free finitely generated carriers.
     % $$\inferrule{\beta : X \to \distf F X \text{ on } \Set}{(\gamma_X \circ \beta)^\sharp : (\distf X, \mu_X) \to \hat{\funG} (\distf X, \mu_X) \text{ on } \pca}$$    
@@ -1522,9 +1534,9 @@ Before we prove the lemma above, we establish two intermediate results. First, w
     $$
     Finally, since $\zeta \in \distf \funF X$ we have that $\sum_{a \in \alphabet} \sum_{i \in I} p_i^a \leq 1 - \zeta(\checkmark)$ which proves that indeed the image of $G \alpha \circ \gamma_X$ belongs to $\forget \hat{\funG} (X, \alpha)$.
 \end{proof}
-Next, we show that surjective $\overline{G}$-coalgebra homomorphisms preserve $\hat{\funG}$.
+Next, we show the following preservation result.
 \begin{lemma}\label{c4:lem:closed_under_quotients}
-    $\hat{\funG}$-coalgebras are closed under quotients.
+    $\hat{\funG}$-coalgebras are closed under surjective $\overline{\funG}$-coalgebra homomorphisms.
 \end{lemma}
 \begin{proof}
  Let $((X, \alpha_X), \beta_X)$ be a $\hat{\funG}$-coalgebra, $((Y, \alpha_Y), \beta_Y)$ be a $\overline{\funG}$-coalgebra and let $e \colon X \to Y$ be a surjective $\overline{\funG}$-homomorphism $e \colon ((X, \alpha_X), \beta_X) \to ((Y, \alpha_Y),\beta_Y)$. We need to show that for all $y \in Y$, $\beta_Y(y) \in \forget \hat{\funG} (Y, \alpha_Y)$. 
@@ -1867,7 +1879,7 @@ Aside from the completeness argument, the above result also gives us an analogue
 	 
 	  Recall that given an expression $e \in \PExp$, we write $\langle e \rangle_{\partial} \subseteq \PExp$ for the set of all expressions reachable via Antimirov derivative from $e$. By \Cref{c4:lem:locally_finite} that set is finite. Let $(Z, \alpha_Z)$ be a subalgebra of $({\PExp}/{\equiv}, \alpha_{\equiv})$ generated by the following set
 	  $$
-	  	\left\{[a \seq e' ] \mid a \in \alphabet, e' \in \bigcup_{i = 1}^{i \leq n}\langle e_i \rangle_{e'}\right\} \cup \{\one\}
+	  	\left\{[a \seq e' ] \mid a \in \alphabet, e' \in \bigcup_{i = 1}^{i \leq n}\langle e_i \rangle_{\partial}\right\} \cup \{\one\}
 	  $$
 	 Note that this set is finite, as $\alphabet$ is finite and there are only finitely many expressions $e_i$, each with finitely many derivatives. We proceed to showing that $Z$ is closed under the transitions of the coalgebra structure $d$. Pick an element $z \in Z$, given by the following: $$z = p \cdot [\one] \boxplus \bigboxplus_{j \in J} p_j \cdot [a_j \seq e'_j]$$
 	 Note that:
@@ -1879,7 +1891,35 @@ Aside from the completeness argument, the above result also gives us an analogue
     $$
     	    d(z) = \left\langle p , \lambda a \ldotp \left[ \bigoplus_{a_j = a} p_j \cdot e'_j \right] \right\rangle
     $$
+    As a consequence of \Cref{c4:thm:fundamental_theorem}, for all $j \in J$ we have that
+    $
+    [e'_j] = \left[ q_j \cdot \one \oplus \bigoplus_{i \in I} p_{i,j} \cdot a_{i,j} \seq e'_{i,j}\right]
+    $, where $[e'_{i,j}] \in\bigcup_{i = 1}^{i \leq n}\langle e_i \rangle_{\partial}$ and hence $[a_{i,j}\seq e'_{i,j}] \in Z$.
 \end{proof}
+
+\begin{lemma}
+	The final $\hat{\funG}$-coalgebra is a subcoalgebra of the final $\overline{\funG}$-coalgebra.
+\end{lemma}
+\begin{proof}
+Let $\nu\hat{\funG}$ be the final $\hat{\funG}$-coalgebra and $\nu\overline{\funG}$ be the final $\overline{\funG}$-coalgera. Since $\nu \hat{\funG}$ can be seen as a $\overline{\funG}$-coalgebra, there is a unique $\overline{\funG}$-coalgebra homomorphism $\beh{\nu \hat{\funG}} \colon \nu \hat{\funG} \to \nu \overline{\funG}$. Since $\distf \colon \Set \to \Set$ preserves epimorphisms~\cite[Corollary~3.16]{Gumm:2000:Elements}, we have that epi-mono factorisations in $\Set$ carry to epi-mono factorisations in $\pca$~\cite[Proposition~3.7]{Wissman:2022:Minimality}. Moreover, since $\overline{\funG}$ preserves non-empty monomorphisms (\Cref{c4:lem:nonempty_monos}), we can further lift epi-mono factorisations in $\pca$ to epi-mono factorisations in $\coa{\overline{\funG}}$~\cite[Lemma~2.5]{Milius:2020:New}. Because of this, we can factorise $\beh{\nu \overline{\funG}}$ in the following way:
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXG51e1xcaGF0e1xcZnVuR319Il0sWzIsMCwiUSJdLFs0LDAsIlxcbnUgXFxvdmVybGluZXtcXGZ1bkd9Il0sWzAsMSwiZSIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifSwiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzEsMiwibSIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzAsMiwiXFxiZWh7XFxudVxcaGF0e1xcZnVuR319IiwyLHsiY3VydmUiOjN9XV0=
+\[\begin{tikzcd}
+	{\nu{\hat{\funG}}} && Q && {\nu \overline{\funG}}
+	\arrow["e", tail, two heads, from=1-1, to=1-3]
+	\arrow["{\beh{\nu\hat{\funG}}}"', curve={height=18pt}, from=1-1, to=1-5]
+	\arrow["m", hook, from=1-3, to=1-5]
+\end{tikzcd}\]
+In the above, $Q$ is a $\overline{\funG}$-coalgebra, $e \colon \nu \hat{\funG} \to Q$ a surjective $\overline{\funG}$-coalgebra homomorphism, and $m \colon Q \to \nu \overline{\funG}$ an injective $\overline{\funG}$-coalgebra homomorphism. We will argue that $e \colon \nu \hat{\funG} \to Q$ is an isomorphism.
+
+First, we can use \Cref{c4:lem:closed_under_quotients} to show that $Q$ is a $\hat{\funG}$-coalgebra and $e \colon \nu \hat{G} \to Q$ is a $\hat{\funG}$-coalgebra homomorphism. Because of this there exists a unique map $\beh{Q} \colon Q \to \nu \hat{\funG}$ that is a $\hat{\funG}$-coalgebra homomorphism. Then, $\beh{Q} \circ e \colon \nu \hat{\funG} \to \nu \hat{\funG}$ is a $\hat{\funG}$-homomorphism that by finality of $\nu\hat{\funG}$ must be equal to $\id_{\nu \hat{\funG}}$.
+
+To see that $e \circ \beh{Q} \colon Q \to Q$ is an identity, observe that by finality of $\nu \overline{\funG}$, the following two maps must be equal:
+$$
+	m \circ e \circ \beh{Q} = m \circ \id_Q
+$$ 
+Since $m \colon Q \to \nu {\overline{\funG}}$ is monic, we can cancel it on the left and obtain $e \circ \beh{Q} = \id_Q$, as desired. Since $e$ is an isomorphism, we have that $\beh{\nu{\hat{\funG}}}$ is injective, which completes the proof.	
+\end{proof}
+
 %At this point, all that remains is to make an additional observation that the universal property we have established implies completeness. Since $\hat{\funG}$ preserves non-empty monomorphisms~\cite{Milius:2020:New} and in $\pca$ finitely generated and finitely presentable objects coincide~\cite{Sokolova:2015:Congruences} the rational fixpoint is fully abstract, i.e. is a subcoalgebra of the final $\hat{\funG}$-coalgebra. 
 
 %Moreover, since $\hat{\funG}$ is a subfunctor of $G$, the final $\hat{\funG}$-coalgebra is subcoalgebra of the final $G$-coalgebra. Combining those facts, allows to conclude that $\dagger d : {{\Exp}/{\equiv}} \to [0,1]^{A^*}$ is injective. At this point, showing completeness becomes straightforward.
