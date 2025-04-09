@@ -259,7 +259,7 @@ In this section, we review the main preliminaries for the technical development 
 \subsection{Locally finitely presentable categories}\label{c4:subsec:lfp}
 In this chapter, we will rely on notions associated with the theory of locally finitely presentable categories~\cite{Adamek:1994:Locally}, that allows to generalise the notion of \emph{finiteness} to more structured categories than just $\Set$.
 
-$\D$ is a filtered category, if every finite subcategory $\D_0 \hookrightarrow \D$ has a cocone in $\D$. A filtered colimit is a colimit of the diagram $\D \to \C$, where $\D$ is a filtered category. A directed colimit is a colimit of the diagram $\D \to \C$, where $\D$ is a directed poset. We call a functor \emph{finitary} if it preserves filtered colimits. An object $C$ is \emph{finitely presentable (fp)} if the representable functor $\C(C,-) \colon \C \to \Set$ preserves filtered colimits. Similarly, an object $C$ is \emph{finitely generated (fg)} if the representable functor $\C(C,-) \colon \C \to \Set$ preserves directed colimits of monos. Importantly, every finitely presentable object is finitely generated, but the converse does not hold in general. 
+$\D$ is a filtered category, if every finite subcategory $\D_0 \hookrightarrow \D$ has a cocone in $\D$. A filtered colimit is a colimit of the diagram $\D \to \C$, where $\D$ is a filtered category. A directed colimit is a colimit of the diagram $\D \to \C$, where $\D$ is a directed poset. We call a functor \emph{finitary} if it preserves filtered colimits. An object $C$ is \emph{finitely presentable (fp)} if the representable functor $\C(C,-) \colon \C \to \Set$ preserves filtered colimits. Similarly, an object $C$ is \emph{finitely generated (fg)} if the representable functor $\C(C,-) \colon \C \to \Set$ preserves directed colimits of monomorphisms. Importantly, every finitely presentable object is finitely generated, but the converse does not hold in general. 
 \begin{definition}
 A category $\C$ is \emph{locally finitely presentable (lfp)} if it is cocomplete and there exists a set of finitely presentable objects, such that every object of $\C$ is a filtered colimit of objects from that set.	
 \end{definition}
@@ -427,7 +427,7 @@ The requirement of preserving non-empty monomorphisms is quite weak and is satis
 	Follows from \cite[Corollary~3.16]{Gumm:2000:Elements} and \cite[Lemma~2.4]{Milius:2020:New}.
 \end{proof}
 \section{Operational semantics}\label{c4:sec:operational}
-{\color{red} Write introduction for the section!}
+In this section, we begin by describing a coalgebraic approach to modelling the probabilistic language semantics of GPTS. Building on this, we introduce an operational semantics for PRE, drawing inspiration from Antimirov’s partial derivatives for NFAs~\cite{Antimirov:1996:Partial}.
 \subsection{Language semantics of GPTS}\label{c4:subsec:language_semantics}
 Let $\funF \colon \Set \to \Set$ be an endofunctor given by $\funF = \{\checkmark\} + \alphabet \times (-)$. GPTS are precisely $\distf \funF$-coalgebras, that is pairs $(X, \beta)$, where $X$ is a set of states and $\beta \colon X \to \distf (\{\checkmark\} + \alphabet \times X)$ is a transition structure. Because of this, we will interchangeably use terms "$\distf \funF$-coalgebra" and "GPTS".
 
