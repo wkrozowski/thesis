@@ -1,6 +1,27 @@
 \chapter{Completeness Theorem for Probabilistic Regular Expressions}
 \label{chapter4}
-{\color{red} Write introduction!}
+Kleene~\cite{Kleene:1951:Representation} introduced regular expressions and proved that these denote exactly the languages accepted by deterministic finite automata. In his seminal paper, Kleene left open a completeness question: are there a finite number of rules that enable reasoning about language equivalence of regular expressions? Since then, the pursuit of inference systems for equational reasoning about the equivalence of regular expressions has been  subject of extensive study~\cite{Salomaa:1966:Two,Krob:1990:Complete,Boffa:1990:Une,Kozen:1994:Completeness}. The first proposal is due to Salomaa~\cite{Salomaa:1966:Two}, who introduced a non-algebraic axiomatisation of regular expressions and proved its completeness.
+    
+    Deterministic automata are a particular type of transition system: simply put, an automaton is an object with a finite set of states and a {\em deterministic} transition function that assigns every state and every action of the input alphabet {\em exactly} one next state. By varying the type of transition function one gets different systems: e.g. if the function assigns to every state and every action of the input alphabet {\em a set} of the next states, the resulting system is said to be non-deterministic; if the transition function assigns the next state based on any sort of {\em probability distribution} then the system is said to be probabilistic. Probabilistic systems appear in a range of applications, including modelling randomised algorithms, cryptographic protocols, and probabilistic programs. In this chapter, we focus on generative probabilistic transition systems ({GPTS}) with explicit termination~\cite{Glabbeek:1995:Reactive}, and study the questions that Kleene and Salomaa answered for deterministic automata. 
+    
+    Our motivation to look at probabilistic extensions of regular expressions and axiomatic reasoning is two-fold:  first, regular expressions and extensions thereof have been used in the verification of uninterpreted imperative programs, including network policies~\cite{Kozen:2000:Certification,Kot:2005:Kleene,Anderson:2014:NetKAT}; second, reasoning about exact behaviour of probabilistic imperative programs is subtle~\cite{Chen:2022:Does}, in particular in the presence of loops. By studying the semantics and axiomatisations of regular expressions featuring probabilistic primitives, we want to enable axiomatic reasoning for randomised programs and provide a basis to develop further verification techniques.
+    
+     We start by introducing the syntax of Probabilistic Regular Expressions ({PRE}), inspired by work from the probabilistic pattern matching literature~\cite{Ross:2000:Probabilistic}. {PRE} are formed through constants from an alphabet and \emph{regular} operations of probabilistic choice, sequential composition, probabilistic Kleene star, identity and emptiness. We define the probabilistic analogue of {\em language semantics} of {PRE} as exactly the behaviours of {GPTS}. We achieve this by endowing {PRE} with operational semantics in the form of {GPTS} via a construction reminiscent of Antimirov derivatives of regular expressions~\cite{Antimirov:1996:Partial}. We also give a converse construction, allowing us to describe languages accepted by finite-state {GPTS} in terms of {PRE}, thus establishing an analogue of Kleene's theorem.
+
+    The main contribution of this chapter is presenting an inference system for reasoning about probabilistic language equivalence of {PRE} and proving its completeness. The technical core of this chapter is devoted to the completeness proof, which relies on technical tools convex algebra, arising from the rich structure of probabilistic languages. While being in the spirit of classic results from automata theory, our development relies on the more abstract approach enabled via the theory of universal coalgebra~\cite{Rutten:2000:Universal}. As much as a concrete completeness proof ought to be possible, our choice to use the coalgebraic approach was fueled by wanting to reuse recent abstract results on the algebraic structure of probabilistic languages. A concrete proof would have to deal with fixpoints of probabilistic languages and would therefore require highly combinatorial and syntactic proofs about these. Instead, we reuse a range of hard results on convex algebras and fixpoints that Milius~\cite{Milius:2018:Proper}, Sokolova and Woracek~\cite{Sokolova:2015:Congruences,Sokolova:2018:Proper} proved in the last 5 years. In particular, we rely on the theory of rational fixpoints (for proper functors~\cite{Milius:2018:Proper}), which can be seen as a categorical generalisation of regular languages. 
+    
+    Our completeness proof provides further evidence that the use of coalgebras over proper functors provides a good abstraction for completeness theorems, where general steps can be abstracted away leaving as a domain-specific task to achieve completeness a construction to syntactically build solutions to systems of equations. Proving the uniqueness of such solutions is ultimately the most challenging step in the proof. By leveraging the theory of proper functors, our proof of completeness, which depends on establishing an abstract universal property, boils down to an argument that can be viewed as a natural extension of the work by Salomaa~\cite{Salomaa:1966:Two} and Brzozowski~\cite{Brzozowski:1964:Expressions} from the 1960s.
+    
+	The remainder of this chapter is organised as follows:
+	
+	In \Cref{c4:sec:overview}, we introduce Probabilistic Regular Expressions ({PRE}), an analogue of Kleene's regular expressions denoting probabilistic languages and propose an inference system for reasoning about language equivalence of {PRE}. 
+	
+	Then, in \Cref{c4:sec:preliminiaries}, we elaborate on the main theoretical preliminaries for the technical development of this chapter. The coalgebraic approach to language semantics of GPTS is described in \Cref{c4:sec:operational}. In the remainder of that section, we provide a small-step semantics of {PRE} through an analogue of Antimirov derivatives endowing expressions with a structure of Generative Probabilistic Transition Systems ({GPTS}).
+    	 
+	The technical core of this chapter is located in \Cref{c4:sec:soundness} and \Cref{c4:sec:completeness}, where we obtain soundness and completeness results for our axiomatisation. Due to our use of proper functors, the proof boils down to a generalisation of a known proof of Salomaa for regular expressions~\cite{Salomaa:1966:Two} exposing the connection to a classical result. We also obtain an analogue of Kleene's theorem allowing the conversion of finite-state {GPTS} to expressions through an analogue of Brzozowski's method~\cite{Brzozowski:1964:Expressions}.
+	
+	We conclude the chapter in \Cref{c4:sec:related}, where we survey related work and sketch some areas for future work.
+   
 \section{Overview}\label{c4:sec:overview}
 In this section, we will introduce the syntax and the language semantics of probabilistic regular expressions ({PRE}), as well as a candidate inference system to reason about the equivalence of {PRE}. 
 
@@ -232,7 +253,7 @@ Since $E(e)=0$,  we then have:
      \stackrel{(\textsf{S1})}\equiv e^{[p]} .
 \)
 \end{example}
-\section{Preliminaries}
+\section{Preliminaries}\label{c4:sec:preliminiaries}
 In this section, we review the main preliminaries for the technical development outlined in the subsequent sections. 
 \label{c4:sec:preliminaries}
 \subsection{Locally finitely presentable categories}\label{c4:subsec:lfp}
@@ -708,7 +729,7 @@ It turns out that the operational semantics of every {PRE} can be always describ
         \draw (4) edge[-implies, double, double distance=0.5mm] node[above] {\scriptsize\( 1\)} (o2);
 \end{tikzpicture}
 \end{center}
-One can observe that the transition system above for $e$ is isomorphic to the one starting in $q_2$ in \cref{ex:systems}.
+One can observe that the transition system above for $e$ is isomorphic to the one starting in $q_2$ in \Cref{c4:ex:systems}.
 \end{example}
 
 Given the finite-state {GPTS} $(\langle e \rangle, \partial)$ associated with an expression $e\in \PExp$ we can define the language semantics of $e$ as the probabilistic language $\llbracket e\rrbracket \in \interval{0}{1}^{\alphabet^*}$ generated by the state $e$ in the {GPTS} $(\langle e \rangle, \partial)$. 
@@ -729,11 +750,21 @@ The heart of both arguments will rely on arguing that the semantics map $\llbrac
 	\arrow["{\beh{d}}", from=1-3, to=1-5]
 	\arrow["{\llbracket-\rrbracket}"', curve={height=20pt}, from=1-1, to=1-5]
 \end{tikzcd}\] 
-In the picture above $[-] \colon \PExp \to {\PExp}/{\equiv}$ is a quotient map taking expressions to their equivalence class modulo the axioms of $\equiv$, while $\beh{d} \colon {\PExp}/{\equiv} \to \interval{0}{1}^{\alphabet^\ast}$ is a map taking each equivalence class to the corresponding probabilistic language. In such a case, soundness follows as a sequence of three steps:
+The tehcnical core of both arguments will rely on equipping ${\PExp}/{\equiv}$ with a structure of a $\funG$-coalgebra, possesing additional well-behaved $\pca$ structure making it into a $\overline{\funG}$-coalgebra. In the picture above $[-] \colon \PExp \to {\PExp}/{\equiv}$ is a quotient map taking expressions to their equivalence class modulo the axioms of $\equiv$, while $\beh{d} \colon {\PExp}/{\equiv} \to \interval{0}{1}^{\alphabet^\ast}$ is a final $\funG$-coalgebra homomorphism taking each equivalence class to the corresponding probabilistic language. In such a case, soundness follows as a sequence of three steps:
 \begin{equation}\label{eq:sound}
  e\equiv f\Rightarrow [e]=[f] \Rightarrow \beh{d} ([e])  = \beh{d} ( [f] ) \Rightarrow \llbracket e\rrbracket = \llbracket f\rrbracket 
  \end{equation}
- To obtain completeness we want to reverse all implications in \Cref{eq:sound}--and they all are easily reversible except $[e]=[f] \Rightarrow \beh{d} ( [e] )  =  \beh{d} ( [f] )$. To obtain this reverse implication we will need to show that $\beh{d} $ is {\em injective}.
+ In general, obtaining the appropriate transition system structure on $\PExp/_\equiv$ needs a couple of intermediate steps, which then lead to soundness:
+\begin{enumerate}
+\item We first prove the soundness of a subset of the axioms of \Cref{c4:fig:axioms}: omitting (\textsf{S0}) and (\textsf{D2}) yields a sound inference system, which we call $\equiv_b$, with respect to a finer equivalence--probabilistic bisimilarity as defined by Larsen and Skou~\cite{Larsen:1991:Bisimulation} (\Cref{c4:lem:soundness_bisim}). As a consequence, there exists a deterministic transition system structure on the set $\distf{{\PExp}/{\equiv_b}}$, such that $\distf [-]_{\equiv_b} \colon \distf \PExp \to \distf {{\PExp}/{\equiv_b}}$ is a $\funG$-coalgebra homomorphism (\Cref{c4:lem:homom_of_determinisations}). 
+\item We then prove that the set of expressions modulo the bisimilarity axioms, that is $\PExp/_{\equiv_b}$, has the structure of a positive convex algebra $\alpha_{\equiv_b} \colon \distf{{\PExp}/{\equiv_b}} \to {\PExp}/{\equiv_b}$ (\Cref{lem:quotient_is_an_em_algebra}). This allows us to flatten a distribution over equivalence classes into a single equivalence class. This proof makes use of a {\em fundamental theorem} decomposing expressions (\Cref{c4:thm:fundamental_theorem}). Additionally, we obtain that the coarser quotient ${\PExp}/{\equiv}$ also has a $\pca$ structure (\Cref{c4:lem:coarser_quotient_is_a_pca}), that will become handy in the proof of completeness.
+\item With the above result, we equip the set $\PExp/{\equiv_b}$ with a $\funG$-coalgebra structure and show that the positive convex algebra structure map on ${\PExp}/{\equiv_b}$ is also a $\funG$-coalgebra homomorphism from $\distf {\PExp}/{\equiv_b}$ into it (\Cref{c4:lem:algebra_map_coalgebra_homomorphism}). 
+\item Through a simple argument (this step encapsulates the key part of the soundness argument), we show that there exists a unique deterministic transition system structure on the coarser quotient, that is ${\PExp}/{\equiv}$, that makes further identification using axioms (\textsf{S0}) and (\textsf{D2}) (denoted $[-]_{\equiv} \colon {\PExp}/{\equiv_b} \to {\PExp}/{\equiv}$) into a $\funG$-coalgebra homomorphism (\Cref{c4:lem:coalg_on_quotient_left_dist}). We compose all homomorphisms into a map of the type $\distf {\PExp} \to {\PExp}/{\equiv}$ and show the correspondence of the probabilistic language of the state $[e]$ in the above mentioned $\funG$-coalgebra with the one of $\delta_{e}$ in the determinisation of Antimirov {GPTS}, thus establishing soundness.
+\end{enumerate}
+  As much as our proof of soundness is not a straightforward inductive argument like in ordinary regular expressions, it immediately sets up the stage for the completeness argument. To obtain completeness we want to reverse all implications in \Cref{eq:sound}--and they all are easily reversible except $[e]=[f] \Rightarrow \beh{d} ( [e] )  =  \beh{d} ( [f] )$. To obtain this reverse implication we will need to show that $\beh{d} $ is {\em injective}. We will do this, by showing that the (algebraically structured) coalgebra on ${\PExp}/{\equiv}$ satisfies a universal property of the rational fixpoint. 
+  
+ 
+
  
  {\color{red} Complete the roadmap!}
  \section{Soundness}\label{c4:sec:soundness}
@@ -747,12 +778,10 @@ In the picture above $[-] \colon \PExp \to {\PExp}/{\equiv}$ is a quotient map t
 	\arrow["{[-]_{\equiv}}"', from=1-3, to=1-5]
 \end{tikzcd}\]
 
-A straightforward induction on the length derivation of $\equiv_b$ allows us to show that this relation is a bisimulation equivalence on $(\PExp, \partial)$. As mentioned before, in the case of {GPTS} this notion corresponds to bisimulation equivalences in the sense of Larsen and Skou~\cite{Larsen:1991:Bisimulation}.
+A straightforward induction on the length derivation of $\equiv_b$ allows us to show that this relation is a bisimulation equivalence on $(\PExp, \partial)$. As mentioned before, in the case of {GPTS} this notion corresponds to bisimulation equivalences in the sense of Larsen and Skou~\cite{Larsen:1991:Bisimulation}.  Due to readability concerns, the proof of that result is delegated to \Cref{apx:soundness}.
 \begin{restatable}{lemma}{soundnessbisim}\label{c4:lem:soundness_bisim}
     The relation ${\equiv_b} \subseteq {\PExp \times \PExp}$ is a bisimulation equivalence.
  \end{restatable}
-Due to readability concerns, the proof of the result above is delegated to \Cref{apx:soundness}. 
- 
 As a consequence of \Cref{c4:lem:soundness_bisim} and \Cref{c2:lem:quotient_coalgebra}, there exists a unique coalgebra structure $\qcoa \colon {\PExp}/{\equiv_b} \to \distf \funF {\PExp}/{\equiv_b}$, which makes the quotient map $[-]_{\equiv_b} \colon \PExp \to {\PExp}/{\equiv_b}$ into a $\distf \funF$-coalgebra homomorphism from $(\PExp, \partial)$ to $({{\PExp}/{\equiv_b}},\qcoa)$. It turns out, that upon converting those $\distf \funF$-coalgebras to $\funG \distf$-coalgebras using the natural transformation $\rho \colon \distf \funF \to \funG \distf$ and determinising them, $\distf [-]_{\equiv_b} \colon \distf \PExp \to \distf {\PExp}/{\equiv_b}$ becomes a homomorphism between the determinisations. 
 \begin{lemma}\label{c4:lem:homom_of_determinisations}
 	$\distf [-]_{\equiv_b} \colon \distf \PExp \to \distf {\PExp}/{\equiv_b}$ is a $\funG$-coalgebra homomorphism from $(\distf \PExp, (\rho_{\PExp} \circ \partial)^\sharp)$ to  $(\distf {\PExp}/{\equiv_b}, (\rho_{{\PExp}/{\equiv_b}} \circ \qcoa)^\sharp)$. In other words, the following diagram commutes:
@@ -1643,7 +1672,7 @@ M^\beta_{x, x'} = \begin{cases}
  The proof of the uniqueness of solutions theorem will proceeds by induction on the size of the systems of equations. We first show that systems with only one unknown can be solved via the (\textsf{Unique}) fixpoint axiom. Systems of the size $n+1$ can be reduced to systems of size $n$, by solving for one of the unknowns and substituting the obtained equation with $n$ unknowns to the remaining $n$ equations. We note that this reduction step is highly reliant on axioms (\textsf{D2}) and (\textsf{S0}). In particular, we will rely on the following property to generalise left distributivity to arbitrary $n$-ary convex sums.
  \begin{lemma}\label{c4:lem:generalised_left_distributivity}
     Let $f \in \PExp$, $I$ be a finite index set and let $\{p_i\}_{i \in I}$ and $\{e_i\}_{i \in I}$ be indexed collections of probabilities and expressions, respectively. Then:
-    $$\left(\bigoplus_{i \in I} p_i \cdot e_i\right) \seq f \equiv_0 \bigoplus_{i \in I} p_i \cdot e_i \seq f$$
+    $$\left(\bigoplus_{i \in I} p_i \cdot e_i\right) \seq f \equiv_b \bigoplus_{i \in I} p_i \cdot e_i \seq f$$
 \end{lemma}
 \begin{proof}
     By induction. If $I = \emptyset$, then: 
@@ -1654,7 +1683,7 @@ M^\beta_{x, x'} = \begin{cases}
     \end{align*}
     If there exists $j \in I$ such that $p_j = 1$, then:
     \begin{align*}
-        f \seq \left(\bigoplus_{i \in I} p_i \cdot e_i\right) &\equiv_0 f \seq e_j \\
+        f \seq \left(\bigoplus_{i \in I} p_i \cdot e_i\right) &\equiv_b f \seq e_j \\
         &\equiv     \left(\bigoplus_{i \in I} p_i \cdot f \seq e_i\right)
     \end{align*}
     Finally, for the induction step, we obtain the following:
@@ -1992,3 +2021,10 @@ Stochastic Regular Expressions ({SRE})~\cite{Ross:2000:Probabilistic,Beeh:2017:T
 
 Our soundness result, as well as semantics via generalised determinisation, were inspired by the work of Silva and Sokolova~\cite{Silva:2011:Sound}, who introduced a two-sorted process calculus for reasoning about probabilistic language equivalence of {GPTS}. Unlike {PRE}, their language syntactically excludes the possibility of introducing recursion over terms which might immediately terminate. Moreover, contrary to our completeness argument, their result hinges on the subset of axioms being complete with respect to bisimilarity, similarly to the complete axiomatisation of trace congruence of {LTS} due to Rabinovich~\cite{Rabinovich:1993:Complete}. The use of coalgebra to model trace/language semantics is a well-studied topic~\cite{Jacobs:2015:Trace,Rot:2021:Steps} and other approaches besides generalised determinisation~\cite{Silva:2010:Generalizing,Bonchi:2017:Power} included the use of Kleisli categories~\cite{Hasuo:2007:Generic} and coalgebraic modal logic~\cite{Klin:2015:Coalgebraic}. 
 We build on the vast line of work on coalgebraic completeness theorems~\cite{Jacobs:2006:Bialgebraic,Silva:2010:Kleene,Schmid:2021:Star,Milius:2010:Sound,Bonsangue:2013:Sound}, coalgebraic semantics of probabilistic systems~\cite{Vink:1999:Bisimulation,Sokolova:2005:Coalgebraic} and fixpoints of the functors~\cite{Milius:2020:New,Milius:2018:Proper,Sokolova:2018:Proper}. 
+
+\subsection{Future work}
+A first natural direction is exploring whether one could obtain an \emph{algebraic} axiomatisation of {PRE}. Similarly to Salomaa's system, our axiomatisation is unsound under substitution of letters by arbitrary expressions in the case of the termination operator used to give side condition to the unique fixpoint axiom. We are interested if one could give an alternative inference system in the style of Kozen's axiomatisation~\cite{Kozen:1994:Completeness}, in which the Kleene star is the least fixpoint wrt the natural order induced by the $+$ operation and thus not requiring the side condition to introduce loops. In the case of {PRE}, the challenge is that there is no obvious way of defining a natural order on {PRE} in terms of $\oplus_p$ operation. 
+
+Additionally, it is interesting to ask if the finer relation $\equiv_{b}$ is complete with respect to the probabilistic bisimilarity. One could view it as a probabilistic analogue of the problem of completeness of Kleene Algebra modulo bisimilarity posed by Milner~\cite{Milner:1984:Complete}, which was recently answered positively by Grabmayer~\cite{Grabmayer:2022:Milner}. 
+
+Finally, an interesting direction would be to study a more robust notion of \emph{language distance}~\cite{Baldan:2018:Coalgebraic} of {GPTS} by extending our axiomatisation to a system based on quantitative equational logic~\cite{Mardare:2016:Quantitative}. Similar results were already obtained in the case of probabilistic process calculus of Stark and Smolka~\cite{Stark:2000:Complete} for bisimulation distance~\cite{Bacci:2018:Bisimilarity} and distance between infinite traces~\cite{Bacci:2018:TV}.
