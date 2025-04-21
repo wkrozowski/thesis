@@ -18,6 +18,11 @@ Later in this chapter, we will characterise the behavioural distance of prechart
 	Let $C_i = (Q_i, D_i, E_i)$ for $i \in \{1,2\}$ be precharts. We can define a family $\{\sim^{(i)} \}_{i \in \N}$ of equivalence relations on $Q_1 \times Q_2$ given by the following. For all $(q_1,q_2) \in Q_1 \times Q_2$, we have that $q_1 \sim^{(0)} q_2$. Given $(q_1, q_2) \in Q_1 \times Q_2$, we have that $q_1 \sim ^{(n+1)} q_2$ if \circlednum{1} $E_1(q_1) = E_2(q_2)$, \circlednum{2} $q_1 \tr{a}_{C_1} q'_1$ implies that there exists $q'_2 \in Q_2$, such that $q_2 \tr{a} q'_2$ and $q'_1 \sim^{(n)} q'_2$.
 \end{definition}
 
+For precharts, which by definition are image-finite, we have the following relationship between bisimilarity and its stratification~\cite{hennessy:1985:algebraic}:
+\begin{equation}\label{eqn:stratification}
+	x \sim y \iff \forall k \in \N \ldotp~x\sim^{(k)} y
+\end{equation}
+
 Given a prechart $(Q, E, D)$, we can equivalently see it as a pair $(Q, \beta)$, where $\beta$ is a combined transition function $Q \to \powf (\Sigma \times Q + V)$, where $\powf$ denotes a finite powerset. Such transition function $\beta$ takes each state $q \in Q$, to the set $\beta(q) = D(q) \cup E(q)$ of possible successors, that include labelled transitions and variable outputs.
 
 In other words, precharts are coalgebras for the functor $\funL \colon \Set \to \Set$, given by $\funL = \Sigma \times (-) + V$. Bisimulations and homomorphisms of $\funL$-coalgebras are captured concretely by strong bisimulation of precharts and their homomorphisms. Because of this, we will interchangeably use terms prechart and $\funL$-coalgebra. Moreover, $\funL$ preserves weak pullbacks and hence $\sim$ is an equivalence relation that captures behavioural equivalence of $\funL$-coalgebras. For more details of coalgebraic treatment of precharts, we direct an interested reader to~\cite{Schmid:2021:Star}.
@@ -204,11 +209,9 @@ Let $\beta'$ denote $\beta$ restricted to $\langle x , y \rangle_\beta$.
 	$$
 	\mathsf{bd}_\beta(x,y) = \mathsf{bd}_{\beta'}(x,y) = \inf_{i \in I} \left( \Phi^{(i)}_{\beta'}(x,y)\right)
 	$$
-	Since $\beta'$ is a restriction of $\beta$ to ${\langle x , y \rangle_\beta}$ and each $\Phi^{(i)}_{\beta'}$ makes only use of the states in $\langle x , y \rangle_\beta$, we can rewrite the above as
-	$$
+	Since $\beta'$ is a restriction of $\beta$ to ${\langle x , y \rangle_\beta}$ and each $\Phi^{(i)}_{\beta'}$ makes only use of the states in $\langle x , y \rangle_\beta$, we can rewrite the above as $
 	\mathsf{bd}_\beta(x,y) = \inf_{i \in \N} \left(\Phi_\beta^{(i)}(x,y)\right)
-	$$
-	as desired.
+	$ as desired.
 \end{proof} 
 The value of behavioural distance between any two states in locally finite precharts is always a power of two.
 \begin{lemma}\label{lem:distance_power_of_two}
@@ -224,20 +227,12 @@ The value of behavioural distance between any two states in locally finite prech
 	
 	Recall that for $u = (a,x')$ and $w=(a,y')$, we have that ${\Phi^{(j)}_\beta}^\uparrow(u,w)=\frac{1}{2} {\Phi^{(j)}_\beta}(x',y')$. By induction hypothesis, we have that ${\Phi^{(j)}_\beta}(x',y')=0$ and hence ${\Phi^{(j)}_\beta}^\uparrow(u,w)=0$ or there exists a $k \in N$, such that ${\Phi^{(j)}_\beta}(x',y')=2^{-k}$ and hence ${\Phi^{(j)}_\beta}^\uparrow(u,w)=2^{-(k+1)}$. Since the infima range over finite sets, their values are either $1=2^0$ if the sets are empty or are one of the values from the set, which we have shown to be of the desired form. Similarly, suprema range over finite sets and are either $0$ for empty sets or are on of the values from the set, which are in the desired form. Taking the maximum of values in the desired form, still results in a value in the desired form.
 \end{proof}
-If two states are not bisimilar, then the chain of approximants from Kleene's fixpoint theorem stabilises.
+If two states have a non-zero distance, then the chain of approximants from Kleene's fixpoint theorem stabilises.
 \begin{lemma}\label{lem:chain_stabilises}
-	Let $(X, \beta)$ be a locally finite prechart and let $x,y \in X$, such that $\neg (x \sim y)$. There exists $i \in \N$, such that $\Phi_\beta^{(i)}(x,y)=\Phi^{(i+1)}_\beta(x,y)$
+	Let $(X, \beta)$ be a locally finite prechart and let $x,y \in X$, such that $\mathsf{bd}_\beta(x,y)>0$. There exists $i \in \N$, such that $\Phi_\beta^{(i)}(x,y)=\Phi^{(i+1)}_\beta(x,y)$
 \end{lemma}
 \begin{proof}
-	Since $\neg (x \sim y)$, then $\mathsf{bd}_\beta(x,y)\neq 0$ and hence $\mathsf{bd}_\beta(x,y) > 0$. 
 	For the sake of an argument, assume that for all $i \in \N$, $\Phi_\beta^{(i)}(x,y)\neq\Phi^{(i+1)}_\beta(x,y)$. Essentially, that means we have an infinite, strictly decreasing $\omega$-cochain $\{\Phi^{(i)}_\beta(x,y)\}_{i \in I}$. By \Cref{lem:distance_power_of_two}, we know that the values of the chain are either $0$ or $2^{-k}$. Since all the values of the chain are nonegative, if any of it is equal to zero $0$, we reach a contradiction, as chain would have to contain values strictly below $0$. Hence, we can safely assume that the chain is in the form $\{1,\frac{1}{2}, \frac{1}{4}, \dots\}$. But in such a case its infimum is $0$, contradicting the assumption.
-\end{proof}
-As a corollary, nonzero behavioural distance is always witnessed by a finite approximant.
-\begin{corollary}\label{lem:finite_witness_for_positive_distance}
-	Let $(X, \beta)$ be a locally finite prechart and let $x,y \in X$. If $\mathsf{bd}_\beta(x,y) > 0$, then there exists an $i \in \N$, such that $\mathsf{bd}_\beta(x,y) = \Phi^{(i)}_\beta(x,y)$
-\end{corollary}
-\begin{proof}
-	If $\mathsf{bd}_\beta(x,y) >0$, we have that $\neg (x \sim y)$ and using \Cref{lem:chain_stabilises}, we know that the chain of approximants stabilises and hence the infimum of the chain is equal to the point where it stabilises.
 \end{proof}
 We can connect behavioural distances with stratified bisimulations via the following result:
 \begin{lemma}\label{lem:bound_on_stratified_bisim}
@@ -284,11 +279,15 @@ We can now combine the above results and obtain the following concrete character
 Let $(X,\beta)$ be a locally finite prechart and let $x,y \in X$. The behavioural distance between $x$ and $y$ is given by:
 	$$\mathsf{bd}_\beta(x,y) = \begin{cases}
 		0 & \text{ if } x \sim y\\
-		2^{-n} & \text{ if } n \text{ is the largest number such that } x\sim^{(n)} y
+		2^{-n} & \text{ if } n \in \N \text{ is the largest number such that } x\sim^{(n)} y
 	\end{cases}$$
 \end{theorem}
 \begin{proof}
-	Because of the \Cref{lem:finite_witness_for_positive_distance}, we know that if $\mathsf{bd}_\beta(x,y) > 0$, then the behavioural distance is equal to some element of the chain of approximants. By \Cref{lem:bound_on_stratified_bisim}, we know that all non-zero elements of that chain are equal to $2^{-k}$, for some $k \in \N$. Combining it with \Cref{lem:bound_on_stratified_bisim} yields the desired result.
+	For the first case, because of \Cref{thm:beh_dist}, if $x \sim y$, then $\mathsf{bd}_{\beta}(x,y)=0$. For the converse, if $\mathsf{bd}_{\beta}(x,y)=0$, we have that $x \sim^{(k)} y$ for all $k \in \N$ and hence by \Cref{eqn:stratification}, it holds that $x \sim y$.
+	
+	 In the second case, because of \Cref{lem:chain_stabilises}, we know that if $\mathsf{bd}_\beta(x,y) > 0$, then the behavioural distance is equal to some element of the chain of approximants. By \Cref{lem:distance_power_of_two}, we know that all non-zero elements of that chain are equal to $2^{-k}$, for some $k \in \N$. Combining it with \Cref{lem:bound_on_stratified_bisim} yields the desired result. 
+	 For the converse, if $n \in N$ is the largest number such that $x \sim^{(n)} y$, then because of \Cref{lem:bound_on_stratified_bisim}, we have that $\mathsf{bd}_\beta(x,y)\leq 2^{-n}$. For the sake of an argument, assume that $\mathsf{bd}_\beta(x,y)=0$. In such a case, using \Cref{lem:bound_on_stratified_bisim}, we could conclude that $x \sim^{(n+1)} y$, which would lead to contradiction. Hence, $\mathsf{bd}_\beta(x,y)>0$. Because of \Cref{lem:chain_stabilises}, we have that $\mathsf{bd}_\beta(x,y)$ is equal to some power of two. Combining that with \Cref{lem:bound_on_stratified_bisim} again yields the desired result.
+
 \end{proof}
 \subsection{Conway Theories}\label{c3:subsec:conway}
 Let $\cat{C}$ be a category, whose objects are natural numbers and $0$ is the initial object. We will write $0_n$ for the unique map $0_n \colon 0 \to n$. Additionally, we assume that $\cat{C}$ is equipped with all finite coproducts, where binary coproduct is given by addition, i.e. $n \oplus m := n + m$. Given $f \colon k \to m$ and $g \colon l \to m$, we will write $\lc f,g \rc \colon k +l \to m$ for the mediating map from the universal property of the coproduct that makes the following diagram commute:
