@@ -289,7 +289,7 @@ Let $(X,\beta)$ be a locally finite prechart and let $x,y \in X$. The behavioura
 	 For the converse, if $n \in N$ is the largest number such that $x \sim^{(n)} y$, then because of \Cref{lem:bound_on_stratified_bisim}, we have that $\mathsf{bd}_\beta(x,y)\leq 2^{-n}$. For the sake of an argument, assume that $\mathsf{bd}_\beta(x,y)=0$. In such a case, using \Cref{lem:bound_on_stratified_bisim}, we could conclude that $x \sim^{(n+1)} y$, which would lead to contradiction. Hence, $\mathsf{bd}_\beta(x,y)>0$. Because of \Cref{lem:chain_stabilises}, we have that $\mathsf{bd}_\beta(x,y)$ is equal to some power of two. Combining that with \Cref{lem:bound_on_stratified_bisim} again yields the desired result.
 
 \end{proof}
-\subsection{Conway Theories}\label{c3:subsec:conway}
+\subsection{Conway theories}\label{c3:subsec:conway}
 Let $\cat{C}$ be a category, whose objects are natural numbers and $0$ is the initial object. We will write $0_n$ for the unique map $0_n \colon 0 \to n$. Additionally, we assume that $\cat{C}$ is equipped with all finite coproducts, where binary coproduct is given by addition, i.e. $n \oplus m := n + m$. Given $f \colon k \to m$ and $g \colon l \to m$, we will write $\lc f,g \rc \colon k +l \to m$ for the mediating map from the universal property of the coproduct that makes the following diagram commute:
 \begin{equation}\label{eqn:mediating}
 \begin{tikzcd}
@@ -374,8 +374,8 @@ That bijective correspondence is concretely given by the following:
 	\inferrule{g \colon p + n \to q + n}{\Tr^{n}_{p,q}(g) = \inl_{p,n} ; (g; \lc\id_q, \inr_{q +p,n} \rc)^\dagger  \colon p \to q}
 \end{gather*}	
 
-\subsection{Int construction}
-Given a traced symmetric monoidal category $(\cat{C}, \otimes, I)$, we can construct a compact closed category $\Int{\cat{C}}$. The objects of $\Int{\cat{C}}$ are the pairs $(A^+,A^-)$ of objects of $\cat{C}$. Morphisms $f$ from $(A^+, A^-)$ to $(B^+, B^-)$ are the morphisms $f \colon A^+ \otimes B^- \to A^- \otimes B^+$ of $\cat{C}$. The identity of any object $(A^+, A^-)$ is given by the symmetry of $\cat{C}$, namely $\id_{(A^ +, A^-)} = \sigma_{A^+, A^-}$. The composition $f ; g \colon (A^+, A^-) \to (C^+, C^-)$ of morphisms $f \colon (A^+, A^-) \to (B^{+}, B^-)$ and $g \colon (B^+, B^-) \to (C^+,C^-)$ is defined as
+\subsection{Int construction}\label{c3:subsec:int}
+Given a traced symmetric monoidal category $(\cat{C}, \otimes, I)$, we can construct a compact closed category $\Int{\cat{C}}$~\cite{Joyal:1996:Traced}. The objects of $\Int{\cat{C}}$ are the pairs $(A^+,A^-)$ of objects of $\cat{C}$. Morphisms $f$ from $(A^+, A^-)$ to $(B^+, B^-)$ are the morphisms $f \colon A^+ \otimes B^- \to A^- \otimes B^+$ of $\cat{C}$. The identity of any object $(A^+, A^-)$ is given by the symmetry of $\cat{C}$, namely $\id_{(A^ +, A^-)} = \sigma_{A^+, A^-}$. The composition $f ; g \colon (A^+, A^-) \to (C^+, C^-)$ of morphisms $f \colon (A^+, A^-) \to (B^{+}, B^-)$ and $g \colon (B^+, B^-) \to (C^+,C^-)$ is defined as
 	$
 		\Tr^{B^- \otimes B^+}_{A^+ \otimes C^-, A^- \otimes C^+} (\alpha ; (f \otimes g) ; \beta)
 	$, where \begin{gather*}\alpha = (\id_{A^+} \otimes \sigma_{C^-, B^-} \otimes \id_{B^+});(\id_{A^+} \otimes \id_{B^-} \otimes \sigma_{C^-, B^+})\\\beta = (\id_{A^-} \otimes \id_{B^+} \otimes \sigma_{B^-, C^+}); (\id_{A^-} \otimes \sigma_{B^+, C^+} \otimes \id_{B^-});(\id_{A^-} \otimes \id_{C^+} \otimes \sigma_{B^+, B^-})\end{gather*}
@@ -433,7 +433,7 @@ Morphisms of $\Syn$ are thus vertical and horizontal composites of the generator
  The direction of the arrows on the wires denotes the corresponding object: for example, $\tikzfig{lr-copy}$ represents an operation of type $\objr\to \objr\objr$, while $\tikzfig{cap-down}$ has type $\objl\objr\to \epsilon$. Note that, when we have $n$ parallel wires of the same type, say $\objr$, we depict them as a single directed wire labelled by a natural number label, as $\idright^{\!\!\!\!\!\! n}$. We call \emph{inputs} the incoming wires of a diagram, and \emph{outputs} its outgoing wires; formally, the inputs (resp. outputs) of $f\from v\to w$ are the set of positions of the word $v$ which are $\objr$ (resp. $\objl$) and the position of $w$ which are $\objl$ (resp. $\objr$).
 	
 	
-	\section{Monoidal semantics}
+	\section{Monoidal semantics}\label{sec:semantics}
 	
 	In order to interpret the string diagrams described in \Cref{c3:sec:monoidal}, we construct an appropriate semantic universe out of regular behaviours. As much as the technical development makes use of category theory, we will keep the description of the formalism high-level. We will write $V_n$ for the set $V_n = \{v_1, \dots, v_n\}\subseteq V$ and $\Expr/{\equiv}(n)$ for the set of all regular behaviours whose live variables are contained in the set $V_n$. For any $m,n \in \N$, we will write $\RegBeh(m,n)$ for the set of $m$-tuples of elements of $\Expr/{\equiv}(n)$. 
 	
@@ -472,7 +472,7 @@ Because of the above, we can define a category $\RegBeh$, whose objects are natu
 \begin{proof}
 	For any $n \in \N$, the unique universal arrow is given by $0_n$, which immediately completes the proof.
 \end{proof}
- Given $f \in \RegBeh(k,m)$ and $g \in \RegBeh(l,m)$, we define their pairing $\langle f , g \rangle \in \RegBeh (k + l,m)$, by setting $\lc f , g \rc = (f_1, \dots, f_k, g_1, \dots g_l)$. $\RegBeh$ can be equipped with binary coproducts, which is defined on objects as addition and the mediating map is given by pairing.
+ Given $f \in \RegBeh(k,m)$ and $g \in \RegBeh(l,m)$, we define their pairing $\lc f , g \rc \in \RegBeh (k + l,m)$, by setting $\lc f , g \rc = (f_1, \dots, f_k, g_1, \dots g_l)$. $\RegBeh$ can be equipped with binary coproducts, which is defined on objects as addition and the mediating map is given by pairing.
 \begin{lemma}
 	$\RegBeh$ has binary coproducts. In particular, given $k, l \in \N$, the inclusions $\inl_{k,l} \colon k \to k +l$ and $\inr_{k,l} \colon l \to k + l$ are given by $\inl_{k,l} = (v_1, \dots, v_k)$ and $\inr_{k,l} = (v_{k+1}, \dots, v_{k+l})$ respectively, while the mediating map is given by pairing. 
 % https://q.uiver.app/#q=WzAsNCxbMCwwLCJrIl0sWzIsMCwibCJdLFsxLDEsImsrbCJdLFsxLDMsIm0iXSxbMCwyLCJcXGlubCJdLFsxLDIsIlxcaW5yIiwyXSxbMCwzLCJmIiwyXSxbMSwzLCJnIl0sWzIsMywiXFxsYW5nbGUgZiAsIGcgXFxyYW5nbGUiLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
@@ -554,12 +554,12 @@ We can now establish the \textbf{scalar composition} indentity.
 \begin{lemma}\label{conway2}
 Let $f,g \colon 1 \to 1 + p$ be morphisms of $\RegBeh$. Then,
 		$$
-		(f ; \langle  \id_p \oplus 0_1 , g \rangle)^\dagger = f ; \langle \id_p, (g ;  \langle  \id_p \oplus 0_1 , f\rangle)^\dagger\rangle
+		(f ; \lc  \id_p \oplus 0_1 , g \rc)^\dagger = f ; \lc \id_p, (g ;  \lc  \id_p \oplus 0_1 , f\rc)^\dagger\rc
 		$$ 
 \end{lemma}
 \begin{proof}
 \begin{align*}
-(f ; \langle  \id_p \oplus 0_1 , g \rangle)^\dagger & = \big(f[v_1,\dots,v_p, g/\vec{v}]\big)^\dagger	
+(f ; \lc  \id_p \oplus 0_1 , g \rc)^\dagger & = \big(f[v_1,\dots,v_p, g/\vec{v}]\big)^\dagger	
 \\
 & = \mu v_{p+1}.\big(f[v_1,\dots,v_p, g/\vec{v}]\big)
 \\
@@ -568,11 +568,11 @@ Let $f,g \colon 1 \to 1 + p$ be morphisms of $\RegBeh$. Then,
 & = f[\mu v_{p+1}. \left(g[f/v_{p+1}]\right)/v_{p+1}] \tag{\Cref{lem:recursion-substitution}~2.}
 \\
 & = f[\mu v_{p+1}. \left(g[v_1,\dots,v_n,f/v_1,\dots,v_n,v_{p+1}]\right)/v_{p+1}]\\
-& = f[\mu v_{p+1}. (g ;  \langle  \id_p \oplus 0_1 , f\rangle)/v_{p+1}]
+& = f[\mu v_{p+1}. (g ;  \lc  \id_p \oplus 0_1 , f\rc)/v_{p+1}]
 \\
-& = f[(g ;  \langle  \id_p \oplus 0_1 , f\rangle)^\dagger/v_{p+1}]
+& = f[(g ;  \lc  \id_p \oplus 0_1 , f\rc)^\dagger/v_{p+1}]
 \\
-& = f ; \langle \id_p, (g ;  \langle  \id_p \oplus 0_1 , f\rangle)^\dagger\rangle
+& = f ; \lc \id_p, (g ;  \lc  \id_p \oplus 0_1 , f\rc)^\dagger\rc
 \end{align*}
 \end{proof}
 Similarly, we can show that dagger on $\RegBeh$ satisfies \textbf{scalar double dagger identity}. 
@@ -610,4 +610,538 @@ We can now combine all the intermediate results into the following statement.
 		\item Each morphism $g \colon p + n \to q + n$ has a trace $\Tr^{n}_{p,q}(g) \colon p \to q$ defined in terms of dagger. This equipment makes $\RegBeh$ into a traced monoidal category~\cite{Joyal:1996:Traced}. 
 	\end{itemize}
 \end{theorem} 
+\subsection{Pseudometric structure on $\RegBeh$}
+$\RegBeh$ additionally carries a well-behaved pseudometric structure. For all $m,n \in \N$ each set $\RegBeh(m,n)$ can be made into a pseudometric space by equipping it with a distance function, given by $d^{m,n}((f_1, \dots, f_m), (g_1, \dots, g_m)) = \sup_{1 \leq i \leq m} \left\{ \mathsf{bd}_{\overline{\partial}}(f_i, g_i) \right\}$.
+Intuitively, we calculate the distance between $m$-tuples of regular behaviours, by taking the pointwise behavioural distance of elements of tuples and then taking the maximum. In the corner case, when both tuples are empty, then they are simply at distance zero. We will show that all categorical operations of $\RegBeh$ defined above are well-behaved with respect to that pseudometric equipment. To do so, we establish a series of technical lemmas.
+
+First, we show that substitution preserves indexes of relations forming the stratification of bisimilarity.
+
+\begin{lemma}\label{lem:subst-stratified-bisim}
+	Let $i_1, \dots, i_m \in \N$. For all $n \in \N$ and for all $e,f,g_1, \dots, g_m, h_1, \dots, h_m \in {\Expr}/{\sim}$, we have that
+	\begin{align*}
+	&e \sim^{(n)} f \wedge \bigwedge_{j=1}^{j\leq m} g_j \sim^{(n)} h_j\\& \qquad \implies e[(g_1, \dots, g_m)/ (v_{i_1}, \dots v_{i_m})] \sim^{(n)}  f[(h_1, \dots, h_m)/ (v_{i_1}, \dots v_{i_m})] 
+	\end{align*}  
+\end{lemma}
+\begin{proof}
+
+
+	Base case holds immediately, since we always have that 
+	$$e[(g_1, \dots, g_m)/ (v_{i_1}, \dots v_{i_m})] \sim^{(0)}  f[(h_1, \dots, h_m)/ (v_{i_1}, \dots v_{i_m})] 
+$$ for all $e,f,g_1, \dots, g_j, h_1, \dots, h_j \in {\Expr}/{\sim}$.
+	
+	Assume that $e \sim^{(n + 1)} f$, $g_j \sim^{(n + 1)} h_j$ for all $j \in \{1, \dots, m\}$. For the successor case assume that $e[(g_1, \dots, g_m)/ (v_{i_1}, \dots v_{i_m})] \sim^{(n)} f[(h_1, \dots, h_m)/ (v_{i_1}, \dots v_{i_m})]$. We will argue that $$e[(g_1, \dots, g_m)/ (v_{i_1}, \dots v_{i_m})] \sim^{(n + 1)}  f[(h_1, \dots, h_m)/ (v_{i_1}, \dots v_{i_m})]$$ To do so, we will study the operational semantics of both (equivalence classes of) expressions. 
+	
+		Assume that $e[(g_1, \dots, g_m)/ (v_{i_1}, \dots v_{i_m})] \rhd v_k$. Using \Cref{rem:semantic-substitution}, we can observe that it is the case if any of the following is true: 
+		\begin{itemize}
+			\item $e \rhd v_k$ and $v_k \notin \{v_{i_1}, \dots v_{i_{j}}\}$ 
+			\item $e \rhd v_{i_l}$ for some $v_{i_l} \in \{v_{i_1}, \dots, v_{i_j}\}$ and $g_l \rhd {v_k}$
+		\end{itemize}
+		Consider the first subcase. Since $e \rhd v_k$ (for some $k \notin \{v_{i_1}, \dots, v_{i_j}\}$) and by assumption $e \sim^{n+1} f$, we have that $f \rhd {v_k}$ and hence $f[(h_1, \dots, h_j)/(v_{i_1}, \dots, v_{i_j})] \rhd v_k$. Now, consider the second subcase. By a similar line of reasoning, we can obtain $f \rhd v_l$ and $h_l \rhd v_k$. Hence, again we have that $f[(h_1, \dots, h_j)/(v_{i_1}, \dots, v_{i_j})] \rhd v_k$. In other words, we have shown that $e[(g_1, \dots, g_m)/ (v_{i_1}, \dots v_{i_m})] \rhd v_k$ implies $f[(h_1, \dots, h_j)/(v_{i_1}, \dots, v_{i_j})] \rhd v_k$. One can easily obtain a reverse implication through a symmetric proof.
+		
+		Now, assume that  $e[(g_1, \dots, g_m)/ (v_{i_1}, \dots v_{i_m})] \tr{a} s$. Using \Cref{rem:semantic-substitution}, we know that such transition can be made only if any of the following is true:
+		\begin{itemize}
+			\item $s = e'[(g_1, \dots, g_m)/ (v_{i_1}, \dots v_{i_m})]$, for some $e'$ such that $e \tr{a} e'$
+			\item For some $v_{i_l}$, such that $v_{i_l} \in \{v_{i_1}, \dots, v_{i_m}\}$, we have that $e \rhd v_l$ and $g_l \tr{a} s$
+		\end{itemize}
+		Consider the first subcase. We know that $f \tr{a} f'$ and $e' \sim^{(n)} f'$. Using the induction hypothesis, we can conclude that 
+		$$
+			e[(g_1, \dots, g_m)/(v_{i_1}, \dots, v_{i_m})] \sim^{(n)} f[(h_1, \dots, h_m)/(v_{i_1}, \dots, v_{i_m})]
+		$$
+		Hence, there exists a $t$, such that $f[(h_1, \dots, h_m)/(v_{i_1}, \dots, v_{i_m})] \tr{a} t$, such that $s \sim^{(n)} t$.
+		
+		Now, consider the second subcase. We can easily conclude that $f \rhd v_l$ and $h_l \tr{a} t$, with $s \sim^{(n)} t$.
+		
+		In other words, we have show that $e[(g_1, \dots, g_m)/ (v_{i_1}, \dots, v_{i_m})] \tr{a} s$, then there exists $t$, such that $f[(h_1, \dots, h_m)/(v_{i_1}, \dots, v_{i_m})] \tr{a} t$, such that $s \sim^{(n)} t$. The reverse implication can be again shown via a symmetric argument. Combining all of the above, we can conclude that
+		$$e[(g_1, \dots, g_m)/ (v_{i_1}, \dots, v_{i_m})] \sim^{(n+1)} f[(h_1, \dots, h_m)/(v_{i_1}, \dots, v_{i_m})] \tr{a} t$$
+\end{proof}
+Using the result above, we can show that substitution is in fact nonexpansive.
+\begin{corollary}\label{cor:seq_nexp}
+	Let $e,f,g_1, \dots , g_m,h_1, \dots, g_m \in {\Expr}/{\sim}$. Then,
+	\begin{align*}
+		\mathsf{bd}_{\overline{\partial}}&\left(e[(g_1, \dots, g_m/(v_{i_1}, \dots v_{i_m})], f[(h_1, \dots, h_m/(v_{i_1}, \dots v_{i_m})]\right)\\& \leq \max\{\mathsf{bd}_{\overline{\partial}}(e,f),  \max_{j \in \{1, \dots, m\}} \{\mathsf{bd}_{\overline{\partial}}(g_j,h_j)\}\}
+	\end{align*}
+
+\end{corollary}
+\begin{proof}
+If the right hand side of the inequality is equal to zero, then we have that $e \sim f$ and $g_j \sim h_j$ for $j \in \{1, \dots, m\}$. We can use \Cref{lem:congruence}, to conclude that $e[(g_1, \dots, g_m/(v_{i_1}, \dots v_{i_m})] \sim f[(h_1, \dots, h_m/(v_{i_1}, \dots v_{i_m})]$ and hence $\mathsf{bd}_{\overline{\partial}}(e[(g_1, \dots, g_m/(v_{i_1}, \dots v_{i_m})], f[(h_1, \dots, h_m/(v_{i_1}, \dots v_{i_m})]) = 0$, which implies nonexpansivity.
+	
+If the right hand side is greater than zero, we can employ the characterisation of $\mathsf{bd}_{\overline{\partial}}$ from \Cref{thm:concrete_distance} and use \Cref{lem:subst-stratified-bisim} to conclude the desired result. 
+\end{proof}
+Finally, we can conclude the following:
+\begin{restatable}{lemma}{seqnonexpansive}\label{lem:seq_nonexpansive}
+	Sequential composition in $\RegBeh$ is nonexpansive.
+\end{restatable}
+\begin{proof}
+	Let $f,h \in \RegBeh(m,n)$ and $g,i \in \RegBeh(n,k)$. 
+	\begin{align*}
+		d^{n,k}(f ;g, h;i) &= \sup_{1 \leq j \leq n} \left\{ \mathsf{bd}_{\overline\partial} \left(  f_j[(g_1, \dots, g_m)/\vec{v}], h_j[(i_1, \dots, i_m)/\vec{v}] \right)\right\}\\
+		&\leq \sup_{1 \leq j \leq n} \left\{\max \left\{\mathsf{bd}_{\overline\partial} (f_j,h_j), \sup_{ 1 \leq l \leq m} \{\mathsf{bd}_{\overline\partial} (g_l, i_l)\}\right\}\right\} \tag{\Cref{cor:seq_nexp}} \\
+		&= \max \{ \sup_{1 \leq j \leq n} \{\mathsf{bd}_{\overline\partial} (f_j,h_j)\}, \sup_{ 1 \leq l \leq m} \{\mathsf{bd}_{\overline\partial} (g_l, i_l)\}\}\\
+		&= \max \{d^{n,m}(f,h), d^{m,k}(g,i)\}
+	\end{align*}
+\end{proof}
+Similarly to \Cref{lem:subst-stratified-bisim}, $\mu$-recursion interacts well with the stratification of bisimilarity.
+\begin{lemma}\label{lem:rec_startified_bisim}
+	Let $e, f \in {\Expr}/{\sim_{\partial}}$. Then, for all $n \in \N$, we have that
+	$$
+	e \sim^{(n)} f \implies \mu v_x. e \sim^{(n)} \mu v_x.f
+	$$
+\end{lemma}
+\begin{proof}
+	Base case holds immediately, as $\mu v_x.e \sim^{(0)} \mu v_x.f$ for all $e, f \in {\Expr}/{\sim}$. 
+	
+	Assume that $e \sim^{(n+1)} f$. For the successor case assume that $\mu v_x . e \sim^{(n)} \mu v_x. f$. We will argue that $\mu v_x . e \sim^{(n+1)} \mu v_x. f$.
+	
+	Assume that $\mu v_x.e \rhd v_k$. It is only the case, when $e \rhd {v_k}$ and $v_k \neq v_x$. Since $e \sim^{(n+1)} f$, then $f \rhd {v_k}$ and hence $\mu v_x . f \rhd v_k$. In other words, $\mu v_x.e \rhd v_k$ implies $\mu v_x. f \rhd v_k$. The reverse implication can be easily obtained via a symmetric proof.
+	
+	Now, assume that $\mu v_x.e \tr{a} s$. It is the case, when $e \tr{a} e'$ and $s = e'[\mu v_x.e / v_x]$. Since $e \sim^{(n+1)} f$, then there exists $f'$, such that $f \tr{a} f'$ and $e \sim^{(n)} f$. We can now use induction hypothesis and \Cref{lem:subst-stratified-bisim} and conclude that $e'[\mu v_x. e / v_x] \sim^{(n)} f' [\mu v. f / v_x]$. Moreover, we have that $\mu v.x f \tr{a} f'[\mu v_x.f/v_x]$. Hence, if $\mu v_x.e \tr{a} s$, then there exists $t$, such that $\mu v_x.f \tr{a} t$ and $s \sim^{(n)} t$. A reverse implication can be obtained via a symmetric proof. 
+	
+	Combing the above, allows us to conclude that $\mu v_x. e \sim^{(n+1)} \mu v_x . f$.
+\end{proof}
+We can use the above and conclude $\mu$-recursion is nonexpansive.
+\begin{corollary}\label{cor:rec_nexp}
+	Let $e,f \in {\Expr}/{\sim}$. We have that
+	$$
+		\mathsf{bd}_{\overline\partial} (\mu v_x.e,\mu v_x.f)\leq \mathsf{bd}_{\overline\partial} (e,f)
+	$$
+\end{corollary}
+\begin{proof}
+	Analogous proof to \Cref{cor:seq_nexp}, but utilising \Cref{lem:rec_startified_bisim} instead.
+\end{proof}
+We now show the following result for the case of prefixing:
+\begin{lemma}\label{lem:prefixing_step}
+	Let $e,f \in {\Expr}/{\sim}$. Then for all $n \in \N$, $a \in \Sigma$, we have that
+	$$
+	e \sim^{(n)} f \implies a.e \sim^{(n+1)} a.f 
+	$$
+\end{lemma}
+\begin{proof}
+	$a.e$ does not output anything and so does $a.f$. Now, assume that $a.e \tr{a} e'$. Then, the only possibility is that $e'=e$. We can match that transition with an expression $a.f$ that performs an $a$-labelled transition to $f$. Since $e \sim^{(n)} f$, then $a.e \sim^{(n+1)} a.f$. The remaining condition works through a symmetric line of reasoning. 
+\end{proof}
+Hence, we obtain that prefixing is contractive.
+\begin{restatable}{corollary}{prefixingdiscounts}\label{cor:prefixing_discounts}
+	Let $e,f \in {\Expr}/{\sim}$. Then for all $n \in \N$, $a \in \Sigma$, we have that
+	$
+		\mathsf{bd}_{\overline{\partial}}(a.e,a.f) \leq \frac{1}{2}\mathsf{bd}_{\overline{\partial}}(e,f)
+	$
+\end{restatable}
+\begin{proof}
+	We employ the characterisation from~\Cref{thm:concrete_distance}. If $e \sim f$, then by \Cref{lem:congruence} we are done. Otherwise, we have that $\mathsf{bd}_{\overline\partial}(e,f)=2^{-k}$ and $e \sim^{(k)}_{\overline\partial} f$ for some $k \in \N$. By applying~\Cref{cor:prefixing_discounts}, we get that $a.e \sim^{(k+1)} a.f$ and hence $\mathsf{bd}_{\overline\partial}(e,f)\leq 2^{-(k+1)} = \frac{1}{2} 2^{-k} = \frac{1}{2}\mathsf{bd}_{\overline\partial}(e,f)$, as desired. 
+\end{proof}
+The mediating map of binary coproduct is also nonexpansive.
+\begin{lemma}\label{lem:pairs_nonexpansive}
+	Let $f,f' \colon m \to k$, $g,g' \colon n \to k$ be morphisms of $\RegBeh$. We have that $d^{m +n, k}(\lc f, g \rc, \lc f', g' \rc) \leq \max \{d^{m,k}(f,f'), d^{n,k}(g,g')\}$
+\end{lemma}
+\begin{proof}
+	\begin{align*}
+		d^{m +n, k}(\lc f, g \rc, \lc f', g' \rc) &= d^{m +n, k}((f_1, \dots, f_m, g_1, \dots, g_n), (f'_1, \dots, f'_m, g'_1, \dots, g'_n)) \\
+		&=\max \left\{d^{m,k}((f_1, \dots, f_m), (f'_1, \dots, f'_m)),\right.\\&\qquad \qquad\left. d^{n,k}((g_1, \dots, g_m), (g'_1, \dots, g'_m)) \right\}\\
+		&\leq \max \left\{d^{m,k}(f,f'),d^{n,k}(g,g') \right\}\\
+	\end{align*}
+\end{proof}
+The above allows us to conclude the following:
+\begin{restatable}{lemma}{tensnonexpansive}\label{lem:tens_nonexpansive}
+	The coproduct in $\RegBeh$ is nonexpansive.
+\end{restatable}
+\begin{proof}
+	Let $f,h \in \RegBeh(k,m)$ and $g,i \in \RegBeh(l,n)$. Given $j \in \N$, such that $1 \leq j \leq l$, we define
+	\begin{gather*}
+	g'_j = g_j[(v_{m + 1}, \dots, v_{m + n})/(v_1, \dots, v_n)]\\
+	i'_j = i_j[(v_{m + 1}, \dots, v_{m + n})/(v_1, \dots, v_n)]
+	\end{gather*}
+	Using \Cref{cor:seq_nexp} one can easily obtain that for all $j \in \N$, such that $1 \leq j \leq l$, we have that
+	\begin{align*}
+		\mathsf{bd}_{\overline\partial} (g'_j, i'_j) \leq \mathsf{bd}_{\overline\partial} (g_j, i_j)
+	\end{align*}
+	Using that fact, we can prove the following
+	\begin{align*}
+		d^{k + l, m + n}(f \oplus g, h \oplus i) &= d^{k + l, m + n}(\lc f_1, \dots, f_k, g'_1, \dots, g'_l\rc,\lc h_1, \dots, h_k, i'_1, \dots, i'_l\rc)\\
+		&=\max \left\{\sup_{1 \leq p \leq k}\{\mathsf{bd}_{\overline\partial} (f_p, h_p)\}, \sup_{1 \leq j \leq l} \{\mathsf{bd}_{\overline\partial} (g'_j, i'_j)\} \right\}\\
+		&\leq \max \left\{\sup_{1 \leq p \leq k}\{\mathsf{bd}_{\overline\partial} (f_p, h_p)\}, \sup_{1 \leq j \leq l} \{\mathsf{bd}_{\overline\partial} (g_j, i_j)\} \right\}\\
+		&= \max \{d^{k,m}(f,g), d^{l,n}(h,i)\}
+	\end{align*}
+\end{proof}
+Through an inductive argument, we can show the following:
+\begin{restatable}{lemma}{daggernexp}\label{lem:dagger_nonexpansive}
+	The dagger on $\RegBeh$ is nonexpansive.
+\end{restatable}
+\begin{proof}
+	Let $f,g \colon n \to p + n$ be morphisms in $\mathsf{RefBeh}$. We proceed by induction on $n$. If $n = 0$, then $f^\dagger = f = 0_p = g = g^\dagger$ and hence $d^{0, p}(f^\dagger, g^\dagger) \leq d^{0, p}(f, g)$.
+	
+	If $n = 1$, then we have the following
+	\begin{align*}
+		d^{1,p}(f^\dagger, g^\dagger) &= \mathsf{bd}_{\overline\partial} (\mu v_{p+1}.f, \mu v_{p+1}. g)\leq \mathsf{bd}_{\overline\partial} (f, g) \tag{\Cref{cor:rec_nexp}} 
+	\end{align*}
+	
+	Let $n = n' + 1$. Recall, that we can represent $f$ and $g$ in the following way
+	\begin{gather*}
+		f = \lc f_1, \dots, f_{n'}, f_{n' + 1} \rc = \lc \lc f_1, \dots, f_{n'} \rc , f_{n' + 1}\rc\\
+		g = \lc g_1, \dots, g_{n'}, f_{g' + 1} \rc = \lc \lc g_1, \dots, g_{n'} \rc , g_{n' + 1}\rc\qquad
+	\end{gather*}
+	We can apply the induction hypothesis and obtain the following:
+	$$
+	d^{n', p + 1}(\lc f_1, \dots, f_{n'}\rc^\dagger, \lc g_1, \dots, g_{n'}\rc^\dagger ) \leq d^{n', n' + p + 1}(\lc f_1, \dots, f_{n'}\rc, \lc g_1, \dots, g_{n'}\rc ) 
+	$$
+%	For simplicity we will write $m_j$ for the $j$-th component of $\lc f_1, \dots, f_{n'}\rc^\dagger$ and similarly $n_j$ for the $j$-th component of  $\lc g_1, \dots, g_{n'}\rc^\dagger$
+	Using it, one can show that:
+	\begin{align*}
+	d^{p + 1 + n' , p + 1}&\left(\lc\id_{p + 1},\lc f_1, \dots, f_{n'}\rc^\dagger \rc,\lc\id_{p + 1},\lc g_1, \dots, g_{n'}\rc^\dagger\rc \right)\\ &=d^{n', p + 1}(\lc f_1, \dots, f_{n'}\rc^\dagger, \lc g_1, \dots, g_{n'}\rc^\dagger)\\
+	&\leq  d^{n', p + 1 + n'}(\lc f_1, \dots, f_{n'}\rc, \lc g_1, \dots, g_{n'}\rc ) 
+	\end{align*}
+	For the sake of simplicity, define the following:
+	\begin{gather*}
+	k = f_{n' + 1};\lc\id_{p + 1} ,\lc f_1, \dots, f_{n'}\rc^\dagger\rc\\
+	l = g_{n' + 1};\lc\id_{p + 1} ,\lc g_1, \dots, g_{n'}\rc^\dagger\rc
+	\end{gather*}
+	Using \Cref{cor:seq_nexp} we know that 
+	\begin{align*}
+	d^{1,p+1}(k,l)&\leq \max\left\{d^{1,p + 1}(f_{n' + 1},g_{n' + 1}),\right.\\&\qquad\qquad\left. d^{p + n', p + 1}\left(\lc\id_{p + 1} ,\lc f_1, \dots, f_{n'}\rc^\dagger\rc,\lc\id_{p + 1} ,\lc g_1, \dots, g_{n'}\rc^\dagger \rc \right) \right\}\\
+	&\leq \max \{d^{1,p + 1}(f_{n' + 1},g_{n' + 1}), d^{n', p + 1 + n'}(\lc f_1, \dots, f_{n'}\rc, \lc g_1, \dots, g_{n'}\rc ) \} \\
+	&\leq d^{n' + 1, p + 1 + n'}(f,g)
+	\end{align*}
+	Because of the above, we can use \Cref{cor:rec_nexp} and obtain
+	\begin{align*}
+		d^{1,p}(k^\dagger, l^\dagger) \leq 	d^{1,p + 1}(k,l) \leq d^{n', p + 1 + n'}(f,g)
+	\end{align*}
+	Recall the \textbf{scalar pairing identity}, which states that
+	\begin{gather*}
+	f^\dagger = \lc\lc f_1, \dots, f_{n'}\rc^\dagger ; \lc \id_p ,k^\dagger\rc , k^\dagger\rc \\
+	g^\dagger = \lc\lc g_1, \dots, g_{n'}\rc^\dagger ; \lc \id_p, l^\dagger \rc  \rc, l^\dagger\rc
+	\end{gather*}
+	
+	We have the following:
+	\begin{align*}
+		d^{n' + 1, p}(f^\dagger, g^\dagger) &\leq \max \{d^{n', p + 1}(\lc f_1, \dots, f_{n'}\rc^\dagger; \lc \id_p,k^\dagger\rc,\\&\qquad\qquad  \lc g_1, \dots, g_{n'}\rc; \lc \id_p , l^\dagger\rc), d^{1,p}(k^\dagger, l^\dagger)\}\\
+		&\leq \max \{d^{n', 1 + p}(\lc f_1, \dots, f_{n'}\rc^\dagger, \lc g_1, \dots, g_{n'}\rc^\dagger),\\&\qquad\qquad  d^{p + 1, p}(\lc id_p , k^\dagger\rc, \lc id_p ,l^\dagger\rc),  d^{1,p}(k^\dagger, l^\dagger) \tag{\Cref{cor:seq_nexp}}\\
+		&\leq \max \{d^{n', p + 1}(\lc f_1, \dots, f_{n'}\rc^\dagger, \lc g_1, \dots, g_{n'}\rc^\dagger), d^{1,p}(k^\dagger, l^\dagger)\\
+		&\leq  \max \{d^{n', p + 1 + n'}(\lc f_1, \dots, f_{n'}\rc, \lc g_1, \dots, g_{n'}\rc ), d^{1,p}(k^\dagger, l^\dagger)\} \tag{Induction hypothesis}\\
+		&\leq \max \{d^{n', p + 1 + n'}(\lc f_1, \dots, f_{n'}\rc, \lc g_1, \dots, g_{n'}\rc ),  d^{n' + 1, p + 1 + n'}(f,g)\} \\
+		&=  d^{n' + 1, p + 1 + n'}(f,g)
+	\end{align*}
+	which completes the proof.
+\end{proof}
+Since the trace on $\RegBeh$ is defined in terms of operations that we have shown to be nonexpansive, we can easily obtain the following result:
+\begin{corollary}\label{cor:trace_nonexpansive}
+	The trace on $\RegBeh$ is nonexpansive.
+\end{corollary}
+\begin{proof}
+	Immediate consequence of \Cref{thm:trace}, \Cref{lem:seq_nonexpansive} and \Cref{lem:dagger_nonexpansive}.
+\end{proof}
+\subsection{$\Int{\RegBeh}$ -- a category of bidirectional regular behaviours}
+ Each morphism $f \colon m \to n$ of $\RegBeh$ can be informally thought of as a process that has \emph{directionality} to it, i.e. it takes $m$ inputs and produces $n$ outputs. Moreover, the trace operator defined on these processes allows to \emph{globally} introduce the notion of feedback. At the same time, the syntax of our diagrammatic language is \emph{bidirectional} and the notion of feedback is introduced \emph{locally} by bending the wires. To reconcile these points of view, we rely on the \textbf{Int} construction~\cite{Joyal:1996:Traced}, which takes a traced monoidal category $\cat{C}$ and completes it into a compact closed category $\Int{\cat{C}}$, a categorical structure with sequential and parallel composition equipped with duals (allowing to swap directionality) and adjoints (allowing to form local loops representing feedback)~\cite{kellylaplaza}. $\Int{\cat{C}}$ carries the same information as $\cat{C}$, but represents it in an alternative, bidirectional way. Furthermore, when looking at the undirected fragment of $\Int{\cat{C}}$, this is precisely the same as the original category $\cat{C}$ of \emph{directional} processes. We now briefly describe $\Int{\RegBeh}$ (see \Cref{c3:subsec:int} for more detail). 
+	\begin{itemize}
+		\item The objects of $\Int{\RegBeh}$ are pairs $(m,n)$ of natural numbers. 
+		\item A morphism $f \colon (k,l) \to (m,n)$, representing a process with $k$ left inputs, $l$ left outputs, $m$ right outputs and $n$ right inputs is a map $f \colon k + m \to l + n$ in $\RegBeh$, i.e. we group inputs and outputs together. Composition of $f \colon (k,l) \to (m,n)$ and $g \colon (m,n) \to (p,q)$ is defined by forming a trace that resolves the feedback involving $m$ and $n$.
+		\item The parallel composition of $f \colon (m,n) \to (p,q)$ and $g \colon (m',n') \to (p',q')$ is given by the map $f \otimes g \colon (m + m', n + n') \to (p + p', q + q')$ that is defined via parallel composition in $\RegBeh$ combined with an appropriate reordering of elements of tuples involved.
+		\item A dual of the object $(m,n)$ of $\Int{\RegBeh}$ is given by $(n,m)$. Intuitively, inputs become swapped with outputs. For each object $(m,n)$ of $\Int{\RegBeh}$, there is a unit map $\eta_{(m,n)} \colon (0,0) \to (m+n, m+n)$ and counit $\epsilon_{(m,n)} \colon (m+n, m+n) \to (0,0)$. These represent the bending of the wires on the right and left respectively. Appropriate formation of loops using those operations defines a trace on $\Int{\RegBeh}$.
+		\item $\Int{\RegBeh}$ inherits the pseudometric structure from $\RegBeh$, by setting $d^{(k,l),(m,n)}$ to be given by $d^{k + n, l +n}$ (defined before).
+	\end{itemize}
+	The connection between $\RegBeh$ and $\Int{\RegBeh}$ is an instance of the following theorem:
+	\begin{theorem}[{\cite[Proposition~5.1]{Joyal:1996:Traced}}]\label{thm:trace_embeds_int}
+		There is a full and faithful traced monoidal functor $N \colon \RegBeh \to \Int{\RegBeh}$ that takes each $f \colon n \to m$ in $\RegBeh$ to $f \colon (n,0) \to (m,0)$
+	\end{theorem}
+	In other words, on \emph{directional} processes $\Int{\RegBeh}$ is exactly the same as $\RegBeh$. Moreover, the pseudometric structure interacts well with the operations of $\Int{\RegBeh}$.
+	\begin{restatable}{proposition}{propnexpint}\label{cor:sem_enriched}
+		The sequential and parallel composition in $\Int{\RegBeh}$ is nonexpansive. Moreover, the fully faithful functor $N \colon \RegBeh \to \Int{\RegBeh}$ is locally an isometry, i.e. for all $f,g \colon m \to n$, we have that $d^{m,n}(f,g)=d^{(m,0), (n,0)}(N(f),N(g))$.
+	\end{restatable}
+	\begin{proof}
+		All operations that are used to defined sequential and parallel composition in $\Int{\RegBeh}$ have been shown above to be nonexansive in \Cref{lem:seq_nonexpansive}, \Cref{lem:tens_nonexpansive}, \Cref{cor:trace_nonexpansive}.
+		
+		For the remaining claim, let $f,g \in \RegBeh(m,n)$. From the definition of $N$, we immediately have that $
+		d^{N(m), N(n)}(N(f),(N(g))=d^{m,n}(f,g) $. This completes the proof.
+	\end{proof}
+	\subsection{Functorial semantics}
+	We are ready to state the semantics of our diagrammatic language $\sem{-} \colon \Syn \to \Int{\RegBeh}$ as a symmetric monoidal functor from $\Syn$ to $\Int{\RegBeh}$. Since the syntax is a freely generated prop, in order to interpret arbitrary string diagrams it is enough to just define the interpretation of the generating morphisms of $\Syn$. We have:
+	\begin{gather*}
+	\sem{\tikzfig{lr-copy}}=  N(v_1 + v_2)  \qquad 
+	\sem{\tikzfig{lr-delete}} =  N(0)  \qquad
+	\sem{\tikzfig{lr-generate}} =  N(()) \\
+	\sem{\tikzfig{lr-merge}} = N(\nabla_1) \qquad
+	\sem{\scalar{a}} =  N(a.v_1)  \qquad 
+	\sem{\tikzfig{cap-down}} = \epsilon_{(1, 0)} \qquad
+	\sem{\tikzfig{cup-down}} = \eta_{(1, 0)} \qquad
+\end{gather*}
+
+
+We interpret $\tikzfig{lr-copy}$ as nondeterministic choice, $\tikzfig{lr-delete}$ as the behaviour of the empty chart, while $\tikzfig{lr-generate}$ and $\tikzfig{lr-merge}$ correspond to the empty tuple and joining the variables respectively. For each letter $a \in \Sigma$ of the alphabet, we view $\scalar{a}$ as the prefixing operation. Finally, $\tikzfig{cap-down}$ and $\tikzfig{cup-down}$ are interpreted using counit and unit of $\Int{\RegBeh}$ allowing one to create loops.
+\section{Axiomatisation}
+\label{sec:axioms}
+Our main aim in this chapter is to find a set of (quantitative) equations to reason about semantic distance directly at the level of the diagrams themselves. To do so, we distinguish two different relations on diagrams of the same type:
+\begin{itemize}
+\item An equational theory intended to capture (strong) bisimilarity of regular behaviours, allowing us to simplify the diagrams whose distance is being compared.
+\item A quantitative equational theory intended to capture the behavioural distance of ~\Cref{sec:semantics}, that is the subject of the completeness theorem (\Cref{thm:completeness}) described in \Cref{sec:completeness}. Note that this theory contains the equational axioms as rules for distance zero.
+\end{itemize}
+\noindent
+\textbf{Equational theory. } Our equational theory is the smallest congruence (w.r.t to vertical and horizontal compositions) that includes the axioms of Fig.~\ref{fig:equational-axioms}. In practice, this means that, if we find a sub-diagram that matches one side of an axiom in a larger diagram, we can replace it with the other side of the axiom (the left and right-hand side of any axiom have the same type)~\cite[Section 2.1]{piedeleu2023introduction}. 
+%
+\begin{figure}[h!]
+{ \scriptsize
+\begin{gather*}
+\begin{align*}
+\tikzfig{yanking-bis}\;&\myeq{A1}\;\arrowright \qquad\qquad\tikzfig{yanking}\;\myeq{A2}\;\arrowleft\qquad \qquad
+ \tikzfig{co-associativity} \; \myeq{B1} \; \tikzfig{co-associativity-1}\\
+  \tikzfig{right-co-unitality} &\myeq{B2} \; \arrowright\qquad\qquad 
+\tikzfig{co-commutativity}\; \myeq{B3}\; \tikzfig{large-copy}\qquad\qquad \tikzfig{associativity} \; \myeq{B4} \; \tikzfig{associativity-1}
+\\
+\tikzfig{right-unitality}\; &\myeq{B5} \; \arrowright \qquad \tikzfig{commutativity}\; \myeq{B6}\; \tikzfig{large-merge} \qquad
+\tikzfig{bimonoid}\; \myeq{B7} \;\tikzfig{bimonoid-1}\qquad
+\tikzfig{merge-delete}\; \myeq{B8} \;\tikzfig{merge-delete-1}
+\\
+\tikzfig{copy-co-delete}\; &\myeq{B9} \;\tikzfig{copy-co-delete-1}
+\qquad
+\tikzfig{idempotence}\; \myeq{B10} \;\arrowright \quad \tikzfig{feedback}\; \myeq{B11} \; \arrowright\quad {\small \tikzfig{co-copy-atom}} \myeq{C1}\: {\small \tikzfig{co-copy-atom-1}}
+\end{align*}
+\end{gather*}
+}
+\caption{Equational axioms for regular behaviours.}
+\label{fig:equational-axioms}
+\end{figure}
+%
+
+Axioms \textsf{A1}-\textsf{A2} are those of \emph{compact closed categories}~\cite{kellylaplaza} and allow us to bend and straighten wires at will, only keeping track of their directions. Crucially, they also allow us to manipulate feedback loops. \textsf{B1-B3} encode the fact that $\Bcomult$ and $\Bcounit$ form a \emph{cocommutative comonoid}. These guarantee that nondeterministic choice behaves like a commutative, associative and unital operation in our diagrammatic syntax. At the same time, \textsf{B4-B6} are the dual of the previous three, and make $\Bmult$ and $\Bunit$ into a \emph{commutative monoid}. These guarantee that output wires behave like the variables of our diagrammatic syntax. \textsf{B7}-\textsf{B9} make the previous monoid-comonoid pair into a \emph{bimonoid}, while \textsf{B10} makes nondeterministic choice an idempotent operation. Axiom \textsf{B11} allows us to remove unguarded loops, while \textsf{C1} encodes the fact that merging tuples of variables interacts as expected with prefixing: $(a.v_1, a.v_2);(v_1,v_1) = (a.v_1, a.v_1)$. Note that, if we replace the $\Bmult$ with $\Bcomult$, the resulting equality (prefixes distribute over nondeterministic sum) is not valid.
+\begin{restatable}[Soundness]{lemma}{soundnessequality}
+For any two diagrams $f,g\from v\to w$ of $\Syn$, if $f=g$ then $\sem{f}=\sem{g}$. 
+\end{restatable}
+\begin{proof}
+	We verify that all equations defining $\Syn$ are satisfied. When dealing with left-to-right diagrams, we will make use of the fact that $\RegBeh$ fully faithfully embeds into $\Int{\RegBeh}$ (\Cref{thm:trace_embeds_int}) and hence it suffices to verify the axioms in $\RegBeh$, rather then in their completion to $\Int{\RegBeh}$. \textsf{(A1)} is satisfied because of the yanking property of trace operation defined on $\RegBeh$, while \textsf{(A2)} is its dual in $\Int{\RegBeh}$ and can be verified similarly. \textsf{(B1)}, \textsf{(B2)} and \textsf{(B3)} are satisfied because $+$ defined on ${\Expr}/{\sim}$ is a commutative monoid with $0$ being its identity. Similarly, \textsf{(B4)}, \textsf{(B5)} and \textsf{(B6)} are satisfied because of the universal property of coproduct on $\RegBeh$ and $\nabla_1$ being the codiagonal morphism. For \textsf{(B8)} we rely on the fact that $\nabla_1 ; \langle v_1 + v_2 \rangle = \langle v_1, v_1\rangle ; \langle v_1 + v_2 \rangle = \langle v_1 + v_2, v_1 + v_2 \rangle$. \textsf{(B8)} holds because $\nabla_1 ; \langle  0\rangle= \langle v_1, v_1\rangle ; \langle 0 \rangle = \langle 0, 0 \rangle $. 
+	\textsf{(B9)} is satisfied because $+$ is idempotent. Finally, \textsf{(B10)} corresponds to taking the dagger of $\langle v_1 + v_2 \rangle$ and captures the identity $\mu v_2.(v_1 + v_2) = v_1$ of Milner's Algebra of Regular Behaviours. Finally, \textsf{(C1)} holds, because $\nabla_1 ; \langle a . v_1 \rangle = \langle v_1, v_1 \rangle ; \langle a. v_1 \rangle = \langle a. v_1, a.v_1\rangle$.
+\end{proof}
+\noindent
+\textbf{Quantitative theory. } We define $E_q$ as the set of triples of the form $(f, r, g)$, where $f,g$ are string diagrams of the same type and $r \in \Qp$, as the least set closed under the rules of Fig.~\ref{fig:quantitative-axioms}. We will call elements of that set \emph{derivable equations}. 
+\begin{figure}[h!]
+{
+\mprset{vskip=1ex}
+\footnotesize
+\begin{equation*}
+\inferrule{\dbox{f}{m}{n} \disteq{r} \dbox{g}{m}{n}\qquad \vec{a} \in\Sigma^m}{\tikzfig{prefix-f} \disteq{r/2} \tikzfig{prefix-g}}{\mathsf{(Pref)}} 
+\qquad 	\inferrule{\diagbox{f}{v}{w} \disteq{r} \diagbox{g}{v}{w}\qquad s \geq r}{\diagbox{g}{v}{w} \disteq{s} \diagbox{f}{v}{w}}{\mathsf{(Max)}}
+\end{equation*}
+\vspace{1em}
+\begin{equation*}
+\inferrule{\diagbox{f}{v}{w} = \diagbox{g}{v}{w}}{\diagbox{f}{v}{w}\disteq{0} \diagbox{g}{v}{w}}{\mathsf{(Refl)}}
+\qquad
+	\inferrule{\diagbox{f}{v}{w} \disteq{r} \diagbox{g}{v}{w}\qquad \diagbox{g}{v}{w} \disteq{s} \diagbox{h}{v}{w}}{\diagbox{f}{v}{w} \disteq{r + s} \diagbox{h}{v}{w}}{\mathsf{(Triang)}}
+\end{equation*}
+\vspace{1em}
+\begin{equation*}
+	\inferrule{\left\{\diagbox{f}{v}{w} \disteq{s} \diagbox{g}{v}{w}\right\}_{s > r}}{\diagbox{f}{v}{w} \disteq{r} \diagbox{g}{v}{w}}{\mathsf{(Cont)}}
+\qquad
+	\inferrule{\diagbox{f}{v}{w} \disteq{r} \diagbox{g}{v}{w}}{\diagbox{g}{v}{w} \disteq{r} \diagbox{f}{v}{w}}{\mathsf{(Sym)}}
+\end{equation*}
+\vspace{1em}
+\begin{equation*}
+	\inferrule{\diagbox{f}{u}{v}\disteq{r} \diagbox{h}{u}{v}\qquad \diagbox{g}{v}{w} \disteq{s} \diagbox{i}{v}{w}}{\tikzfig{comp-sequential-fg}  \disteq{\max\{r,s\}} \tikzfig{comp-sequential-hi}}{\mathsf{(Seq)}}\qquad
+	\inferrule*[width=20pt]{ }{\diagbox{f}{v}{w} \disteq{1} \diagbox{g}{v}{w}}{\mathsf{(Top)}}
+\end{equation*}
+\vspace{1em}
+\begin{equation*}
+	\inferrule{\diagbox{f_1}{v_1}{w_1} \disteq{r} \diagbox{g_1}{v_1}{w_1}\qquad \diagbox{f_2}{v_2}{w_2} \disteq{s} \diagbox{g_2}{v_2}{w_2}}{\tikzfig{comp-parallel-fg}  \disteq{\max\{r,s\}} \tikzfig{comp-parallel-hi}}{\mathsf{(Tens)}}
+	\qquad
+	\inferrule{\qquad}{\;\Bunitn{n} \;\disteq{0}\; \tikzfig{co-del-d}\;}{\mathsf{(Codel)}}
+\end{equation*}
+%\vspace{1em}
+%\begin{equation*}
+%\inferrule{\dbox{f}{m}{n} \disteq{\varepsilon} \dbox{g}{m}{n}\qquad \vec{a} \in\Sigma^m}{\tikzfig{prefix-f} \disteq{\epsilon/2} \tikzfig{prefix-g}}{\mathsf{(Pref)}} 
+%\end{equation*}
+}
+\caption{Quantitative axioms for regular behaviours.}
+\label{fig:quantitative-axioms}
+\end{figure}
+For any two diagrams $f,g\from v\to w$ of $\Syn$, we say a quantitative equation $f\disteq{r} g$ is \emph{valid} if $d^{\sem{v},\sem{w}}(\sem{f}, \sem{g}) \leq r$. Analogously, an inference rule is valid if, whenever all quantitative equations in the premise are valid, then the equation in the conclusion in the equation is also valid. We now briefly explain each of the rules of our inference system depicted on \Cref{fig:quantitative-axioms}. \textsf{(Refl)}, \textsf{(Sym)} and \textsf{(Triang)} respectively capture reflexivity, symmetry and triangle inequality of pseudometric spaces. Importantly, rule \textsf{(Refl)} allows one to state that equal diagrams (modulo strictly equational rules described above) are at distance zero of each other. \textsf{(Top)} allows us to state that any two diagrams are at most within distance $1$ of each other, while \textsf{(Max)} allows one to always weaken the bound on the distance at which two diagrams are.  \textsf{(Cont)} is the key analytic inference rule here: it allows us to conclude that two diagrams are within distance $r$, provided we can show that they are within all distances that are strictly greater than $r$, thereby passing to the limit. Next, \textsf{(Seq)} and \textsf{(Tens)} relate the horizontal and vertical compositions of diagrams to the distance. There are two domain-specific rules that we use. \textsf{(Pref)} witnesses the fact that prefixing by the same actions decreases the distance by half. Note that it applies to diagram $\objr^m\to\objr^n$ and that we use $\tikzfig{m-a-m}$ to denote the vertical composition of $m$ many $\scalar{a}$ generators, for any $m\in\mathbb{N}$. \textsf{(Codel)} axiom encodes that any diagram with no initial state has no behaviour and is therefore at distance zero of the empty chart.
+
+Through a straightforward argument, one can show the soundness of the proposed quantitative rules.
+\begin{lemma}\label{lem:soundness_sublemma}
+		All the inference rules defining the distance on $\Syn$ are satisfied in $\Int{\RegBeh}$.
+	\end{lemma}
+	\begin{proof}
+		For most of the rules, the proof is straightforward. The soundness of \textsf{(Top)} follows from the fact that the distance on morphisms of $\Int{\RegBeh}$ is $1$-bounded, while \textsf{(Max)} captures the transitivity of partial order on the rational numbers. \textsf{(Refl)}, \textsf{(Sym)} and \textsf{(Triang)} are satisfied because the distance function on each hom-set of $\Int{\RegBeh}$ is a pseudometric space. \textsf{(Cont)} captures the Cauchy completeness of reals, while \textsf{(Seq)} and \textsf{(Tens)} are immediate consquence of \Cref{cor:sem_enriched}. For the remaining two rules, we will make use of the fact that the fully faithful embedding $N \colon \RegBeh \to \Int{\RegBeh}$ is an isometry (\Cref{cor:sem_enriched}), hence for the left-to-right diagrams it suffices to check the rules in $\RegBeh$. The soundness of \textsf{(Pref)} is an immediate consequence of \Cref{cor:prefixing_discounts}. Finally, \textsf{(Codel)} follows from the uniqueness of maps from the initial object in $\RegBeh$.
+		\end{proof}
+		Through a simple inductive argument, we can extended the above to any derivable equation.
+\begin{theorem}[Quantitative soundness]\label{thm:soundness}
+Every derivable equation $f \disteq{\varepsilon} g$ is valid.
+\end{theorem}
+\begin{proof}
+	Induction on the length of derivation and the usage of \Cref{lem:soundness_sublemma}.
+\end{proof}
+\section{Completeness}
+\label{sec:completeness}
+We finally arrive at the main technical section of the chapter, where we gradually present a sequence of results leading to the completeness of our axioms for the behavioural distance. First, we show that we can safely focus solely on $\objr^m \to \objr^n$ diagrams. Then, through an analytic proof relying on \textsf{(Cont)} rule, we show that each diagram can be \emph{co-copied}. Consequently, we can decompose any $\objr^m \to \objr^n$ diagram into a collection of $\objr \to \objr^n$ diagrams, which correspond to individual charts. We argue that each of those $\objr \to \objr^n$ diagrams has a normal form from which one can extract a finite prechart structure. It turns out that the distance between states of this prechart precisely captures the distance between the diagrams being related and very importantly, admits a simple characterisation that can be simulated through the inference rules of our system, eventually leading to the completeness result.
+\subsection{Left-to-right diagrams} 
+The following result allows us to turn any bidirectional diagram into a left-to-right one by appropriately \emph{bending} the the wires using $\tikzfig{cap-down}$ and $\tikzfig{cup-down}$. We will see later that this process does not change distances between diagrams. 
+\begin{restatable}{lemma}{compact}\label{lem:compact}
+There are bijections between the sets $\Syn(v_1\!\objl\! v_2,w)$ and $\Syn(v_1v_2,w\!\objr)$, and between $\Syn(v,w_1\!\objl\! w_2)$ and $\Syn(v\!\objr,w_1w_2)$, \emph{i.e.} between sets of string diagrams of the form
+$$
+\tikzfig{wrong-way-left}\;\text{ and }\; \tikzfig{right-way-right}$$
+as well as between
+$$ \tikzfig{wrong-way-right}\;\text{ and }\; \tikzfig{right-way-left} 
+$$
+where $v,w, v_i, w_i$ are words over $\{\objr,\objl\}$.
+\end{restatable}
+\begin{proof}
+The lemma holds in any compact closed category and relies on the ability to bend wires using $\tikzfig{cap-down}$ and $\tikzfig{cup-down}$. Explicitly, given a diagram of the first form, we can obtain one of the second form as follows:
+\begin{equation*}
+\tikzfig{wrong-way-left}\quad \mapsto\quad \tikzfig{bent-wires}
+\end{equation*}
+The inverse mapping is given by the same wiring with the opposite direction. That they are inverse transformations follows immediately from the defining axioms of compact closed categories (A1-A2). 
+\begin{equation*}
+ \tikzfig{bent-wires} \quad\mapsto\quad  \tikzfig{unbent-wires} \myeq{A1} \tikzfig{wrong-way-left}
+\end{equation*}
+The other bijection is constructed analogously. 
+\end{proof}
+Intuitively, Lemma~\ref{lem:compact} tells us that we can always bend incoming wires to the left and outgoing wires to the right to obtain a $\objr^m\to\objr^n$ diagram from any given diagram.
+Let $S(f)\from\objr^m\to\objr^n$ be the diagram obtained by applying the bijections of Lemma~\ref{lem:compact} to a diagram $f\from v\to w$ until all the objects occurring in its domain and codomain are $\objr$. 
+\begin{lemma}\label{lem:right-to-right}
+Given two diagrams $f,g\from v\to w$, $S(f)=S(g)$ iff $f=g$. 
+\end{lemma}
+\begin{proof}
+The idea is that, if $S(f)=S(g)$, we can always show that $f=g$ using a similar derivation, by simply applying the transformation of Lemma~\ref{lem:compact} before using the derivation that $S(f)=S(g)$, and then recover the original orientation of the wires by bending them back into their original place afterwards; and the same idea applies to show that $f=g$ implies $S(f)=S(g)$. 
+\end{proof}
+A \emph{block} is simply a diagram freely composed from a restricted set of generators (possibly including identities and symmetries). In this paper, we will make use of two special kinds of diagrams that can be factored into blocks:
+\begin{itemize}
+	\item A \emph{matrix-diagram} is a diagram $\objr^m\to\objr^n$ that factors as a composition of a block of $\tikzfig{lr-copy}, \tikzfig{lr-delete}$, another of $\scalar{a}$ for $a\in \Sigma$, and a last one of $\tikzfig{lr-merge}, \tikzfig{lr-generate}$. A matrix-diagram is \emph{guarded} when any path from left to right port encounters at least one $\scalar{a}$. 
+	\item A \emph{relation-diagram} is a diagram $\objr^m\to\objr^n$ that factors as a composition of a block of $\tikzfig{lr-copy}, \tikzfig{lr-delete}$ followed by the block of $\tikzfig{lr-merge}, \tikzfig{lr-generate}$.
+\end{itemize} 
+\begin{lemma}\label{lem:matrix-cocopy}
+For any matrix-diagram $d\from \objr^m\to \objr^n$, we have
+\begin{align*}
+\tikzfig{global-merge}\quad = \quad \tikzfig{global-merge-1}
+\end{align*}
+\end{lemma}
+\begin{proof}
+See~\cite[Lemma 4.9]{piedeleu2023finite} (\textsf{co-cpy}). It is a simple  structural induction. For the base cases, all the generators of matrix-diagrams satisfy the equality of the lemma, by axioms \textsf{(B5)}, \textsf{(B7)},\textsf{(B8)}, and \textsf{(C1)}. The inductive cases are straightforward.
+\end{proof}
+Now, we show that one can generalise \textsf{(Pref)} inference rule to arbitrary guarded matrix-diagrams, rather than just vectors of $\scalar{a}$. In other words, prepending a guarded matrix-diagram to any pair of diagrams contracts the distance between them. 
+\begin{lemma}\label{lem:guarded-precompose}
+For any guarded matrix-diagram $c\from \objr^\ell\to\objr^m$ and any two diagrams $d_1,d_2\from \objr^m\to\objr^n$ such that
+\[\dbox{d_1}{m}{n}\disteq{\epsilon}\dbox{d_2}{m}{n}\]
+we have
+\[\tikzfig{c-d1}\disteq{\epsilon/2}\tikzfig{c-d2}\]
+\end{lemma}
+\begin{proof}
+We rely on the definition of guarded matrix diagrams. Recall that since $c$ is guarded, we can factor it as
+\[\dbox{c}{\ell}{m} = \tikzfig{matrix-diagram-blocks}\]
+where $c_0$ is a diagram composed only of $\Bcomult,\Bcounit$, $\vec{a}$ is a vertical composite of $k$ $\scalar{a_i}$ generators, and $c_1$ is a diagram composed only of $\Bmult,\Bunit$. Hence,
+{
+\begin{equation*}
+\scalebox{0.75}{
+	\inferrule{
+	\inferrule{
+	\inferrule{
+	\dbox{d_1}{m}{n}\disteq{\epsilon}\dbox{d_2}{m}{n}\\ \dbox{c_1}{k}{m}\disteq{0}\dbox{c_1}{k}{m}}{\tikzfig{c1-d1}\disteq{\epsilon} \tikzfig{c1-d2} \\ \vec{a}\in\Sigma^k}{\textsf{(Seq)}}}
+	{\tikzfig{prefix-c1-d1}\disteq{\epsilon/2} \tikzfig{prefix-c1-d2} \qquad \dbox{c_0}{k}{m}\disteq{0}\dbox{c_0}{k}{m}}{\textsf{(Pref)}}}{\tikzfig{c0-prefix-c1-d1}\disteq{\epsilon/2} \tikzfig{c0-prefix-c1-d2}}{\textsf{(Seq)}}}
+\end{equation*}
+}
+The last line is what we wanted to show.
+\end{proof} 
+
+Intuitively, matrix-diagrams are representations of labelled transition relations, while relation-transition diagrams are representations of the output relations. This idea can be captured formally through the notion of a \emph{representation}. For a diagram $d\from \objr^m\to \objr^n$, a \emph{representation} is a pair $(a,o)$ of a guarded matrix-diagram $c\from \objr^{\ell+m}\to \objr^{\ell+m}$ and a relation-diagram $o\from \objr^{\ell+m}\to \objr^n$, such that
+\begin{equation}\label{eq:rep}
+\scalebox{0.9}{
+\dbox{d}{m}{n} \; = \; \tikzfig{automata-rep-star}\; := \;\tikzfig{automata-rep}
+}
+\end{equation} 
+\noindent
+Using the rules for strict equality, we can rearrange the any diagram into the form described above.
+\begin{restatable}{theorem}{representation}
+\label{thm:representation}
+Any diagram $\objr^m\to \objr^n$ has a representation.
+\end{restatable}
+\begin{proof}
+The proof is the same as~\cite[Proposition 4.7]{piedeleu2023finite}. All axioms used in that proof are in our theory.
+\end{proof}
+The matrix-diagram in the representation that is being fed through feedback, can be \emph{unrolled}.
+\begin{restatable}{lemma}{unrolling}\label{lem:unroll}
+For any matrix-diagram $d\from \objr^n\to \objr^n$, we have
+
+
+\[\tikzfig{d-star} \;= \; \tikzfig{d-star-unroll}\]
+\end{restatable}
+\begin{proof}
+\begin{align*}
+\tikzfig{d-star} & \myeq{B7} \tikzfig{d-star-1}\\
+&\myeq{A1} \tikzfig{d-star-2}\\
+& \myeq{SMC} \tikzfig{d-star-3}\\
+&\myeq{A1} \tikzfig{d-star-4}\\
+&\myeq{Lemma~\ref{lem:matrix-cocopy}} \tikzfig{d-star-5}\\
+& \myeq{A1} \tikzfig{d-star-unroll}
+\end{align*}
+\end{proof}
+\subsection{Co-copying}
+It turns out that bringing each diagram to a form corresponding to its representation, combined with the usage of unrolling (\Cref{lem:unroll}) and generalisation of \textsf{(Pref)} to guarded matrix-diagrams (\Cref{lem:guarded-precompose}) allows to show that the following two diagrams are arbitrarily close and hence by \textsf{(Cont)} are in zero distance
+\begin{restatable}{theorem}{globalcocopy}
+\label{thm:co-copy-delete}
+For any diagram $d\from \objr^m\to \objr^n$, we have that 
+
+\[
+\tikzfig{global-merge}\quad \disteq{0} \quad \tikzfig{global-merge-1}
+\]
+\end{restatable}
+\begin{proof}
+First, by \Cref{thm:representation}, we can find a matrix-diagram, $a\from \objr^{\ell+m}\to \objr^{\ell+m}$ and a relation-diagram $o\from \objr^{\ell+m}\to \objr$ such that
+\[\dbox{d}{m}{n} \; = \;\tikzfig{automata-rep}\] 
+We will show that 
+\[\tikzfig{c-star-o-merge}\quad\disteq{0}\quad\tikzfig{merge-c-star-o}\]
+from which the statement of the lemma immediately follows, by pre-composing with $\tikzfig{lr-generate}$. Since $c\from m+\ell\to m+\ell$ is a guarded matrix-diagram, so is
+\[\tikzfig{cxc}\]
+Therefore, by Lemma~\ref{lem:guarded-precompose}, we get
+{
+\small
+\[\tikzfig{prefix-c-star-o-merge} \quad\disteq{1/2}\quad\tikzfig{prefix-merge-c-star-o} \]
+}
+and thus, 
+\begin{align*}
+\tikzfig{unroll-c-star-o-merge}\\
+\qquad \disteq{1/2}\;\quad\tikzfig{unroll-merge-c-star-o}
+\end{align*}
+We also have
+\begin{equation*}
+\begin{gathered}
+\tikzfig{unroll-merge-c-star-o}\\
+\qquad\disteq{0}\quad\tikzfig{unroll-merge-c-star-o-1}\\
+\qquad\disteq{0} \;\tikzfig{unroll-merge-c-star-o-2}\\
+\qquad\disteq{0} \;\tikzfig{unroll-merge-c-star-o-3}
+\end{gathered}
+\end{equation*}
+where the last step uses Lemma~\ref{lem:matrix-cocopy} and \textsf{(Refl)} to merge the two occurrences of the matrix-diagram $c$. Resuming, we get
+\begin{equation*}
+\begin{gathered}
+\tikzfig{unroll-merge-c-star-o-3}\\ \qquad \disteq{0} \;\tikzfig{unroll-merge-c-star-o-4} \\
+\qquad \disteq{0} \;\tikzfig{unroll-merge-c-star-o-5}\\
+\qquad\disteq{0} \;\tikzfig{merge-c-star-o}
+\end{gathered}
+\end{equation*}
+We can show in the same way that
+{
+\footnotesize
+\[\tikzfig{unroll-c-star-o-merge}\;\disteq{0}\;  \tikzfig{c-star-o-merge}\]
+}
+Thus, we have shown that 
+\[\tikzfig{c-star-o-merge}\quad\disteq{1/2}\quad\tikzfig{merge-c-star-o}\]
+In the same way, we can show that 
+\[\tikzfig{c-star-o-merge}\quad\disteq{2^{-n}}\quad\tikzfig{merge-c-star-o}\]
+for any $n\in\N$ and thus, by the continuity axiom \textsf{(Cont)}, we conclude that
+\[\tikzfig{c-star-o-merge}\quad\disteq{0}\quad\tikzfig{merge-c-star-o}\]
+as we wanted to show.
+\end{proof}
+A very important consequence of the above combined with the usage of \textsf{(Codel)} rule is the fact that each $\objr^m\to \objr^n$ diagram can be separated to a collection of $\objr\to \objr^n$ intuitively corresponding to individual entries of tuples being manipulated in $\RegBeh$.
+\begin{lemma}
+\label{lem:injections}
+Let  $f\from \objr^m\to \objr^n$ and define $f_i$ to be the diagram $\objr\to \objr^n$ obtained by composing all but the $i$-th input of $f$ with $\Bunit$ (co-deleting all inputs except the $i$-th one). We have that
+\[\dbox{f}{m}{n} \;\disteq{0} \;\tikzfig{d-decomposition}\]
+\end{lemma}
+\begin{lemma}\label{lem:merge-repr}
+	Let $e,f\from\objr\to\objr^n$, such that $\sem{e} = N(s)$ and $\sem{f} = N(d)$, where $s, t \in \RegBeh(1,n)$. We have that
+	\begin{align*}
+		\sem{\tikzfig{merge-cxd}} &= N \left( \langle s, t\rangle \right)
+	\end{align*}
+\end{lemma}
+\begin{proof}
+	\begin{align*}
+		\sem{\tikzfig{merge-cxd}} &=(N(s)\oplus N(f)); N(\nabla_1) \\
+		&= N((s \oplus t) ; \nabla_1 ) \tag{Functoriality of $N$}\\
+		&= N( \langle s,t[v_2/v_1] \rangle ; \langle \id_1, \id_1\rangle )\\
+		&=N( \langle s , t \rangle ) \\
+	\end{align*}
+\end{proof}
+
  
