@@ -69,6 +69,8 @@ We can use \Cref{c2:lem:quotient_coalgebra} and construct a following quotient $
 	$$
 	This map is a unique transition function on ${\Expr}/{\sim}$ that makes the quotient map $[-]_{\sim} \colon \Expr \to {\Expr}/{\sim}$ into prechart homomorphism.
 \end{lemma}
+We will refer to the elements of the set $\Expr/{\sim}$ as \emph{regular behaviours}.
+
 It turns out that all operations from the syntax are compositional with respect to bisimilarity, and hence can be unambiguously lifted to the quotient prechart defined above.
 \begin{lemma}[{\cite[Proposition~7]{Sewell:1995:Algebra}}]\label{lem:congruence}
 	$\sim$ is a congruence on $\Expr$ with respect to all operations of the algebra of regular behaviours.
@@ -157,47 +159,51 @@ Given a prechart $(Q, \beta)$, whose state-space is equipped with a pseudometric
 	\begin{proof}
 		$\mathcal{H}$ and $(-)^\uparrow$ are liftings for the functors $\powf$ and $\Sigma \times (-) + V$ respectively, that preserve isometries~\cite[Theorem~5.8]{Baldan:2018:Coalgebraic}. The rest follows from~\Cref{c2:lem:behavioural_distances} and \Cref{c2:lem:behavioural_distances_properties}
 	\end{proof}
-
-
-\subsection{Monoidal Syntax}\label{c3:subsec:monoidal}
-We adopt the diagrammatic syntax for NFA that has appeared in a number of previous papers~\cite{piedeleu2023finite,antoinecsl2025}. 
-We refer the reader to Selinger's classic survey~\cite{Selinger_2010}, or to Piedeleu and Zanasi's recent text for a more gentle introduction to the language of string diagrams~\cite{piedeleu2023introduction}.
-
-This syntax is formalised as a product and permutation category, or prop, a structure which generalises algebraic theories. Formally, a \emph{prop} is a strict symmetric monoidal category (SMC) whose objects are words over a set of generators and whose monoidal product $\proptimes$ is given by concatenation. 
-More specifically, our syntax is the free prop $\freeP{\Signature}$ over the signature $\Signature = (\Obj,\Morph)$, given by a set $\Obj$ of generating objects and a set $\Morph$  of generating morphisms $g\from v\to w$, with $v,w\in \Obj^*$ (we use $\epsilon$ to denote the empty word). Morphisms of  $\freeP{\Signature}$ can be combined in two different ways, using the composition operation $(-);(-)\from \freeP{\Signature}(u,v)\times \freeP{\Signature}(v,w)\to \freeP{\Signature}(u,w)$ or the monoidal product $(-)\proptimes(-)\from \freeP{\Signature}(v_1,w_1)\times \freeP{\Signature}(v_2,w_2)\to \freeP{\Signature}(v_1 v_2,w_1 w_2)$. We also have distinguished constants: identities $\id_w\from w\to w$, which are the unit for composition, and symmetries $\sigma^v_w\from vw\to wv$, to reorder the letters of a given object. In summary, morphisms of $\freeP{\Signature}$ can be described as terms of the $(\Obj^*,\Obj^*)$-sorted syntax generated from the constants $\Morph + \{\id_w : w\in \Obj^*\}+ \{\sigma^v_w : v,w\in \Obj^*\}$ using the operations $;$ and $\proptimes$, \emph{quotiented} by the axioms of SMCs. However, the terms of this syntax are very cumbersome to work with. 
-
-We adopt a more convenient way to represent morphisms of $\freeP{\Signature}$, using the graphical notation of \emph{string diagrams}. In this view, a morphism $f\from v\to w$ of $\freeP{\Signature}$ is depicted as a $f$-labelled box with a $v$-labelled on the left and a $w$-labelled wire on the right. The operations of composition and monoidal product are represented by connecting two boxes horizontally and juxtaposing two boxes vertically, respectively:
-\begin{equation*}\label{eq:composition-monoidal-product}
-\tikzfig{comp-sequential-fg}\qquad \quad \tikzfig{comp-parallel-fg}
-\end{equation*}
-Wires $\tikzfig{id-w}$ represent identities, the wire crossing $\tikzfig{sym-vxw}$ represents the symmetry $\sigma^v_w$, and the empty diagram $\idzero$ the identity $\id_\epsilon\from \epsilon\to \epsilon$.
-\begin{definition}\label{c3:def:syntax}
-	 We call $\Syn$ the free prop over the signature given by
-	\begin{itemize}
-		\item two generating objects $\objl$ ("left") and $\objr$ ("right"), with their identity morphisms depicted respectively as $\arrowleft$ and $\arrowright$;
- 		\item generating morphisms $
- 		\tikzfig{lr-copy}\quad\tikzfig{lr-delete}\quad\tikzfig{lr-merge}\quad\tikzfig{lr-generate} \quad\tikzfig{cap-down} \quad\tikzfig{cup-down}\quad \scalar{a} \quad (a\in \Sigma)$.
- 	\end{itemize}
- \end{definition}
-Morphisms of $\Syn$ are thus vertical and horizontal composites of the generators above, potentially including wire crossings and identity wires, \emph{up to} the laws of symmetric monoidal categories, listed below:
-
-\begin{equation*}
-\begin{gathered}
-{\tikzfig{smc/sequential-associativity} \SMCeq \tikzfig{smc/sequential-associativity-1}} \qquad {\tikzfig{smc/parallel-associativity} \SMCeq \tikzfig{smc/parallel-associativity-1}}\\  
-{\tikzfig{smc/interchange-law}\SMCeq\tikzfig{smc/interchange-law-1} }
- \qquad
-{\tikzfig{smc/unit-right} \SMCeq \diagbox{c}{}{} \SMCeq \tikzfig{smc/unit-left}}
-\\
-{ \tikzfig{smc/parallel-unit-above} \SMCeq \diagbox{c}{}{} \SMCeq  \tikzfig{smc/parallel-unit-below}}
-\qquad
-{\tikzfig{smc/sym-natural} \SMCeq \tikzfig{smc/sym-natural-1}}
-\\		
-{\tikzfig{smc/sym-iso} \SMCeq \tikzfig{id2}}
-\end{gathered}
-\end{equation*}
-
-
- The direction of the arrows on the wires denotes the corresponding object: for example, $\tikzfig{lr-copy}$ represents an operation of type $\objr\to \objr\objr$, while $\tikzfig{cap-down}$ has type $\objl\objr\to \epsilon$. Note that, when we have $n$ parallel wires of the same type, say $\objr$, we depict them as a single directed wire labelled by a natural number label, as $\idright^{\!\!\!\!\!\! n}$. We call \emph{inputs} the incoming wires of a diagram, and \emph{outputs} its outgoing wires; formally, the inputs (resp. outputs) of $f\from v\to w$ are the set of positions of the word $v$ which are $\objr$ (resp. $\objl$) and the position of $w$ which are $\objl$ (resp. $\objr$). 
+	The monotone map used to define the behavioural distance satisfies the following:
+\begin{lemma}
+	$\Phi_\beta \colon D_X \to D_X$ is contractive with respect to the metric induced by the sup norm, namely
+	$$
+	\|\Phi_\beta(d)-\Phi_\beta(d')\| \leq \frac{1}{2}\|d-d'\|
+	$$
+\end{lemma}
+\begin{proof}
+	For the sake of simplicity, assume that $d' \sqsubseteq d$ and hence $\Phi_\beta(d') \sqsubseteq \Phi_{\beta}(d)$. It suffices to show that for all $x,y \in X$, we have that $\mathcal{H}(d^\uparrow)(\beta(x), \beta(y)) -  \mathcal{H}(d'^\uparrow)(\beta(x), \beta(y))  \leq \frac{1}{2}\|d-d'\|$. We can combine the previous results and for arbitrary $x,y \in X$ obtain the following
+	\begin{align*}
+		\mathcal{H}(d^\uparrow)(\beta(x), \beta(y)) -  \mathcal{H}(d'^\uparrow)(\beta(x), \beta(y)) & \leq \|\mathcal{H}(d^\uparrow) - \mathcal{H}(d'^\uparrow)\| \\
+		&\leq \|d^\uparrow - d'^\uparrow\|\\
+		& \leq \frac{1}{2} \|d - d'\|
+	\end{align*}
+\end{proof}
+As a consequence, we have the following corollary:
+\begin{corollary}
+	$\Phi_\beta$ has a unique fixpoint.
+\end{corollary}
+Additionally, through an identical argument to \Cref{c2:lem:cocontinuous}, we can show the following:
+\begin{lemma}\label{lem:cocontinuous}
+	For a finite prechart $(X,\beta)$, $\Phi_\beta$ is cocontinuous.
+\end{lemma}
+Since $\Phi_\beta$ has a unique fixpoint, we can use~\Cref{c2:thm:kleene} to calculate behavioural distance of states of finite precharts.
+\begin{lemma}\label{lem:finite_dist}
+	Let $(Q, \beta)$ be a finite prechart. The behavioural distance between any pair $q_1, q_2 \in Q$ of states can be calculated by $\mathsf{bd}_\beta(q_1,q_2) = \inf_{p \in \N} \left \{ \Phi^{(p)}_\beta(q_1, q_2) \right\}$, where $\Phi^{(0)}_\beta$ is a discrete pseudometric and for any $p \in \N$, we define $\Phi^{(p+1)}_\beta = \Phi_\beta \left( \Phi^{(p)}_\beta\right)$.
+\end{lemma}
+The characterisation described above can be extended to any locally finite prechart.
+\begin{corollary}\label{cor:kleene_locally_finite}
+	For any locally finite prechart $(X,\beta)$, the distance between $x, y \in X$, can be calculated by:
+	\[
+		\mathsf{bd}_\beta(x,y) = \inf_{i \in \N} \left(\Phi_\beta^{(i)}(x,y)\right)
+	\]
+\end{corollary}
+\begin{proof}
+	Since $(X, \beta)$ is locally finite, then its subprechart $(\langle x , y \rangle_\beta, \beta\arrowvert_{\langle x , y \rangle_\beta})$ is finite. Since homomorphisms are ismometries, calculating distance between $x$ and $y$ in $(X, \beta)$ is the same as calculating it in $(\langle x , y \rangle_\beta, \beta\arrowvert_{\langle x , y \rangle_\beta})$. Because of \Cref{lem:cocontinuous}, $\Phi_\beta$ is cocontinuous (when restricted to $\langle x , y \rangle_{\beta\arrowvert_{\langle x , y \rangle_\beta}}$) and hence we can employ Kleene fixpoint theorem. Since the infima in the lattice of pseudometrics can be calculated pointwise ({\cite[Lemma~6]{Rozowski:2024:Complete}}), we have that
+	$$
+	\mathsf{bd}_\beta(x,y) = \mathsf{bd}_{\beta\arrowvert_{\langle x , y \rangle_\beta}}(x,y) = \inf_{i \in I} \left( \Phi^{(i)}_{\beta\arrowvert_{\langle x , y \rangle_\beta}}(x,y)\right)
+	$$
+	Since $\beta{\arrowvert_{\langle x , y \rangle_\beta}}$ is a restriction of $\beta$ to ${\langle x , y \rangle_\beta}$ and each $\Phi^{(i)}_{\beta{\arrowvert_{\langle x , y \rangle_\beta}}}$ makes only use of the states in $\langle x , y \rangle_\beta$, we can rewrite the above as
+	$$
+	\mathsf{bd}_\beta(x,y) = \inf_{i \in \N} \left(\Phi_\beta^{(i)}(x,y)\right)
+	$$
+	as desired.
+\end{proof} 
 
 \subsection{Conway Theories}\label{c3:subsec:conway}
 Let $\cat{C}$ be a category, whose objects are natural numbers and $0$ is the initial object. We will write $0_n$ for the unique map $0_n \colon 0 \to n$. Additionally, we assume that $\cat{C}$ is equipped with all finite coproducts, where binary coproduct is given by addition, i.e. $n \oplus m := n + m$. Given $f \colon k \to m$ and $g \colon l \to m$, we will write $\lc f,g \rc \colon k +l \to m$ for the mediating map from the universal property of the coproduct that makes the following diagram commute:
@@ -300,3 +306,131 @@ Given a traced symmetric monoidal category $(\cat{C}, \otimes, I)$, we can const
 	\left(\id_{(A^+, A-)} \otimes \eta_{(U^+, U-)}\right) ;\left(f \otimes \id_{{(U^+, U^-)}^\ast}\right); \left(\id_{(B^+, B^-)} \otimes \epsilon_{(U^+, U-)}  \right)
 	\]
 	
+	\section{Monoidal Syntax}\label{c3:sec:monoidal}
+We adopt the diagrammatic syntax for NFA that has appeared in a number of previous papers~\cite{piedeleu2023finite,antoinecsl2025}. 
+We refer the reader to Selinger's classic survey~\cite{Selinger_2010}, or to Piedeleu and Zanasi's recent text for a more gentle introduction to the language of string diagrams~\cite{piedeleu2023introduction}.
+
+This syntax is formalised as a product and permutation category, or prop, a structure which generalises algebraic theories. Formally, a \emph{prop} is a strict symmetric monoidal category (SMC) whose objects are words over a set of generators and whose monoidal product $\proptimes$ is given by concatenation. 
+More specifically, our syntax is the free prop $\freeP{\Signature}$ over the signature $\Signature = (\Obj,\Morph)$, given by a set $\Obj$ of generating objects and a set $\Morph$  of generating morphisms $g\from v\to w$, with $v,w\in \Obj^*$ (we use $\epsilon$ to denote the empty word). Morphisms of  $\freeP{\Signature}$ can be combined in two different ways, using the composition operation $(-);(-)\from \freeP{\Signature}(u,v)\times \freeP{\Signature}(v,w)\to \freeP{\Signature}(u,w)$ or the monoidal product $(-)\proptimes(-)\from \freeP{\Signature}(v_1,w_1)\times \freeP{\Signature}(v_2,w_2)\to \freeP{\Signature}(v_1 v_2,w_1 w_2)$. We also have distinguished constants: identities $\id_w\from w\to w$, which are the unit for composition, and symmetries $\sigma^v_w\from vw\to wv$, to reorder the letters of a given object. In summary, morphisms of $\freeP{\Signature}$ can be described as terms of the $(\Obj^*,\Obj^*)$-sorted syntax generated from the constants $\Morph + \{\id_w : w\in \Obj^*\}+ \{\sigma^v_w : v,w\in \Obj^*\}$ using the operations $;$ and $\proptimes$, \emph{quotiented} by the axioms of SMCs. However, the terms of this syntax are very cumbersome to work with. 
+
+We adopt a more convenient way to represent morphisms of $\freeP{\Signature}$, using the graphical notation of \emph{string diagrams}. In this view, a morphism $f\from v\to w$ of $\freeP{\Signature}$ is depicted as a $f$-labelled box with a $v$-labelled on the left and a $w$-labelled wire on the right. The operations of composition and monoidal product are represented by connecting two boxes horizontally and juxtaposing two boxes vertically, respectively:
+\begin{equation*}\label{eq:composition-monoidal-product}
+\tikzfig{comp-sequential-fg}\qquad \quad \tikzfig{comp-parallel-fg}
+\end{equation*}
+Wires $\tikzfig{id-w}$ represent identities, the wire crossing $\tikzfig{sym-vxw}$ represents the symmetry $\sigma^v_w$, and the empty diagram $\idzero$ the identity $\id_\epsilon\from \epsilon\to \epsilon$.
+\begin{definition}\label{c3:def:syntax}
+	 We call $\Syn$ the free prop over the signature given by
+	\begin{itemize}
+		\item two generating objects $\objl$ ("left") and $\objr$ ("right"), with their identity morphisms depicted respectively as $\arrowleft$ and $\arrowright$;
+ 		\item generating morphisms $
+ 		\tikzfig{lr-copy}\quad\tikzfig{lr-delete}\quad\tikzfig{lr-merge}\quad\tikzfig{lr-generate} \quad\tikzfig{cap-down} \quad\tikzfig{cup-down}\quad \scalar{a} \quad (a\in \Sigma)$.
+ 	\end{itemize}
+ \end{definition}
+Morphisms of $\Syn$ are thus vertical and horizontal composites of the generators above, potentially including wire crossings and identity wires, \emph{up to} the laws of symmetric monoidal categories, listed below:
+
+\begin{equation*}
+\begin{gathered}
+{\tikzfig{smc/sequential-associativity} \SMCeq \tikzfig{smc/sequential-associativity-1}} \qquad {\tikzfig{smc/parallel-associativity} \SMCeq \tikzfig{smc/parallel-associativity-1}}\\  
+{\tikzfig{smc/interchange-law}\SMCeq\tikzfig{smc/interchange-law-1} }
+ \qquad
+{\tikzfig{smc/unit-right} \SMCeq \diagbox{c}{}{} \SMCeq \tikzfig{smc/unit-left}}
+\\
+{ \tikzfig{smc/parallel-unit-above} \SMCeq \diagbox{c}{}{} \SMCeq  \tikzfig{smc/parallel-unit-below}}
+\qquad
+{\tikzfig{smc/sym-natural} \SMCeq \tikzfig{smc/sym-natural-1}}
+\\		
+{\tikzfig{smc/sym-iso} \SMCeq \tikzfig{id2}}
+\end{gathered}
+\end{equation*}
+
+
+ The direction of the arrows on the wires denotes the corresponding object: for example, $\tikzfig{lr-copy}$ represents an operation of type $\objr\to \objr\objr$, while $\tikzfig{cap-down}$ has type $\objl\objr\to \epsilon$. Note that, when we have $n$ parallel wires of the same type, say $\objr$, we depict them as a single directed wire labelled by a natural number label, as $\idright^{\!\!\!\!\!\! n}$. We call \emph{inputs} the incoming wires of a diagram, and \emph{outputs} its outgoing wires; formally, the inputs (resp. outputs) of $f\from v\to w$ are the set of positions of the word $v$ which are $\objr$ (resp. $\objl$) and the position of $w$ which are $\objl$ (resp. $\objr$).
+	
+	
+	\section{Monoidal semantics}
+	
+	In order to interpret the string diagrams described in \Cref{c3:sec:monoidal}, we construct an appropriate semantic universe out of regular behaviours. As much as the technical development makes use of category theory, we will keep the description of the formalism high-level. We will write $V_n$ for the set $V_n = \{v_1, \dots, v_n\}\subseteq V$ and $\Expr/{\equiv}(n)$ for the set of all regular behaviours whose live variables are contained in the set $V_n$. For any $m,n \in \N$, we will write $\RegBeh(m,n)$ for the set of $m$-tuples of elements of $\Expr/{\equiv}(n)$. 
+	
+	For every $n \in N$, we define an identity map $\id_n \in \RegBeh(n,n)$ as  $\id_n=\vec{v}_n=(v_1, \dots, v_n)$. When $n$ is clear from the context, we will abuse the notation and simply write $\vec{v}$ instead.
+
+	Given $f \in \RegBeh(m,n)$ and $g \in \RegBeh(n,p)$, we can define their sequential composition $f;g \in \RegBeh(m,p)$ to be given by $(f_1[\vec{g} / \vec{v}], \dots, f_m[\vec{g}/ \vec{v}])$, where $\vec{v}=(v_1, \dots, v_n)$. It turns out that sequential composition is associative, with identity being a neutral element when composed both on the left and right.
+ \begin{restatable}{lemma}{regbehcategory}\label{lem:comp_associative}
+	Let $f \colon m \to n$, $g \colon n \to p$, $h \colon p \to q$. We have that: 
+	\begin{enumerate}
+		\item $(f;g);h = f;(g;h)$
+		\item $\id_m ; f = f$
+		\item $f ; \id_n = f$
+	\end{enumerate}	
+\end{restatable}
+\begin{proof}
+	We respectively prove each of the properties.
+	\begin{enumerate}
+		\item \begin{align*}
+			(f ; g) ; h &= (f_1[\vec{g}/\vec{v}], \dots, f_m[\vec{g}/\vec{v}]);h \\
+			&= \left((f_1[\vec{g}/\vec{v}])[\vec{h}, \vec{v}], \dots, (f_m[\vec{g}/\vec{v}])[\vec{h}, \vec{v}]\right)\\
+			&= \left(f_1[(g_1[\vec{h}/\vec{v}], \dots, g_n[\vec{h}/\vec{v}])/\vec{v}],\dots, f_m[(g_1[\vec{h}/\vec{v}], \dots, g_n[\vec{h}/\vec{v}])/\vec{v}]\right) \tag{\Cref{lem:subst_lemma}} \\
+			&= \left(f_1 [\vec{(g;h)}/\vec{v}], \dots f_m [\vec{(g;h)}/\vec{v}] \right) \\
+			&= f ; (g;h)
+		\end{align*}
+		\item $id_m ; f = (v_1[\vec{f}/\vec{v}], \dots, v_m[\vec{f}/\vec{v}])=(f_1, \dots, f_m) = f$
+		\item $f ; id_n = (f_1[\vec{v}/\vec{v}], \dots, f_m[\vec{v}/\vec{v}]]) = (f_1, \dots, f_m) = f$
+	\end{enumerate}
+\end{proof}
+
+Because of the above, we can define a category $\RegBeh$, whose objects are natural numbers and morphisms $f \colon m \to n$ are elements $f \in \RegBeh(m,n)$. 
+
+ For every $n \in \N$, there is a unique element $0_n \in \RegBeh(0,n)$ given by the empty tuple.
+ \begin{lemma}
+	$0$ is the initial object of $\RegBeh$.
+\end{lemma}
+\begin{proof}
+	For any $n \in \N$, the unique universal arrow is given by $0_n$, which immediately completes the proof.
+\end{proof}
+Moreover, $\RegBeh$ can be equipped with binary coproducts, which is defined on objects as addition.
+\begin{lemma}
+	$\RegBeh$ has binary coproducts. In particular, given $k, l \in \N$, the inclusions $\inl_{k,l} \colon k \to k +l$ and $\inr_{k,l} \colon l \to k + l$ are given by $\inl_{k,l} = (v_1, \dots, v_k)$ and $\inr_{k,l} = (v_{k+1}, \dots, v_{k+l})$ respectively, while the mediating map is given by pairing. 
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJrIl0sWzIsMCwibCJdLFsxLDEsImsrbCJdLFsxLDMsIm0iXSxbMCwyLCJcXGlubCJdLFsxLDIsIlxcaW5yIiwyXSxbMCwzLCJmIiwyXSxbMSwzLCJnIl0sWzIsMywiXFxsYW5nbGUgZiAsIGcgXFxyYW5nbGUiLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\end{lemma}
+\begin{proof}
+	Let $f \colon k \to m$ and $g \colon l \to m$. We can safely assume that $f = (f_1, \dots, f_k)$ and $g = (g_1, \dots, g_l)$. Recall that $\inl_{k,l} = (v_1, \dots, v_k)$ and $\inr_{k,l} = (v_{k+1}, \dots, v_{k+l})$. For the existence proof, define $\lc f , g \rc \colon k + l \to m$ as a $k + l$-tuple $(f_1, \dots, f_k, g_1, \dots, g_l)$. We show that that the coproduct diagram commutes. We start from the left triangular subdiagram.
+	\[\begin{tikzcd}
+	k && l \\
+	& {k+l} \\
+	\\
+	& m
+	\arrow["\inl_{k + l}", from=1-1, to=2-2]
+	\arrow["f"', from=1-1, to=4-2]
+	\arrow["\inr_{k + l}"', from=1-3, to=2-2]
+	\arrow["g", from=1-3, to=4-2]
+	\arrow["{\lc f , g \rc}"{description}, dashed, from=2-2, to=4-2]
+\end{tikzcd}\]
+	\begin{align*}
+		\inl_{k,l} ; \lc f , g\rc &= (v_1, \dots, v_k) ; (f_1, \dots f_k, g_1, \dots, g_l) \\
+		&= (f_1, \dots, f_k) \\
+		&= f
+	\end{align*}
+	Similarly, for the right subdiagram, we have that:
+	\begin{align*}
+		\inr_{k,l} ; \lc f , g\rc &= (v_{k +1}, \dots, v_{k + l}) ; (f_1, \dots f_k, g_1, \dots, g_l) \\
+		&= (g_1, \dots, g_l) \\
+		&= g
+	\end{align*}
+	For the uniqueness proof, assume that there exists a map $h \colon k + l \to m$, which makes the coproduct diagram commute. We can safely assume that $h = (h_1, \dots, h_{k + l})$. 
+	Since $\inl_{k,l} ; h = f$ and $\inr_{k,l} ; h = g$, we have that:
+	\begin{align*}
+		(f_1, \dots, f_k) &= f\\ 
+		&= \inl_{k,l} ; h\\
+		&= (v_1, \dots, v_k) ; (h_1, \dots, h_{k + l}) \\
+		&= (h_1, \dots, h_k)
+	\end{align*}
+	Similarly, we have that:
+	\begin{align*}
+		(g_1, \dots, g_l) &= f\\ 
+		&= \inr_{k,l} ; h\\
+		&= (v_{k+1}, \dots, v_{}) ; (h_1, \dots, h_{k + l}) \\
+		&= (h_{k+1}, \dots, h_{k + l})
+	\end{align*}
+	Hence, $h = (f_1, \dots, f_k, g_1, \dots, g_l) = \lc f , g \rc$ as desired. 
+\end{proof}
+
+ 
