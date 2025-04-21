@@ -44,9 +44,9 @@
 \newcommand{\funF}{\mathcal{F}} % Arbitrary functor
 \newcommand{\funG}{\mathcal{G}}
 \newcommand{\funB}{\mathcal{B}}
+\newcommand{\funL}{\mathcal{L}}
 
-
-\newcommand{\Obj}{\mathsf{Obj}} % Objects of category
+\newcommand{\ObjC}{\mathsf{Obj}} % Objects of category
 \newcommand{\forget}{\mathcal{U}}
 
 \def\id{\mathsf{id}}
@@ -309,7 +309,34 @@ pics/BWmatrix/.default=0.2
     \draw (ha.east) -- ++(0.75, 0);
   }
 }
-
+\newcommand{\proptimes}{\oplus}
+\newcommand{\Signature}{\mathcal{S}}
+\newcommand{\freeP}[1]{\mathsf{T}_{\scriptscriptstyle #1}} 
+\newcommand{\Obj}{\mathcal{O}}
+\newcommand{\Morph}{\mathcal{M}}
+\newcommand{\from}{\mathrel{:}\,}
+\newcommand\idzero{\tikzfig{empty-diag}} 
+\newcommand{\Syn}{\mathsf{Syn}}
+\newcommand{\SMCeq}{=}
+\newcommand{\diagbox}[3]{
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (6) at (1.75, 0) {};
+		\node [style=none] (7) at (0.75, 0) {};
+		\node [style=basic rounded box] (10) at (0, 0) {$#1$};
+		\node [style=none] (11) at (1.5, 0.5) {\scriptsize $#3$};
+		\node [style=none] (12) at (-1.5, 0.5) {\scriptsize $#2$};
+		\node [style=none] (13) at (-1.75, 0) {};
+		\node [style=none] (14) at (-0.75, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=180, out=0, looseness=1.25] (7.center) to (6.center);
+		\draw [in=180, out=0, looseness=1.25] (13.center) to (14.center);
+	\end{pgfonlayer}
+\end{tikzpicture}}
+\newcommand{\Tr}{\mathsf{Tr}}
+\newcommand{\inl}{\mathsf{inl}}
+\newcommand{\inr}{\mathsf{inr}}
 % chapter four only
 \newcommand{\PExp}{\mathsf{PExp}}
 \def\pca{{\mathsf{PCA}}}
@@ -327,7 +354,16 @@ pics/BWmatrix/.default=0.2
 \def\lift{\mathsf{Lift}}
 \newcommand 	\ex {\operatorname{exp}}
 \newcommand   \uaequiv {\mathrel{\dot\equiv}}
-
+\newcommand\lc{ \left[ }
+\newcommand\rc{\right]}
+\newcommand{\Int}[1]{\mathbf{Int}(#1)}
+\newcommand{\tr}[1]{\mathrel{\!
+    \raisebox{-2pt}{
+        \(\xrightarrow{#1}\)
+    }\!
+}}
+\newcommand\Expr{\mathsf{MExp}}
+\newcommand{\fv}{\mathsf{fv}}
 %\def\DoubleFill@{\arrowfill@\Relbar\Relbar\Relbar}
 %
 %\def\arrayin#1{\begin{array}{rcl}#1\end{array}}
