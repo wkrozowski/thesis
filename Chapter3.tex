@@ -13,6 +13,11 @@ Using the above definition, we can also define the following:
 \end{definition}
 In other words, prechart homomorphisms preserve and reflect transitions. Given a chart $C=(Q,s,D,E)$ we say that a variable $v \in V$ is \emph{live} in $C$ if there exists a path of transitions $s \tr{a_1} \dots \tr{a_n} s' \rhd v$ or call it \emph{dead} otherwise. It can be easily observed that bisimulations and homomorphisms preserve the liveness of variables.
 
+Later in this chapter, we will characterise the behavioural distance of precharts via Hennessy and Milner's \emph{stratification of bisimilarity}~\cite{hennessy:1985:algebraic} defined by the following:
+	\begin{definition}[Stratification of bisimilarity]
+	Let $C_i = (Q_i, D_i, E_i)$ for $i \in \{1,2\}$ be precharts. We can define a family $\{\sim^{(i)} \}_{i \in \N}$ of equivalence relations on $Q_1 \times Q_2$ given by the following. For all $(q_1,q_2) \in Q_1 \times Q_2$, we have that $q_1 \sim^{(0)} q_2$. Given $(q_1, q_2) \in Q_1 \times Q_2$, we have that $q_1 \sim ^{(n+1)} q_2$ if \circlednum{1} $E_1(q_1) = E_2(q_2)$, \circlednum{2} $q_1 \tr{a}_{C_1} q'_1$ implies that there exists $q'_2 \in Q_2$, such that $q_2 \tr{a} q'_2$ and $q'_1 \sim^{(n)} q'_2$.
+\end{definition}
+
 Given a prechart $(Q, E, D)$, we can equivalently see it as a pair $(Q, \beta)$, where $\beta$ is a combined transition function $Q \to \powf (\Sigma \times Q + V)$, where $\powf$ denotes a finite powerset. Such transition function $\beta$ takes each state $q \in Q$, to the set $\beta(q) = D(q) \cup E(q)$ of possible successors, that include labelled transitions and variable outputs.
 
 In other words, precharts are coalgebras for the functor $\funL \colon \Set \to \Set$, given by $\funL = \Sigma \times (-) + V$. Bisimulations and homomorphisms of $\funL$-coalgebras are captured concretely by strong bisimulation of precharts and their homomorphisms. Because of this, we will interchangeably use terms prechart and $\funL$-coalgebra. Moreover, $\funL$ preserves weak pullbacks and hence $\sim$ is an equivalence relation that captures behavioural equivalence of $\funL$-coalgebras. For more details of coalgebraic treatment of precharts, we direct an interested reader to~\cite{Schmid:2021:Star}.
@@ -194,20 +199,35 @@ The characterisation described above can be extended to any locally finite prech
 	\]
 \end{corollary}
 \begin{proof}
-	Since $(X, \beta)$ is locally finite, then its subprechart $(\langle x , y \rangle_\beta, \beta\arrowvert_{\langle x , y \rangle_\beta})$ is finite. Since homomorphisms are ismometries, calculating distance between $x$ and $y$ in $(X, \beta)$ is the same as calculating it in $(\langle x , y \rangle_\beta, \beta\arrowvert_{\langle x , y \rangle_\beta})$. Because of \Cref{lem:cocontinuous}, $\Phi_\beta$ is cocontinuous (when restricted to $\langle x , y \rangle_{\beta\arrowvert_{\langle x , y \rangle_\beta}}$) and hence we can employ Kleene fixpoint theorem. Since the infima in the lattice of pseudometrics can be calculated pointwise ({\cite[Lemma~6]{Rozowski:2024:Complete}}), we have that
+Let $\beta'$ denote $\beta$ restricted to $\langle x , y \rangle_\beta$.
+	Since $(X, \beta)$ is locally finite, then its subprechart $(\langle x , y \rangle_\beta, \beta')$ is finite. Since homomorphisms are ismometries, calculating distance between $x$ and $y$ in $(X, \beta)$ is the same as calculating it in $(\langle x , y \rangle_\beta, \beta')$. Because of \Cref{lem:cocontinuous}, $\Phi_\beta$ is cocontinuous (when restricted to $\langle x , y \rangle_{\beta'}$) and hence we can employ \Cref{c2:thm:kleene}. Since the infima in the lattice of pseudometrics can be calculated pointwise (\Cref{c2:lem:chain_pointwise_inf}), we have that
 	$$
-	\mathsf{bd}_\beta(x,y) = \mathsf{bd}_{\beta\arrowvert_{\langle x , y \rangle_\beta}}(x,y) = \inf_{i \in I} \left( \Phi^{(i)}_{\beta\arrowvert_{\langle x , y \rangle_\beta}}(x,y)\right)
+	\mathsf{bd}_\beta(x,y) = \mathsf{bd}_{\beta'}(x,y) = \inf_{i \in I} \left( \Phi^{(i)}_{\beta'}(x,y)\right)
 	$$
-	Since $\beta{\arrowvert_{\langle x , y \rangle_\beta}}$ is a restriction of $\beta$ to ${\langle x , y \rangle_\beta}$ and each $\Phi^{(i)}_{\beta{\arrowvert_{\langle x , y \rangle_\beta}}}$ makes only use of the states in $\langle x , y \rangle_\beta$, we can rewrite the above as
+	Since $\beta'$ is a restriction of $\beta$ to ${\langle x , y \rangle_\beta}$ and each $\Phi^{(i)}_{\beta'}$ makes only use of the states in $\langle x , y \rangle_\beta$, we can rewrite the above as
 	$$
 	\mathsf{bd}_\beta(x,y) = \inf_{i \in \N} \left(\Phi_\beta^{(i)}(x,y)\right)
 	$$
 	as desired.
 \end{proof} 
+\begin{lemma}\label{lem:distance_power_of_two}
+	Let $(X,\beta)$ be a locally finite prechart. For all $x,y \in X$, $i \in \N$, either $\Phi_\beta^{(i)}=0$ or there exists $k \in \N$, such that $\Phi_{\beta}^{(i)}(x,y)=2^{-k}$
+\end{lemma}
+\begin{proof}
+	Pick arbitrary $x,y \in X$.
+	By induction on $i$. If $i = 0$, then $\Phi^{(0)}_\beta(x,y)=1=2^{0}$, if $x \neq 0$ or $\Phi^{(0)}_\beta(x,y)=0$, otherwise. 
+	If $i = j + 1$, then we have that:
+	$$
+	\Phi^{j + 1}_\beta(x,y) = \max \{\sup_{u \in \beta(x)} \inf_{w \in \beta(y)} {\Phi^{(j)}_\beta}^\uparrow(u,w), \sup_{w \in \beta(y)} \inf_{u \in \beta(x)}{\Phi^{(j)}_\beta}^\uparrow(w,u)\}.
+	$$
+	
+	Recall that for $u = (a,x')$ and $w=(a,y')$, we have that ${\Phi^{(j)}_\beta}^\uparrow(u,w)=\frac{1}{2} {\Phi^{(j)}_\beta}(x',y')$. By induction hypothesis, we have that ${\Phi^{(j)}_\beta}(x',y')=0$ and hence ${\Phi^{(j)}_\beta}^\uparrow(u,w)=0$ or there exists a $k \in N$, such that ${\Phi^{(j)}_\beta}(x',y')=2^{-k}$ and hence ${\Phi^{(j)}_\beta}^\uparrow(u,w)=2^{-(k+1)}$. Since the infima range over finite sets, their values are either $1=2^0$ if the sets are empty or are one of the values from the set, which we have shown to be of the desired form. Similarly, suprema range over finite sets and are either $0$ for empty sets or are on of the values from the set, which are in the desired form. Taking the maximum of values in the desired form, still results in a value in the desired form.
+\end{proof}
 
 \subsection{Conway Theories}\label{c3:subsec:conway}
 Let $\cat{C}$ be a category, whose objects are natural numbers and $0$ is the initial object. We will write $0_n$ for the unique map $0_n \colon 0 \to n$. Additionally, we assume that $\cat{C}$ is equipped with all finite coproducts, where binary coproduct is given by addition, i.e. $n \oplus m := n + m$. Given $f \colon k \to m$ and $g \colon l \to m$, we will write $\lc f,g \rc \colon k +l \to m$ for the mediating map from the universal property of the coproduct that makes the following diagram commute:
-\[\begin{tikzcd}
+\begin{equation}\label{eqn:mediating}
+\begin{tikzcd}
 	k && l \\
 	& {k+l} \\
 	\\
@@ -217,13 +237,14 @@ Let $\cat{C}$ be a category, whose objects are natural numbers and $0$ is the in
 	\arrow["\inr_{k + l}"', from=1-3, to=2-2]
 	\arrow["g", from=1-3, to=4-2]
 	\arrow["{\lc f , g \rc}"{description}, dashed, from=2-2, to=4-2]
-\end{tikzcd}\]
+\end{tikzcd}
+\end{equation}
 For every $n \in N$, we can define a codiagonal $\nabla_{n} \colon n + n \to n$, given by $\nabla_n := \lc\id_n,\id_n\rc$.
 
 Given $f \colon k \to l$ and $g \colon m \to n$, we can define their \emph{separated sum} $f \oplus g \colon k + m \to l + n $, given by the unique mediating arrow in the following diagram
 % https://q.uiver.app/#q=WzAsNixbMCwwLCJrIl0sWzIsMCwiayArIG4iXSxbMCwyLCJsIl0sWzQsMCwibSJdLFs0LDIsIm4iXSxbMiwyLCJsICsgbiJdLFswLDEsIlxcaW5sIl0sWzMsMSwiXFxpbnIiLDJdLFsyLDUsIlxcaW5sIiwyXSxbNCw1LCJcXGluciJdLFsxLDUsImYgXFxvcGx1cyBnIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzAsMiwiZiIsMl0sWzMsNCwiZyJdXQ==
 % https://q.uiver.app/#q=WzAsNixbMCwwLCJrIl0sWzIsMCwiayArIG0iXSxbMCwyLCJsIl0sWzQsMCwibSJdLFs0LDIsIm4iXSxbMiwyLCJsICsgbiJdLFswLDEsIlxcaW5sIl0sWzMsMSwiXFxpbnIiLDJdLFsyLDUsIlxcaW5sIiwyXSxbNCw1LCJcXGluciJdLFsxLDUsImYgXFxvcGx1cyBnIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzAsMiwiZiIsMl0sWzMsNCwiZyJdXQ==
-\[\begin{tikzcd}
+\begin{equation}\begin{tikzcd}\label{eqn:monoidal}
 	k && {k + m} && m \\
 	\\
 	l && {l + n} && n
@@ -234,7 +255,7 @@ Given $f \colon k \to l$ and $g \colon m \to n$, we can define their \emph{separ
 	\arrow["g", from=1-5, to=3-5]
 	\arrow["\inl_{l,n}"', from=3-1, to=3-3]
 	\arrow["\inr_{l,n}", from=3-5, to=3-3]
-\end{tikzcd}\]
+\end{tikzcd}\end{equation}
 \begin{remark}
 	Because of the universal properties of coproduct and initial object, the following identities hold:
 	\begin{enumerate}
@@ -255,7 +276,7 @@ Observe that under the assumptions listed above $\cat{C}$ is equipped with all f
  
  
 \begin{definition}[{\cite[Definition~3.1]{Esik:1999:Group}}]\label{def:conway_theory}
-	A Conway Theory is a preiteration theory, in which the following conditions are satisfied:
+	A Conway theory is a preiteration theory, in which the following conditions are satisfied:
 	\begin{itemize}
 		\item \textbf{(Scalar parameter identity)} $$(f ; (g \oplus \id_1))^\dagger = f^\dagger ; g$$ for all $f \colon 1 \to p + 1$, $g \colon p \to q$.
 		\item \textbf{(Scalar composition identity)} 
@@ -277,7 +298,7 @@ Observe that under the assumptions listed above $\cat{C}$ is equipped with all f
 \end{remark}
 
 \subsection{Trace-fixpoint correspondence}
-It turns out, that having a category $\cat{C}$ with finite coproducts and equipped with a dagger operator satisfying the axioms of Conway Theories is synonymous with $\cat{C}$ being traced symmetric monoidal category. This is captured by the following theorem that was independently proved by Hasegawa~\cite{Hasegawa:1997:Models} and Haghverdi~\cite{Haghverdi:2000:Categorical}. The formulation of Hasegawa is phrased dually via the setting of products and cartesian categories.
+It turns out, that having a category $\cat{C}$ with finite coproducts and equipped with a dagger operator satisfying the axioms of Conway theories is synonymous with $\cat{C}$ being traced symmetric monoidal category. This is captured by the following theorem that was independently proved by Hasegawa~\cite{Hasegawa:1997:Models} and Haghverdi~\cite{Haghverdi:2000:Categorical}. The formulation of Hasegawa is phrased dually via the setting of products and cartesian categories.
 \begin{theorem}[{\cite[Proposition~3.1.9]{Haghverdi:2000:Categorical}}]\label{thm:trace}
 For any category with finite coproducts, to give a Conway operator is to give a trace (where finite coproducts are taken as the monoidal structure). 
 \end{theorem}
@@ -303,7 +324,7 @@ Given a traced symmetric monoidal category $(\cat{C}, \otimes, I)$, we can const
 	
 	$\Int{\cat{C}}$ is equipped with a canonical trace, which takes a morphism $$f \colon (A^+, A^-) \otimes (U^+, U^-) \to (B^+, B^-) \otimes (U^+, U^-)$$ to the map given by the following:
 	\[
-	\left(\id_{(A^+, A-)} \otimes \eta_{(U^+, U-)}\right) ;\left(f \otimes \id_{{(U^+, U^-)}^\ast}\right); \left(\id_{(B^+, B^-)} \otimes \epsilon_{(U^+, U-)}  \right)
+	\left(\id_{(A^+, A-)} \otimes \eta_{(U^+, U^-)}\right) ;\left(f \otimes \id_{{(U^+, U^-)}^\ast}\right); \left(\id_{(B^+, B^-)} \otimes \epsilon_{(U^+, U^-)}  \right)
 	\]
 	
 	\section{Monoidal Syntax}\label{c3:sec:monoidal}
@@ -386,24 +407,24 @@ Because of the above, we can define a category $\RegBeh$, whose objects are natu
 \begin{proof}
 	For any $n \in \N$, the unique universal arrow is given by $0_n$, which immediately completes the proof.
 \end{proof}
-Moreover, $\RegBeh$ can be equipped with binary coproducts, which is defined on objects as addition.
+ Given $f \in \RegBeh(k,m)$ and $g \in \RegBeh(l,m)$, we define their pairing $\langle f , g \rangle \in \RegBeh (k + l,m)$, by setting $\lc f , g \rc = (f_1, \dots, f_k, g_1, \dots g_l)$. $\RegBeh$ can be equipped with binary coproducts, which is defined on objects as addition and the mediating map is given by pairing.
 \begin{lemma}
 	$\RegBeh$ has binary coproducts. In particular, given $k, l \in \N$, the inclusions $\inl_{k,l} \colon k \to k +l$ and $\inr_{k,l} \colon l \to k + l$ are given by $\inl_{k,l} = (v_1, \dots, v_k)$ and $\inr_{k,l} = (v_{k+1}, \dots, v_{k+l})$ respectively, while the mediating map is given by pairing. 
 % https://q.uiver.app/#q=WzAsNCxbMCwwLCJrIl0sWzIsMCwibCJdLFsxLDEsImsrbCJdLFsxLDMsIm0iXSxbMCwyLCJcXGlubCJdLFsxLDIsIlxcaW5yIiwyXSxbMCwzLCJmIiwyXSxbMSwzLCJnIl0sWzIsMywiXFxsYW5nbGUgZiAsIGcgXFxyYW5nbGUiLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
 \end{lemma}
 \begin{proof}
-	Let $f \colon k \to m$ and $g \colon l \to m$. We can safely assume that $f = (f_1, \dots, f_k)$ and $g = (g_1, \dots, g_l)$. Recall that $\inl_{k,l} = (v_1, \dots, v_k)$ and $\inr_{k,l} = (v_{k+1}, \dots, v_{k+l})$. For the existence proof, define $\lc f , g \rc \colon k + l \to m$ as a $k + l$-tuple $(f_1, \dots, f_k, g_1, \dots, g_l)$. We show that that the coproduct diagram commutes. We start from the left triangular subdiagram.
-	\[\begin{tikzcd}
-	k && l \\
-	& {k+l} \\
-	\\
-	& m
-	\arrow["\inl_{k + l}", from=1-1, to=2-2]
-	\arrow["f"', from=1-1, to=4-2]
-	\arrow["\inr_{k + l}"', from=1-3, to=2-2]
-	\arrow["g", from=1-3, to=4-2]
-	\arrow["{\lc f , g \rc}"{description}, dashed, from=2-2, to=4-2]
-\end{tikzcd}\]
+	Let $f \colon k \to m$ and $g \colon l \to m$. We can safely assume that $f = (f_1, \dots, f_k)$ and $g = (g_1, \dots, g_l)$. Recall that $\inl_{k,l} = (v_1, \dots, v_k)$ and $\inr_{k,l} = (v_{k+1}, \dots, v_{k+l})$. For the existence proof, define $\lc f , g \rc \colon k + l \to m$ as a $k + l$-tuple $(f_1, \dots, f_k, g_1, \dots, g_l)$. We show that that the coproduct diagram from \Cref{eqn:mediating} commutes. We start from the left triangular subdiagram.
+%	\[\begin{tikzcd}
+%	k && l \\
+%	& {k+l} \\
+%	\\
+%	& m
+%	\arrow["\inl_{k + l}", from=1-1, to=2-2]
+%	\arrow["f"', from=1-1, to=4-2]
+%	\arrow["\inr_{k + l}"', from=1-3, to=2-2]
+%	\arrow["g", from=1-3, to=4-2]
+%	\arrow["{\lc f , g \rc}"{description}, dashed, from=2-2, to=4-2]
+%\end{tikzcd}\]
 	\begin{align*}
 		\inl_{k,l} ; \lc f , g\rc &= (v_1, \dots, v_k) ; (f_1, \dots f_k, g_1, \dots, g_l) \\
 		&= (f_1, \dots, f_k) \\
@@ -432,5 +453,96 @@ Moreover, $\RegBeh$ can be equipped with binary coproducts, which is defined on 
 	\end{align*}
 	Hence, $h = (f_1, \dots, f_k, g_1, \dots, g_l) = \lc f , g \rc$ as desired. 
 \end{proof}
-
+Given $f \in \RegBeh(k,l)$ and $g \in \RegBeh(m,n)$, we can define their parallel composition $f \oplus g \in \RegBeh(k + m, l + n)$, by setting $$f \oplus g = (f_1, \dots, f_k, g_1[(v_{l + 1},\dots, v_{l + n})/\vec{v}], \dots, g_m[(v_{l + 1},\dots, v_{l + n})/\vec{v}])$$ One can easily verify that this corresponds to the map given by \Cref{eqn:monoidal}. As a consequence of the universal properties established above, we have that $(\RegBeh, \oplus , 0 )$ is a co-cartesian strict symmetric monoidal category. 
+\subsection{$\RegBeh$ as a Conway theory}
+We move on to showing that $\RegBeh$ is in fact a Conway theory. For any $f \in \RegBeh(1, p + 1)$, we can define $f^\dagger \in \RegBeh(1,p)$ to be given by $f^\dagger = \mu v_{p+1}.f$.
+The dagger defined above satisfies \textbf{scalar parameter identity}.
+\begin{lemma}\label{conway1}
+	Let $f \colon 1 \to 1 + p$, $g \colon p \to g$ be morphisms in $\RegBeh$. Then,
+	$$
+	(f ; (g\oplus \id_1))^\dagger = f^\dagger ; g
+	$$
+\end{lemma}
+\begin{proof}
+\begin{align*}
+(f ; (g \oplus \id_1))^\dagger & = (f[\vec{g}/\vec{v}])^\dagger
+\\
+& = \mu v_{p+1}.\big(f[\vec{g}/\vec{v}]\big) \tag{Def. of $\dagger$}
+\\
+& = (\mu v_{p+1}.f)[\vec{g}/\vec{v}] 
+\\
+& = f^\dagger[\vec{g}/\vec{v}] 
+\\
+& = f^\dagger ; g
+\end{align*}
+\end{proof}
+To show the remaining identities, we first recall the following lemma.
+ \begin{lemma}[{\cite[Theorem~2]{Sewell:1995:Algebra}}]
+\label{lem:recursion-substitution}
+Terms of Milner's ARB (modulo bisimilarity) satisfy the following rules:
+	\begin{enumerate}
+		\item $\mu v_z. \left(e [(v_z, v_z) / (v_j, v_k)]\right) = \mu v_j. \mu v_k. e$ for any $v_z$ not free in $e$
+		\item $ \mu v_j.\left(e[f/v_j]\right) = e[\mu v_x. \left(f[e/v_j]\right)/v_j]$
+	\end{enumerate}
+\end{lemma}
+We can now establish the \textbf{scalar composition} indentity.
+\begin{lemma}\label{conway2}
+Let $f,g \colon 1 \to 1 + p$ be morphisms of $\RegBeh$. Then,
+		$$
+		(f ; \langle  \id_p \oplus 0_1 , g \rangle)^\dagger = f ; \langle \id_p, (g ;  \langle  \id_p \oplus 0_1 , f\rangle)^\dagger\rangle
+		$$ 
+\end{lemma}
+\begin{proof}
+\begin{align*}
+(f ; \langle  \id_p \oplus 0_1 , g \rangle)^\dagger & = \big(f[v_1,\dots,v_p, g/\vec{v}]\big)^\dagger	
+\\
+& = \mu v_{p+1}.\big(f[v_1,\dots,v_p, g/\vec{v}]\big)
+\\
+& = \mu v_{p+1}.\big(f[g/v_{p+1}]\big)
+\\
+& = f[\mu v_{p+1}. \left(g[f/v_{p+1}]\right)/v_{p+1}] \tag{\Cref{lem:recursion-substitution}~2.}
+\\
+& = f[\mu v_{p+1}. \left(g[v_1,\dots,v_n,f/v_1,\dots,v_n,v_{p+1}]\right)/v_{p+1}]\\
+& = f[\mu v_{p+1}. (g ;  \langle  \id_p \oplus 0_1 , f\rangle)/v_{p+1}]
+\\
+& = f[(g ;  \langle  \id_p \oplus 0_1 , f\rangle)^\dagger/v_{p+1}]
+\\
+& = f ; \langle \id_p, (g ;  \langle  \id_p \oplus 0_1 , f\rangle)^\dagger\rangle
+\end{align*}
+\end{proof}
+Similarly, we can show that dagger on $\RegBeh$ satisfies \textbf{scalar double dagger identity}. 
+\begin{lemma}\label{conway3}
+Let $f \colon 1 \to 2 + p$ be a morphism of $\RegBeh$. Then,
+		$$
+		f^{\dagger\dagger} = (f ; (\id_p\oplus \nabla_1))^\dagger
+		$$
+\end{lemma}
+\begin{proof}
+\begin{align*}
+f^{\dagger\dagger} &= \mu v_{p+1}.(\mu v_{p+2}.f)
+\\
+& = \mu v_{p+1}. \left(f [v_{p+1}, v_{p+1} / v_{p+1}, v_{p+2}]\right) \tag{\Cref{lem:recursion-substitution}~ 1.}
+\\
+& = \mu v_{p+1}. \left(f;(\id_p\oplus \nabla_1)\right)
+\\
+& = (f ; (\id_p\oplus \nabla_1))^\dagger
+\end{align*}
+\end{proof}
+Hence, we obtain the desired result.
+\begin{restatable}{lemma}{regbehconway}\label{lem:regbehconway}
+$\RegBeh$ is a Conway Theory.	
+\end{restatable}
+\begin{proof}
+	Follows from \Cref{conway1}, \Cref{conway2} and \Cref{conway3}.
+\end{proof}
+We can now combine all the intermediate results into the following statement.
+\begin{theorem}
+	The category $\RegBeh$ has the following properties:
+	\begin{itemize}
+		\item $\RegBeh$ has all finite coproducts. 
+		\item $(\RegBeh, \oplus, 0)$ is a (co-Cartesian) strict symmetric monoidal category.
+		\item $\RegBeh$ equipped with a dagger is a Conway theory~\cite{Esik:1999:Group}.
+		\item Each morphism $g \colon p + n \to q + n$ has a trace $\Tr^{n}_{p,q}(g) \colon p \to q$ defined in terms of dagger. This equipment makes $\RegBeh$ into a traced monoidal category~\cite{Joyal:1996:Traced}. 
+	\end{itemize}
+\end{theorem} 
  
