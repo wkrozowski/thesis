@@ -210,6 +210,7 @@ Let $\beta'$ denote $\beta$ restricted to $\langle x , y \rangle_\beta$.
 	$$
 	as desired.
 \end{proof} 
+The value of behavioural distance between any two states in locally finite precharts is always a power of two.
 \begin{lemma}\label{lem:distance_power_of_two}
 	Let $(X,\beta)$ be a locally finite prechart. For all $x,y \in X$, $i \in \N$, either $\Phi_\beta^{(i)}=0$ or there exists $k \in \N$, such that $\Phi_{\beta}^{(i)}(x,y)=2^{-k}$
 \end{lemma}
@@ -223,7 +224,72 @@ Let $\beta'$ denote $\beta$ restricted to $\langle x , y \rangle_\beta$.
 	
 	Recall that for $u = (a,x')$ and $w=(a,y')$, we have that ${\Phi^{(j)}_\beta}^\uparrow(u,w)=\frac{1}{2} {\Phi^{(j)}_\beta}(x',y')$. By induction hypothesis, we have that ${\Phi^{(j)}_\beta}(x',y')=0$ and hence ${\Phi^{(j)}_\beta}^\uparrow(u,w)=0$ or there exists a $k \in N$, such that ${\Phi^{(j)}_\beta}(x',y')=2^{-k}$ and hence ${\Phi^{(j)}_\beta}^\uparrow(u,w)=2^{-(k+1)}$. Since the infima range over finite sets, their values are either $1=2^0$ if the sets are empty or are one of the values from the set, which we have shown to be of the desired form. Similarly, suprema range over finite sets and are either $0$ for empty sets or are on of the values from the set, which are in the desired form. Taking the maximum of values in the desired form, still results in a value in the desired form.
 \end{proof}
-
+If two states are not bisimilar, then the chain of approximants from Kleene's fixpoint theorem stabilises.
+\begin{lemma}\label{lem:chain_stabilises}
+	Let $(X, \beta)$ be a locally finite prechart and let $x,y \in X$, such that $\neg (x \sim y)$. There exists $i \in \N$, such that $\Phi_\beta^{(i)}(x,y)=\Phi^{(i+1)}_\beta(x,y)$
+\end{lemma}
+\begin{proof}
+	Since $\neg (x \sim y)$, then $\mathsf{bd}_\beta(x,y)\neq 0$ and hence $\mathsf{bd}_\beta(x,y) > 0$. 
+	For the sake of an argument, assume that for all $i \in \N$, $\Phi_\beta^{(i)}(x,y)\neq\Phi^{(i+1)}_\beta(x,y)$. Essentially, that means we have an infinite, strictly decreasing $\omega$-cochain $\{\Phi^{(i)}_\beta(x,y)\}_{i \in I}$. By \Cref{lem:distance_power_of_two}, we know that the values of the chain are either $0$ or $2^{-k}$. Since all the values of the chain are nonegative, if any of it is equal to zero $0$, we reach a contradiction, as chain would have to contain values strictly below $0$. Hence, we can safely assume that the chain is in the form $\{1,\frac{1}{2}, \frac{1}{4}, \dots\}$. But in such a case its infimum is $0$, contradicting the assumption.
+\end{proof}
+As a corollary, nonzero behavioural distance is always witnessed by a finite approximant.
+\begin{corollary}\label{lem:finite_witness_for_positive_distance}
+	Let $(X, \beta)$ be a locally finite prechart and let $x,y \in X$. If $\mathsf{bd}_\beta(x,y) > 0$, then there exists an $i \in \N$, such that $\mathsf{bd}_\beta(x,y) = \Phi^{(i)}_\beta(x,y)$
+\end{corollary}
+\begin{proof}
+	If $\mathsf{bd}_\beta(x,y) >0$, we have that $\neg (x \sim y)$ and using \Cref{lem:chain_stabilises}, we know that the chain of approximants stabilises and hence the infimum of the chain is equal to the point where it stabilises.
+\end{proof}
+We can connect behavioural distances with stratified bisimulations via the following result:
+\begin{lemma}\label{lem:bound_on_stratified_bisim}
+	Let $(X, \beta)$ be a prechart. For any $x,y \in X$, we have that 
+	$$
+	x \sim^{(k)} y \iff \mathsf{bd}_{\beta}(x,y) \leq 2^{-k}
+	$$
+\end{lemma}
+\begin{proof}
+	By induction on $k$. The base case is trivial, as we immediately have that $x \sim^{(0)} y$ and $\mathsf{bd}_\beta(x,y) \leq 2^{0} = 1$.
+	
+	For the inductive step assume that for some $k' \in \N$, the induction hypothesis holds. First, assume that $x \sim^{(k'+1)} y$. Unrolling the definition of stratification of bisimilarity, we have that
+	\begin{itemize}
+		\item If $x \rhd v$, then $y \rhd v$
+		\item If $x \tr{a} x'$, then there exists $y'$ such that $y \tr{a} y'$ and $x \sim^{(k')} y$.
+	\end{itemize}
+	and symmetrically.
+	
+	We want to show that $\mathsf{bd}_\beta(x,y) \leq 2^{-(k'+1)}$. We can unroll the definition of $\mathsf{bd}_\beta$ and rewrite the desired result as
+	$$
+	\sup_{u \in \beta(x)} \inf_{w \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,w)  \leq 2^{-(k'+1)} \wedge \sup_{w \in \beta(y)} \inf_{u \in \beta(x)} \mathsf{bd}_\beta^\uparrow(w,u)  \leq 2^{-(k'+1)}
+	$$
+	We focus on the left hand side of the conjunction above, as the right hand side is symmetric. We are aiming to show that
+	$$
+	\forall {u \in \beta(x)}~\inf_{v \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,w)  \leq 2^{-(k'+1)} 
+	$$
+	Let $u \in V$. By the assumption, we know that also $u \in B(y)$, which means that $$\inf_{w \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,v) = 0 \leq 2^{-(k'+1)}$$
+	
+	Now, let $u \in \Sigma \times X$, i.e. $u = (a,x')$. By the assumption, we know that there exists $y' \in X$, such that $(a,y') \in \beta(y)$ and $x' \sim^{(k')} y'$. By induction hypothesis, we know that $\mathsf{bd}_{\beta}(x',y') \leq 2^{-k'}$. Hence, we have that $\mathsf{bd}_{\beta}^\uparrow((a,x'),(a,x')) \leq \frac{1}{2} \cdot  2^{-k'} = 2^{-(k'+1)}$. Hence, we again have that 
+		$$
+		\forall_{u \in \beta(x)}~\inf_{w \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,w)  \leq 2^{-(k'+1)} 
+		$$
+		
+		Now, for the converse assume that $\mathsf{bd}_\beta(x,y) \leq 2^{-(k'+1)}$. Through a similar line of reasoning, as before, we have that
+		$$
+		\forall_{u \in \beta(x)}~\inf_{w \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,w) \leq 2^{-(k'+1)} 
+		$$
+		Assume that $x \rhd v$, i.e. $v \in \beta(x)$. For the sake of an argument, assume that $\neg (y \rhd v)$. That means that for all $w \in \beta(y)$, we have that $\mathsf{bd}_\beta^\uparrow(v,w) = 1$ and hence $\inf_{w \in \beta(y)} \mathsf{bd}_\beta^\uparrow(v,w)=1$, which contradicts the assumption as $1>2^{-{(k'+1)}}$. Hence, $y \rhd v$.
+		
+		Now, assume that $x \tr{a} x'$, i.e. $(a,x') \in \beta(y)$. Through a similar argument as before, we know that there must exist $(a,y')\in \beta(y)$, such that $\mathsf{bd}_\beta^\uparrow((a,x'),(a,y')) \leq 2^{-(k'+1)}$. Unrolling the definitions of $\mathsf{bd}_\beta^\uparrow$, we obtain $\frac{1}{2} \cdot \mathsf{bd}_{\beta}(x',y') \leq 2^{-(k'+1)}$ and hence $\mathsf{bd}_{\beta}(x',y') \leq 2^{-k'}$. Using the induction hypothesis, we get that $x' \sim^{(k')} y'$ as desired. The remaining part of the proof is symmetric and hence is omitted.
+\end{proof}
+We can now combine the above results and obtain the following concrete characterisation of behavioural distance of locally finite precharts.
+\begin{theorem}\label{thm:concrete_distance}
+Let $(X,\beta)$ be a locally finite prechart and let $x,y \in X$. The behavioural distance between $x$ and $y$ is given by:
+	$$\mathsf{bd}_\beta(x,y) = \begin{cases}
+		0 & \text{ if } x \sim y\\
+		2^{-n} & \text{ if } n \text{ is the largest number such that } x\sim^{(n)} y
+	\end{cases}$$
+\end{theorem}
+\begin{proof}
+	Because of the \Cref{lem:finite_witness_for_positive_distance}, we know that if $\mathsf{bd}_\beta(x,y) > 0$, then the behavioural distance is equal to some element of the chain of approximants. By \Cref{lem:bound_on_stratified_bisim}, we know that all non-zero elements of that chain are equal to $2^{-k}$, for some $k \in \N$. Combining it with \Cref{lem:bound_on_stratified_bisim} yields the desired result.
+\end{proof}
 \subsection{Conway Theories}\label{c3:subsec:conway}
 Let $\cat{C}$ be a category, whose objects are natural numbers and $0$ is the initial object. We will write $0_n$ for the unique map $0_n \colon 0 \to n$. Additionally, we assume that $\cat{C}$ is equipped with all finite coproducts, where binary coproduct is given by addition, i.e. $n \oplus m := n + m$. Given $f \colon k \to m$ and $g \colon l \to m$, we will write $\lc f,g \rc \colon k +l \to m$ for the mediating map from the universal property of the coproduct that makes the following diagram commute:
 \begin{equation}\label{eqn:mediating}
