@@ -435,7 +435,7 @@ Morphisms of $\Syn$ are thus vertical and horizontal composites of the generator
 	
 	\section{Monoidal semantics}\label{sec:semantics}
 	
-	In order to interpret the string diagrams described in \Cref{c3:sec:monoidal}, we construct an appropriate semantic universe out of regular behaviours. As much as the technical development makes use of category theory, we will keep the description of the formalism high-level. We will write $V_n$ for the set $V_n = \{v_1, \dots, v_n\}\subseteq V$ and $\Expr/{\equiv}(n)$ for the set of all regular behaviours whose live variables are contained in the set $V_n$. For any $m,n \in \N$, we will write $\RegBeh(m,n)$ for the set of $m$-tuples of elements of $\Expr/{\equiv}(n)$. 
+	In order to interpret the string diagrams described in \Cref{c3:sec:monoidal}, we construct an appropriate semantic universe out of regular behaviours. As much as the technical development makes use of category theory, we will keep the description of the formalism high-level. We will write $V_n$ for the set $V_n = \{v_1, \dots, v_n\}\subseteq V$ and $\Expr/{\sim}(n)$ for the set of all regular behaviours whose live variables are contained in the set $V_n$. For any $m,n \in \N$, we will write $\RegBeh(m,n)$ for the set of $m$-tuples of elements of $\Expr/{\sim}(n)$. 
 	
 	For every $n \in N$, we define an identity map $\id_n \in \RegBeh(n,n)$ as  $\id_n=\vec{v}_n=(v_1, \dots, v_n)$. When $n$ is clear from the context, we will abuse the notation and simply write $\vec{v}$ instead.
 
@@ -903,8 +903,8 @@ Axioms \textsf{A1}-\textsf{A2} are those of \emph{compact closed categories}~\ci
 For any two diagrams $f,g\from v\to w$ of $\Syn$, if $f=g$ then $\sem{f}=\sem{g}$. 
 \end{restatable}
 \begin{proof}
-	We verify that all equations defining $\Syn$ are satisfied. When dealing with left-to-right diagrams, we will make use of the fact that $\RegBeh$ fully faithfully embeds into $\Int{\RegBeh}$ (\Cref{thm:trace_embeds_int}) and hence it suffices to verify the axioms in $\RegBeh$, rather then in their completion to $\Int{\RegBeh}$. \textsf{(A1)} is satisfied because of the yanking property of trace operation defined on $\RegBeh$, while \textsf{(A2)} is its dual in $\Int{\RegBeh}$ and can be verified similarly. \textsf{(B1)}, \textsf{(B2)} and \textsf{(B3)} are satisfied because $+$ defined on ${\Expr}/{\sim}$ is a commutative monoid with $0$ being its identity. Similarly, \textsf{(B4)}, \textsf{(B5)} and \textsf{(B6)} are satisfied because of the universal property of coproduct on $\RegBeh$ and $\nabla_1$ being the codiagonal morphism. For \textsf{(B8)} we rely on the fact that $\nabla_1 ; \langle v_1 + v_2 \rangle = \langle v_1, v_1\rangle ; \langle v_1 + v_2 \rangle = \langle v_1 + v_2, v_1 + v_2 \rangle$. \textsf{(B8)} holds because $\nabla_1 ; \langle  0\rangle= \langle v_1, v_1\rangle ; \langle 0 \rangle = \langle 0, 0 \rangle $. 
-	\textsf{(B9)} is satisfied because $+$ is idempotent. Finally, \textsf{(B10)} corresponds to taking the dagger of $\langle v_1 + v_2 \rangle$ and captures the identity $\mu v_2.(v_1 + v_2) = v_1$ of Milner's Algebra of Regular Behaviours. Finally, \textsf{(C1)} holds, because $\nabla_1 ; \langle a . v_1 \rangle = \langle v_1, v_1 \rangle ; \langle a. v_1 \rangle = \langle a. v_1, a.v_1\rangle$.
+	We verify that all equations defining $\Syn$ are satisfied. When dealing with left-to-right diagrams, we will make use of the fact that $\RegBeh$ fully faithfully embeds into $\Int{\RegBeh}$ (\Cref{thm:trace_embeds_int}) and hence it suffices to verify the axioms in $\RegBeh$, rather then in their completion to $\Int{\RegBeh}$. \textsf{(A1)} is satisfied because of the yanking property of trace operation defined on $\RegBeh$, while \textsf{(A2)} is its dual in $\Int{\RegBeh}$ and can be verified similarly. \textsf{(B1)}, \textsf{(B2)} and \textsf{(B3)} are satisfied because $+$ defined on ${\Expr}/{\sim}$ is a commutative monoid with $0$ being its identity. Similarly, \textsf{(B4)}, \textsf{(B5)} and \textsf{(B6)} are satisfied because of the universal property of coproduct on $\RegBeh$ and $\nabla_1$ being the codiagonal morphism. For \textsf{(B8)} we rely on the fact that $\nabla_1 ; \lc v_1 + v_2 \rc = \lc v_1, v_1\rc ; \lc v_1 + v_2 \rc = \lc v_1 + v_2, v_1 + v_2 \rc$. \textsf{(B8)} holds because $\nabla_1 ; \lc  0\rc= \lc v_1, v_1\rc ; \lc 0 \rc = \lc 0, 0 \rc $. 
+	\textsf{(B9)} is satisfied because $+$ is idempotent. Finally, \textsf{(B10)} corresponds to taking the dagger of $\lc v_1 + v_2 \rc$ and captures the identity $\mu v_2.(v_1 + v_2) = v_1$ of Milner's Algebra of Regular Behaviours. Finally, \textsf{(C1)} holds, because $\nabla_1 ; \lc a . v_1 \rc = \lc v_1, v_1 \rc ; \lc a. v_1 \rc = \lc a. v_1, a.v_1\rc$.
 \end{proof}
 \noindent
 \textbf{Quantitative theory. } We define $E_q$ as the set of triples of the form $(f, r, g)$, where $f,g$ are string diagrams of the same type and $r \in \Qp$, as the least set closed under the rules of Fig.~\ref{fig:quantitative-axioms}. We will call elements of that set \emph{derivable equations}. 
@@ -957,7 +957,7 @@ Through a straightforward argument, one can show the soundness of the proposed q
 		For most of the rules, the proof is straightforward. The soundness of \textsf{(Top)} follows from the fact that the distance on morphisms of $\Int{\RegBeh}$ is $1$-bounded, while \textsf{(Max)} captures the transitivity of partial order on the rational numbers. \textsf{(Refl)}, \textsf{(Sym)} and \textsf{(Triang)} are satisfied because the distance function on each hom-set of $\Int{\RegBeh}$ is a pseudometric space. \textsf{(Cont)} captures the Cauchy completeness of reals, while \textsf{(Seq)} and \textsf{(Tens)} are immediate consquence of \Cref{cor:sem_enriched}. For the remaining two rules, we will make use of the fact that the fully faithful embedding $N \colon \RegBeh \to \Int{\RegBeh}$ is an isometry (\Cref{cor:sem_enriched}), hence for the left-to-right diagrams it suffices to check the rules in $\RegBeh$. The soundness of \textsf{(Pref)} is an immediate consequence of \Cref{cor:prefixing_discounts}. Finally, \textsf{(Codel)} follows from the uniqueness of maps from the initial object in $\RegBeh$.
 		\end{proof}
 		Through a simple inductive argument, we can extended the above to any derivable equation.
-\begin{theorem}[Quantitative soundness]\label{thm:soundness}
+\begin{theorem}[Quantitative soundness]\label{c3:thm:soundness}
 Every derivable equation $f \disteq{\varepsilon} g$ is valid.
 \end{theorem}
 \begin{proof}
@@ -1094,22 +1094,19 @@ and thus,
 \qquad \disteq{1/2}\;\quad\tikzfig{unroll-merge-c-star-o}
 \end{align*}
 We also have
-\begin{equation*}
-\begin{gathered}
-\tikzfig{unroll-merge-c-star-o}\\
-\qquad\disteq{0}\quad\tikzfig{unroll-merge-c-star-o-1}\\
-\qquad\disteq{0} \;\tikzfig{unroll-merge-c-star-o-2}\\
-\qquad\disteq{0} \;\tikzfig{unroll-merge-c-star-o-3}
-\end{gathered}
-\end{equation*}
+\begin{align*}
+&\qquad\tikzfig{unroll-merge-c-star-o}\\
+&\disteq{0}\quad\tikzfig{unroll-merge-c-star-o-1}\\
+&\disteq{0} \;\tikzfig{unroll-merge-c-star-o-2}\\
+&\disteq{0} \;\tikzfig{unroll-merge-c-star-o-3}
+\end{align*}
 where the last step uses Lemma~\ref{lem:matrix-cocopy} and \textsf{(Refl)} to merge the two occurrences of the matrix-diagram $c$. Resuming, we get
-\begin{equation*}
-\begin{gathered}
-\tikzfig{unroll-merge-c-star-o-3}\\ \qquad \disteq{0} \;\tikzfig{unroll-merge-c-star-o-4} \\
-\qquad \disteq{0} \;\tikzfig{unroll-merge-c-star-o-5}\\
-\qquad\disteq{0} \;\tikzfig{merge-c-star-o}
-\end{gathered}
-\end{equation*}
+\begin{align*}
+&\qquad\tikzfig{unroll-merge-c-star-o-3}\\
+& \disteq{0} \;\tikzfig{unroll-merge-c-star-o-4} \\
+& \disteq{0} \;\tikzfig{unroll-merge-c-star-o-5}\\
+&\disteq{0} \;\tikzfig{merge-c-star-o}
+\end{align*}
 We can show in the same way that
 {
 \footnotesize
@@ -1129,19 +1126,284 @@ A very important consequence of the above combined with the usage of \textsf{(Co
 Let  $f\from \objr^m\to \objr^n$ and define $f_i$ to be the diagram $\objr\to \objr^n$ obtained by composing all but the $i$-th input of $f$ with $\Bunit$ (co-deleting all inputs except the $i$-th one). We have that
 \[\dbox{f}{m}{n} \;\disteq{0} \;\tikzfig{d-decomposition}\]
 \end{lemma}
+The semantics of those diagrams is precisely given by pairing:
 \begin{lemma}\label{lem:merge-repr}
 	Let $e,f\from\objr\to\objr^n$, such that $\sem{e} = N(s)$ and $\sem{f} = N(d)$, where $s, t \in \RegBeh(1,n)$. We have that
 	\begin{align*}
-		\sem{\tikzfig{merge-cxd}} &= N \left( \langle s, t\rangle \right)
+		\sem{\tikzfig{merge-cxd}} &= N \left( \lc s, t \rc\right )
 	\end{align*}
 \end{lemma}
 \begin{proof}
 	\begin{align*}
 		\sem{\tikzfig{merge-cxd}} &=(N(s)\oplus N(f)); N(\nabla_1) \\
 		&= N((s \oplus t) ; \nabla_1 ) \tag{Functoriality of $N$}\\
-		&= N( \langle s,t[v_2/v_1] \rangle ; \langle \id_1, \id_1\rangle )\\
-		&=N( \langle s , t \rangle ) \\
+		&= N( \lc s,t[v_2/v_1] \rc ; \lc \id_1, \id_1\rc )\\
+		&=N( \lc s , t \rc ) \\
 	\end{align*}
+\end{proof}
+Hence, behavioural distance between the denotations of arbitrary diagrams $f,g \colon \objr^m \to \objr^n$ is simply the maximum of the component-wise distances between each $f_i$ and $g_i$ for $i \in \{1, \dots, m\}$.
+\begin{lemma}\label{lem:distance_on_merge}
+	Let $e_1, e_2, f_1,f_2 \colon \objr \to \objr^n$. We have that
+	\begin{align*}
+		&d^{N(2),N(n)}\left(\sem{\tikzfig{merge-cxd-1}}, \sem{\tikzfig{merge-cxd-2}}\right)\\& \quad= \max \left\{d^{N(1),N(n)}\left(\sem{\dbox{e_1}{}{n}},\sem{\dbox{e_2}{}{n}} \right),\right.\\&\qquad\qquad\left. d^{N(1),N(n)} \left(\sem{\dbox{f_1}{}{n}}, \sem{\dbox{f_2}{}{n}} \right)\right\}
+	\end{align*}
+\end{lemma}
+\begin{proof}
+	Since $e_1, e_2, f_1,f_2$ are left-to-right diagrams, we can safely assume that there exist $s_1, s_2, t_1, t_2 \in \RegBeh(1,n)$ such that $\sem{c_1} = N(s_1)$,$\sem{c_2} = N(s_2)$,$\sem{d_1} = N(t_1)$. We have the following
+	\begin{align*}
+		&d^{N(2),N(n)}\left(\sem{\tikzfig{merge-cxd-1}}, \sem{\tikzfig{merge-cxd-2}}\right)\\
+		&\qquad = d^{N(2),N(n)}(N(\lc e_1, f_1 \rc), N\lc e_2, f_2 \rc)\tag{\Cref{lem:merge-repr}}\\
+		&\qquad = d^{2,n}(\lc e_1, f_1 \rc, \lc e_2, f_2 \rc)\tag{\Cref{cor:sem_enriched}}\\
+		&\qquad= \max \{\mathsf{bd}_{\overline \partial} (e_1, e_2), \mathsf{bd}_{\overline \partial} (f_1, f_2)\}\tag{Def. in distance of $\RegBeh$}\\
+		&\qquad = \max \{d^{1,n}(e_1, e_2), d^{1,n}(f_1, f_2)\}\\
+		&\qquad = \max \{d^{N(1), N(n)}(N(e_1), N(e_2)), d^{N(1), N(n)}(N(f_1), N(f_2))\}\tag{\Cref{lem:merge-repr}}\\
+		&\qquad = \max \left\{d^{N(1),N(n)}\left(\sem{\dbox{e_1}{}{n}},\sem{\dbox{e_2}{}{n}} \right),\right.\\&\qquad\qquad\qquad\left. d^{N(1),N(n)} \left(\sem{\dbox{f_1}{}{n}}, \sem{\dbox{f_2}{}{n}} \right)\right\}
+	\end{align*}
+\end{proof}
+From now on, we will temporarily shift focus to $\objr \to \objr^n$ diagrams.
+
+\noindent
+\subsection{One-to-n diagrams}
+Each of the $\objr \to \objr^n$ diagrams represents a behaviour of the single state of the prechart structure on ${\Expr}/{\sim}$ or equivalently, defines a chart. Turns out that appropriately combining these diagrams corresponds to operations of ARB described in \Cref{c3:sec:preliminaries}.  
+\begin{restatable}{lemma}{sumconvolutions}\label{lem:sum-convolution}
+For any two $c,d\from\objr\to\objr^n$, we have that
+\[
+\sem{\tikzfig{convolution-cxd}} = \sem{e} + \sem{f}\]
+\end{restatable}
+\begin{proof}
+First, since $c$ and $d$ are left-to-right, there exists expressions $s,t\in\RegBeh(1,n)$, such that $\sem{c} = N(s)$ and $\sem{d} = N(t)$. Then,
+\begin{align*}
+\sem{\tikzfig{convolution-cxd}} & = \sem{\Bcomult}; (\sem{c}\oplus \sem{d});\sem{\Bmult}
+\\
+& = N(v_1+v_2) ; (N(s)\oplus N(f)) ;  N(\nabla_1) & 
+\\
+& = N((v_1+v_2); (s\oplus f); \nabla_1) & (\text{Functoriality of $N$})
+\\
+& = N(s+f) & (\text{Definition of $N$})
+\\
+& = N(s) + N(t) = \sem{c} + \sem{d} &
+\end{align*}
+
+\end{proof}
+This operation of combining two $\objr \to \objr^n$ string diagrams (that we call \emph{convolution}) can easily be extended to any finite collection of $\objr \to \objr^n$ diagrams. Let $F = \{f_i \colon \objr \to \objr^n\}_{i \in I}$ be an indexed collection of string diagrams. Given a finite indexed collection $A = \{f_{i_1}, \dots, f_{i_k}\}_{k \in K} \subseteq F$ of string diagrams from the set $F$, we define its convolution to be the string diagram $R_A \colon \objr \to \objr^n$ given by
+	$$
+	\tikzfig{set-repr}
+	$$ 
+	The above is well defined up to permutations and removing duplicates, while staying at distance zero. Hence, given a finite subset of $F$ we can unambiguously talk about its convolution.
+\begin{lemma}
+\label{lem:convolution-aci}
+Any two finite indexed collections $A = \{f_{i_1}, \dots, f_{i_k}\}_{k \in K}$ and $B = \{g_{i_1}, \dots, g_{i_k}\}_{k \in K}$ that are equal as sets, then their convolution are at distance zero from each other.
+\end{lemma}
+\begin{proof}
+It is enough to show that the convolution of two string diagrams is an associative, commutative and idempotent operation (up to $\disteq{0}$).
+\begin{description}
+\item[Associativity:] For any $f_1,f_2$, and $f_3$, we have
+\begin{align*}
+&\qquad\tikzfig{convolution-assoc}\\
+&= \tikzfig{convolution-assoc-1}\\
+& = \tikzfig{convolution-assoc-2}
+\end{align*}
+\item[Commutativity:]
+\begin{align*}
+\tikzfig{convolution-commut} &= \tikzfig{convolution-commut-1}
+\\
+& = \tikzfig{convolution-commut-2}
+\\
+& = \tikzfig{convolution-commut-3}
+\end{align*}
+\item[Idempotence:]
+\begin{align*}
+\tikzfig{convolution-idemp} &\disteq{0} \tikzfig{convolution-idemp-1} \qquad & (\text{Lemma}~\ref{thm:co-copy-delete})
+\\
+& = \dbox{f_1}{}{n} &
+\end{align*}
+\end{description}
+\end{proof}
+\sumconvolutions*
+\begin{proof}
+First, since $c$ and $d$ are left-to-right, there exists expressions $s,t\in\RegBeh(1,n)$, such that $\sem{c} = N(s)$ and $\sem{d} = N(t)$. Then,
+\begin{align*}
+\sem{\tikzfig{convolution-cxd}} & = \sem{\Bcomult}; (\sem{c}\oplus \sem{d});\sem{\Bmult}
+\\
+& = N(v_1+v_2) ; (N(s)\oplus N(f)) ;  N(\nabla_1) & 
+\\
+& = N((v_1+v_2); (s\oplus f); \nabla_1) & (\text{Functoriality of $N$})
+\\
+& = N(s+f) & (\text{Definition of $N$})
+\\
+& = N(s) + N(t) = \sem{c} + \sem{d} &
+\end{align*}
+
+\end{proof}
+If a diagram is in the representation normal form we can express each the subdiagrams $f_i \colon \objr \to \objr^n$ from \Cref{lem:injections} as a certain convolution.
+\begin{lemma}
+\label{lem:diagram-to-eq-system}
+For any diagram $f\from \objr^m\to \objr^n$, if
+$$
+\dbox{f}{m}{n} \; \disteq{0} \;\tikzfig{automata-rep-all-states}
+$$ 
+for some guarded matrix-diagram $c\from \objr^{\ell+m}\to \objr^{\ell+m}$ and a relation-diagram $o\from \objr^{\ell+m}\to \objr^n$,
+then, for all $i\in\{1,\dots,m\}$ we can find $\{a_j, f_{i_j}\}_{1\leq j\leq k}$, and $\{v_{q_j}\}_{1\leq j\leq \ell}$ such that
+$$
+\dbox{f_i}{}{n} \;\disteq{0} \tikzfig{state-eq}
+$$
+where $f_i$, $1\leq i\leq m$ and $v_{q_j}$, $1\leq i\leq \ell$  are defined as above.
+\end{lemma}
+\begin{proof}
+First,  by unrolling (Lemma~\ref{lem:unroll}),we have
+\begin{align*}
+\dbox{f}{m}{n} \; \disteq{0} \;\tikzfig{automata-rep-all-states}\;\disteq{0}  \;\tikzfig{automata-rep-all-states-1}
+\end{align*}
+Thus, for any $i\in\{1,\dots,m\}$, say $i=m$ for simplicity, we get
+\begin{align*}
+\dbox{f_m}{}{n} \;&\disteq{0} \;\tikzfig{automata-rep-last-state-1}  \;\disteq{0} \;\tikzfig{automata-rep-last-state-2}\\
+& \disteq{0} \;\tikzfig{automata-rep-last-state-3}
+\\
+& \disteq{0} \;\tikzfig{automata-rep-last-state-4}
+\\
+& \disteq{0} \;\tikzfig{automata-rep-last-state-5}
+\\
+& \disteq{0} \;\tikzfig{automata-rep-last-state-6}
+\end{align*}
+where $c^i_m$ is either $\scalar{a}$ for some $a\in \Sigma$, when there is an $a$-transition connecting its only input wire to some $f_j$, or $\Bcounit \;\;\Bunit$ otherwise (recall that $c$ is guarded), and $o^i_m$ is either an identity, when the only input of $o_m$ is connected to some output wire, or $\Bcounit \;\;\Bunit$ otherwise. Since all $f_j$ connected to some $\Bcounit \;\;\Bunit$ can be removed (using co-deleting), we get the equality we wanted.
+\end{proof}
+Since every diagram can be brought to the representation normal form, we can easily obtain the following result.
+\begin{restatable}{lemma}{fundamental}\label{lem:fundamental}
+	For any diagram $f \colon \objr^m \to \objr^n$ and $f_i$, $1 \leq i \leq m$ defined as above, for all $i \in \{1, \dots,m\}$, we can derive 
+	
+
+	\[
+	\dbox{f_i}{}{n} \;\disteq{0} \tikzfig{state-eq}
+	\]
+	
+	\noindent
+	where, for $1\leq j\leq \ell$, each $v_{q_j}\from \objr\to \objr^n$ is a diagram encoding the output variables to which the $i$-th input wire of $f$ is directly connected, that is, without going through any $\scalar{a}$ generator (in particular, each $v_{q_j}$ is a monoidal product of a single identity with $n-1$ $\Bunit$ generators).
+\end{restatable}
+\begin{proof}
+	Follows from \Cref{thm:representation} and \Cref{lem:diagram-to-eq-system}.
+\end{proof}
+The informal intuition is that each of the $f_i \colon \objr \to \objr^n$ diagrams represents a state of a prechart and the behaviour of each such state is the union of all possible labelled transitions to other states and variable outputs. To make this formal, we first establish the lemma below.
+\begin{lemma}
+\label{lem:fixpoint}
+For any $f\from \objr^m\to \objr^n$ and $f_i$, $1\leq i\leq m$ defined as above, for all $i\in\{1,\dots,m\}$, we have that
+{
+\small
+\[\sem{f_i}= \sum_{j=1}^k a_{j}.\sem{f_{i_j}} + \sum_{j=1}^{\ell} \sem{v_{q_k}} \quad \text{ if }\quad \dbox{f_i}{}{n} \;\disteq{0} \tikzfig{state-eq}\]
+}
+where, for $1\leq j\leq \ell$,
+each $v_{q_j}\from \objr\to \objr^n$ is a diagram encoding the output variables, as defined in \Cref{lem:fundamental}.
+\end{lemma}
+\begin{proof}
+This is a consequence of Lemma~\ref{lem:sum-convolution} and the semantics of composition and prefixing.
+% For the `only if' direction, assume that $\sem{f_i}= \sum_{j=1}^k a_{j}.\sem{f_{i_j}} + \sum_{j=1}^{\ell} \sem{v_{q_j}} $ as in the statement of the lemma. Then, by ????,
+%$$\sem{f_i} = \mu x_{i_1}.\dots\mu x_{i_\ell}.\left(\sum_{j=1}^k a_{j}.x_{i_j}\right) + \sum_{j=1}^{\ell} v_{q_k}$$
+%where we have substituted each $f_{i_j}$ with a corresponding variable $x_{i_j}$ bound by some $\mu$. By the definition of the dagger (Definition~\ref{def:dagger}) and the trace operator (Definition~\ref{def:trace}), we have
+%$$\sem{f_i} = \left(\sum_{j=1}^k a_{j}.x_{i_j}\right)^{\dagger\dots\dagger} + \sum_{j=1}^{\ell} v_{q_k} = \Tr^k_{k,n}\left(\nabla_n \,; \left(\sum_{j=1}^k a_{j}.x_{i_j}\right)\right) + \sum_{j=1}^{\ell} v_{q_k}$$ 
+\end{proof}
+It turns out, we can make the intuition about each diagram corresponding to state of a prechart formal, by extracting a prechart over the set $Q_f = \{f_1, \dots, f_m\}$, whose transition function $\beta$ is given by the following; we define $f_i \tr{a} f_{j}$ iff $\dbox{f_i}{}{n}$ contains $\tikzfig{prefix-transition}$ and similarly $f_i \rhd v_s$ iff $\dbox{f_i}{}{n}$ contains $\dbox{v_s}{}{n}$. The behavioural distance between states of this prechart, precisely captures the behavioural distance between each of the $f_i$ diagrams.
+\begin{restatable}{lemma}{extracteddist}\label{cor:dist-chart-diag}
+	For all $f_i, f_j \in Q_f$, we have that $\mathsf{bd}_{\beta}(f_i,f_j) = \mathsf{bd}(\sem{f_i}, \sem{f_j})$
+\end{restatable}
+\begin{proof}
+First, we observe that a function mapping each state $f_i \in Q_f$ to $\sem{f_i}$ is a prechart homomorphism from $(Q_f, \beta)$ to ${\Expr}/{\sim}$. This immediately follows from \Cref{lem:fixpoint} and the definition on transition structure on ${\Expr}/{\sim}$ (given by \Cref{lem:quotient_chart}). Essentially, homomorphisms are maps that preserve and reflect prechart transitions~\cite[Example~2.1]{Rutten:2000:Universal} and $(Q_f, \beta)$ is precisely defined to satisfy this. Since homomorphisms are isometries (\Cref{thm:beh_dist}), we obtain the desired result.
+\end{proof}
+\subsection{Completeness result}
+Recall that a prechart $(Q_f, \beta)$ is finite and hence we can employ an iterative characterisation of behavioural distance from \Cref{lem:finite_dist}. The completeness argument relies on showing that we can axiomatically derive each of the approximants from \Cref{c2:thm:kleene}. First, we observe the following:
+\begin{remark}\label{rem:repr_transitions}
+	Let $F$ be a set of string diagrams of the type $\objr \to \objr^n$. The set $\Sigma \times F + V_n$ is isomorphic to the set
+	$$
+	G = \left\{\tikzfig{prefix-transition} \mid a \in \Sigma, f_j \in F \right\} \cup \left\{\dbox{v_s}{}{n} \mid 1 \leq s \leq n\right\}
+	$$
+\end{remark}
+Then, we show that we can axiomatically simulate the behaviour of lifting for the functor $\Sigma \times (-) + V$.
+\begin{lemma}\label{lem:transition_approximation}
+	Let $F$ be a set of string diagrams of the type $\objr \to \objr^n$ that is equipped with a $1$-bounded pseudometric $d_F \colon F \times F \to [0,1]$. Assume that for all $f_i, f_k \in F$, $\varepsilon \in \Qp$, such that $d_F(f_i, f_k)\leq \varepsilon$, we have that $\dbox{f_i}{}{n} \disteq{\varepsilon} \dbox{f_k}{}{n}$ is derivable. For all $g_u, g_v \in G$, with $G$ defined as above and all $\varepsilon \in \Qp$, such that $d_F^\uparrow(g_u, g_v) \leq \varepsilon$, we have that $\dbox{g_u}{}{n} \disteq{\varepsilon} \dbox{g_v}{}{n}$ is derivable.
+\end{lemma}
+\begin{proof}
+Let $\varepsilon \geq d_F^\uparrow(g_u, g_v)$. First, consider the case, when $\dbox{g_u}{}{n} = \tikzfig{prefix-transition-1}$ and $\dbox{g_v}{}{n} = \tikzfig{prefix-transition-2}$. We have that $d_F^\uparrow(g_u, g_v)= \frac{1}{2} d_F(f_i, f_k)$ and hence $2 \varepsilon \geq d_F(f_i, f_k)$. By the assumption, we know that $\dbox{f_i}{}{n} \disteq{2\varepsilon} \dbox{f_k}{}{n}$ is derivable. 
+
+Using \textsf{(Pref)}, we can derive $\tikzfig{prefix-transition-1} \disteq{\varepsilon} \tikzfig{prefix-transition-2}$, which is the same as $\dbox{g_u}{}{n} \disteq{\varepsilon} \dbox{g_v}{}{n}$. In all the remaining cases, $d_F^\uparrow$ behaves like a discrete pseudometric, hence there are two remaining subcases. In the situation when $\dbox{g_u}{}{n} = \dbox{g_v}{}{n}$, we have that $d_F^\uparrow(g_u, g_v)=0$ and hence we can derive $\dbox{g_u}{}{n} \disteq{\varepsilon} \dbox{g_v}{}{n}$ by first applying \textsf{(Refl)} and then \textsf{(Max)}. Othwerise, when $\dbox{g_u}{}{n} \neq \dbox{g_v}{}{n}$, we have that $d_F^\uparrow(g_u, g_v)=1$ and hence we can derive $\dbox{g_u}{}{n} \disteq{\varepsilon} \dbox{g_v}{}{n}$ by first applying \textsf{(Top)} and then \textsf{(Max)}.
+\end{proof}
+Then, we establish a similar result for Hausdorff lifting. Crucially, we make use of the alternative characterisation of Hausdorff distance via couplings.
+\begin{lemma}\label{lem:hausdorff_approx}
+	Let $F$ be a finite set of string diagrams of the type $\objr \to \objr^n$ that is equipped with a $1$-bounded pseudometric $d_F \colon F \times F \to [0,1]$. Assume that for all $f_i, f_k \in F$, $\varepsilon \in \Qp$, such that $d_F(f_i, f_k)\leq \varepsilon$, we have that $\dbox{f_i}{}{n} \disteq{\varepsilon} \dbox{f_k}{}{n}$ is derivable. Then, for all $A,B \subseteq F$ and all $\varepsilon \in \Qp$, such that $\mathcal{H}(d_F)(A,B) \leq \varepsilon$, we have that $\dbox{R_A}{}{n} \disteq{\varepsilon} \dbox{R_B}{}{n}$ is also derivable.
+\end{lemma}
+\begin{proof} Pick an arbitrary $\varepsilon \in \Qp$, such that $\mathcal{H}(d_F)(A,B) \leq \varepsilon$.
+	If $A=B=\emptyset$, then by the usage of \textsf{(Refl)} and \textsf{(Max)} we are done. Similarly, when only one of $A$ and $B$ is empty, that we can immediately obtain the desired result using \textsf{(Top)} and \textsf{(Max)} rules. From now on, we can safely assume that $A$ and $B$ are nonempty. Recall the characterisation of Hausdorff distance from \Cref{rem:hausdorff_duality}. One can easily observe that in the case when $A$ and $B$ are nonempty, the set $\Gamma(A,B)$ of relational couplings between $A$ and $B$ is nonempty and hence 
+	$$
+	\mathcal{H}(d_F)(A,B) = \min \left\{\sup_{(f_i,f_k) \in R} d_F(f_i,f_k) \mid R \in \Gamma(A,B)\right\} \leq \varepsilon
+	$$
+	There must exist some optimal coupling $R_{\min} \in \Gamma(A,B)$, which witnesses the above minimum. Hence, we have that $
+	\sup_{(f_i, f_k) \in R_{\min}} d_F(f_i, f_k) \leq \varepsilon
+	$, which in turn implies that $d_F(f_i, f_k) \leq \varepsilon$ for all $(f_i, f_k) \in R_{\min}$. Using the assumption, we know that for all pairs $(f_i, f_k) \in R_{\min}$, we have that
+	$$
+	\dbox{f_i}{1}{n} \disteq{\varepsilon} \dbox{f_k}{1}{n}
+	$$
+	For the sake of simplicity, assume that $R_{\min} = \{(f_{i_1}, f_{k_1}), \dots, (f_{i_j}, f_{k_j})\}$. Using the $\mathsf{(Tens)}$ rule we can stack in parallel all these pairs and obtain:
+	$$
+	\tikzfig{par-stack-hausdorff-l} \disteq{\varepsilon} \tikzfig{par-stack-hausdorff-r} 
+	$$
+	Using the \textsf{(Seq)} rule, we can derive that
+	$$
+	\tikzfig{repr-hausdorff-l} \disteq{\varepsilon} \tikzfig{repr-hausdorff-r} 
+	$$
+	From the definition of relational couplings, we have that $\pi_1(R_{\min}) = A$ and $\pi_2(R_{\min}) = B$ and hence the diagrams above are convolutions of the sets $A$ and $B$ respectively. This allows us to conclude that $\dbox{R_A}{1}{n} \disteq{\varepsilon} \dbox{R_B}{1}{n}$ is derivable.
+\end{proof}
+We can now combine the above results and show that upper bounds on each of the approximants can be derived syntactically through the means of axiomatic manipulation.
+\begin{restatable}{lemma}{approximation}\label{lem:approximation}
+	Let $f\from \objr^m\to \objr^n$, $f_i$, $1\leq i \leq m$ and $(Q_f, \beta)$ be defined as above. For all $f_g, f_h \in Q_f$, all $p \in \N$ and any $\varepsilon \geq \Phi^{(p)}_\beta({f_g}, {f_h})$, we have that
+	$\dbox{f_g}{}{n} \disteq{\varepsilon} \dbox{f_h}{}{n} $ is derivable.
+\end{restatable}
+\begin{proof}
+	Pick an arbitrary $f_g,f_h \in Q_f$.
+	By induction on $p$. When $p=0$, $\Phi_{\beta}^{(p)}$ is a discrete pseudometric on the set $Q_f$ and hence for all $\varepsilon \geq \Phi_{\beta}^{(p)}(f_g, f_h)$, we can derive $\dbox{f_g}{}{n} \disteq{\varepsilon} \dbox{f_h}{}{n}$ using \textsf{(Refl)}, \textsf{(Top)} and \textsf{(Max)} rules, similarly to the proof of \Cref{lem:transition_approximation}.	
+	For the induction step, when $p = p' + 1$. Recall that $\Phi_\beta^{p'+1}(f_g, f_h) = \mathcal{H}\left({\Phi_\beta^{(p')}}^\uparrow\right)(\beta(f_g), \beta(f_h))$. Pick an arbitrary $\varepsilon \geq \mathcal{H}\left({\Phi_\beta^{(p')}}^\uparrow\right)(\beta(f_g), \beta(f_h))$. In order to derive that $\dbox{f_g}{}{n} \disteq{\varepsilon} \dbox{f_h}{}{n}$, we will rely on \Cref{lem:hausdorff_approx}. In order to use it, we need to be able to derive approximations to the distance given by ${\Phi_\beta^{(p')}}^\uparrow$ on the string diagrams representing the elements of the set $\Sigma \times Q_f + V_n$ (see \Cref{rem:repr_transitions}). For this we will use \Cref{lem:transition_approximation}, which requires that for all $f_{g'}, f_{h'} \in Q_f$, $\varepsilon' \geq \Phi^{(p')}_\beta$ one can derive that $\dbox{f_{g'} }{}{n} \disteq{\varepsilon'}\dbox{f_{h'}}{}{n}$. This in turn is guaranteed by the induction hypothesis, which completes the proof.
+\end{proof}
+ Using \textsf{(Cont)} rule and characterisation from \Cref{lem:finite_dist}, we obtain a completeness result for distances between $f_i \colon \objr \to \objr^n$ components of $f \colon \objr^m \to \objr^n$.
+\begin{restatable}{lemma}{onemcompleteness}\label{lem:one-to-m-completeness}
+	Let $f\from \objr^m\to \objr^n$ and $f_i$, $1\leq i \leq m$ be defined as above. For all $g,h\in\{1,\dots,m\}$, any valid equation $\dbox{f_g}{}{n} \disteq{\varepsilon} \dbox{f_h}{}{n}$ is derivable.
+\end{restatable}
+\begin{proof}
+	Let $\dbox{f_g}{}{n} \disteq{\varepsilon} \dbox{f_h}{}{n}$ be valid, that is $\mathsf{bd}_{\overline \partial}(\sem{f_g}, \sem{f_h}) \leq \varepsilon$.
+	We will rely on \textsf{(Cont)} rule. In order to deduce that $\dbox{f_g}{}{n} \disteq{\varepsilon} \dbox{f_h}{}{n}$ we need to show that for all $\varepsilon' > \varepsilon$, we have that $\dbox{f_g}{}{n} \disteq{\varepsilon'} \dbox{f_h}{}{n}$ is derivable. Since $\varepsilon' > \varepsilon$, we have that $\mathsf{bd}_{\overline \partial}(\sem{f_g}, \sem{f_h}) < \varepsilon'$. Because of \Cref{cor:dist-chart-diag} and \Cref{cor:kleene_locally_finite}, we have that
+	$$
+		\inf_{p \in \N}\left\{\Phi^{(p)}_\beta(f_g, f_h)\right\} < \varepsilon'
+	$$
+	We will argue that there exists $p \in \N$, such that $\Phi^{(p)}_\beta(f_g,f_h) < \varepsilon'$. For the sake of an argument, assume that for all $p \in \N$, we have that $\Phi^{(p)}_\beta(f_g,f_h) \geq \varepsilon'$. This would make $\varepsilon'$ into the lower bound of the $\omega$-cochain $\left\{\Phi^{(p)}_\beta(f_g, f_h)\right\}_{p \in \N}$ and hence $\varepsilon' \leq 	\inf_{p \in \N}\left\{\Phi^{(p)}_\beta(f_g, f_h)\right\} < \varepsilon'$, which leads to contradiction. Combining that argument with \Cref{lem:approximation} allows us to conclude that $\dbox{f_g}{}{n} \disteq{\varepsilon'} \dbox{f_h}{}{n}$ is derivable, which completes the proof. 
+\end{proof}
+Relying on \Cref{lem:injections}, we can reduce the problem of deriving distance between arbitrary $\objr^m \to \objr^n$ diagrams, to the case of $\objr \to \objr^n$ solved above. This yields completeness result for left-to-right diagrams. 
+\begin{restatable}{theorem}{completeness}\label{lem:mncompleteness}
+Let $f,g \colon \objr^m \to \objr^n$. Any valid equation $\dbox{f}{m}{n} \disteq{\varepsilon} \dbox{g}{m}{n}$ is derivable.
+\end{restatable}
+\begin{proof}
+	Assume that $\dbox{f}{m}{n} \disteq{\varepsilon} \dbox{g}{m}{n}$ is valid.
+	Recall that because of \Cref{lem:injections}, we have that
+	\begin{gather*}
+		\dbox{f}{m}{n} \disteq{0} \tikzfig{d-decomposition} \qquad \text{and}\qquad \dbox{g}{m}{n} \disteq{0} \tikzfig{d-decomposition-r}  
+	\end{gather*}
+	Assume that $\sem{f_i} = N(s_i)$ and $\sem{g_i}=N(t_i)$ for $1 \leq i \leq m$. Because of \Cref{lem:distance_on_merge}, we have that $d^{1,n}(s_i, t_i) \leq \varepsilon$.
+	We will consider the following diagram
+	$$\tikzfig{comp-par-lr} \disteq{0} \tikzfig{comp-par-states}$$
+	Using \Cref{lem:fundamental}, we can show that each of the $\objr \to \objr^{m}$ subdiagrams is in the form allowing to use \Cref{lem:one-to-m-completeness}. In turn, that lemma allows to derive any valid equations between the subdiagrams mentioned above. In particular, we can derive that $\diagbox{f_i}{}{m} \disteq{\varepsilon} \diagbox{g_i}{}{m}$ for all $1 \leq i \leq m$. We can use \textsf{(Tens)} rule to derive
+	$$
+		\tikzfig{par-stack-completeness-l} \disteq{\varepsilon} \tikzfig{par-stack-completeness-r}
+	$$
+	We can then apply \textsf{(Seq)} to postcompose co-copying to the diagrams above to obtain
+	$$
+	 \tikzfig{d-decomposition} \disteq{\varepsilon}  \tikzfig{d-decomposition-r}
+	$$
+	By previous reasoning and \textsf{(Triang)} rule this is the same as
+	$$
+	\diagbox{f}{m}{n} \disteq{\varepsilon} \diagbox{g}{m}{n}
+	$$
+	which completes the proof.
+\end{proof}
+Since arbitrary diagrams can be turned into $\objr^m \to \objr^n$ diagrams by appropriately composing $\tikzfig{cup-down}$ and $\tikzfig{cap-down}$, which happens to preserve distances between diagrams, we arrive at the desired completeness result.
+\begin{restatable}[Quantitative completeness]{theorem}{generalcompleteness}\label{thm:completeness}
+	Let $f,g \colon v \to w$ be two arbitrary diagrams. Any valid equation  $\diagbox{f}{v}{w} \disteq{\varepsilon} \diagbox{g}{v}{w}$ is derivable.
+\end{restatable}
+\begin{proof}
+	Observe that, given a pair $f,g \colon v \to w$ we obtain $S(f)$ and $S(g)$ by postcomposing \tikzfig{cap-down} (or precomposing \tikzfig{cup-down}). Since composition is nonexpansive (\Cref{cor:sem_enriched}), if $\diagbox{f}{v}{w} \disteq{\varepsilon} \diagbox{g}{v}{w}$ is valid, so is $\dbox{S(f)}{m}{n} \disteq{\varepsilon} \dbox{S(g)}{m}{n}$. The rest follows as a consequence of \Cref{lem:mncompleteness}.
 \end{proof}
 
  
