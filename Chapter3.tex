@@ -1,7 +1,45 @@
 \chapter{A Diagrammatic Approach to Behavioural Distance of Nondeterministic Processes}
 \label{chapter3}
 
+In this chapter, we investigate axiomatisations of behavioural distance for a {\em nondeterministic} model of computation, known as \emph{charts}~\cite{Milner:1984:Complete}. Originally introduced by Milner, charts extend \emph{finite-state nondeterministic automata} (NFA) by replacing the notion of acceptance with variable outputs. Intuitively, the distance between two charts can be quantified by, roughly, the number of steps after which their behaviours disagree---\emph{i.e.} are no longer bisimilar. This seemingly small generalisation from deterministic finite automata provides a range of challenges, stemming from the fact that the presence of non-determinism moves the semantics from language to bisimilarity, while at the same time representing a crucial step towards weighted transition systems~\cite{Larsen:2011:Metrics}, where the general theory of behavioral distances and axiomatisations thereof is relatively underexplored. 
+
+%Despite their relative simplicity, behavioural distance of charts remained uncharted territory.
+
+The central contribution of this paper is an inference system for reasoning about behavioural distances of behaviours of Milner's charts. We demonstrate its \emph{soundness}~(\Cref{c3:thm:soundness}) and \emph{completeness}~(\Cref{thm:completeness}). On the way, we gather several contributions of independent interest. First, we instantiate the abstract framework of behavioural distances in the concrete case of charts. We organise such behaviours as a symmetric monoidal category, in which they may be composed \emph{sequentially} and \emph{in parallel}. We do so relying on rich structures associated with charts, such as Conway theories~\cite{Bloom:1993:Iteration,Esik:1999:Group}. Second, as one of the steps in the soundness argument, we give a concrete characterisation of behavioural distance between charts via Hennessy and Milner's stratification of bisimilarity~\cite{hennessy:1985:algebraic}. Finally, similarly to \Cref{chapter2}, the completeness argument makes use of tools from fixpoint theory and Banach spaces to simplify the calculation of behavioural distance to the point it can be mimicked via syntactic manipulation.
+
+%\noindent
+%\textbf{Diagrammatic calculi. } 
+%On the syntax side, \emph{monoidal} equational theories extend classical universal algebra in a different direction.  Instead of relying on traditional variables and terms, these theories use \emph{string diagrams}. 
+The syntax and equations of our complete axiomatic theory are given in terms \emph{string diagrams}, the two-dimensional language of monoidal categories~\cite{Selinger_2010,piedeleu2023introduction}. The pictorial representation of string diagrams provides an intuitive understanding of how information flows and is exchanged between components within a system. For this reason, they have been increasingly popular as a formal language for computations and processes in areas such as quantum theory~\cite{Coecke:2008:Interacting}, concurrency~\cite{Bonchi:2019:Diagrammatic}, probabilistic programming~\cite{Piedeleu:2024:Complete}, and digital circuits~\cite{Ghica:2022:Full}.  
+%Importantly, the diagrammatic syntax explicitly models the copying and discarding of resources (such as variables), making it particularly well-suited for capturing resource-sensitive processes in areas like quantum theory~\cite{Coecke:2008:Interacting}, concurrency~\cite{Bonchi:2019:Diagrammatic}, probabilistic programming~\cite{Piedeleu:2024:Complete}, and digital circuits~\cite{Ghica:2022:Full}. %From an abstract perspective, this explicit handling of resources is formalised by the fact that the algebra of string diagrams operates within a (symmetric) monoidal category, rather than a Cartesian one.
+\begin{figure}
+\begin{align*}
+{
+\small
+\tikzfig{ex-intro}
+}
+\end{align*}
+\caption{Two charts at distance $\frac{1}{4}$ and their corresponding representations as string diagrams}
+\label{fig:intro}	
+\end{figure}
+%\noindent
+%\textbf{Methodology.} 
+There are several reasons to favour string diagrams as our syntax of choice. 
+First, they closely resemble the usual graphical representation of the transition structure of charts, while constituting a formal syntax that supports inductive reasoning and to which we can assign semantics formally.
+Moreover, as Milner observed~\cite{Milner:1984:Complete}, the standard algebraic syntax of regular expressions is not expressive enough to capture all chart behaviour~\cite{Grabmayer:2022:Milner}. His solution introduced a more complex syntax with binders and names,  later studied in the process algebra community for various models, including probabilistic~\cite{Stark:2000:Complete} and quantitative~\cite{Jensen:2020:Complete} ones. In contrast, string diagrams offer a variable-free approach, eliminating the need to define substitution and recursion as a primitive operation (the latter is decomposed into simpler components). 
+Finally, using string diagrams aligns our work with a broader research programme aimed at axiomatising various notions of equivalence in automata theory through a unified diagrammatic syntax~\cite{piedeleu2023finite,antoinecsl2025}. 
+
+%Our axiomatization is also an example of a quantitative equational theory for string diagrams, building on recent theoretical developments~\cite{Lobbia:2024:Quantitative}, which generalise algebraic (\emph{i.e.} Cartesian) quantitative equational theories to the monoidal setting of string diagrams. While quantitative theories for term algebras have been studied extensively~\cite{Mardare:2016:Quantitative,Mio:2024:Universal,Rosicky2023,MiliusU19}, quantitative theories for string diagrams remain mostly unexplored.
+
+%Whereas quantitative theories for term algebras have been studied extensively~\cite{Mardare:2016:Quantitative,Mio:2024:Universal,Rosicky2023,MiliusU19}, quantitative theories for string diagrams (which require working in a monoidal rather than cartesian category) have received far less attention,~\cite{Lobbia:2024:Quantitative} being a first systematic attempt at developing such framework. The axiomatic theory we develop in this paper is not quite BLABLA, but we plan to BLABLA
+
+
+The rest of the chapter is organised is as follows:
+
+In \Cref{c3:sec:preliminaries}, we introduce charts, as well as their associated notions of behavioural equivalence and distances. Then, in \Cref{c3:sec:monoidal}, we introduce the syntax of our diagrammatic calculus, for which we construct the semantics in \Cref{sec:semantics}. Next, in \Cref{sec:axioms} we present a (quantitative) equational inference system for reasoning about distances of the denotations of the terms of our calculus; we also prove its soundness and study one example in more detail. \Cref{sec:completeness} contains the main technical result of the chapter, namely completeness for the proposed behavioural distance between charts. We wrap up in \Cref{sec:discussion} where we review related literature, and sketch directions for future work.  
+
 \section{Preliminaries}\label{c3:sec:preliminaries}
+In this section, we provide the main technical preliminaries for the development of this chapter. We assume the familiarity of the reader with basic notions of monoidal categories~\cite{Selinger_2010,piedeleu2023introduction}, traced monoidal categories~\cite{Joyal:1996:Traced} and compact closed categories~\cite{kellylaplaza}.
 \subsection{Charts}
 Fix a set $V=\{v_1, v_2, \dots\}$ of \emph{variables} and $\Sigma$ of \emph{letters} respectively. A prechart is a triple $(Q,E,D)$, where $Q$ is a set of states, $D \subseteq Q \times \Sigma \times Q$ a finite labelled transition relation and $E \subseteq Q \times V$ is a finite output relation. Precharts can be thought as a generalisation of nondeterministic automata, where instead of acceptance, we deal with the notion of outputs. Moreover, when $D$ and $E$ are clear from the context, we will write $q \tr{a} q' \iff (q,a,q') \in D$ and $q \rhd v \iff (q,v) \in E$. A chart $C$ is a quadruple $(Q, s, D, E)$, where $(Q,D,E)$ is a prechart and $s \in Q$ is a distinguished start node. We call a chart finite if $Q$ is finite.
 \begin{definition}[Strong Bisimulation]
@@ -470,7 +508,7 @@ Because of the above, we can define a category $\RegBeh$, whose objects are natu
 	$0$ is the initial object of $\RegBeh$.
 \end{lemma}
 \begin{proof}
-	For any $n \in \N$, the unique universal arrow is given by $0_n$, which immediately completes the proof.
+For each $n \in \N$, there exists a unique empty tuple $0_m \colon 0 \to m$ satisfying that for any $f \colon m \to n$, we have that $0_m ; f = 0_n$.
 \end{proof}
  Given $f \in \RegBeh(k,m)$ and $g \in \RegBeh(l,m)$, we define their pairing $\lc f , g \rc \in \RegBeh (k + l,m)$, by setting $\lc f , g \rc = (f_1, \dots, f_k, g_1, \dots g_l)$. $\RegBeh$ can be equipped with binary coproducts, which is defined on objects as addition and the mediating map is given by pairing.
 \begin{lemma}
@@ -958,11 +996,66 @@ Through a straightforward argument, one can show the soundness of the proposed q
 		\end{proof}
 		Through a simple inductive argument, we can extended the above to any derivable equation.
 \begin{theorem}[Quantitative soundness]\label{c3:thm:soundness}
-Every derivable equation $f \disteq{\varepsilon} g$ is valid.
+Every derivable equation $f \disteq{r} g$ is valid.
 \end{theorem}
 \begin{proof}
 	Induction on the length of derivation and the usage of \Cref{lem:soundness_sublemma}.
 \end{proof}
+\begin{example}
+We revisit the charts from \Cref{fig:intro} and axiomatically show that their distance is bounded by $\frac{1}{4}$. We use compositionality to our advantage and break them into two parts which we will compose later with the \textsf{(Comp)} rule. First, we have\\
+	{
+\circlednum{1}
+\scalebox{0.58}{
+\ensuremath{
+\inferrule*[Right={\textsf{(Refl;Triang)}}]{
+\inferrule*[Right={\textsf{(Comp)}}]{
+\inferrule*[Right={\textsf{(Pref)}}]{
+\inferrule*[Right={\textsf{(Refl;Triang)}}]{
+\inferrule*[Right={\textsf{(Comp)}}]{
+\inferrule*[Right={\textsf{(Pref)}}]{
+\inferrule*[Right={\textsf{(Top)}}]{ }{
+\tikzfig{delete-zero} \disteq{1} \tikzfig{a-star}}}
+{\tikzfig{a-zero} \disteq{1/2} \tikzfig{a-a-star}}}
+{\tikzfig{copy-a-delxid}\;\myeq{B6;B5}\;\tikzfig{copy-a-zeroxid-merge} \disteq{1/2} \tikzfig{a-star-unroll} \;\myeq{Unroll}\; \tikzfig{a-star} }}
+{\tikzfig{copy-a-delxid} \disteq{1/2} \tikzfig{a-star}}}
+{\tikzfig{a-copy-a-delxid} \disteq{1/4} \tikzfig{a-a-star}}}
+{\tikzfig{ex-diag-1-l}\;\myeq{C1}\;\tikzfig{ex-diag-1-l-alt} \disteq{1/4} \tikzfig{a-star-unroll-b}\;\myeq{Unroll}\;\tikzfig{a-star-b} }}
+{\tikzfig{ex-diag-1-l} \disteq{1/4} \tikzfig{a-star-b}}
+}
+}
+}
+
+In the rules labelled with $(\mathsf{Refl};\mathsf{Triang})$ we have used the strict equality of diagrams to simplify the quantitative equations. The equalities marked with \textsf{(Unroll)} follow from \Cref{lem:unroll}, which we state in the next section. Then, for the second part of our diagrams, we can show \circlednum{2}, as depicted below.\\
+{
+\begin{minipage}{.65\textwidth}
+\circlednum{2}\\
+	\scalebox{0.7}{
+\ensuremath{
+\inferrule*[Right={\textsf{(Refl;Triang)}}]{
+\inferrule*[Right={\textsf{(Refl;Triang)}}]{
+\inferrule*[Right={\textsf{(Pref)}}]{
+\inferrule*[Right={\textsf{(Top)}}]{ }{
+\tikzfig{ex-diag-1-r}\disteq{1} \tikzfig{ex-diag-2-r}}}
+{\tikzfig{a-ex-diag-1-r}\disteq{1/2} \tikzfig{a-ex-diag-2-r}}}
+{\tikzfig{ex-diag-1-r}\;\myeq{C1}\;\tikzfig{a-ex-diag-1-r-alt}\disteq{1/2} \tikzfig{a-ex-diag-2-r-alt}}}
+{\tikzfig{ex-diag-1-r}\disteq{1/2} \tikzfig{ex-diag-2-r}}
+}}
+\end{minipage}
+\begin{minipage}{.34\textwidth}
+	\circlednum{3}\quad
+	\scalebox{0.7}{\ensuremath{\tikzfig{ex-diag-1-r}\disteq{r} \tikzfig{ex-diag-2-r}}}\\
+	\vspace{0.5em}
+	\\
+	\circlednum{4}\quad
+	\scalebox{0.7}{\ensuremath{\tikzfig{ex-diag-1-r}\disteq{0} \tikzfig{ex-diag-2-r}}}\\
+\end{minipage}
+}
+
+Then, using the same reasoning, we can show \circlednum{3} for $r = 1/2^n$ for any $n\in\mathbb{N}$, and thus for any $r>0$. Finally, the \textsf{(Cont)} rule allows us to conclude \circlednum{4}. Finally, combining \circlednum{1} and \circlednum{4} together with the \textsf{(Comp)} rule, allows us to recover the equality we wanted to show:
+$$
+\tikzfig{ex-diag-1}\disteq{1/4} \tikzfig{ex-diag-2}
+$$
+\end{example}
 \section{Completeness}
 \label{sec:completeness}
 We finally arrive at the main technical section of the chapter, where we gradually present a sequence of results leading to the completeness of our axioms for the behavioural distance. First, we show that we can safely focus solely on $\objr^m \to \objr^n$ diagrams. Then, through an analytic proof relying on \textsf{(Cont)} rule, we show that each diagram can be \emph{co-copied}. Consequently, we can decompose any $\objr^m \to \objr^n$ diagram into a collection of $\objr \to \objr^n$ diagrams, which correspond to individual charts. We argue that each of those $\objr \to \objr^n$ diagrams has a normal form from which one can extract a finite prechart structure. It turns out that the distance between states of this prechart precisely captures the distance between the diagrams being related and very importantly, admits a simple characterisation that can be simulated through the inference rules of our system, eventually leading to the completeness result.
@@ -996,7 +1089,7 @@ Given two diagrams $f,g\from v\to w$, $S(f)=S(g)$ iff $f=g$.
 \begin{proof}
 The idea is that, if $S(f)=S(g)$, we can always show that $f=g$ using a similar derivation, by simply applying the transformation of Lemma~\ref{lem:compact} before using the derivation that $S(f)=S(g)$, and then recover the original orientation of the wires by bending them back into their original place afterwards; and the same idea applies to show that $f=g$ implies $S(f)=S(g)$. 
 \end{proof}
-A \emph{block} is simply a diagram freely composed from a restricted set of generators (possibly including identities and symmetries). In this paper, we will make use of two special kinds of diagrams that can be factored into blocks:
+A \emph{block} is simply a diagram freely composed from a restricted set of generators (possibly including identities and symmetries). In this chapter, we will make use of two special kinds of diagrams that can be factored into blocks:
 \begin{itemize}
 	\item A \emph{matrix-diagram} is a diagram $\objr^m\to\objr^n$ that factors as a composition of a block of $\tikzfig{lr-copy}, \tikzfig{lr-delete}$, another of $\scalar{a}$ for $a\in \Sigma$, and a last one of $\tikzfig{lr-merge}, \tikzfig{lr-generate}$. A matrix-diagram is \emph{guarded} when any path from left to right port encounters at least one $\scalar{a}$. 
 	\item A \emph{relation-diagram} is a diagram $\objr^m\to\objr^n$ that factors as a composition of a block of $\tikzfig{lr-copy}, \tikzfig{lr-delete}$ followed by the block of $\tikzfig{lr-merge}, \tikzfig{lr-generate}$.
@@ -1013,9 +1106,9 @@ See~\cite[Lemma 4.9]{piedeleu2023finite} (\textsf{co-cpy}). It is a simple  stru
 Now, we show that one can generalise \textsf{(Pref)} inference rule to arbitrary guarded matrix-diagrams, rather than just vectors of $\scalar{a}$. In other words, prepending a guarded matrix-diagram to any pair of diagrams contracts the distance between them. 
 \begin{lemma}\label{lem:guarded-precompose}
 For any guarded matrix-diagram $c\from \objr^\ell\to\objr^m$ and any two diagrams $d_1,d_2\from \objr^m\to\objr^n$ such that
-\[\dbox{d_1}{m}{n}\disteq{\epsilon}\dbox{d_2}{m}{n}\]
+\[\dbox{d_1}{m}{n}\disteq{r}\dbox{d_2}{m}{n}\]
 we have
-\[\tikzfig{c-d1}\disteq{\epsilon/2}\tikzfig{c-d2}\]
+\[\tikzfig{c-d1}\disteq{r/2}\tikzfig{c-d2}\]
 \end{lemma}
 \begin{proof}
 We rely on the definition of guarded matrix diagrams. Recall that since $c$ is guarded, we can factor it as
@@ -1027,8 +1120,8 @@ where $c_0$ is a diagram composed only of $\Bcomult,\Bcounit$, $\vec{a}$ is a ve
 	\inferrule{
 	\inferrule{
 	\inferrule{
-	\dbox{d_1}{m}{n}\disteq{\epsilon}\dbox{d_2}{m}{n}\\ \dbox{c_1}{k}{m}\disteq{0}\dbox{c_1}{k}{m}}{\tikzfig{c1-d1}\disteq{\epsilon} \tikzfig{c1-d2} \\ \vec{a}\in\Sigma^k}{\textsf{(Seq)}}}
-	{\tikzfig{prefix-c1-d1}\disteq{\epsilon/2} \tikzfig{prefix-c1-d2} \qquad \dbox{c_0}{k}{m}\disteq{0}\dbox{c_0}{k}{m}}{\textsf{(Pref)}}}{\tikzfig{c0-prefix-c1-d1}\disteq{\epsilon/2} \tikzfig{c0-prefix-c1-d2}}{\textsf{(Seq)}}}
+	\dbox{d_1}{m}{n}\disteq{r}\dbox{d_2}{m}{n}\\ \dbox{c_1}{k}{m}\disteq{0}\dbox{c_1}{k}{m}}{\tikzfig{c1-d1}\disteq{r} \tikzfig{c1-d2} \\ \vec{a}\in\Sigma^k}{\textsf{(Seq)}}}
+	{\tikzfig{prefix-c1-d1}\disteq{r/2} \tikzfig{prefix-c1-d2} \qquad \dbox{c_0}{k}{m}\disteq{0}\dbox{c_0}{k}{m}}{\textsf{(Pref)}}}{\tikzfig{c0-prefix-c1-d1}\disteq{r/2} \tikzfig{c0-prefix-c1-d2}}{\textsf{(Seq)}}}
 \end{equation*}
 }
 The last line is what we wanted to show.
@@ -1317,93 +1410,108 @@ Recall that a prechart $(Q_f, \beta)$ is finite and hence we can employ an itera
 \end{remark}
 Then, we show that we can axiomatically simulate the behaviour of lifting for the functor $\Sigma \times (-) + V$.
 \begin{lemma}\label{lem:transition_approximation}
-	Let $F$ be a set of string diagrams of the type $\objr \to \objr^n$ that is equipped with a $1$-bounded pseudometric $d_F \colon F \times F \to [0,1]$. Assume that for all $f_i, f_k \in F$, $\varepsilon \in \Qp$, such that $d_F(f_i, f_k)\leq \varepsilon$, we have that $\dbox{f_i}{}{n} \disteq{\varepsilon} \dbox{f_k}{}{n}$ is derivable. For all $g_u, g_v \in G$, with $G$ defined as above and all $\varepsilon \in \Qp$, such that $d_F^\uparrow(g_u, g_v) \leq \varepsilon$, we have that $\dbox{g_u}{}{n} \disteq{\varepsilon} \dbox{g_v}{}{n}$ is derivable.
+	Let $F$ be a set of string diagrams of the type $\objr \to \objr^n$ that is equipped with a $1$-bounded pseudometric $d_F \colon F \times F \to [0,1]$. Assume that for all $f_i, f_k \in F$, $r \in \Qp$, such that $d_F(f_i, f_k)\leq r$, we have that $\dbox{f_i}{}{n} \disteq{r} \dbox{f_k}{}{n}$ is derivable. For all $g_u, g_v \in G$, with $G$ defined as above and all $r \in \Qp$, such that $d_F^\uparrow(g_u, g_v) \leq r$, we have that $\dbox{g_u}{}{n} \disteq{r} \dbox{g_v}{}{n}$ is derivable.
 \end{lemma}
 \begin{proof}
-Let $\varepsilon \geq d_F^\uparrow(g_u, g_v)$. First, consider the case, when $\dbox{g_u}{}{n} = \tikzfig{prefix-transition-1}$ and $\dbox{g_v}{}{n} = \tikzfig{prefix-transition-2}$. We have that $d_F^\uparrow(g_u, g_v)= \frac{1}{2} d_F(f_i, f_k)$ and hence $2 \varepsilon \geq d_F(f_i, f_k)$. By the assumption, we know that $\dbox{f_i}{}{n} \disteq{2\varepsilon} \dbox{f_k}{}{n}$ is derivable. 
+Let $r \geq d_F^\uparrow(g_u, g_v)$. First, consider the case, when $\dbox{g_u}{}{n} = \tikzfig{prefix-transition-1}$ and $\dbox{g_v}{}{n} = \tikzfig{prefix-transition-2}$. We have that $d_F^\uparrow(g_u, g_v)= \frac{1}{2} d_F(f_i, f_k)$ and hence $2 r \geq d_F(f_i, f_k)$. By the assumption, we know that $\dbox{f_i}{}{n} \disteq{2r} \dbox{f_k}{}{n}$ is derivable. 
 
-Using \textsf{(Pref)}, we can derive $\tikzfig{prefix-transition-1} \disteq{\varepsilon} \tikzfig{prefix-transition-2}$, which is the same as $\dbox{g_u}{}{n} \disteq{\varepsilon} \dbox{g_v}{}{n}$. In all the remaining cases, $d_F^\uparrow$ behaves like a discrete pseudometric, hence there are two remaining subcases. In the situation when $\dbox{g_u}{}{n} = \dbox{g_v}{}{n}$, we have that $d_F^\uparrow(g_u, g_v)=0$ and hence we can derive $\dbox{g_u}{}{n} \disteq{\varepsilon} \dbox{g_v}{}{n}$ by first applying \textsf{(Refl)} and then \textsf{(Max)}. Othwerise, when $\dbox{g_u}{}{n} \neq \dbox{g_v}{}{n}$, we have that $d_F^\uparrow(g_u, g_v)=1$ and hence we can derive $\dbox{g_u}{}{n} \disteq{\varepsilon} \dbox{g_v}{}{n}$ by first applying \textsf{(Top)} and then \textsf{(Max)}.
+Using \textsf{(Pref)}, we can derive $\tikzfig{prefix-transition-1} \disteq{r} \tikzfig{prefix-transition-2}$, which is the same as $\dbox{g_u}{}{n} \disteq{r} \dbox{g_v}{}{n}$. In all the remaining cases, $d_F^\uparrow$ behaves like a discrete pseudometric, hence there are two remaining subcases. In the situation when $\dbox{g_u}{}{n} = \dbox{g_v}{}{n}$, we have that $d_F^\uparrow(g_u, g_v)=0$ and hence we can derive $\dbox{g_u}{}{n} \disteq{r} \dbox{g_v}{}{n}$ by first applying \textsf{(Refl)} and then \textsf{(Max)}. Othwerise, when $\dbox{g_u}{}{n} \neq \dbox{g_v}{}{n}$, we have that $d_F^\uparrow(g_u, g_v)=1$ and hence we can derive $\dbox{g_u}{}{n} \disteq{r} \dbox{g_v}{}{n}$ by first applying \textsf{(Top)} and then \textsf{(Max)}.
 \end{proof}
 Then, we establish a similar result for Hausdorff lifting. Crucially, we make use of the alternative characterisation of Hausdorff distance via couplings.
 \begin{lemma}\label{lem:hausdorff_approx}
-	Let $F$ be a finite set of string diagrams of the type $\objr \to \objr^n$ that is equipped with a $1$-bounded pseudometric $d_F \colon F \times F \to [0,1]$. Assume that for all $f_i, f_k \in F$, $\varepsilon \in \Qp$, such that $d_F(f_i, f_k)\leq \varepsilon$, we have that $\dbox{f_i}{}{n} \disteq{\varepsilon} \dbox{f_k}{}{n}$ is derivable. Then, for all $A,B \subseteq F$ and all $\varepsilon \in \Qp$, such that $\mathcal{H}(d_F)(A,B) \leq \varepsilon$, we have that $\dbox{R_A}{}{n} \disteq{\varepsilon} \dbox{R_B}{}{n}$ is also derivable.
+	Let $F$ be a finite set of string diagrams of the type $\objr \to \objr^n$ that is equipped with a $1$-bounded pseudometric $d_F \colon F \times F \to [0,1]$. Assume that for all $f_i, f_k \in F$, $r \in \Qp$, such that $d_F(f_i, f_k)\leq r$, we have that $\dbox{f_i}{}{n} \disteq{r} \dbox{f_k}{}{n}$ is derivable. Then, for all $A,B \subseteq F$ and all $r \in \Qp$, such that $\mathcal{H}(d_F)(A,B) \leq r$, we have that $\dbox{R_A}{}{n} \disteq{r} \dbox{R_B}{}{n}$ is also derivable.
 \end{lemma}
-\begin{proof} Pick an arbitrary $\varepsilon \in \Qp$, such that $\mathcal{H}(d_F)(A,B) \leq \varepsilon$.
+\begin{proof} Pick an arbitrary $r \in \Qp$, such that $\mathcal{H}(d_F)(A,B) \leq r$.
 	If $A=B=\emptyset$, then by the usage of \textsf{(Refl)} and \textsf{(Max)} we are done. Similarly, when only one of $A$ and $B$ is empty, that we can immediately obtain the desired result using \textsf{(Top)} and \textsf{(Max)} rules. From now on, we can safely assume that $A$ and $B$ are nonempty. Recall the characterisation of Hausdorff distance from \Cref{rem:hausdorff_duality}. One can easily observe that in the case when $A$ and $B$ are nonempty, the set $\Gamma(A,B)$ of relational couplings between $A$ and $B$ is nonempty and hence 
 	$$
-	\mathcal{H}(d_F)(A,B) = \min \left\{\sup_{(f_i,f_k) \in R} d_F(f_i,f_k) \mid R \in \Gamma(A,B)\right\} \leq \varepsilon
+	\mathcal{H}(d_F)(A,B) = \min \left\{\sup_{(f_i,f_k) \in R} d_F(f_i,f_k) \mid R \in \Gamma(A,B)\right\} \leq r
 	$$
 	There must exist some optimal coupling $R_{\min} \in \Gamma(A,B)$, which witnesses the above minimum. Hence, we have that $
-	\sup_{(f_i, f_k) \in R_{\min}} d_F(f_i, f_k) \leq \varepsilon
-	$, which in turn implies that $d_F(f_i, f_k) \leq \varepsilon$ for all $(f_i, f_k) \in R_{\min}$. Using the assumption, we know that for all pairs $(f_i, f_k) \in R_{\min}$, we have that
+	\sup_{(f_i, f_k) \in R_{\min}} d_F(f_i, f_k) \leq r
+	$, which in turn implies that $d_F(f_i, f_k) \leq r$ for all $(f_i, f_k) \in R_{\min}$. Using the assumption, we know that for all pairs $(f_i, f_k) \in R_{\min}$, we have that
 	$$
-	\dbox{f_i}{1}{n} \disteq{\varepsilon} \dbox{f_k}{1}{n}
+	\dbox{f_i}{1}{n} \disteq{r} \dbox{f_k}{1}{n}
 	$$
 	For the sake of simplicity, assume that $R_{\min} = \{(f_{i_1}, f_{k_1}), \dots, (f_{i_j}, f_{k_j})\}$. Using the $\mathsf{(Tens)}$ rule we can stack in parallel all these pairs and obtain:
 	$$
-	\tikzfig{par-stack-hausdorff-l} \disteq{\varepsilon} \tikzfig{par-stack-hausdorff-r} 
+	\tikzfig{par-stack-hausdorff-l} \disteq{r} \tikzfig{par-stack-hausdorff-r} 
 	$$
 	Using the \textsf{(Seq)} rule, we can derive that
 	$$
-	\tikzfig{repr-hausdorff-l} \disteq{\varepsilon} \tikzfig{repr-hausdorff-r} 
+	\tikzfig{repr-hausdorff-l} \disteq{r} \tikzfig{repr-hausdorff-r} 
 	$$
-	From the definition of relational couplings, we have that $\pi_1(R_{\min}) = A$ and $\pi_2(R_{\min}) = B$ and hence the diagrams above are convolutions of the sets $A$ and $B$ respectively. This allows us to conclude that $\dbox{R_A}{1}{n} \disteq{\varepsilon} \dbox{R_B}{1}{n}$ is derivable.
+	From the definition of relational couplings, we have that $\pi_1(R_{\min}) = A$ and $\pi_2(R_{\min}) = B$ and hence the diagrams above are convolutions of the sets $A$ and $B$ respectively. This allows us to conclude that $\dbox{R_A}{1}{n} \disteq{r} \dbox{R_B}{1}{n}$ is derivable.
 \end{proof}
 We can now combine the above results and show that upper bounds on each of the approximants can be derived syntactically through the means of axiomatic manipulation.
 \begin{restatable}{lemma}{approximation}\label{lem:approximation}
-	Let $f\from \objr^m\to \objr^n$, $f_i$, $1\leq i \leq m$ and $(Q_f, \beta)$ be defined as above. For all $f_g, f_h \in Q_f$, all $p \in \N$ and any $\varepsilon \geq \Phi^{(p)}_\beta({f_g}, {f_h})$, we have that
-	$\dbox{f_g}{}{n} \disteq{\varepsilon} \dbox{f_h}{}{n} $ is derivable.
+	Let $f\from \objr^m\to \objr^n$, $f_i$, $1\leq i \leq m$ and $(Q_f, \beta)$ be defined as above. For all $f_g, f_h \in Q_f$, all $p \in \N$ and any $r \geq \Phi^{(p)}_\beta({f_g}, {f_h})$, we have that
+	$\dbox{f_g}{}{n} \disteq{r} \dbox{f_h}{}{n} $ is derivable.
 \end{restatable}
 \begin{proof}
 	Pick an arbitrary $f_g,f_h \in Q_f$.
-	By induction on $p$. When $p=0$, $\Phi_{\beta}^{(p)}$ is a discrete pseudometric on the set $Q_f$ and hence for all $\varepsilon \geq \Phi_{\beta}^{(p)}(f_g, f_h)$, we can derive $\dbox{f_g}{}{n} \disteq{\varepsilon} \dbox{f_h}{}{n}$ using \textsf{(Refl)}, \textsf{(Top)} and \textsf{(Max)} rules, similarly to the proof of \Cref{lem:transition_approximation}.	
-	For the induction step, when $p = p' + 1$. Recall that $\Phi_\beta^{p'+1}(f_g, f_h) = \mathcal{H}\left({\Phi_\beta^{(p')}}^\uparrow\right)(\beta(f_g), \beta(f_h))$. Pick an arbitrary $\varepsilon \geq \mathcal{H}\left({\Phi_\beta^{(p')}}^\uparrow\right)(\beta(f_g), \beta(f_h))$. In order to derive that $\dbox{f_g}{}{n} \disteq{\varepsilon} \dbox{f_h}{}{n}$, we will rely on \Cref{lem:hausdorff_approx}. In order to use it, we need to be able to derive approximations to the distance given by ${\Phi_\beta^{(p')}}^\uparrow$ on the string diagrams representing the elements of the set $\Sigma \times Q_f + V_n$ (see \Cref{rem:repr_transitions}). For this we will use \Cref{lem:transition_approximation}, which requires that for all $f_{g'}, f_{h'} \in Q_f$, $\varepsilon' \geq \Phi^{(p')}_\beta$ one can derive that $\dbox{f_{g'} }{}{n} \disteq{\varepsilon'}\dbox{f_{h'}}{}{n}$. This in turn is guaranteed by the induction hypothesis, which completes the proof.
+	By induction on $p$. When $p=0$, $\Phi_{\beta}^{(p)}$ is a discrete pseudometric on the set $Q_f$ and hence for all $r \geq \Phi_{\beta}^{(p)}(f_g, f_h)$, we can derive $\dbox{f_g}{}{n} \disteq{r} \dbox{f_h}{}{n}$ using \textsf{(Refl)}, \textsf{(Top)} and \textsf{(Max)} rules, similarly to the proof of \Cref{lem:transition_approximation}.	
+	For the induction step, when $p = p' + 1$. Recall that $\Phi_\beta^{p'+1}(f_g, f_h) = \mathcal{H}\left({\Phi_\beta^{(p')}}^\uparrow\right)(\beta(f_g), \beta(f_h))$. Pick an arbitrary $r \geq \mathcal{H}\left({\Phi_\beta^{(p')}}^\uparrow\right)(\beta(f_g), \beta(f_h))$. In order to derive that $\dbox{f_g}{}{n} \disteq{r} \dbox{f_h}{}{n}$, we will rely on \Cref{lem:hausdorff_approx}. In order to use it, we need to be able to derive approximations to the distance given by ${\Phi_\beta^{(p')}}^\uparrow$ on the string diagrams representing the elements of the set $\Sigma \times Q_f + V_n$ (see \Cref{rem:repr_transitions}). For this we will use \Cref{lem:transition_approximation}, which requires that for all $f_{g'}, f_{h'} \in Q_f$, $r' \geq \Phi^{(p')}_\beta$ one can derive that $\dbox{f_{g'} }{}{n} \disteq{r'}\dbox{f_{h'}}{}{n}$. This in turn is guaranteed by the induction hypothesis, which completes the proof.
 \end{proof}
  Using \textsf{(Cont)} rule and characterisation from \Cref{lem:finite_dist}, we obtain a completeness result for distances between $f_i \colon \objr \to \objr^n$ components of $f \colon \objr^m \to \objr^n$.
 \begin{restatable}{lemma}{onemcompleteness}\label{lem:one-to-m-completeness}
-	Let $f\from \objr^m\to \objr^n$ and $f_i$, $1\leq i \leq m$ be defined as above. For all $g,h\in\{1,\dots,m\}$, any valid equation $\dbox{f_g}{}{n} \disteq{\varepsilon} \dbox{f_h}{}{n}$ is derivable.
+	Let $f\from \objr^m\to \objr^n$ and $f_i$, $1\leq i \leq m$ be defined as above. For all $g,h\in\{1,\dots,m\}$, any valid equation $\dbox{f_g}{}{n} \disteq{r} \dbox{f_h}{}{n}$ is derivable.
 \end{restatable}
 \begin{proof}
-	Let $\dbox{f_g}{}{n} \disteq{\varepsilon} \dbox{f_h}{}{n}$ be valid, that is $\mathsf{bd}_{\overline \partial}(\sem{f_g}, \sem{f_h}) \leq \varepsilon$.
-	We will rely on \textsf{(Cont)} rule. In order to deduce that $\dbox{f_g}{}{n} \disteq{\varepsilon} \dbox{f_h}{}{n}$ we need to show that for all $\varepsilon' > \varepsilon$, we have that $\dbox{f_g}{}{n} \disteq{\varepsilon'} \dbox{f_h}{}{n}$ is derivable. Since $\varepsilon' > \varepsilon$, we have that $\mathsf{bd}_{\overline \partial}(\sem{f_g}, \sem{f_h}) < \varepsilon'$. Because of \Cref{cor:dist-chart-diag} and \Cref{cor:kleene_locally_finite}, we have that
+	Let $\dbox{f_g}{}{n} \disteq{r} \dbox{f_h}{}{n}$ be valid, that is $\mathsf{bd}_{\overline \partial}(\sem{f_g}, \sem{f_h}) \leq r$.
+	We will rely on \textsf{(Cont)} rule. In order to deduce that $\dbox{f_g}{}{n} \disteq{r} \dbox{f_h}{}{n}$ we need to show that for all $r' > r$, we have that $\dbox{f_g}{}{n} \disteq{r'} \dbox{f_h}{}{n}$ is derivable. Since $r' > r$, we have that $\mathsf{bd}_{\overline \partial}(\sem{f_g}, \sem{f_h}) < r'$. Because of \Cref{cor:dist-chart-diag} and \Cref{cor:kleene_locally_finite}, we have that
 	$$
-		\inf_{p \in \N}\left\{\Phi^{(p)}_\beta(f_g, f_h)\right\} < \varepsilon'
+		\inf_{p \in \N}\left\{\Phi^{(p)}_\beta(f_g, f_h)\right\} < r'
 	$$
-	We will argue that there exists $p \in \N$, such that $\Phi^{(p)}_\beta(f_g,f_h) < \varepsilon'$. For the sake of an argument, assume that for all $p \in \N$, we have that $\Phi^{(p)}_\beta(f_g,f_h) \geq \varepsilon'$. This would make $\varepsilon'$ into the lower bound of the $\omega$-cochain $\left\{\Phi^{(p)}_\beta(f_g, f_h)\right\}_{p \in \N}$ and hence $\varepsilon' \leq 	\inf_{p \in \N}\left\{\Phi^{(p)}_\beta(f_g, f_h)\right\} < \varepsilon'$, which leads to contradiction. Combining that argument with \Cref{lem:approximation} allows us to conclude that $\dbox{f_g}{}{n} \disteq{\varepsilon'} \dbox{f_h}{}{n}$ is derivable, which completes the proof. 
+	We will argue that there exists $p \in \N$, such that $\Phi^{(p)}_\beta(f_g,f_h) < r'$. For the sake of an argument, assume that for all $p \in \N$, we have that $\Phi^{(p)}_\beta(f_g,f_h) \geq r'$. This would make $r'$ into the lower bound of the $\omega$-cochain $\left\{\Phi^{(p)}_\beta(f_g, f_h)\right\}_{p \in \N}$ and hence $r' \leq 	\inf_{p \in \N}\left\{\Phi^{(p)}_\beta(f_g, f_h)\right\} < r'$, which leads to contradiction. Combining that argument with \Cref{lem:approximation} allows us to conclude that $\dbox{f_g}{}{n} \disteq{r'} \dbox{f_h}{}{n}$ is derivable, which completes the proof. 
 \end{proof}
 Relying on \Cref{lem:injections}, we can reduce the problem of deriving distance between arbitrary $\objr^m \to \objr^n$ diagrams, to the case of $\objr \to \objr^n$ solved above. This yields completeness result for left-to-right diagrams. 
 \begin{restatable}{theorem}{completeness}\label{lem:mncompleteness}
-Let $f,g \colon \objr^m \to \objr^n$. Any valid equation $\dbox{f}{m}{n} \disteq{\varepsilon} \dbox{g}{m}{n}$ is derivable.
+Let $f,g \colon \objr^m \to \objr^n$. Any valid equation $\dbox{f}{m}{n} \disteq{r} \dbox{g}{m}{n}$ is derivable.
 \end{restatable}
 \begin{proof}
-	Assume that $\dbox{f}{m}{n} \disteq{\varepsilon} \dbox{g}{m}{n}$ is valid.
+	Assume that $\dbox{f}{m}{n} \disteq{r} \dbox{g}{m}{n}$ is valid.
 	Recall that because of \Cref{lem:injections}, we have that
 	\begin{gather*}
 		\dbox{f}{m}{n} \disteq{0} \tikzfig{d-decomposition} \qquad \text{and}\qquad \dbox{g}{m}{n} \disteq{0} \tikzfig{d-decomposition-r}  
 	\end{gather*}
-	Assume that $\sem{f_i} = N(s_i)$ and $\sem{g_i}=N(t_i)$ for $1 \leq i \leq m$. Because of \Cref{lem:distance_on_merge}, we have that $d^{1,n}(s_i, t_i) \leq \varepsilon$.
+	Assume that $\sem{f_i} = N(s_i)$ and $\sem{g_i}=N(t_i)$ for $1 \leq i \leq m$. Because of \Cref{lem:distance_on_merge}, we have that $d^{1,n}(s_i, t_i) \leq r$.
 	We will consider the following diagram
 	$$\tikzfig{comp-par-lr} \disteq{0} \tikzfig{comp-par-states}$$
-	Using \Cref{lem:fundamental}, we can show that each of the $\objr \to \objr^{m}$ subdiagrams is in the form allowing to use \Cref{lem:one-to-m-completeness}. In turn, that lemma allows to derive any valid equations between the subdiagrams mentioned above. In particular, we can derive that $\diagbox{f_i}{}{m} \disteq{\varepsilon} \diagbox{g_i}{}{m}$ for all $1 \leq i \leq m$. We can use \textsf{(Tens)} rule to derive
+	Using \Cref{lem:fundamental}, we can show that each of the $\objr \to \objr^{m}$ subdiagrams is in the form allowing to use \Cref{lem:one-to-m-completeness}. In turn, that lemma allows to derive any valid equations between the subdiagrams mentioned above. In particular, we can derive that $\diagbox{f_i}{}{m} \disteq{r} \diagbox{g_i}{}{m}$ for all $1 \leq i \leq m$. We can use \textsf{(Tens)} rule to derive
 	$$
-		\tikzfig{par-stack-completeness-l} \disteq{\varepsilon} \tikzfig{par-stack-completeness-r}
+		\tikzfig{par-stack-completeness-l} \disteq{r} \tikzfig{par-stack-completeness-r}
 	$$
 	We can then apply \textsf{(Seq)} to postcompose co-copying to the diagrams above to obtain
 	$$
-	 \tikzfig{d-decomposition} \disteq{\varepsilon}  \tikzfig{d-decomposition-r}
+	 \tikzfig{d-decomposition} \disteq{r}  \tikzfig{d-decomposition-r}
 	$$
 	By previous reasoning and \textsf{(Triang)} rule this is the same as
 	$$
-	\diagbox{f}{m}{n} \disteq{\varepsilon} \diagbox{g}{m}{n}
+	\diagbox{f}{m}{n} \disteq{r} \diagbox{g}{m}{n}
 	$$
 	which completes the proof.
 \end{proof}
 Since arbitrary diagrams can be turned into $\objr^m \to \objr^n$ diagrams by appropriately composing $\tikzfig{cup-down}$ and $\tikzfig{cap-down}$, which happens to preserve distances between diagrams, we arrive at the desired completeness result.
 \begin{restatable}[Quantitative completeness]{theorem}{generalcompleteness}\label{thm:completeness}
-	Let $f,g \colon v \to w$ be two arbitrary diagrams. Any valid equation  $\diagbox{f}{v}{w} \disteq{\varepsilon} \diagbox{g}{v}{w}$ is derivable.
+	Let $f,g \colon v \to w$ be two arbitrary diagrams. Any valid equation  $\diagbox{f}{v}{w} \disteq{r} \diagbox{g}{v}{w}$ is derivable.
 \end{restatable}
 \begin{proof}
-	Observe that, given a pair $f,g \colon v \to w$ we obtain $S(f)$ and $S(g)$ by postcomposing \tikzfig{cap-down} (or precomposing \tikzfig{cup-down}). Since composition is nonexpansive (\Cref{cor:sem_enriched}), if $\diagbox{f}{v}{w} \disteq{\varepsilon} \diagbox{g}{v}{w}$ is valid, so is $\dbox{S(f)}{m}{n} \disteq{\varepsilon} \dbox{S(g)}{m}{n}$. The rest follows as a consequence of \Cref{lem:mncompleteness}.
+	Observe that, given a pair $f,g \colon v \to w$ we obtain $S(f)$ and $S(g)$ by postcomposing \tikzfig{cap-down} (or precomposing \tikzfig{cup-down}). Since composition is nonexpansive (\Cref{cor:sem_enriched}), if $\diagbox{f}{v}{w} \disteq{r} \diagbox{g}{v}{w}$ is valid, so is $\dbox{S(f)}{m}{n} \disteq{r} \dbox{S(g)}{m}{n}$. The rest follows as a consequence of \Cref{lem:mncompleteness}.
 \end{proof}
+\section{Discussion}
+\label{sec:discussion}
+
+In this chapter, we presented a sound and complete quantitative axiomatisation of the behavioural distance of Milner's charts~\cite{Milner:1984:Complete}. We have relied on a compositional, string diagrammatic syntax~\cite{piedeleu2023finite,antoinecsl2025} and equipped it with a quantitative inference system for reasoning about bounds on behavioural distance, inspired by recent advances in metric universal algebra~\cite{Mardare:2016:Quantitative,MiliusU19,Mio:2024:Universal}.
+
+Originally introduced for probabilistic systems~\cite{Breugel:2001:Towards,Desharnais:2004:Metrics}, behavioural distances have recently been generalised to a broad range of systems modelled via the abstract framework of universal coalgebra~\cite{Rutten:2000:Universal}, leveraging pseudometric liftings of functors~\cite{Baldan:2018:Coalgebraic}. The notion of behavioural distance for charts used in this chapter is an instance of this coalgebraic framework. Our concrete characterisation closely resembles the metric on trees studied by Nivat~\cite{Nivat:1979:Infinite}. A similar characterisation was studied by Golson and Rounds~\cite{Golson:1984:Connections}, who instead examined de Bakker and Zucker's metric domain for nondeterministic processes~\cite{Bakker:1982:Processes}, also derived via a fixpoint construction involving the Hausdorff distance. 
+
+The idea of reasoning about distances between string diagrams has been explored before in quantum theory~\cite{kissinger2017pictureperfectquantumkeydistribution,Breiner:2019:Graphical,HLarsen2021} and probability theory~\cite{Perrone:2024:Markov}. However, in contrast with the growing body of work on cartesian quantitive algebra~\cite{Mardare:2016:Quantitative,Mio:2024:Universal, Bacci:2024:Sum}, a systematic foundation to axiomatising distances between string diagrams appeared only very recently, in the work of Lobbia et al~\cite{Lobbia:2024:Quantitative}. Besides the basic examples provided in~ \cite{Lobbia:2024:Quantitative}, our work is the first to propose a complete axiomatisation of a quantitative calculus of string diagrams. The approach of~\cite{Lobbia:2024:Quantitative} is based on enriched category theory: similarly, one could observe that the equipment of our semantic category with pseudometric structures making sequential and parallel composition nonexpansive yields the enrichment in the category of pseudometric spaces. However, our axiomatisation relies on the domain-specific implicational rule \textsf{(Pref)} and an axiom schema \textsf{(Codel)} that cannot be expressed in the framework of Lobbia et al~\cite{Lobbia:2024:Quantitative}, which only supports quantitative equations. Reconciling those rule formats with the general framework of Lobbia et al~\cite{Lobbia:2024:Quantitative} is an interesting direction for future research.
+
+Axiomatising behavioural distances have been originally studied through ad-hoc inference systems~\cite{Larsen:2011:Metrics,Argenio:2014:Axiomatizing}. The introduction of quantitative equational theories made more principled approaches possible, leading to axiomatisations of behavioural distance for probabilistic systems~\cite{Bacci:2018:Bisimilarity,Bacci:2018:Algebraic}. In \Cref{chapter2}, we extended these results within a coalgebraic framework, focusing on the simple case of DFA, which enjoys a straightforward algebraic representation via the syntax of Kleene Algebra. While we rely here on the general pattern of the completeness proof from~\Cref{chapter2} the case of Milner's charts was significantly more involved, requiring the ability to simulate the behaviour of Hausdorff lifting syntactically.
+
+In constructing the semantic category, we have used the fact that charts form a Conway theory~\cite{Esik:1999:Group}, studied in the literature on parametrised fixpoint operators~\cite{Haghverdi:2000:Categorical,Simpson:2000:Complete,Abramsky:2002:Geometry}, and which can be seen as a relaxation of iteration theories~\cite{Bloom:1993:Iteration}. The connection between charts and these structures was previously investigated by Bloom et al~\cite{Bloom:1993:Iteration} and Sewell~\cite{Sewell:1995:Algebra}, while the interplay of parametrised fixpoint operators with traced monoidal categories was studied by Hasegawa~\cite{Hasegawa:1997:Models}, Haghverdi~\cite{Haghverdi:2000:Categorical}, and Simpson and Plotkin~\cite{Simpson:2000:Complete} independently.
+
+Our work constitutes a necessary first step towards a similar diagrammatic treatment of behavioural distance for quantitative automata, such as probabilistic and weighted systems, for which distances are a more suitable way of reasoning rather than Boolean equivalences. The string diagrammatic point of view would enable a desirable, compositional treatment that reflects well the underlying operational models, in a way that is not available through conventional syntaxes. Another promising direction for future work would be to consider Guarded Kleene Algebra with Tests (GKAT)~\cite{Smolka:2020:Guarded,Schmid:2021:Guarded}, an efficiently decidable language for reasoning about equivalence of uninterpreted programs. The completeness proof of GKAT relies on a metric argument that could be internalised within an inference system like the one introduced in this chapter. Moreover, the syntax of GKAT is insufficiently expressive, as it can only describe a part of the behaviours of its underlying operational model -- in fact there is no finite purely algebraic syntax that could do so~\cite{Cate:2025:Algebras}. A string diagrammatic treatment could allow us to express all such behaviours and obtain a simpler yet more expressive completeness result, that would in turn enable axiomatic reasoning about decompilation algorithms, that were recently shown to be expressible via GKAT automata (but not in GKAT)~\cite{Zhang:2025:CFGKAT}.
+
 
  
