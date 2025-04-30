@@ -371,7 +371,7 @@ Below we state several properties of positive convex algebras, that we will use 
         &= \bigboxplus_{i \in I} p_i \cdot \left(\bigboxplus_{(k,j) \in I \times J} [k = i]q_{k,j} \cdot x_{k,j}\right) \tag{\Cref{c4:prop:properties_of_positive_convex_algebras}} \\
         &= \bigboxplus_{(k,j) \in I \times J} \left(\sum_{i \in I} p_i [k=i]q_{k,j} \right) \cdot x_{k,j} \tag{Barycenter axiom} \\
         &= \bigboxplus_{(k,j) \in I \times J} p_k q_{k,j}  \cdot x_{k,j} \\
-        &= \bigboxplus_{(i,j) \in I \times J} p_i q_{i,j}  \cdot x_{i,j} \tag{Renaming indices}\\
+        &= \bigboxplus_{(i,j) \in I \times J} p_i q_{i,j}  \cdot x_{i,j}\qedhere
     \end{align*}
 \end{proof}
 \begin{lemma}\label{c4:lem:grouping_probabilities}
@@ -386,7 +386,7 @@ Below we state several properties of positive convex algebras, that we will use 
     \begin{align*}
         \bigboxplus_{i \in I} (p_i + q_i) \cdot \left(\frac{p_i}{p_i + q_i} \cdot x_i \boxplus \frac{q_i}{p_i + q_i} \cdot y_i\right) &= \bigboxplus_{i \in I} (p_i + q_i) \cdot \left(\bigboxplus_{j \in J} r_{i,j} \cdot z_{i,j} \right) \\
         &= \bigboxplus_{(i,j) \in I \times J} (p_i + q_i)r_{i_j} \cdot z_{i,j} \tag{\Cref{c4:lem:flattening_convex_sums}} \\
-        &= \left(\bigboxplus_{i \in I} p_i \cdot x_{i}\right) \boxplus \left(\bigboxplus_{i \in I} q_i \cdot y_i\right)
+        &= \left(\bigboxplus_{i \in I} p_i \cdot x_{i}\right) \boxplus \left(\bigboxplus_{i \in I} q_i \cdot y_i\right)\qedhere
     \end{align*}
 \end{proof}
 Speaking more abstractly, positive convex algebras and their homomorphisms (in the sense of homomorphisms of algebras for the signature from universal algebra) form a category, that we will call $\pca$. This category can be seen as a concrete presentation of an Eilenberg-Moore algebra for the subdistribution monad.
@@ -676,7 +676,7 @@ By structural induction. The base cases $E(\zero)=0=\partial(\zero)(\checkmark)$
 	\begin{align*}
 		E(e^{[p]})&=\frac{1-p}{1-pE(e)}\\
 		&=\frac{1-p}{1-p\partial(e)(\checkmark)}\\
-		&=\partial\left(e^{[p]}\right)(\checkmark)
+		&=\partial\left(e^{[p]}\right)(\checkmark)\qedhere
 	\end{align*}
 \end{itemize}
 \end{proof}
@@ -708,7 +708,7 @@ It turns out that the operational semantics of every {PRE} can be always describ
          In the case of \({e}\seq{f}\), every derivative of this expression is either a derivative of \({f}\) or some derivative of \({e}\) followed by \({f}\). Hence, \(|\langle e \seq f \rangle| = |\langle e \rangle\times \{{f}\}| + |\langle f \rangle| \leq \#({e}) + \#({f}) = \#({e}\seq{f}) \).
 
          \item
-         For the probabilistic loop case, observe that every derivative of \({e}^{[{p}]}\) is a derivative of \({e}\) followed by \({e}^{[{p}]}\) or it is the state that outputs $\checkmark$ with probability $1$. It can be easily observed,that \(|\langle e^{[p]}\rangle| \leq |\langle e \rangle| + 1 = \#({e}) = \#({e}^{[p]})\). 
+         For the probabilistic loop case, observe that every derivative of \({e}^{[{p}]}\) is a derivative of \({e}\) followed by \({e}^{[{p}]}\) or it is the state that outputs $\checkmark$ with probability $1$. It can be easily observed that \(|\langle e^{[p]}\rangle| \leq |\langle e \rangle| + 1 = \#({e}) = \#({e}^{[p]})\).\qedhere 
     \end{itemize}
 \end{proof}
 
@@ -847,7 +847,7 @@ For \circlednum{2} we show the following:
         &\equiv_b e \oplus_{pq} \left(g \oplus_{\frac{p(1-{q})}{1-pq}} \left(f \oplus_{{q}} h\right) \right) \tag{\textsf{C3}}\\
         &\equiv_b \left(e \oplus_q g\right) \oplus_p \left(f \oplus_q h\right) \tag{\circlednum{1}}
     \end{align*}
-
+	This completes the proof.
 \end{proof}
 
 
@@ -909,7 +909,7 @@ Finally, we generalise the axiom (\textsf{D1}) to $n$-ary convex sums.
          \left(\bigoplus_{i \in I} p_i \cdot e_i\right) \seq f &\equiv_b \left( e_j \oplus_{p_j} \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{{1-p_j}} \cdot e_i\right) \right) \seq f \\
          &\equiv_b  e_j\seq f \oplus_{p_j} \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{1-{p_j}} \cdot e_i\right)\seq f \tag{\textsf{D1}} \\
          &\equiv_b  e_j\seq f \oplus_{p_j} \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{1-{p_j}} \cdot e_i\seq f\right) \tag{Induction hypothesis}\\
-         &\equiv_b \left(\bigoplus_{i \in I} p_i \cdot e_i \seq f\right)
+         &\equiv_b \left(\bigoplus_{i \in I} p_i \cdot e_i \seq f\right)\qedhere
     \end{align*}
 \end{proof}
 We now have all the ingredients to show the fundamental theorem. 
@@ -1031,7 +1031,7 @@ We now have all the ingredients to show the fundamental theorem.
         $$\frac{pn(d)}{1-p\partial(f)(\checkmark)} + \frac{1-p\delta_{\checkmark}(d)}{1-p\partial(f)(\checkmark)} = 0 = \partial \left(f^{[p]}\right)(d)$$
         Thus, we obtain the following:
         $$f^{[p]}\equiv_b \bigoplus_{d \in \supp \left(\partial \left(f^{[p]}\right)\right)} \partial\left(f^{[p]}\right)(d) \cdot \ex(d)$$
-        This establishes the desired result.
+        This establishes the desired result.\qedhere
     \end{itemize}
 \end{proof}
 A direct corollary of the result established above is that every loop is provably equivalent to a loop whose body does not assign any probability to transitions to $\checkmark$.
@@ -1141,6 +1141,7 @@ In fact, this map equips the set ${\PExp}/{\equiv_b}$ with a positive convex alg
         &=\qcoa^{-1} \circ \mu_{\funF {\PExp}/{\equiv_{b}}} \circ \distf {\qcoa} \circ \mu_{{\PExp}/{\equiv_b}} \tag{$\mu$ is natural}\\ 
         &= \alpha_{\equiv_{b}} \circ \mu_{{\PExp}/{\equiv_b}} \tag{Def. of $\alpha_{\equiv_b}$}
     \end{align*}
+    This completes the proof.
 \end{proof}
 Moreover, using the isomorphism between $\pca$ and $\Set^\distf$ one can calculate the concrete formula for $\pca$ structure on ${\PExp}/{\equiv_b}$.
 \begin{lemma}\label{c4:lem:concrete}
@@ -1161,9 +1162,10 @@ Moreover, using the isomorphism between $\pca$ and $\Set^\distf$ one can calcula
 	&\quad= \left[ \left( \sum_{i \in I} p_i \partial(e_i)(\checkmark)\right) \cdot \one \oplus \left( \bigoplus_{ (a,[e']_{\equiv_b}) \in \alphabet \times {\PExp}/{\equiv_b}} \left(\sum_{i \in I} p_i \partial(e_i)(a,[e']_{\equiv_b})\right)\right) \cdot a \seq e'\right]_{\equiv_b} \tag{Def. of $\qcoa^{-1}$ and \Cref{c4:prop:properties_of_positive_convex_algebras}}\\
 	&\quad=\left[\bigoplus_{i \in I}p_i \cdot \left( \partial(e_i)(\checkmark) \cdot \one \oplus \left(\bigoplus_{ (a,[e']_{\equiv_b}) \in \alphabet \times {\PExp}/{\equiv_b}}  \partial(e_i)(a,[e']_{\equiv_b}) \cdot a \seq e' \right)\right)\right]_{\equiv_b} \tag{Barycenter axiom}\\
 	&\quad=\left[\bigoplus_{i \in I}p_i \cdot \left( \partial(e_i)(\checkmark) \cdot \one \oplus \left(\bigoplus_{ (a,[e']_{\equiv_b}) \in \supp(\partial(e_i))}  \partial(e_i)(a,[e']_{\equiv_b}) \cdot a \seq e' \right)\right)\right]_{\equiv_b} \tag{\Cref{c4:prop:properties_of_positive_convex_algebras}}\\
-	&\quad=\left[ \bigoplus_{i \in I} p_i \cdot e_i \right]_{\equiv_b} \tag{\Cref{c4:thm:fundamental_theorem}}
+	&\quad=\left[ \bigoplus_{i \in I} p_i \cdot e_i \right]_{\equiv_b}
 \end{align*}
 }
+The last line of the proof above follows from \Cref{c4:thm:fundamental_theorem}.
 \end{proof}
 We can also equip the coarser quotient, that is ${\PExp}/{\equiv}$, with a $\pca$ structure.  
 \begin{lemma}\label{c4:lem:coarser_quotient_is_a_pca}
@@ -1179,7 +1181,7 @@ The positive convex algebra structure on ${\PExp}/{\equiv}$ is well-defined, bec
         \left[\bigboxplus_{i \in I} p_i \cdot [e_i]_{\equiv_b}\right]_{\equiv} &= \left[\left[\bigoplus_{i \in I} p_i \cdot e_i \right]_{\equiv_b}\right]_{\equiv} \tag{\Cref{c4:lem:concrete}}\\
         &= \left[\bigoplus_{i \in I} p_i \cdot e_i \right]\\
         &= \bigboxplus_{i \in I} p_i \cdot[e_i] \tag{Def. of $\pca$ structure on ${\PExp}/{\equiv}$}\\
-        &= \bigboxplus_{i \in I}^n p_i \left[[e_i]_{\equiv_b}\right]_{\equiv} \\
+        &= \bigboxplus_{i \in I}^n p_i \left[[e_i]_{\equiv_b}\right]_{\equiv} \qedhere
     \end{align*}
 \end{proof}
 \subsection{Step 3: Coalgebra structure}\label{c4:sec:soundness_coalgebra}
@@ -1274,11 +1276,8 @@ The above lemma encapsulates the key step of the soundness proof. To establish t
 		&\quad= \funG\alpha_{\equiv} \left\langle o, \lambda a\ldotp  \sum_{ a_i = a} p_i  \delta_{[e_i]}\right \rangle \tag{Def. of $\gamma$}\\
 		&\quad= \left\langle o, \lambda a\ldotp  \left[\bigoplus_{ a_i = a} p_i \cdot e \right]\right \rangle \tag{\Cref{c4:thm:correspondence}}\\
 	\end{align*}
+	This establishes the desired result.
     \end{proof}
-
-	
-
-
 Since the proof of \Cref{c4:lem:coalg_on_quotient_left_dist} equires passing through the quotient ${\PExp}/{\equiv_b}$, which identifies the expressions modulo the axioms of the finer relation $\equiv_b$, emains only to verify the soundness of axioms (\textsf{S0}) and (\textsf{D2}) present in the finer relation $\equiv$. 
 
 Before proceeding, we first show that (\textsf{S0}) and (\textsf{D2}) can be reformulated in a simpler yet equally expressive form, which simplifies checking their soundness. Define the relation ${\uaequiv}\subseteq {\PExp \times \PExp}$ as follows:
@@ -1288,9 +1287,7 @@ Let ${\uaequiv} \subseteq {\PExp \times \PExp}$ be a relation defined by the fol
     \item $a \seq (e \oplus_p f) \uaequiv a\seq e \oplus_p a \seq f$
     \item $a \seq \zero \uaequiv \zero$
 \end{enumerate}
-for all $e,f \in \PExp$, $p \in \interval{0}{1}$ and $a \in \alphabet$. 
-
-It can be easily seen that both relations are equal. 
+for all $e,f \in \PExp$, $p \in \interval{0}{1}$ and $a \in \alphabet$. It can be easily seen that both relations are equal. 
 \begin{lemma}\label{c4:lem:simpler_equivalence}
     For all $e,f \in \PExp$, $e \equiv f$ if and only if $e \uaequiv f$
 \end{lemma}
@@ -1443,7 +1440,7 @@ We now have all the ingredients to obtain the desired result.
 	
 	Once again, we apply \Cref{c4:lem:concrete_quotient} and obtain the following:
 		$$
-			(\funG [-]_{\equiv} \circ c)[b \seq \zero]_{\equiv} = \left\langle 0, \lambda a \ldotp [\zero] \right\rangle = (\funG [-]_{\equiv} \circ c)[\zero]_{\equiv}
+			(\funG [-]_{\equiv} \circ c)[b \seq \zero]_{\equiv} = \left\langle 0, \lambda a \ldotp [\zero] \right\rangle = (\funG [-]_{\equiv} \circ c)[\zero]_{\equiv}\qedhere
 		$$
  \end{itemize}
 \end{proof}
@@ -1484,8 +1481,9 @@ $.
         &=\beh{d} \circ [-]_{\equiv} \circ \alpha_{\equiv_b} \circ \distf [-]_{\equiv_b} \circ \eta_{\PExp}\tag{\Cref{c4:lem:factoring_lemma}}\\
         &=\beh{d} \circ [-]_{\equiv} \circ \alpha_{\equiv_b} \circ \eta_{{\PExp}/{\equiv_b}} \circ [-]_{\equiv_b} \tag{$\eta$ is natural}\\
         &=\beh{d} \circ [-]_{\equiv} \circ [-]_{\equiv_b} \tag{$\alpha_\equiv$ is an Eilenberg-Moore algebra}\\
-        &= \beh{d} \circ [-] \tag{$[-] = [-]_{\equiv} \circ [-]_{\equiv_b} $}\\
+        &= \beh{d} \circ [-]\\
     \end{align*}
+    The last equality in the derivation above follows from the definition of $[-]$.
  \end{proof}
  We can now immediately conclude that provably equivalent expressions are mapped to the same probabilistic languages, thus establishing soundness.
 % We can now conclude with the desired soundness result.
@@ -1523,6 +1521,7 @@ Thanks to the fact that we can lift $\funG \colon \Set \to \Set$ to $\overline{\
             &= \bigboxplus_{i \in I} p_i \left\langle q^i , \lambda a \ldotp \left[\bigoplus_{a = a^i_j} r^i_j \cdot e^i_j\right] \right\rangle \tag{Def. of $\overline{\funG}$}\\
             &= \bigboxplus_{i \in I} p_i \cdot d(e_i) \tag{\Cref{c4:cor:concrete_coalgebra}}
         \end{align*}
+        This yields the desired result.
   \end{proof}
   As a consequence of the result showed above, we have that $$\left({\PExp}/{\equiv}, d \colon \left({\PExp}/{\equiv}, \alpha_{\equiv}\right) \to \overline{\funG}\left({\PExp}/{\equiv}, \alpha_{\equiv}\right)\right)$$ is a $\overline{\funG}$-coalgebra.
 \subsection{Step 2: Proper functors}
@@ -1601,7 +1600,7 @@ Therefore, for all $a \in \alphabet$ there exist $p_a^i \in \interval{0}{1}$ and
 We are ready to prove the desired result.
 \begin{proof}[Proof of \Cref{c4:lem:determinisations_correspond_to_df_coalgebras}]
 	    Recall that $({({\PExp}/{\equiv}, \alpha_{\equiv})},d)$ is a quotient coalgebra of $$({\PExp}/{\equiv_b}, \funG\alpha_{\equiv_b} \circ \gamma_{{\PExp}/{\equiv_b}} \circ \qcoa)$$
-	     which by \Cref{c4:lem:iamge_of_natural_transformation} is a $\hat{\funG}$-coalgebra. Because of \Cref{c4:lem:closed_under_quotients} so is $({{\PExp}/{\equiv}}, d)$.
+	     which by \Cref{c4:lem:iamge_of_natural_transformation} is a $\hat{\funG}$-coalgebra. Because of \Cref{c4:lem:closed_under_quotients} so is $({{\PExp}/{\equiv}}, d)$. This completes the proof.
 \end{proof}
 Moreover, when regarded as $\hat{\funG}$-coalgebra, $\left((\PExp/{\equiv}, \alpha_{\equiv}), d \right)$ forms a fixpoint of the functor, meaning $d$ is an isomorphism.
 \begin{lemma}\label{c4:lem:isomorphism_quotient}
@@ -1639,9 +1638,8 @@ Moreover, when regarded as $\hat{\funG}$-coalgebra, $\left((\PExp/{\equiv}, \alp
         (d^{-1} \circ d) ([e]) &= d^{-1}\left\langle o , \lambda a \ldotp \left[ \bigoplus_{i \in I} p_a^i \cdot e_a^i\right] \right\rangle \tag{\Cref{c4:cor:concrete_coalgebra}}\\
         &= d^{-1}\left\langle o , \lambda a \ldotp \bigboxplus_{i \in I} p_a^i \cdot \left[ e_a^i\right] \right\rangle \tag{\Cref{c4:lem:coarser_quotient_is_a_pca}}\\
         &= \left[o \cdot \one \oplus \left(\bigoplus_{(a,i) \in \alphabet \times I} p_a^i \cdot a \seq e_a^i\right)\right] \tag{Def. of $d^{-1}$}\\
-        &= d([e])
+        &= d([e]) \qedhere
     \end{align*}
-    This completes the proof.
 \end{proof}
 \subsection{Step 3: Systems of equations}
 In order to establish that ${\PExp}/{\equiv}$ is isomorphic to the rational fixpoint (which is the property that will eventually imply completeness), we will show the satisfaction of conditions of \Cref{c4:thm:proper}. One of the required things we need to show is that the determinisation of an arbitrary finite-state GPTS admits a unique homomorphism to the coalgebra carried by ${\PExp}/{\equiv}$. In other words, we need to convert states of an arbitrary finite-state GPTS to language equivalent expressions in a way which is unique up to the axioms of $\equiv$. This can be thought of as an abstract reformulation of one direction of the Kleene theorem to the case of PRE. To make that possible, we give a construction inspired by Brzozowski's equation solving method~\cite{Brzozowski:1964:Expressions} of converting a DFA to the corresponding regular expression. We start by stating the necessary definitions.
@@ -1697,7 +1695,7 @@ M^\beta_{x, x'} = \begin{cases}
          f \seq \left(\bigoplus_{i \in I} p_i \cdot e_i\right) &\equiv f \seq \left( e_j \oplus_{p_j} \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{{1-p_j}} \cdot e_i\right) \right)  \\
          &\equiv  f \seq e_j \oplus_{p_j} f \seq \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{{1-p_j}} \cdot e_i\right)\tag{\textbf{D1}} \\
          &\equiv  f\seq e_j  \oplus_{p_j} \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{{1-p_j}} \cdot f \seq e_i\right) \tag{Induction hypothesis}\\
-         &\equiv \left(\bigoplus_{i \in I} p_i \cdot f \seq e_i \right)
+         &\equiv \left(\bigoplus_{i \in I} p_i \cdot f \seq e_i \right) \qedhere
     \end{align*}
 \end{proof}
 
@@ -1906,6 +1904,7 @@ Since $m$ is a homomorphism, the inner square in the diagram above commutes. Mor
     &= d^{-1} \left\langle\beta(x)(\checkmark), \lambda a\ldotp \bigboxplus_{x'\in X } \beta(x)(a,x') \cdot \left[h(x')\right]\right\rangle \tag{\Cref{c4:lem:coarser_quotient_is_a_pca}}\\
     &= \left[\left(\bigoplus_{(a,x')\in \alphabet \times X} \beta(x)(a,x')\cdot a \seq h(x')\right)\beta(x)(\checkmark) \cdot \one \right] \tag{Def. of $d^{-1}$}
 \end{align*}
+This establishes the desired result.
 \end{proof}
 Aside from the completeness argument, the above result also gives us an analogue of (one direction of) Kleene's theorem for $\distf \funF$-coalgebras as a corollary. The other direction, converting PRE to finite-state  $\distf \funF$-coalgebras is given by the Antimirov construction, described in \Cref{c4:sec:operational}.
 \begin{corollary}\label{c4:cor:kleene}
@@ -1920,6 +1919,7 @@ Aside from the completeness argument, the above result also gives us an analogue
 			&=  \beh {(\gamma_X \circ \beta)^{\sharp}} (\eta_{X}(x)) \tag{$([-] \circ h)^{\sharp}$ is a homomorphism}
 			&= \langmap_{(X, \beta)} (x)
 		\end{align*}
+		This completes the proof.
 \end{proof}
 \subsection{Step 4: Establish the universal property}
 The only remaining piece allowing us to use \Cref{c4:thm:proper} is to claim that the $\hat{\funG}$-coalgebra is locally finitely presentable. We indirectly rely on finiteness of Antimirov derivatives shown in \Cref{c4:lem:locally_finite}.
@@ -2012,11 +2012,11 @@ At this point, showing completeness becomes straightforward.
 	\begin{align*}
 		\sem{e} = \sem{f} &\iff \beh{d} ([e]) = \beh{d}([f]) \tag{\Cref{c4:lem:factoring_lemma2}} \\
 		&\implies [e] = [f] \tag{$\beh{d}$ is injective} \\
-		&\iff e \equiv f
+		&\iff e \equiv f \qedhere
 	\end{align*}
 \end{proof}
 \section{Discussion}\label{c4:sec:related}
-In this chapter, we introduced probabilistic regular expressions ({PRE}), a probabilistic counterpart to Kleene's regular expressions. As the main technical contribution, we presented a Salomaa-style inference system for reasoning about probabilistic language equivalence of expressions and proved it sound and complete. Additionally, we gave a two-way correspondence between languages denoted by {PRE} and finite-state Generative Probabilistic Transition Systems. Our approach is coalgebraic and enabled us to reuse several recently proved results on fixpoints of functors and convex algebras. This abstract outlook guided the choice of the right formalisms and enabled us to isolate the key results we needed to prove to achieve completeness while at the same time reusing existing results and avoiding repeating complicated combinatorial proofs.  The key technical lemma, on uniqueness of solutions to certain systems of equations, is a generalisation of automata-theoretic constructions from the 60s further exposing the bridge between our probabilistic generalisation and the classical deterministic counterpart. 
+In this chapter, we introduced probabilistic regular expressions ({PRE}), a probabilistic counterpart to Kleene's regular expressions. As the main technical contribution, we presented a Salomaa-style inference system for reasoning about probabilistic language equivalence of expressions and proved it sound and complete. Additionally, we gave a two-way correspondence between languages denoted by {PRE} and finite-state generative probabilistic transition systems. Our approach is coalgebraic and enabled us to reuse several recently proved results on fixpoints of functors and convex algebras. This abstract outlook guided the choice of the right formalisms and enabled us to isolate the key results we needed to prove to achieve completeness while at the same time reusing existing results and avoiding repeating complicated combinatorial proofs.  The key technical lemma, on uniqueness of solutions to certain systems of equations, is a generalisation of automata-theoretic constructions from the 60s further exposing the bridge between our probabilistic generalisation and the classical deterministic counterpart. 
 
 \subsection{Related work}
  Probabilistic process algebras and their axiomatisations have been widely studied~\cite{Bandini:2001:Axiomatizations,Stark:2000:Complete,Mislove:2003:Axioms,Benardo:2022:Probabilistic} with syntaxes featuring action prefixing and least fixed point operators instead of the regular operations of sequential composition and probabilistic loops. This line of research focussed on probabilistic bisimulation, while probabilistic language equivalence, which we focus on, stems from automata theory, e.g. the work of Rabin on probabilistic automata~\cite{Rabin:1963:Probabilistic}. Language equivalence of Rabin automata has been studied from an algorithmic point of view~\cite{Kiefer:2011:Language,Kiefer:2012:APEX}.
@@ -2031,6 +2031,6 @@ We build on the vast line of work on coalgebraic completeness theorems~\cite{Jac
 \subsection{Future work}
 A first natural direction is exploring whether one could obtain an \emph{algebraic} axiomatisation of {PRE}. Similarly to Salomaa's system, our axiomatisation is unsound under substitution of letters by arbitrary expressions in the case of the termination operator used to give side condition to the unique fixpoint axiom. We are interested if one could give an alternative inference system in the style of Kozen's axiomatisation~\cite{Kozen:1994:Completeness}, in which the Kleene star is the least fixpoint wrt the natural order induced by the $+$ operation and thus not requiring the side condition to introduce loops. In the case of {PRE}, the challenge is that there is no obvious way of defining a natural order on {PRE} in terms of $\oplus_p$ operation. 
 
-Additionally, it is interesting to ask if the finer relation $\equiv_{b}$ is complete with respect to the probabilistic bisimilarity. One could view it as a probabilistic analogue of the problem of completeness of Kleene Algebra modulo bisimilarity posed by Milner~\cite{Milner:1984:Complete}, which was recently answered positively by Grabmayer~\cite{Grabmayer:2022:Milner}. 
-
-Finally, an interesting direction would be to study a more robust notion of \emph{language distance}~\cite{Baldan:2018:Coalgebraic} of {GPTS} by extending our axiomatisation to a system based on quantitative equational logic~\cite{Mardare:2016:Quantitative}. Similar results were already obtained in the case of probabilistic process calculus of Stark and Smolka~\cite{Stark:2000:Complete} for bisimulation distance~\cite{Bacci:2018:Bisimilarity} and distance between infinite traces~\cite{Bacci:2018:TV}.
+Finally, an interesting direction would be to ask if the finer relation $\equiv_{b}$ is complete with respect to the probabilistic bisimilarity. One could view it as a probabilistic analogue of the problem of completeness of Kleene Algebra modulo bisimilarity posed by Milner~\cite{Milner:1984:Complete}, which was recently answered positively by Grabmayer~\cite{Grabmayer:2022:Milner}. 
+%
+%Finally, an interesting direction would be to study a more robust notion of \emph{language distance}~\cite{Baldan:2018:Coalgebraic} of {GPTS} by extending our axiomatisation to a system based on quantitative equational logic~\cite{Mardare:2016:Quantitative}. Similar results were already obtained in the case of probabilistic process calculus of Stark and Smolka~\cite{Stark:2000:Complete} for bisimulation distance~\cite{Bacci:2018:Bisimilarity} and distance between infinite traces~\cite{Bacci:2018:TV}.

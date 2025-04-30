@@ -188,7 +188,7 @@ Instead of looking at an infinite-state automaton defined on the state-space of 
 \begin{proof}
     Let $i \colon \gen{e}{\mathcal{R}} \subto \RExp$ be the canonical inclusion homomorphism. Composing it with $L_{\mathcal{R}}$ a unique homomorphism from $\mathcal{R}$ into the final automaton $\mathcal{L}$ yields a homomorphism $L_{\mathcal{R}} \circ i$ from $\gen{e}{\mathcal{R}}$ to the final automaton, which by finality is the same as $L_{\gen{e}{\mathcal{R}}}$. Using \Cref{c2:lem:adequacy} we can show the following: 
     \[
-        \sem{e} = L_{\mathcal{R}}(e)=  L_{\mathcal{R}}(i(e)) = L_{\gen{e}{\mathcal{R}}}(e)
+        \sem{e} = L_{\mathcal{R}}(e)=  L_{\mathcal{R}}(i(e)) = L_{\gen{e}{\mathcal{R}}}(e)\qedhere
     \]
 \end{proof}
 Unfortunately, for an arbitrary regular expression $e \in \RExp$, the automaton $\gen{e}{\mathcal{R}}$ is not guaranteed to have a finite set of states. 
@@ -409,7 +409,7 @@ Since $\langmetric$ is a pseudometric, then so is $d^{\qalgB} = \langmetric \cir
         w \in \sem{e^\ast} &\iff w \in \sem{e}^\ast\\ 
         &\iff w = \emptyword \vee \left(\exists k \geq 1 \ldotp \exists u_1, \dots, u_k \in \alphabet^\ast \ldotp w = u_1\dots u_k \right.\\&\left. \qquad\qquad\wedge u_1 \in \sem{e} \wedge \dots \wedge u_k \in \sem{e}\right) \\
         &\iff w = \emptyword \vee \left(\exists k \geq 1 \ldotp \exists u_1, \dots, u_k \in \alphabet^\ast\ldotp w = u_1\dots u_k \right.\\&\left. \qquad\qquad\wedge u_1 \in \sem{g} \wedge \dots \wedge u_k \in \sem{g}\right) \tag{$|u_1| < n, \dots, |u_k| < n$ }\\
-        &\iff w \in \sem{g}^\ast \iff w \in \sem{g^*}
+        &\iff w \in \sem{g}^\ast \iff w \in \sem{g^*}\qedhere
     \end{align*}
 \end{enumerate}
 \end{proof}
@@ -529,9 +529,7 @@ It turns out that in the presence of the infinitary continuity $(\Cont)$ rule of
 	
 	\fbox{$e = e_1 + e_2$} Because of the assumption, both $ \emptyword \notin \sem{e_1}$ and $ \emptyword \notin \sem{e_2}$. Using the induction hypothesis, we can derive that $\vdash e_1 \seq f \equiv_{\e'} e_1 \seq g$ and $e_2 \seq f \equiv_{\e'} e_2 \seq g$. We can apply the \textsf{(SL5)} axiom to derive that $\vdash e_1 \seq f + e_2 \seq f \equiv_{\e'} e_1 \seq g + s_2 \seq g$. Finally, we can apply the \textsf{(D2)} axiom to both sides through \textsf{(Triang)} and derive $\vdash (e_1 + e_2) \seq f \equiv_{\e'} (e_1 + e_2) \seq g$ as desired.
 	
-	\fbox{$e = e_1 \seq e_2$} Because of the assumption, $\emptyword \notin \sem{e_1}$ or $\emptyword \notin \sem{e_2}$. First, let's consider the subcase when both $\emptyword \notin \sem{e_1}$ and $\emptyword \notin \sem{e_2}$. By induction hypothesis, we have that $\vdash e_2 \seq f \equiv_{\e'} e_2 \seq g$. Since $\lambda \in \interval[open]{0}{1}$, we have that $\lambda \cdot \e' < \e'$. Because of that, we can apply induction hypothesis again and obtain $\vdash  e_1 \seq e_2 \seq f \equiv_{\e'} e_1 \seq e_2 \seq g$. Now, let's consider the subcase when $\emptyword \notin \sem{e_1}$, but $\emptyword \in \sem{e_2}$. Using $(\Nexp)$, we can obtain $\vdash e_2 \seq f \equiv_{\e} e_2 \seq g $. Then, since $\emptyword \notin \sem{e_1}$, we can apply the induction hypothesis and obtain $\vdash e_1 \seq e_2 \seq f \equiv_{\e'} e_1 \seq e_2 \seq g$ as desired. The remaining subcase, when  $\emptyword \notin \sem{e_2}$ but $\emptyword \in \sem{e_1}$ is symmetric and therefore omitted. 
-	 
-
+	\fbox{$e = e_1 \seq e_2$} Because of the assumption, $\emptyword \notin \sem{e_1}$ or $\emptyword \notin \sem{e_2}$. First, let's consider the subcase when both $\emptyword \notin \sem{e_1}$ and $\emptyword \notin \sem{e_2}$. By induction hypothesis, we have that $\vdash e_2 \seq f \equiv_{\e'} e_2 \seq g$. Since $\lambda \in \interval[open]{0}{1}$, we have that $\lambda \cdot \e' < \e'$. Because of that, we can apply induction hypothesis again and obtain $\vdash  e_1 \seq e_2 \seq f \equiv_{\e'} e_1 \seq e_2 \seq g$. Now, let's consider the subcase when $\emptyword \notin \sem{e_1}$, but $\emptyword \in \sem{e_2}$. Using $(\Nexp)$, we can obtain $\vdash e_2 \seq f \equiv_{\e} e_2 \seq g $. Then, since $\emptyword \notin \sem{e_1}$, we can apply the induction hypothesis and obtain $\vdash e_1 \seq e_2 \seq f \equiv_{\e'} e_1 \seq e_2 \seq g$ as desired. The remaining subcase, when  $\emptyword \notin \sem{e_2}$ but $\emptyword \in \sem{e_1}$ is symmetric and therefore omitted. \qedhere 
 \end{proof}
 
 With the above lemma in hand, one can inductively show that if $g \equiv_0 e \seq g + f$ and $\emptyword \notin \sem{e}$, then $g$ gets arbitrarily close to $e^\ast \seq f$. Intuitively, the more we unroll the loop in $e^\ast \seq f$ using \textsf{(Unroll)} and the more we unroll the definition of $g$, then the closer both expressions become.
@@ -584,7 +582,7 @@ It is noteworthy that $\Phi_{\langle o_M, t_M\rangle}$ exhibits two generic prop
         &= \lambda \cdot \left( \max_{a \in \alphabet} d'(m_a, m'_a) - \max_{a \in \alphabet} d(m_a,  m'_a) \right) \\
         &\leq \lambda \cdot \left(\max_{a \in \alphabet} \{d'(m_a, m'_a) - d(m_a, m'_a) \}\right) \\  
         &\leq \lambda \cdot \sup_{n,n' \in M} \{ d'(n,n') - d(n,n')\} \\
-        &= \lambda \cdot \|d' - d \|
+        &= \lambda \cdot \|d' - d \| \qedhere
     \end{align*}
 \end{proof}
 Secondly, contractivity of $\Phi_{\langle o_M, t_M\rangle}$ implies the following:
@@ -751,7 +749,7 @@ The introduction of quantitative equational theories~\cite{Mardare:2016:Quantita
 
 An alternative approach was proposed by Bacci, Bacci, Larsen and Mardare~\cite{Bacci:2018:Bisimilarity}, who used a mild relaxation of quantitative equational theories and gave a sound and complete axiomatisation of bisimulation distance between terms of probabilistic process calculus of Stark and Smolka~\cite{Stark:2000:Complete} and later adapted their results to a coarser notion of total variation distance between infinite traces~\cite{Bacci:2018:TV}. 
 
-We have followed the strategy for proving completeness from~\cite{Bacci:2018:Bisimilarity}. The interesting insight about that strategy is that it relies on properties that are not exclusive to distances obtained through the Kantorovich/Wasserstein lifting and can be established for notions of behavioural distance for other kinds of transition systems stemming from the coalgebraic framework. In particular, one needs to show that the monotone map on the lattice of pseudometrics used in defining the distance of finite-state systems is nonexpansive with respect to the sup norm (and hence $\omega$-cocontinuous) and has a unique fixpoint, thus allowing to characterise the behavioural distance as the greatest fixpoint obtained through the Kleene's fixpoint theorem. This point of view allows one to reconstruct the fixpoint calculation in terms of axiomatic manipulation involving the \textsf{(Cont)} rule, eventually leading to completeness.
+We have followed the strategy for proving completeness from~\cite{Bacci:2018:Bisimilarity}. The interesting insight about that strategy is that it relies on properties that are not exclusive to distances obtained through the Kantorovich lifting and can be established for notions of behavioural distance for other kinds of transition systems stemming from the coalgebraic framework. In particular, one needs to show that the monotone map on the lattice of pseudometrics used in defining the distance of finite-state systems is nonexpansive with respect to the sup norm (and hence $\omega$-cocontinuous) and has a unique fixpoint, thus allowing to characterise the behavioural distance as the greatest fixpoint obtained through the Kleene's fixpoint theorem. This point of view allows one to reconstruct the fixpoint calculation in terms of axiomatic manipulation involving the \textsf{(Cont)} rule, eventually leading to completeness.
 
 We have additionally observed that in the presence of the infinitary \textsf{(Cont)} rule and the \textsf{(\dPref)} axiom, there is no need for a fixpoint introduction rule, which is commonplace in axiomatisations of language equivalence regular expressions but also other work on process calculi. Inrestingly, the previous work on axiomatising a discounted probabilistic bisimilarity distance from~\cite{Bacci:2018:Bisimilarity} includes both \textsf{(\dPref)} and the fixpoint introduction rule, but its proof of completeness~\cite[Theorem~6.4]{Bacci:2018:Bisimilarity} does not involve the fixpoint introduction rule at any point. We are highly confident that in the case of that axiomatisation, the fixpoint introduction rule could be derived from other axioms in a similar fashion to the way we derived Salomaa's rule for introducing the Kleene star~\cite{Salomaa:1966:Two}. Additionally, we are interested in how much this argument relates to the recent study of fixpoints in quantitative equational theories~\cite{Mardare:2021:Fixed}. 
 

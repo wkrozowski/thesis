@@ -1231,7 +1231,7 @@ The semantics of those diagrams is precisely given by pairing:
 		\sem{\tikzfig{merge-cxd}} &=(N(s)\oplus N(f)); N(\nabla_1) \\
 		&= N((s \oplus t) ; \nabla_1 ) \tag{Functoriality of $N$}\\
 		&= N( \lc s,t[v_2/v_1] \rc ; \lc \id_1, \id_1\rc )\\
-		&=N( \lc s , t \rc ) \\
+		&=N( \lc s , t \rc ) \qedhere
 	\end{align*}
 \end{proof}
 Hence, behavioural distance between the denotations of arbitrary diagrams $f,g \colon \objr^m \to \objr^n$ is simply the maximum of the component-wise distances between each $f_i$ and $g_i$ for $i \in \{1, \dots, m\}$.
@@ -1250,7 +1250,7 @@ Hence, behavioural distance between the denotations of arbitrary diagrams $f,g \
 		&\qquad= \max \{\mathsf{bd}_{\overline \partial} (e_1, e_2), \mathsf{bd}_{\overline \partial} (f_1, f_2)\}\tag{Def. in distance of $\RegBeh$}\\
 		&\qquad = \max \{d^{1,n}(e_1, e_2), d^{1,n}(f_1, f_2)\}\\
 		&\qquad = \max \{d^{N(1), N(n)}(N(e_1), N(e_2)), d^{N(1), N(n)}(N(f_1), N(f_2))\}\tag{\Cref{lem:merge-repr}}\\
-		&\qquad = \max \left\{d^{N(1),N(n)}\left(\sem{\dbox{e_1}{}{n}},\sem{\dbox{e_2}{}{n}} \right),\right.\\&\qquad\qquad\qquad\left. d^{N(1),N(n)} \left(\sem{\dbox{f_1}{}{n}}, \sem{\dbox{f_2}{}{n}} \right)\right\}
+		&\qquad = \max \left\{d^{N(1),N(n)}\left(\sem{\dbox{e_1}{}{n}},\sem{\dbox{e_2}{}{n}} \right),\right.\\&\qquad\qquad\qquad\left. d^{N(1),N(n)} \left(\sem{\dbox{f_1}{}{n}}, \sem{\dbox{f_2}{}{n}} \right)\right\}\qedhere
 	\end{align*}
 \end{proof}
 From now on, we will temporarily shift focus to $\objr \to \objr^n$ diagrams.
@@ -1274,7 +1274,7 @@ First, since $c$ and $d$ are left-to-right, there exists expressions $s,t\in\Reg
 \\
 & = N(s+f) & (\text{Definition of $N$})
 \\
-& = N(s) + N(t) = \sem{c} + \sem{d} &
+& = N(s) + N(t) = \sem{c} + \sem{d} \qedhere
 \end{align*}
 
 \end{proof}
@@ -1308,7 +1308,7 @@ It is enough to show that the convolution of two string diagrams is an associati
 \begin{align*}
 \tikzfig{convolution-idemp} &\disteq{0} \tikzfig{convolution-idemp-1} \qquad & (\text{Lemma}~\ref{thm:co-copy-delete})
 \\
-& = \dbox{f_1}{}{n} &
+& = \dbox{f_1}{}{n} \qedhere
 \end{align*}
 \end{description}
 \end{proof}
@@ -1324,7 +1324,7 @@ First, since $c$ and $d$ are left-to-right, there exists expressions $s,t\in\Reg
 \\
 & = N(s+f) & (\text{Definition of $N$})
 \\
-& = N(s) + N(t) = \sem{c} + \sem{d} &
+& = N(s) + N(t) = \sem{c} + \sem{d} \qedhere
 \end{align*}
 
 \end{proof}

@@ -193,7 +193,7 @@ Let $e,f \in \PExp$, $R \subseteq {\PExp \times \PExp}$ a congruence relation an
 \end{lemma}
 \begin{proof}
     $$
-    {g} \in Q / {e} \iff g \seq e \in Q \iff g \seq f \in Q \iff g \in Q/f
+    {g} \in Q / {e} \iff g \seq e \in Q \iff g \seq f \in Q \iff g \in Q/f \qedhere
     $$
 \end{proof}
 \begin{lemma}\label{apx:lem:simpler_sequencing_semantics}
@@ -208,7 +208,7 @@ Let $e,f \in \PExp$, $R \subseteq {\PExp \times \PExp}$ a congruence relation an
         \partial(e \seq f)[\{a\} \times G] &= \sum_{g \in G} \partial(e \seq f)(a,g) \\
         &=\sum_{g \in G} \partial(e)(\checkmark)\partial(f)(a,g) + \sum_{g \seq f \in G} \partial(e)(a,g) \\
         &=\partial(e)(\checkmark)\sum_{g \in G}\partial(f)(a,g) + \sum_{g \seq f \in G} \partial(e)(a,g) \\
-        &=\partial(e)(\checkmark)\partial(f)[\{a\} \times G] + \partial(e)[\{a\} \times {G}/{f}] \\
+        &=\partial(e)(\checkmark)\partial(f)[\{a\} \times G] + \partial(e)[\{a\} \times {G}/{f}] \qedhere
     \end{align*}
 \end{proof}
 \begin{lemma}\label{apx:lem:simpler_loop_semantics}
@@ -222,7 +222,7 @@ Let $e,f \in \PExp$, $R \subseteq {\PExp \times \PExp}$ a congruence relation an
     \begin{align*}
         \partial\left(e^{[r]}\right)[\{a\} \times G] &= \sum_{g \in G}\partial\left(e^{[r]}\right)(a,g)\\
         &=\sum_{g \seq e^{[r]} \in G} \frac{r\partial(e)(a,g)}{1-r\partial(e)(\checkmark)}\\
-        &=\frac{r\partial(e)[\{a\} \times {G}/{e^{[r]}}]}{1-r\partial(e)(\checkmark)}
+        &=\frac{r\partial(e)[\{a\} \times {G}/{e^{[r]}}]}{1-r\partial(e)(\checkmark)}\qedhere
     \end{align*}
 \end{proof}
 \soundnessbisim*
