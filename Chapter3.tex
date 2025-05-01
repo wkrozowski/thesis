@@ -70,19 +70,18 @@ $$e,f \in \Expr ::= 0 \mid v \in V \mid a.e \mid e + f \mid \mu v. e$$
 where $V=\{v_1, v_2, \dots\}$ and $\Sigma$ be sets of \emph{variables} and \emph{letters} respectively. Given an expression $f$ containing a variable $v$, we say that $v$ is \emph{free} in $f$, if it appears outside of the scope of the $\mu v.e$ operator or say that it is \emph{bound} otherwise. Given an expression $e \in \Expr$, we write $\fv(e) \subseteq V$ for the set of its free variables. 
 \begin{definition}[{\cite{Milner:1984:Complete}}]\label{def:subset}
 	Given vectors $\vec{v}$ of binders and $\vec{e}$ of expressions of the same size, we define a syntactic substitution operator $[\vec{e}/\vec{v}] \colon \Expr \to \Expr$ by the following
-	\begin{gather*}
-		v[\vec{e}/\vec{v}] = \begin{cases}
+	\begin{align*}
+		v[\vec{e}/\vec{v}] &= \begin{cases}
 			\vec{e}_i & \text{if }v=\vec{v}_i\\
 			v & \text{otherwise}
-		\end{cases}
-		\qquad
-		(a.e)[\vec{e}/\vec{v}] = a.(e[\vec{e}/\vec{v}])\\
-		(e + f)[\vec{e}/\vec{v}] = e[\vec{e}/\vec{v}] + f[\vec{e}/\vec{v}]\\
-		(\mu w.e)[\vec{e}/\vec{v}] = \begin{cases}
+		\end{cases}\\
+		(a.e)[\vec{e}/\vec{v}] &= a.(e[\vec{e}/\vec{v}])\\
+		(e + f)[\vec{e}/\vec{v}] &= e[\vec{e}/\vec{v}] + f[\vec{e}/\vec{v}]\\
+		(\mu w.e)[\vec{e}/\vec{v}] &= \begin{cases}
 			\mu w. (e[\vec{e}/\vec{v}]) & \text{if } w \text{ is not in } \vec{v} \text{ nor free in } \vec{e}\\
 			\mu w. (e[z/w][\vec{e}/\vec{v}]) & \text{otherwise for some } z \text{ not in } \vec{v} \text{ nor free in } \vec{e}\\
 		\end{cases}
-	\end{gather*}
+	\end{align*}
 \end{definition}
 We can now define operational semantics of ARB, by equipping its syntax with a prechart structure.
 \begin{definition}[{\cite{Milner:1984:Complete}}]\label{def:operational_semantics}
@@ -102,7 +101,7 @@ We can now define operational semantics of ARB, by equipping its syntax with a p
 \begin{remark}[{\cite[Proposition~5.4.]{Milner:1984:Complete}}]\label{rem:semantic-substitution}
 	Syntactic substitution can be described operationally using the following rules
 	\begin{gather*}
-		\inferrule{e \rhd v\quad f\tr{a} f'}{e[f / v] \tr{a} f'}\qquad \inferrule{e \tr{a} e'}{e[f / v] \tr{a} e'[f/v]}\\ \inferrule{e \rhd w \quad w \neq v }{e[f/v] \rhd w} \qquad \inferrule{e \rhd v \quad f \rhd w}{e[f/v] \rhd w}
+		\inferrule{e \rhd v\quad f\tr{a} f'}{e[f / v] \tr{a} f'}\qquad \inferrule{e \tr{a} e'}{e[f / v] \tr{a} e'[f/v]}\qquad \inferrule{e \rhd w \quad w \neq v }{e[f/v] \rhd w} \qquad \inferrule{e \rhd v \quad f \rhd w}{e[f/v] \rhd w}
 	\end{gather*}
 \end{remark}
 The syntactic prechart defined above is locally finite.
@@ -131,13 +130,13 @@ From now on, we will overload the notation and simply write $e$ for the equivale
 	$$
 \end{lemma}
 \begin{proof}
-	We define a relation ${R} \subseteq {\Expr \times \Expr}$, given by the following:
+	Let $\Delta = \{(e,e) \in \Expr\}$ be a diagonal relation. We define a relation ${R} \subseteq {\Expr \times \Expr}$, given by the following:
 	\begin{align*}
-		R = \text{Id} \cup \{&((e[\vec{f}/ \vec{v}])[\vec{g}/\vec{w}], e [(f_1[\vec{g}/\vec{w}], \dots, f_m[\vec{g}/\vec{w}])/\vec{v}])\\ &\mid e, f_1, \dots, f_m, g_1, \dots, g_m \in \Expr, \vec{v}=(v_{i_1}, \dots, v_{i_m}), \vec{w}=(v_{j_1}, \dots, v_{j_n}),\\ &\fv(e) \subseteq 		\vec{v},  \fv(\vec{f}) \subseteq \vec{w}\}
+		R = \Delta \cup \{&((e[\vec{f}/ \vec{v}])[\vec{g}/\vec{w}], e [(f_1[\vec{g}/\vec{w}], \dots, f_m[\vec{g}/\vec{w}])/\vec{v}])\\ &\mid e, f_1, \dots, f_m, g_1, \dots, g_m \in \Expr, \vec{v}=(v_{i_1}, \dots, v_{i_m}), \vec{w}=(v_{j_1}, \dots, v_{j_n}),\\ &\fv(e) \subseteq 		\vec{v},  \fv(\vec{f}) \subseteq \vec{w}\}
 	\end{align*}
 
 	
-	 We claim that $R$ is a bisimulation. For pairs $(e,e) \in R$, the conditions of bisimulation are immediately satisfied. 
+	 We claim that $R$ is a bisimulation. For pairs $(e,e) \in \Delta$, the conditions of bisimulation are immediately satisfied. 
 	
 	For the remaining pairs, assume that $(e[\vec{f}/ \vec{v}])[\vec{g}/\vec{w}] \rhd u$. In such a case at least one of the following is true:
 	\begin{itemize}
@@ -256,11 +255,10 @@ The value of behavioural distance between any two states in locally finite prech
 	Let $(X,\beta)$ be a locally finite prechart. For all $x,y \in X$, $i \in \N$, either $\Phi_\beta^{(i)}=0$ or there exists $k \in \N$, such that $\Phi_{\beta}^{(i)}(x,y)=2^{-k}$
 \end{lemma}
 \begin{proof}
-	Pick arbitrary $x,y \in X$.
-	By induction on $i$. If $i = 0$, then $\Phi^{(0)}_\beta(x,y)=1=2^{0}$, if $x \neq 0$ or $\Phi^{(0)}_\beta(x,y)=0$, otherwise. 
+	Let $x,y \in X$. We proceed by induction on $i$. If $i = 0$, then $\Phi^{(0)}_\beta(x,y)=1=2^{0}$, if $x \neq 0$ or $\Phi^{(0)}_\beta(x,y)=0$, otherwise. 
 	If $i = j + 1$, then we have that:
 	$$
-	\Phi^{j + 1}_\beta(x,y) = \max \{\sup_{u \in \beta(x)} \inf_{w \in \beta(y)} {\Phi^{(j)}_\beta}^\uparrow(u,w), \sup_{w \in \beta(y)} \inf_{u \in \beta(x)}{\Phi^{(j)}_\beta}^\uparrow(w,u)\}.
+	\Phi^{j + 1}_\beta(x,y) = \max \left\{\sup_{u \in \beta(x)} \inf_{w \in \beta(y)} {\Phi^{(j)}_\beta}^\uparrow(u,w), \sup_{w \in \beta(y)} \inf_{u \in \beta(x)}{\Phi^{(j)}_\beta}^\uparrow(w,u)\right\}.
 	$$
 	
 	Recall that for $u = (a,x')$ and $w=(a,y')$, we have that ${\Phi^{(j)}_\beta}^\uparrow(u,w)=\frac{1}{2} {\Phi^{(j)}_\beta}(x',y')$. By induction hypothesis, we have that ${\Phi^{(j)}_\beta}(x',y')=0$ and hence ${\Phi^{(j)}_\beta}^\uparrow(u,w)=0$ or there exists a $k \in N$, such that ${\Phi^{(j)}_\beta}(x',y')=2^{-k}$ and hence ${\Phi^{(j)}_\beta}^\uparrow(u,w)=2^{-(k+1)}$. Since the infima range over finite sets, their values are either $1=2^0$ if the sets are empty or are one of the values from the set, which we have shown to be of the desired form. Similarly, suprema range over finite sets and are either $0$ for empty sets or are on of the values from the set, which are in the desired form. Taking the maximum of values in the desired form, still results in a value in the desired form.
@@ -270,7 +268,7 @@ If two states have a non-zero distance, then the chain of approximants from Klee
 	Let $(X, \beta)$ be a locally finite prechart and let $x,y \in X$, such that $\mathsf{bd}_\beta(x,y)>0$. There exists $i \in \N$, such that $\Phi_\beta^{(i)}(x,y)=\Phi^{(i+1)}_\beta(x,y)$
 \end{lemma}
 \begin{proof}
-	For the sake of an argument, assume that for all $i \in \N$, $\Phi_\beta^{(i)}(x,y)\neq\Phi^{(i+1)}_\beta(x,y)$. Essentially, that means we have an infinite, strictly decreasing $\omega$-cochain $\{\Phi^{(i)}_\beta(x,y)\}_{i \in I}$. By \Cref{lem:distance_power_of_two}, we know that the values of the chain are either $0$ or $2^{-k}$. Since all the values of the chain are nonegative, if any of it is equal to zero $0$, we reach a contradiction, as chain would have to contain values strictly below $0$. Hence, we can safely assume that the chain is in the form $\{1,\frac{1}{2}, \frac{1}{4}, \dots\}$. But in such a case its infimum is $0$, contradicting the assumption.
+	Assume that for all $i \in \N$, $\Phi_\beta^{(i)}(x,y)\neq\Phi^{(i+1)}_\beta(x,y)$. Essentially, that means we have an infinite, strictly decreasing $\omega$-cochain $\{\Phi^{(i)}_\beta(x,y)\}_{i \in I}$. By \Cref{lem:distance_power_of_two}, we know that the values of the chain are either $0$ or $2^{-k}$. Since all the values of the chain are nonegative, if any of it is equal to zero $0$, we reach a contradiction, as chain would have to contain values strictly below $0$. Hence, we can safely assume that the chain is in the form $\{1,\frac{1}{2}, \frac{1}{4}, \dots\}$. But in such a case its infimum is $0$, contradicting the assumption.
 \end{proof}
 We can connect behavioural distances with stratified bisimulations via the following result:
 \begin{lemma}\label{lem:bound_on_stratified_bisim}
@@ -291,24 +289,24 @@ We can connect behavioural distances with stratified bisimulations via the follo
 	
 	We want to show that $\mathsf{bd}_\beta(x,y) \leq 2^{-(k'+1)}$. We can unroll the definition of $\mathsf{bd}_\beta$ and rewrite the desired result as
 	$$
-	\sup_{u \in \beta(x)} \inf_{w \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,w)  \leq 2^{-(k'+1)} \wedge \sup_{w \in \beta(y)} \inf_{u \in \beta(x)} \mathsf{bd}_\beta^\uparrow(w,u)  \leq 2^{-(k'+1)}
+	\sup_{u \in \beta(x)} \left( \inf_{w \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,w)\right)  \leq 2^{-(k'+1)}\quad \wedge \quad \sup_{w \in \beta(y)} \left( \inf_{u \in \beta(x)} \mathsf{bd}_\beta^\uparrow(w,u)  \right)\leq 2^{-(k'+1)}
 	$$
 	We focus on the left hand side of the conjunction above, as the right hand side is symmetric. We are aiming to show that
 	$$
-	\forall {u \in \beta(x)}~\inf_{v \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,w)  \leq 2^{-(k'+1)} 
+	\forall {u \in \beta(x)}\ldotp~\inf_{v \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,w)  \leq 2^{-(k'+1)} 
 	$$
 	Let $u \in V$. By the assumption, we know that also $u \in B(y)$, which means that $$\inf_{w \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,v) = 0 \leq 2^{-(k'+1)}$$
 	
 	Now, let $u \in \Sigma \times X$, i.e. $u = (a,x')$. By the assumption, we know that there exists $y' \in X$, such that $(a,y') \in \beta(y)$ and $x' \sim^{(k')} y'$. By induction hypothesis, we know that $\mathsf{bd}_{\beta}(x',y') \leq 2^{-k'}$. Hence, we have that $\mathsf{bd}_{\beta}^\uparrow((a,x'),(a,x')) \leq \frac{1}{2} \cdot  2^{-k'} = 2^{-(k'+1)}$. Hence, we again have that 
 		$$
-		\forall_{u \in \beta(x)}~\inf_{w \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,w)  \leq 2^{-(k'+1)} 
+		\forall {u \in \beta(x)}\ldotp~\inf_{w \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,w)  \leq 2^{-(k'+1)} 
 		$$
 		
 		Now, for the converse assume that $\mathsf{bd}_\beta(x,y) \leq 2^{-(k'+1)}$. Through a similar line of reasoning, as before, we have that
 		$$
-		\forall_{u \in \beta(x)}~\inf_{w \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,w) \leq 2^{-(k'+1)} 
+		\forall{u \in \beta(x)}\ldotp~\inf_{w \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,w) \leq 2^{-(k'+1)} 
 		$$
-		Assume that $x \rhd v$, i.e. $v \in \beta(x)$. For the sake of an argument, assume that $\neg (y \rhd v)$. That means that for all $w \in \beta(y)$, we have that $\mathsf{bd}_\beta^\uparrow(v,w) = 1$ and hence $\inf_{w \in \beta(y)} \mathsf{bd}_\beta^\uparrow(v,w)=1$, which contradicts the assumption as $1>2^{-{(k'+1)}}$. Hence, $y \rhd v$.
+		Assume that $x \rhd v$, i.e. $v \in \beta(x)$. Assume that $\neg (y \rhd v)$. That means that for all $w \in \beta(y)$, we have that $\mathsf{bd}_\beta^\uparrow(v,w) = 1$ and hence $\inf_{w \in \beta(y)} \mathsf{bd}_\beta^\uparrow(v,w)=1$, which contradicts the assumption as $1>2^{-{(k'+1)}}$. Hence, $y \rhd v$.
 		
 		Now, assume that $x \tr{a} x'$, i.e. $(a,x') \in \beta(y)$. Through a similar argument as before, we know that there must exist $(a,y')\in \beta(y)$, such that $\mathsf{bd}_\beta^\uparrow((a,x'),(a,y')) \leq 2^{-(k'+1)}$. Unrolling the definitions of $\mathsf{bd}_\beta^\uparrow$, we obtain $\frac{1}{2} \cdot \mathsf{bd}_{\beta}(x',y') \leq 2^{-(k'+1)}$ and hence $\mathsf{bd}_{\beta}(x',y') \leq 2^{-k'}$. Using the induction hypothesis, we get that $x' \sim^{(k')} y'$ as desired. The remaining part of the proof is symmetric and hence is omitted.
 \end{proof}
@@ -324,7 +322,7 @@ Let $(X,\beta)$ be a locally finite prechart and let $x,y \in X$. The behavioura
 	For the first case, because of \Cref{thm:beh_dist}, if $x \sim y$, then $\mathsf{bd}_{\beta}(x,y)=0$. For the converse, if $\mathsf{bd}_{\beta}(x,y)=0$, we have that $x \sim^{(k)} y$ for all $k \in \N$ and hence by \Cref{eqn:stratification}, it holds that $x \sim y$.
 	
 	 In the second case, because of \Cref{lem:chain_stabilises}, we know that if $\mathsf{bd}_\beta(x,y) > 0$, then the behavioural distance is equal to some element of the chain of approximants. By \Cref{lem:distance_power_of_two}, we know that all non-zero elements of that chain are equal to $2^{-k}$, for some $k \in \N$. Combining it with \Cref{lem:bound_on_stratified_bisim} yields the desired result. 
-	 For the converse, if $n \in N$ is the largest number such that $x \sim^{(n)} y$, then because of \Cref{lem:bound_on_stratified_bisim}, we have that $\mathsf{bd}_\beta(x,y)\leq 2^{-n}$. For the sake of an argument, assume that $\mathsf{bd}_\beta(x,y)=0$. In such a case, using \Cref{lem:bound_on_stratified_bisim}, we could conclude that $x \sim^{(n+1)} y$, which would lead to contradiction. Hence, $\mathsf{bd}_\beta(x,y)>0$. Because of \Cref{lem:chain_stabilises}, we have that $\mathsf{bd}_\beta(x,y)$ is equal to some power of two. Combining that with \Cref{lem:bound_on_stratified_bisim} again yields the desired result.
+	 For the converse, if $n \in N$ is the largest number such that $x \sim^{(n)} y$, then because of \Cref{lem:bound_on_stratified_bisim}, we have that $\mathsf{bd}_\beta(x,y)\leq 2^{-n}$. Assume that $\mathsf{bd}_\beta(x,y)=0$. In such a case, using \Cref{lem:bound_on_stratified_bisim}, we could conclude that $x \sim^{(n+1)} y$, which would lead to contradiction. Hence, $\mathsf{bd}_\beta(x,y)>0$. Because of \Cref{lem:chain_stabilises}, we have that $\mathsf{bd}_\beta(x,y)$ is equal to some power of two. Combining that with \Cref{lem:bound_on_stratified_bisim} again yields the desired result.
 
 \end{proof}
 \subsection{Conway theories}\label{c3:subsec:conway}
@@ -374,22 +372,22 @@ Because of the above remark, we can unambiguously define an $n$-ary version of $
 
 Observe that under the assumptions listed above $\cat{C}$ is equipped with all finite coproducts (since it has an initial object and binary coproducts), and hence $(\cat{C}, \oplus , 0 )$ is a cocartesian strict symmetric monoidal category. 
 
- We call $\cat{C}$ a \emph{preiteration theory} if for every morphism $f \colon n \to p + n$, there exists a morphism $f^\dagger_{n,p} \colon n \to p$ called \emph{dagger}. We will often omit the subscripts and write $f^\dagger$, when $n$ and $m$ are clear from the context. Note that the definition does not impose any conditions on the dagger. However, for $f \colon 0 \to p$, when always we have that $f_{0,p}^\dagger = 0_p$.
+We follow the terminology of Esik, and we call $\cat{C}$ a \emph{preiteration theory}~\cite{Esik:1999:Group} if for every morphism $f \colon n \to p + n$, there exists a morphism $f^\dagger_{n,p} \colon n \to p$ called \emph{dagger}. We will often omit the subscripts and write $f^\dagger$, when $n$ and $m$ are clear from the context. Note that the definition does not impose any conditions on the dagger. However, for $f \colon 0 \to p$, when always we have that $f_{0,p}^\dagger = 0_p$.
  
  
  
 \begin{definition}[{\cite[Definition~3.1]{Esik:1999:Group}}]\label{def:conway_theory}
 	A Conway theory is a preiteration theory, in which the following conditions are satisfied:
 	\begin{itemize}
-		\item \textbf{(Scalar parameter identity)} $$(f ; (g \oplus \id_1))^\dagger = f^\dagger ; g$$ for all $f \colon 1 \to p + 1$, $g \colon p \to q$.
-		\item \textbf{(Scalar composition identity)} 
+		\item[] \textbf{(Scalar parameter identity)} $$(f ; (g \oplus \id_1))^\dagger = f^\dagger ; g$$ for all $f \colon 1 \to p + 1$, $g \colon p \to q$.
+		\item[] \textbf{(Scalar composition identity)} 
 		$$
 		(f ; \lc \id_p\oplus0_1, g \rc)^\dagger = f ; \lc \id_p,  (g ;  \lc \id_p \oplus 0_1 , f\rc)^\dagger\rc
 		$$ for all $f,g \colon 1 \to p + 1$.
-		\item \textbf{(Scalar double dagger identity)} 
+		\item[] \textbf{(Scalar double dagger identity)} 
 		$$f^{\dagger\dagger} = (f ; (\id_p \oplus \nabla_1))^\dagger$$
 		for all $f \colon 1 \to p + 2$.
-		\item \textbf{(Scalar pairing identity)}
+		\item[] \textbf{(Scalar pairing identity)}
 		$$\lc f ,g \rc^\dagger = \lc f^\dagger ; \lc \id_p, h^\dagger \rc, h^\dagger \rc$$ for all $f \colon n \to p + 1 + n $, $g \colon 1 \to p + 1 + n$ where 
 		$$
 		h = g ; \lc \id_{p + 1}, f^\dagger\rc \colon 1 \to p + 1
@@ -401,7 +399,7 @@ Observe that under the assumptions listed above $\cat{C}$ is equipped with all f
 \end{remark}
 
 \subsection{Trace-fixpoint correspondence}
-It turns out, that having a category $\cat{C}$ with finite coproducts and equipped with a dagger operator satisfying the axioms of Conway theories is synonymous with $\cat{C}$ being traced symmetric monoidal category. This is captured by the following theorem that was independently proved by Hasegawa~\cite{Hasegawa:1997:Models} and Haghverdi~\cite{Haghverdi:2000:Categorical}. The formulation of Hasegawa is phrased dually via the setting of products and cartesian categories.
+It turns out that having a category $\cat{C}$ with finite coproducts and equipped with a dagger operator satisfying the axioms of Conway theories is equivalent with $\cat{C}$ being traced symmetric monoidal category. This is captured by the following theorem that was independently proved by Hasegawa~\cite{Hasegawa:1997:Models} and Haghverdi~\cite{Haghverdi:2000:Categorical}. The formulation of Hasegawa is phrased dually via the setting of products and cartesian categories.
 \begin{theorem}[{\cite[Proposition~3.1.9]{Haghverdi:2000:Categorical}}]\label{thm:trace}
 For any category with finite coproducts, to give a Conway operator is to give a trace (where finite coproducts are taken as the monoidal structure). 
 \end{theorem}
@@ -435,9 +433,9 @@ We adopt the diagrammatic syntax for NFA that has appeared in a number of previo
 We refer the reader to Selinger's classic survey~\cite{Selinger_2010}, or to Piedeleu and Zanasi's recent text for a more gentle introduction to the language of string diagrams~\cite{piedeleu2023introduction}.
 
 This syntax is formalised as a product and permutation category, or prop, a structure which generalises algebraic theories. Formally, a \emph{prop} is a strict symmetric monoidal category (SMC) whose objects are words over a set of generators and whose monoidal product $\proptimes$ is given by concatenation. 
-More specifically, our syntax is the free prop $\freeP{\Signature}$ over the signature $\Signature = (\Obj,\Morph)$, given by a set $\Obj$ of generating objects and a set $\Morph$  of generating morphisms $g\from v\to w$, with $v,w\in \Obj^*$ (we use $\epsilon$ to denote the empty word). Morphisms of  $\freeP{\Signature}$ can be combined in two different ways, using the composition operation $(-);(-)\from \freeP{\Signature}(u,v)\times \freeP{\Signature}(v,w)\to \freeP{\Signature}(u,w)$ or the monoidal product $(-)\proptimes(-)\from \freeP{\Signature}(v_1,w_1)\times \freeP{\Signature}(v_2,w_2)\to \freeP{\Signature}(v_1 v_2,w_1 w_2)$. We also have distinguished constants: identities $\id_w\from w\to w$, which are the unit for composition, and symmetries $\sigma^v_w\from vw\to wv$, to reorder the letters of a given object. In summary, morphisms of $\freeP{\Signature}$ can be described as terms of the $(\Obj^*,\Obj^*)$-sorted syntax generated from the constants $\Morph + \{\id_w : w\in \Obj^*\}+ \{\sigma^v_w : v,w\in \Obj^*\}$ using the operations $;$ and $\proptimes$, \emph{quotiented} by the axioms of SMCs. However, the terms of this syntax are very cumbersome to work with. 
+More specifically, our syntax is the free prop $\freeP{\Signature}$ over the signature $\Signature = (\Obj,\Morph)$, given by a set $\Obj$ of generating objects and a set $\Morph$  of generating morphisms $g\from v\to w$, with $v,w\in \Obj^*$ (we use $\epsilon$ to denote the empty word). Morphisms of  $\freeP{\Signature}$ can be combined in two different ways, using the composition operation $(-);(-)\from \freeP{\Signature}(u,v)\times \freeP{\Signature}(v,w)\to \freeP{\Signature}(u,w)$ or the monoidal product $(-)\proptimes(-)\from \freeP{\Signature}(v_1,w_1)\times \freeP{\Signature}(v_2,w_2)\to \freeP{\Signature}(v_1 v_2,w_1 w_2)$. We also have distinguished constants: identities $\id_w\from w\to w$, which are the unit for composition, and symmetries $\sigma^v_w\from vw\to wv$, to reorder the letters of a given object. In summary, morphisms of $\freeP{\Signature}$ can be described as terms of the $(\Obj^*,\Obj^*)$-sorted syntax generated from the constants $\Morph + \{\id_w : w\in \Obj^*\}+ \{\sigma^v_w : v,w\in \Obj^*\}$ using the operations $;$ and $\proptimes$, \emph{quotiented} by the axioms of SMCs. However, the terms of this syntax are very cumbersome to work with and hence we adopt a more convenient way to represent morphisms of $\freeP{\Signature}$, using the graphical notation of \emph{string diagrams}. 
 
-We adopt a more convenient way to represent morphisms of $\freeP{\Signature}$, using the graphical notation of \emph{string diagrams}. In this view, a morphism $f\from v\to w$ of $\freeP{\Signature}$ is depicted as a $f$-labelled box with a $v$-labelled on the left and a $w$-labelled wire on the right. The operations of composition and monoidal product are represented by connecting two boxes horizontally and juxtaposing two boxes vertically, respectively:
+In this view, a morphism $f\from v\to w$ of $\freeP{\Signature}$ is depicted as a $f$-labelled box with a $v$-labelled on the left and a $w$-labelled wire on the right. The operations of composition and monoidal product are represented by connecting two boxes horizontally and juxtaposing two boxes vertically, respectively:
 \begin{equation*}\label{eq:composition-monoidal-product}
 \tikzfig{comp-sequential-fg}\qquad \quad \tikzfig{comp-parallel-fg}
 \end{equation*}
@@ -487,18 +485,17 @@ Morphisms of $\Syn$ are thus vertical and horizontal composites of the generator
 	\end{enumerate}	
 \end{restatable}
 \begin{proof}
-	We respectively prove each of the properties.
-	\begin{enumerate}
-		\item \begin{align*}
+	We respectively prove each of the properties. For \circlednum{1} we have the following:
+	\begin{align*}
 			(f ; g) ; h &= (f_1[\vec{g}/\vec{v}], \dots, f_m[\vec{g}/\vec{v}]);h \\
 			&= \left((f_1[\vec{g}/\vec{v}])[\vec{h}, \vec{v}], \dots, (f_m[\vec{g}/\vec{v}])[\vec{h}, \vec{v}]\right)\\
 			&= \left(f_1[(g_1[\vec{h}/\vec{v}], \dots, g_n[\vec{h}/\vec{v}])/\vec{v}],\dots, f_m[(g_1[\vec{h}/\vec{v}], \dots, g_n[\vec{h}/\vec{v}])/\vec{v}]\right) \tag{\Cref{lem:subst_lemma}} \\
 			&= \left(f_1 [\vec{(g;h)}/\vec{v}], \dots f_m [\vec{(g;h)}/\vec{v}] \right) \\
 			&= f ; (g;h)
 		\end{align*}
-		\item $id_m ; f = (v_1[\vec{f}/\vec{v}], \dots, v_m[\vec{f}/\vec{v}])=(f_1, \dots, f_m) = f$
-		\item $f ; id_n = (f_1[\vec{v}/\vec{v}], \dots, f_m[\vec{v}/\vec{v}]]) = (f_1, \dots, f_m) = f$
-	\end{enumerate}
+	For \circlednum{2}, we have the following:
+	$$id_m ; f = (v_1[\vec{f}/\vec{v}], \dots, v_m[\vec{f}/\vec{v}])=(f_1, \dots, f_m) = f$$
+	The proof of \circlednum{3} is similar, as we have the following: $$f ; id_n = (f_1[\vec{v}/\vec{v}], \dots, f_m[\vec{v}/\vec{v}]]) = (f_1, \dots, f_m) = f$$
 \end{proof}
 
 Because of the above, we can define a category $\RegBeh$, whose objects are natural numbers and morphisms $f \colon m \to n$ are elements $f \in \RegBeh(m,n)$. 
@@ -576,7 +573,7 @@ The dagger defined above satisfies \textbf{scalar parameter identity}.
 \\
 & = f^\dagger[\vec{g}/\vec{v}] 
 \\
-& = f^\dagger ; g
+& = f^\dagger ; g \qedhere
 \end{align*}
 \end{proof}
 To show the remaining identities, we first recall the following lemma.
@@ -610,7 +607,7 @@ Let $f,g \colon 1 \to 1 + p$ be morphisms of $\RegBeh$. Then,
 \\
 & = f[(g ;  \lc  \id_p \oplus 0_1 , f\rc)^\dagger/v_{p+1}]
 \\
-& = f ; \lc \id_p, (g ;  \lc  \id_p \oplus 0_1 , f\rc)^\dagger\rc
+& = f ; \lc \id_p, (g ;  \lc  \id_p \oplus 0_1 , f\rc)^\dagger\rc \qedhere
 \end{align*}
 \end{proof}
 Similarly, we can show that dagger on $\RegBeh$ satisfies \textbf{scalar double dagger identity}. 
@@ -630,8 +627,9 @@ f^{\dagger\dagger} &= \mu v_{p+1}.(\mu v_{p+2}.f)
 \\
 & = (f ; (\id_p\oplus \nabla_1))^\dagger
 \end{align*}
+This complete the proof.
 \end{proof}
-Hence, we obtain the desired result.
+Combining earlier results yields the following statement.
 \begin{restatable}{lemma}{regbehconway}\label{lem:regbehconway}
 $\RegBeh$ is a Conway Theory.	
 \end{restatable}
@@ -690,7 +688,7 @@ $$ for all $e,f,g_1, \dots, g_j, h_1, \dots, h_j \in {\Expr}/{\sim}$.
 		Now, consider the second subcase. We can easily conclude that $f \rhd v_l$ and $h_l \tr{a} t$, with $s \sim^{(n)} t$.
 		
 		In other words, we have show that $e[(g_1, \dots, g_m)/ (v_{i_1}, \dots, v_{i_m})] \tr{a} s$, then there exists $t$, such that $f[(h_1, \dots, h_m)/(v_{i_1}, \dots, v_{i_m})] \tr{a} t$, such that $s \sim^{(n)} t$. The reverse implication can be again shown via a symmetric argument. Combining all of the above, we can conclude that
-		$$e[(g_1, \dots, g_m)/ (v_{i_1}, \dots, v_{i_m})] \sim^{(n+1)} f[(h_1, \dots, h_m)/(v_{i_1}, \dots, v_{i_m})] \tr{a} t$$
+		$$e[(g_1, \dots, g_m)/ (v_{i_1}, \dots, v_{i_m})] \sim^{(n+1)} f[(h_1, \dots, h_m)/(v_{i_1}, \dots, v_{i_m})] \tr{a} t\qedhere$$
 \end{proof}
 Using the result above, we can show that substitution is in fact nonexpansive.
 \begin{corollary}\label{cor:seq_nexp}
@@ -754,7 +752,7 @@ We now show the following result for the case of prefixing:
 	$$
 \end{lemma}
 \begin{proof}
-	$a.e$ does not output anything and so does $a.f$. Now, assume that $a.e \tr{a} e'$. Then, the only possibility is that $e'=e$. We can match that transition with an expression $a.f$ that performs an $a$-labelled transition to $f$. Since $e \sim^{(n)} f$, then $a.e \sim^{(n+1)} a.f$. The remaining condition works through a symmetric line of reasoning. 
+	Both $a.e$ and $a.f$ do not output anything. Now, assume that $a.e \tr{a} e'$. Then, the only possibility is that $e'=e$. We can match that transition with an expression $a.f$ that performs an $a$-labelled transition to $f$. Since $e \sim^{(n)} f$, then $a.e \sim^{(n+1)} a.f$. The remaining condition works through a symmetric line of reasoning. 
 \end{proof}
 Hence, we obtain that prefixing is contractive.
 \begin{restatable}{corollary}{prefixingdiscounts}\label{cor:prefixing_discounts}
@@ -774,7 +772,7 @@ The mediating map of binary coproduct is also nonexpansive.
 	\begin{align*}
 		d^{m +n, k}(\lc f, g \rc, \lc f', g' \rc) &= d^{m +n, k}((f_1, \dots, f_m, g_1, \dots, g_n), (f'_1, \dots, f'_m, g'_1, \dots, g'_n)) \\
 		&=\max \left\{d^{m,k}((f_1, \dots, f_m), (f'_1, \dots, f'_m)),\right.\\&\qquad \qquad\left. d^{n,k}((g_1, \dots, g_m), (g'_1, \dots, g'_m)) \right\}\\
-		&\leq \max \left\{d^{m,k}(f,f'),d^{n,k}(g,g') \right\}\\
+		&\leq \max \left\{d^{m,k}(f,f'),d^{n,k}(g,g') \right\} \qquad
 	\end{align*}
 \end{proof}
 The above allows us to conclude the following:
@@ -796,7 +794,7 @@ The above allows us to conclude the following:
 		d^{k + l, m + n}(f \oplus g, h \oplus i) &= d^{k + l, m + n}(\lc f_1, \dots, f_k, g'_1, \dots, g'_l\rc,\lc h_1, \dots, h_k, i'_1, \dots, i'_l\rc)\\
 		&=\max \left\{\sup_{1 \leq p \leq k}\{\mathsf{bd}_{\overline\partial} (f_p, h_p)\}, \sup_{1 \leq j \leq l} \{\mathsf{bd}_{\overline\partial} (g'_j, i'_j)\} \right\}\\
 		&\leq \max \left\{\sup_{1 \leq p \leq k}\{\mathsf{bd}_{\overline\partial} (f_p, h_p)\}, \sup_{1 \leq j \leq l} \{\mathsf{bd}_{\overline\partial} (g_j, i_j)\} \right\}\\
-		&= \max \{d^{k,m}(f,g), d^{l,n}(h,i)\}
+		&= \max \{d^{k,m}(f,g), d^{l,n}(h,i)\} \qquad
 	\end{align*}
 \end{proof}
 Through an inductive argument, we can show the following:
@@ -865,7 +863,7 @@ Since the trace on $\RegBeh$ is defined in terms of operations that we have show
 \begin{proof}
 	Immediate consequence of \Cref{thm:trace}, \Cref{lem:seq_nonexpansive} and \Cref{lem:dagger_nonexpansive}.
 \end{proof}
-\subsection{$\Int{\RegBeh}$ -- a category of bidirectional regular behaviours}
+\subsection{A category of bidirectional regular behaviours}
  Each morphism $f \colon m \to n$ of $\RegBeh$ can be informally thought of as a process that has \emph{directionality} to it, i.e. it takes $m$ inputs and produces $n$ outputs. Moreover, the trace operator defined on these processes allows to \emph{globally} introduce the notion of feedback. At the same time, the syntax of our diagrammatic language is \emph{bidirectional} and the notion of feedback is introduced \emph{locally} by bending the wires. To reconcile these points of view, we rely on the \textbf{Int} construction~\cite{Joyal:1996:Traced}, which takes a traced monoidal category $\cat{C}$ and completes it into a compact closed category $\Int{\cat{C}}$, a categorical structure with sequential and parallel composition equipped with duals (allowing to swap directionality) and adjoints (allowing to form local loops representing feedback)~\cite{kellylaplaza}. $\Int{\cat{C}}$ carries the same information as $\cat{C}$, but represents it in an alternative, bidirectional way. Furthermore, when looking at the undirected fragment of $\Int{\cat{C}}$, this is precisely the same as the original category $\cat{C}$ of \emph{directional} processes. We now briefly describe $\Int{\RegBeh}$ (see \Cref{c3:subsec:int} for more detail). 
 	\begin{itemize}
 		\item The objects of $\Int{\RegBeh}$ are pairs $(m,n)$ of natural numbers. 
@@ -878,7 +876,7 @@ Since the trace on $\RegBeh$ is defined in terms of operations that we have show
 	\begin{theorem}[{\cite[Proposition~5.1]{Joyal:1996:Traced}}]\label{thm:trace_embeds_int}
 		There is a full and faithful traced monoidal functor $N \colon \RegBeh \to \Int{\RegBeh}$ that takes each $f \colon n \to m$ in $\RegBeh$ to $f \colon (n,0) \to (m,0)$
 	\end{theorem}
-	In other words, on \emph{directional} processes $\Int{\RegBeh}$ is exactly the same as $\RegBeh$. Moreover, the pseudometric structure interacts well with the operations of $\Int{\RegBeh}$.
+	Informally, the theorem above states that on \emph{directional} processes $\Int{\RegBeh}$ is exactly the same as $\RegBeh$. Moreover, the pseudometric structure interacts well with the operations of $\Int{\RegBeh}$.
 	\begin{restatable}{proposition}{propnexpint}\label{cor:sem_enriched}
 		The sequential and parallel composition in $\Int{\RegBeh}$ is nonexpansive. Moreover, the fully faithful functor $N \colon \RegBeh \to \Int{\RegBeh}$ is locally an isometry, i.e. for all $f,g \colon m \to n$, we have that $d^{m,n}(f,g)=d^{(m,0), (n,0)}(N(f),N(g))$.
 	\end{restatable}
@@ -886,7 +884,7 @@ Since the trace on $\RegBeh$ is defined in terms of operations that we have show
 		All operations that are used to defined sequential and parallel composition in $\Int{\RegBeh}$ have been shown above to be nonexansive in \Cref{lem:seq_nonexpansive}, \Cref{lem:tens_nonexpansive}, \Cref{cor:trace_nonexpansive}.
 		
 		For the remaining claim, let $f,g \in \RegBeh(m,n)$. From the definition of $N$, we immediately have that $
-		d^{N(m), N(n)}(N(f),(N(g))=d^{m,n}(f,g) $. This completes the proof.
+		d^{N(m), N(n)}(N(f),(N(g))=d^{m,n}(f,g) $. 
 	\end{proof}
 	\subsection{Functorial semantics}
 	We are ready to state the semantics of our diagrammatic language $\sem{-} \colon \Syn \to \Int{\RegBeh}$ as a symmetric monoidal functor from $\Syn$ to $\Int{\RegBeh}$. Since the syntax is a freely generated prop, in order to interpret arbitrary string diagrams it is enough to just define the interpretation of the generating morphisms of $\Syn$. We have:
@@ -1250,8 +1248,9 @@ Hence, behavioural distance between the denotations of arbitrary diagrams $f,g \
 		&\qquad= \max \{\mathsf{bd}_{\overline \partial} (e_1, e_2), \mathsf{bd}_{\overline \partial} (f_1, f_2)\}\tag{Def. in distance of $\RegBeh$}\\
 		&\qquad = \max \{d^{1,n}(e_1, e_2), d^{1,n}(f_1, f_2)\}\\
 		&\qquad = \max \{d^{N(1), N(n)}(N(e_1), N(e_2)), d^{N(1), N(n)}(N(f_1), N(f_2))\}\tag{\Cref{lem:merge-repr}}\\
-		&\qquad = \max \left\{d^{N(1),N(n)}\left(\sem{\dbox{e_1}{}{n}},\sem{\dbox{e_2}{}{n}} \right),\right.\\&\qquad\qquad\qquad\left. d^{N(1),N(n)} \left(\sem{\dbox{f_1}{}{n}}, \sem{\dbox{f_2}{}{n}} \right)\right\}\qedhere
+		&\qquad = \max \left\{d^{N(1),N(n)}\left(\sem{\dbox{e_1}{}{n}},\sem{\dbox{e_2}{}{n}} \right),\right.\\&\qquad\qquad\qquad\left. d^{N(1),N(n)} \left(\sem{\dbox{f_1}{}{n}}, \sem{\dbox{f_2}{}{n}} \right)\right\}\
 	\end{align*}
+	This concludes the proof.
 \end{proof}
 From now on, we will temporarily shift focus to $\objr \to \objr^n$ diagrams.
 
@@ -1265,16 +1264,18 @@ For any two $c,d\from\objr\to\objr^n$, we have that
 \end{restatable}
 \begin{proof}
 First, since $c$ and $d$ are left-to-right, there exists expressions $s,t\in\RegBeh(1,n)$, such that $\sem{c} = N(s)$ and $\sem{d} = N(t)$. Then,
+%TODO: Fix formatting, line break + qedhere
 \begin{align*}
-\sem{\tikzfig{convolution-cxd}} & = \sem{\Bcomult}; (\sem{c}\oplus \sem{d});\sem{\Bmult}
+&\sem{\tikzfig{convolution-cxd}}\\ 
+&\qquad = \sem{\Bcomult}; (\sem{c}\oplus \sem{d});\sem{\Bmult}
 \\
-& = N(v_1+v_2) ; (N(s)\oplus N(f)) ;  N(\nabla_1) & 
+&\qquad = N(v_1+v_2) ; (N(s)\oplus N(f)) ;  N(\nabla_1) & 
 \\
-& = N((v_1+v_2); (s\oplus f); \nabla_1) & (\text{Functoriality of $N$})
+&\qquad = N((v_1+v_2); (s\oplus f); \nabla_1) & (\text{Functoriality of $N$})
 \\
-& = N(s+f) & (\text{Definition of $N$})
+&\qquad = N(s+f) & (\text{Definition of $N$})
 \\
-& = N(s) + N(t) = \sem{c} + \sem{d} \qedhere
+&\qquad = N(s) + N(t) = \sem{c} + \sem{d} \qedhere
 \end{align*}
 
 \end{proof}
@@ -1393,7 +1394,7 @@ This is a consequence of Lemma~\ref{lem:sum-convolution} and the semantics of co
 %where we have substituted each $f_{i_j}$ with a corresponding variable $x_{i_j}$ bound by some $\mu$. By the definition of the dagger (Definition~\ref{def:dagger}) and the trace operator (Definition~\ref{def:trace}), we have
 %$$\sem{f_i} = \left(\sum_{j=1}^k a_{j}.x_{i_j}\right)^{\dagger\dots\dagger} + \sum_{j=1}^{\ell} v_{q_k} = \Tr^k_{k,n}\left(\nabla_n \,; \left(\sum_{j=1}^k a_{j}.x_{i_j}\right)\right) + \sum_{j=1}^{\ell} v_{q_k}$$ 
 \end{proof}
-It turns out, we can make the intuition about each diagram corresponding to state of a prechart formal, by extracting a prechart over the set $Q_f = \{f_1, \dots, f_m\}$, whose transition function $\beta$ is given by the following; we define $f_i \tr{a} f_{j}$ iff $\dbox{f_i}{}{n}$ contains $\tikzfig{prefix-transition}$ and similarly $f_i \rhd v_s$ iff $\dbox{f_i}{}{n}$ contains $\dbox{v_s}{}{n}$. The behavioural distance between states of this prechart, precisely captures the behavioural distance between each of the $f_i$ diagrams.
+It turns out that we can make the intuition about each diagram corresponding to state of a prechart formal, by extracting a prechart over the set $Q_f = \{f_1, \dots, f_m\}$, whose transition function $\beta$ is given by the following; we define $f_i \tr{a} f_{j}$ iff $\dbox{f_i}{}{n}$ contains $\tikzfig{prefix-transition}$ and similarly $f_i \rhd v_s$ iff $\dbox{f_i}{}{n}$ contains $\dbox{v_s}{}{n}$. The behavioural distance between states of this prechart, precisely captures the behavioural distance between each of the $f_i$ diagrams.
 \begin{restatable}{lemma}{extracteddist}\label{cor:dist-chart-diag}
 	For all $f_i, f_j \in Q_f$, we have that $\mathsf{bd}_{\beta}(f_i,f_j) = \mathsf{bd}(\sem{f_i}, \sem{f_j})$
 \end{restatable}
@@ -1462,7 +1463,7 @@ We can now combine the above results and show that upper bounds on each of the a
 	$$
 		\inf_{p \in \N}\left\{\Phi^{(p)}_\beta(f_g, f_h)\right\} < r'
 	$$
-	We will argue that there exists $p \in \N$, such that $\Phi^{(p)}_\beta(f_g,f_h) < r'$. For the sake of an argument, assume that for all $p \in \N$, we have that $\Phi^{(p)}_\beta(f_g,f_h) \geq r'$. This would make $r'$ into the lower bound of the $\omega$-cochain $\left\{\Phi^{(p)}_\beta(f_g, f_h)\right\}_{p \in \N}$ and hence $r' \leq 	\inf_{p \in \N}\left\{\Phi^{(p)}_\beta(f_g, f_h)\right\} < r'$, which leads to contradiction. Combining that argument with \Cref{lem:approximation} allows us to conclude that $\dbox{f_g}{}{n} \disteq{r'} \dbox{f_h}{}{n}$ is derivable, which completes the proof. 
+	We will argue that there exists $p \in \N$, such that $\Phi^{(p)}_\beta(f_g,f_h) < r'$. Assume that for all $p \in \N$, we have that $\Phi^{(p)}_\beta(f_g,f_h) \geq r'$. This would make $r'$ into the lower bound of the $\omega$-cochain $\left\{\Phi^{(p)}_\beta(f_g, f_h)\right\}_{p \in \N}$ and hence $r' \leq 	\inf_{p \in \N}\left\{\Phi^{(p)}_\beta(f_g, f_h)\right\} < r'$, which leads to contradiction. Combining that argument with \Cref{lem:approximation} allows us to conclude that $\dbox{f_g}{}{n} \disteq{r'} \dbox{f_h}{}{n}$ is derivable, which completes the proof. 
 \end{proof}
 Relying on \Cref{lem:injections}, we can reduce the problem of deriving distance between arbitrary $\objr^m \to \objr^n$ diagrams, to the case of $\objr \to \objr^n$ solved above. This yields completeness result for left-to-right diagrams. 
 \begin{restatable}{theorem}{completeness}\label{lem:mncompleteness}
