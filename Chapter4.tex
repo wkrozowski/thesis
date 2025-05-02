@@ -12,7 +12,7 @@ Kleene~\cite{Kleene:1951:Representation} introduced regular expressions and prov
     
     Our completeness proof provides further evidence that the use of coalgebras over proper functors provides a good abstraction for completeness theorems, where general steps can be abstracted away leaving as a domain-specific task to achieve completeness a construction to syntactically build solutions to systems of equations. Proving the uniqueness of such solutions is ultimately the most challenging step in the proof. By leveraging the theory of proper functors, our proof of completeness, which depends on establishing an abstract universal property, boils down to an argument that can be viewed as a natural extension of the work by Salomaa~\cite{Salomaa:1966:Two} and Brzozowski~\cite{Brzozowski:1964:Expressions} from the 1960s.
     
-	The remainder of this chapter is organised as follows:
+	The remainder of this chapter is organised as follows.
 	
 	In \Cref{c4:sec:overview}, we introduce Probabilistic Regular Expressions ({PRE}), an analogue of Kleene's regular expressions denoting probabilistic languages and propose an inference system for reasoning about language equivalence of {PRE}. 
 	
@@ -367,11 +367,12 @@ Below we state several properties of positive convex algebras, that we will use 
 \end{lemma}
 \begin{proof}
     \begin{align*}
-        \bigboxplus_{i \in I} p_i \cdot \left(\bigboxplus_{j \in J} q_{i,j} \cdot x_{i,j}\right) &= \bigboxplus_{i \in I} p_i \cdot \left(\bigboxplus_{(k,j) \in \{i\} \times J} q_{k,j} \cdot x_{k,j}\right) \\
-        &= \bigboxplus_{i \in I} p_i \cdot \left(\bigboxplus_{(k,j) \in I \times J} [k = i]q_{k,j} \cdot x_{k,j}\right) \tag{\Cref{c4:prop:properties_of_positive_convex_algebras}} \\
-        &= \bigboxplus_{(k,j) \in I \times J} \left(\sum_{i \in I} p_i [k=i]q_{k,j} \right) \cdot x_{k,j} \tag{Barycenter axiom} \\
-        &= \bigboxplus_{(k,j) \in I \times J} p_k q_{k,j}  \cdot x_{k,j} \\
-        &= \bigboxplus_{(i,j) \in I \times J} p_i q_{i,j}  \cdot x_{i,j}\qedhere
+        &\bigboxplus_{i \in I} p_i \cdot \left(\bigboxplus_{j \in J} q_{i,j} \cdot x_{i,j}\right)\\
+        =& \bigboxplus_{i \in I} p_i \cdot \left(\bigboxplus_{(k,j) \in \{i\} \times J} q_{k,j} \cdot x_{k,j}\right) \\
+        =& \bigboxplus_{i \in I} p_i \cdot \left(\bigboxplus_{(k,j) \in I \times J} [k = i]q_{k,j} \cdot x_{k,j}\right) \tag{\Cref{c4:prop:properties_of_positive_convex_algebras}} \\
+        =& \bigboxplus_{(k,j) \in I \times J} \left(\sum_{i \in I} p_i [k=i]q_{k,j} \right) \cdot x_{k,j} \tag{Barycenter axiom} \\
+        =& \bigboxplus_{(k,j) \in I \times J} p_k q_{k,j}  \cdot x_{k,j} \\
+        =& \bigboxplus_{(i,j) \in I \times J} p_i q_{i,j}  \cdot x_{i,j} \tag*{\hfill\qedhere}
     \end{align*}
 \end{proof}
 \begin{lemma}\label{c4:lem:grouping_probabilities}
@@ -382,11 +383,12 @@ Below we state several properties of positive convex algebras, that we will use 
 \end{lemma}
 \begin{proof}
     Let $J = \{0,1\}$. Define indexed collections $\{r_{i,j}\}_{(i,j) \in I \times J}$ and $\{z_{i,j}\}_{(i,j) \in I \times J}$, such that $r_{i,0} = \frac{p_i}{p_i + q_i}$ and $z_{i,0} = x_i$ and $r_{i,1} = \frac{q_i}{p_i + q_i}$ and $z_{i,1} = x_i$.
-    We have the following:
+    We now reason:
     \begin{align*}
-        \bigboxplus_{i \in I} (p_i + q_i) \cdot \left(\frac{p_i}{p_i + q_i} \cdot x_i \boxplus \frac{q_i}{p_i + q_i} \cdot y_i\right) &= \bigboxplus_{i \in I} (p_i + q_i) \cdot \left(\bigboxplus_{j \in J} r_{i,j} \cdot z_{i,j} \right) \\
-        &= \bigboxplus_{(i,j) \in I \times J} (p_i + q_i)r_{i_j} \cdot z_{i,j} \tag{\Cref{c4:lem:flattening_convex_sums}} \\
-        &= \left(\bigboxplus_{i \in I} p_i \cdot x_{i}\right) \boxplus \left(\bigboxplus_{i \in I} q_i \cdot y_i\right)\qedhere
+        &\bigboxplus_{i \in I} (p_i + q_i) \cdot \left(\frac{p_i}{p_i + q_i} \cdot x_i \boxplus \frac{q_i}{p_i + q_i} \cdot y_i\right)\\
+        =& \bigboxplus_{i \in I} (p_i + q_i) \cdot \left(\bigboxplus_{j \in J} r_{i,j} \cdot z_{i,j} \right) \\
+        =& \bigboxplus_{(i,j) \in I \times J} (p_i + q_i)r_{i_j} \cdot z_{i,j} \tag{\Cref{c4:lem:flattening_convex_sums}} \\
+        =& \left(\bigboxplus_{i \in I} p_i \cdot x_{i}\right) \boxplus \left(\bigboxplus_{i \in I} q_i \cdot y_i\right)\tag*{\hfill\qedhere}
     \end{align*}
 \end{proof}
 Speaking more abstractly, positive convex algebras and their homomorphisms (in the sense of homomorphisms of algebras for the signature from universal algebra) form a category, that we will call $\pca$. This category can be seen as a concrete presentation of an Eilenberg-Moore algebra for the subdistribution monad.
@@ -515,17 +517,17 @@ Such functions define components of the natural transformation.
 We now have all ingredients to specify language semantics of $\distf \funF$-coalgebras. Given a $\distf \funF$-coalgebra  $(X, \beta)$, one can use the natural transformation $\gamma$ and obtain $\funG \distf$-coalgebra $(X, \gamma_X \circ \beta)$. Since $\funG$ can be lifted to $\pca$, we can obtain $\funG$-coalgebra $\left(\distf X, (\gamma_X \circ \beta)^\sharp\right)$. Note that this coalgebra carries an additional algebra structure and its transition map is a $\pca$ homomorphism, thus making $\left( (\distf X, \mu_X), (\gamma_X \circ \beta)^\sharp \right)$ into a $\overline{\funG}$-coalgebra. The resulting language semantics of $(X, \beta)$ are given by the map $\langmap_{(X, \beta)} \colon X \to \interval{0}{1}^\alphabet$ explicitly given by $$\langmap_{(X, \beta)} = \beh{(\gamma_X \circ \beta)^\sharp} \circ \eta_X$$ where $\eta \colon X \to \distf X$ is a unit of the monad $\distf$ taking each state $x \in X$ to its Dirac $\delta_x \in \distf X$.
 
 This can be summarised by the following commutative diagram:
-% https://q.uiver.app/#q=WzAsNixbMCwwLCJYIl0sWzAsMSwiXFxkaXN0ZiBcXGZ1bkYgWCJdLFsxLDAsIlxcZGlzdGYgWCJdLFswLDIsIlxcZnVuRyBcXGRpc3RmIFgiXSxbMywwLCJcXGludGVydmFsezB9ezF9XlxcYWxwaGFiZXQiXSxbMywyLCJcXGZ1bkcgXFxsZWZ0KFxcaW50ZXJ2YWx7MH17MX1ee1xcYWxwaGFiZXR9XFxyZ2l0aCkiXSxbMCwxLCJcXGJldGEiXSxbMSwzLCJcXGdhbW1hX1giXSxbMCwyLCJcXGV0YV9YIl0sWzIsMywiKFxcZ2FtbWFfWCBcXGNpcmMgXFxiZXRhKV5cXHNoYXJwIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzQsNSwidCJdLFsyLDQsIlxcYmVoeyhcXGdhbW1hX1ggXFxjaXJjIFxcYmV0YSleXFxzaGFycH0iLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMyw1LCJcXGZ1bkcgXFxiZWh7KFxcZ2FtbWFfWCBcXGNpcmMgXFxiZXRhKV5cXHNoYXJwfSIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+% https://q.uiver.app/#q=WzAsNixbMCwwLCJYIl0sWzAsMSwiXFxkaXN0ZiBcXGZ1bkYgWCJdLFsxLDAsIlxcZGlzdGYgWCJdLFswLDIsIlxcZnVuRyBcXGRpc3RmIFgiXSxbMywwLCJcXGludGVydmFsezB9ezF9XlxcYWxwaGFiZXQiXSxbMywyLCJcXGZ1bkcgXFxsZWZ0KFxcaW50ZXJ2YWx7MH17MX1ee1xcYWxwaGFiZXR9XFxyZ2l0aCkiXSxbMCwxLCJcXGJldGEiLDJdLFsxLDMsIlxcZ2FtbWFfWCIsMl0sWzAsMiwiXFxldGFfWCJdLFsyLDMsIihcXGdhbW1hX1ggXFxjaXJjIFxcYmV0YSleXFxzaGFycCIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs0LDUsInQiXSxbMiw0LCJcXGJlaHsoXFxnYW1tYV9YIFxcY2lyYyBcXGJldGEpXlxcc2hhcnB9IiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzMsNSwiXFxmdW5HIFxcYmVoeyhcXGdhbW1hX1ggXFxjaXJjIFxcYmV0YSleXFxzaGFycH0iLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
 \[\begin{tikzcd}
-	X & {\distf X} && {\interval{0}{1}^{\alphabet^\ast}} \\
+	X & {\distf X} && {\interval{0}{1}^\alphabet} \\
 	{\distf \funF X} \\
-	{\funG \distf X} &&& {\funG \left(\interval{0}{1}^{\alphabet^\ast}\right)}
+	{\funG \distf X} &&& {\funG \left(\interval{0}{1}^{\alphabet}\right)}
 	\arrow["{\eta_X}", from=1-1, to=1-2]
-	\arrow["\beta", from=1-1, to=2-1]
+	\arrow["\beta"', from=1-1, to=2-1]
 	\arrow["{\beh{(\gamma_X \circ \beta)^\sharp}}", dashed, from=1-2, to=1-4]
 	\arrow["{(\gamma_X \circ \beta)^\sharp}", dashed, from=1-2, to=3-1]
 	\arrow["t", from=1-4, to=3-4]
-	\arrow["{\gamma_X}", from=2-1, to=3-1]
+	\arrow["{\gamma_X}"', from=2-1, to=3-1]
 	\arrow["{\funG \beh{(\gamma_X \circ \beta)^\sharp}}", dashed, from=3-1, to=3-4]
 \end{tikzcd}\]
 
@@ -547,13 +549,13 @@ Moreover, the natural transformation $\gamma \colon \distf \funF \Rightarrow \fu
 The above is a consequence of $\gamma \colon \distf \funF \Rightarrow \funG \distf$ being so-called extension law -- for more details see~\cite[Section~7.2]{Jacobs:2015:Trace}. Using this fact, we can show the following:
 \begin{proposition}\label{c4:prop:extension}
 	For any $\distf \funF$-coalgebra $(X, \beta)$, the following diagram commutes:
-	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGRpc3RmIFgiXSxbMiwwLCJcXGRpc3RmXjJcXGZ1bkYgWCJdLFs0LDAsIlxcZGlzdGYgXFxmdW5GIFgiXSxbNiwwLCJcXGZ1bkcgXFxkaXN0ZiBYIl0sWzAsMSwiXFxkaXN0ZiBcXGJldGEiXSxbMSwyLCJcXG11X1xcZnVuRiJdLFsyLDMsIlxcZ2FtbWFfWCJdLFswLDMsIihcXGdhbW1hX1ggXFxjaXJjIFxcYmV0YSleXFxzaGFycCIsMCx7ImN1cnZlIjotNX1dXQ==
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGRpc3RmIFgiXSxbMiwwLCJcXGRpc3RmXjJcXGZ1bkYgWCJdLFs0LDAsIlxcZGlzdGYgXFxmdW5GIFgiXSxbNiwwLCJcXGZ1bkcgXFxkaXN0ZiBYIl0sWzAsMSwiXFxkaXN0ZiBcXGJldGEiLDJdLFsxLDIsIlxcbXVfXFxmdW5GIiwyXSxbMiwzLCJcXGdhbW1hX1giLDJdLFswLDMsIihcXGdhbW1hX1ggXFxjaXJjIFxcYmV0YSleXFxzaGFycCIsMCx7ImN1cnZlIjotNX1dXQ==
 \[\begin{tikzcd}
 	{\distf X} && {\distf^2\funF X} && {\distf \funF X} && {\funG \distf X}
-	\arrow["{\distf \beta}", from=1-1, to=1-3]
+	\arrow["{\distf \beta}"', from=1-1, to=1-3]
 	\arrow["{(\gamma_X \circ \beta)^\sharp}", curve={height=-30pt}, from=1-1, to=1-7]
-	\arrow["{\mu_{\funF X}}", from=1-3, to=1-5]
-	\arrow["{\gamma_X}", from=1-5, to=1-7]
+	\arrow["{\mu_\funF}"', from=1-3, to=1-5]
+	\arrow["{\gamma_X}"', from=1-5, to=1-7]
 \end{tikzcd}\]
 \end{proposition}
 \begin{proof}
@@ -587,9 +589,9 @@ Since, $\mu_{\funF X} \circ \distf \beta \circ \eta_X $ is a $\pca$ homomorphism
 \end{proof}
 \subsection{Antimirov derivatives}\label{c4:subsec:antimirov}
 We now equip $\PExp$ with a $\distf \funF$-coalgebra structure, that is, we define a function $\partial : \PExp \to \distf (1+A\times \PExp)$. We refer to $\partial$ as the \emph{Antimirov derivative}, as it is reminiscent of the analogous construction
-for regular expressions and nondeterminisic automata due to Antimirov~\cite{Antimirov:1996:Partial}. Given $a \in \alphabet$, $e,f \in \PExp$ and $p \in \interval{0}{1}$ we define:
+for regular expressions and nondeterminisic automata~\cite{Antimirov:1996:Partial}. Given $a \in \alphabet$, $e,f \in \PExp$ and $p \in \interval{0}{1}$ we define:
 \begin{gather*}
-    \partial(\zero) = \emptydist \quad\quad \partial(\one)=\delta_{\checkmark} \quad\quad \partial(a)=\delta_{(a,\one)}  \\  \partial(e \oplus_p f)=p\partial(e) + (1-p)\partial(f)
+    \partial(\zero) = \emptydist \quad\quad \partial(\one)=\delta_{\checkmark} \quad\quad \partial(a)=\delta_{(a,\one)}  \quad\quad  \partial(e \oplus_p f)=p\partial(e) + (1-p)\partial(f)
 \end{gather*}
 The expression $\zero$ is mapped to the empty subdistribution, intuitively representing a deadlock. On the other hand, the expression $\one$ represents immediate acceptance, that is it transitions to $\checkmark$ with probability $1$. For any letter $a \in \alphabet$ in the alphabet, the expression $a$ performs $a$-labelled transition to $\one$ with probability $1$. The outgoing transitions of the probabilistic choice $e \oplus_p f$ consist of the outgoing transitions of $e$ with
 probabilities scaled by $p$ and the outgoing transitions of $f$ scaled by $1-p$.
@@ -660,19 +662,19 @@ Having defined the Antimirov transition system, one can observe that the termina
 \end{lemma}
 \begin{proof}
 By structural induction. The base cases $E(\zero)=0=\partial(\zero)(\checkmark)$, $E(\one)=1=\partial(\one)(\checkmark)$ and $E(a)=0=\partial(a)(\checkmark)$ hold immediately. For the inductive steps, we have the following:
-\begin{itemize}
-	 \item[] \fbox{Probabilistic choice}
+\begin{itemize}[leftmargin=0em]
+	 \item[]\fbox{Probabilistic choice}
 	 	\begin{align*}
 	 		E(e \oplus_p f) &= pE(e) + (1-p)E(f)\\ &= p\partial(e)(\checkmark) + (1-p)\partial(f)(\checkmark)\\ &= \partial(e \oplus_p f)(\checkmark)
 	 	\end{align*}
-	 \item[] \fbox{Sequential compositon}
+	 \item[]\fbox{Sequential compositon}
 	 \begin{align*}
 	 	E(e \seq f)&=E(e)E(f)\\
 	 	&=\partial(e)(\checkmark)\partial(f) (\checkmark)\\
 	 	&= (\partial (e) \lhd f)(\checkmark)\\
 	 	&=\partial(e \seq f)(\checkmark)
 	 \end{align*}
-	 \item[] \fbox{Loops} First, we consider the case when $\partial(e)(\checkmark)=1$ and the loop probability is $1$. By induction hypothesis, also $E(e)=1$ and hence $E\left(e^{[1]}\right)=\partial\left(e^{[1]}\right)(\checkmark)$. Otherwise, we have the following:
+	 \item[]\fbox{Loops} First, we consider the case when $\partial(e)(\checkmark)=1$ and the loop probability is $1$. By induction hypothesis, also $E(e)=1$ and hence $E\left(e^{[1]}\right)=\partial\left(e^{[1]}\right)(\checkmark)$. Otherwise, we have the following:
 	\begin{align*}
 		E(e^{[p]})&=\frac{1-p}{1-pE(e)}\\
 		&=\frac{1-p}{1-p\partial(e)(\checkmark)}\\
@@ -909,13 +911,13 @@ Finally, we generalise the axiom (\textsf{D1}) to $n$-ary convex sums.
          \left(\bigoplus_{i \in I} p_i \cdot e_i\right) \seq f &\equiv_b \left( e_j \oplus_{p_j} \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{{1-p_j}} \cdot e_i\right) \right) \seq f \\
          &\equiv_b  e_j\seq f \oplus_{p_j} \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{1-{p_j}} \cdot e_i\right)\seq f \tag{\textsf{D1}} \\
          &\equiv_b  e_j\seq f \oplus_{p_j} \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{1-{p_j}} \cdot e_i\seq f\right) \tag{Induction hypothesis}\\
-         &\equiv_b \left(\bigoplus_{i \in I} p_i \cdot e_i \seq f\right)\qedhere
+         &\equiv_b \left(\bigoplus_{i \in I} p_i \cdot e_i \seq f\right) \tag*{\hfill\qedhere}
     \end{align*}
 \end{proof}
 We now have all the ingredients to show the fundamental theorem. 
 \begin{proof}[Proof of \Cref{c4:thm:fundamental_theorem}]
 	We proceed by the structural induction on $e \in \PExp$. For the base cases, we have the following:
-	 \begin{itemize}
+	 \begin{itemize}[leftmargin=0em]
         \item[]\fbox{$e = \zero$}
         \begin{align*}
             \zero &\equiv_b \bigoplus_{d \in \emptyset} \partial(\zero)(d) \cdot \ex(d) \tag{\Cref{c4:prop:properties_of_positive_convex_algebras}}\\
@@ -934,15 +936,16 @@ We now have all the ingredients to show the fundamental theorem.
         \end{align*}
     \end{itemize}
     We now move on to inductive steps.
-    \begin{itemize}
+    \begin{itemize}[leftmargin=0em]
         \item[]\fbox{$e = f \oplus_p g $}
         {
         \small
         \begin{align*}
-            f \oplus_p g &\equiv_b \left( \bigoplus_{d \in \supp(\partial(f))} \partial(f)(d) \cdot \ex(d) \right)\oplus_p  \left( \bigoplus_{d \in \supp(\partial(g))} \partial(g)(d) \cdot \ex(g) \right) \tag{Induction hypothesis}\\
-            &\equiv_b \left( \bigoplus_{d \in \supp(\partial(f \oplus_p g))}\partial(f)(d) \cdot \ex(d) \right) \oplus_p  \left( \bigoplus_{d \in \supp(\partial(f \oplus_p g))} \partial(g)(d) \cdot \ex(g) \right) \tag{\Cref{c4:prop:properties_of_positive_convex_algebras}}\\
-            &\equiv_b \bigoplus_{d \in \supp(\partial(f \oplus_p g))} \left(p\partial(f)(d) + {(1-p)}\partial(g)(d)\right) \cdot \ex(d) \tag{Barycenter axiom}\\
-             &\equiv_b \bigoplus_{d \in \supp(\partial(f \oplus_p g))} \partial(f \oplus_p g)(d) \cdot \ex(d) \tag{Def. of $\partial$}
+            &f \oplus_p g\\
+            \equiv_b & \left( \bigoplus_{d \in \supp(\partial(f))} \partial(f)(d) \cdot \ex(d) \right)\oplus_p  \left( \bigoplus_{d \in \supp(\partial(g))} \partial(g)(d) \cdot \ex(g) \right) \tag{Induction hypothesis}\\
+            \equiv_b &\left( \bigoplus_{d \in \supp(\partial(f \oplus_p g))}\partial(f)(d) \cdot \ex(d) \right) \oplus_p  \left( \bigoplus_{d \in \supp(\partial(f \oplus_p g))} \partial(g)(d) \cdot \ex(g) \right) \tag{\Cref{c4:prop:properties_of_positive_convex_algebras}}\\
+            \equiv_b & \bigoplus_{d \in \supp(\partial(f \oplus_p g))} \left(p\partial(f)(d) + {(1-p)}\partial(g)(d)\right) \cdot \ex(d) \tag{Barycenter axiom}\\
+             \equiv_b &\bigoplus_{d \in \supp(\partial(f \oplus_p g))} \partial(f \oplus_p g)(d) \cdot \ex(d) \tag{Def. of $\partial$}
         \end{align*}
         }
         \item[]\fbox{$e = f\seq g $}
@@ -1293,12 +1296,12 @@ for all $e,f \in \PExp$, $p \in \interval{0}{1}$ and $a \in \alphabet$. It can b
 \end{lemma}
 \begin{proof}
     We split the proof into two cases.
-    \begin{itemize}
-        \item[] \fbox{$e \uaequiv f \implies e \equiv f$}
+    \begin{itemize}[leftmargin=0em]
+        \item[]\fbox{$e \uaequiv f \implies e \equiv f$}
 
         This implication holds immediately. If $e \equiv_b f $, then $e \equiv f$. The remaining rules stating that $a \seq (e \oplus_p f) \uaequiv a\seq e \oplus_p a \seq f$ and $a \seq \zero \uaequiv \zero$ are special cases of (\textsf{D2}) and (\textsf{S0}) axioms of $\equiv$ specialised to single letters of the alphabet.
 
-        \item[] \fbox{$e \equiv f \implies e \uaequiv f$}
+        \item[]\fbox{$e \equiv f \implies e \uaequiv f$}
         
         Axioms of $\equiv$ are either axioms of $\equiv_b$, which are already contained in $\uaequiv$ or are instances of (\textsf{D2})/(\textsf{S0}) axioms. It suffices to show that latter two are derivable in $\uaequiv$. First, we show by induction that for all $e \in \PExp$, $e \seq \zero \uaequiv \zero$.
 
@@ -1412,7 +1415,7 @@ for all $e,f \in \PExp$, $p \in \interval{0}{1}$ and $a \in \alphabet$. It can b
             \begin{align*}
                  h^{[r]} \seq f \oplus_p h^{[r]} \seq g \uaequiv h^{[r]} \seq (f \oplus_p g)
             \end{align*}
-            This completes the proof.
+            This completes the proof.\qedhere
         \end{itemize}
     \end{itemize}
 \end{proof}
@@ -1440,8 +1443,9 @@ We now have all the ingredients to obtain the desired result.
 	
 	Once again, we apply \Cref{c4:lem:concrete_quotient} and obtain the following:
 		$$
-			(\funG [-]_{\equiv} \circ c)[b \seq \zero]_{\equiv} = \left\langle 0, \lambda a \ldotp [\zero] \right\rangle = (\funG [-]_{\equiv} \circ c)[\zero]_{\equiv}\qedhere
+			(\funG [-]_{\equiv} \circ c)[b \seq \zero]_{\equiv} = \left\langle 0, \lambda a \ldotp [\zero] \right\rangle = (\funG [-]_{\equiv} \circ c)[\zero]_{\equiv}
 		$$
+		This leads to the desired result.
  \end{itemize}
 \end{proof}
 As a direct corollary of \Cref{c4:lem:concrete_quotient} and the result established above, we obtain a concrete characterisation of the map  $d$. 
@@ -1716,7 +1720,8 @@ Finally, we proceed to the central result.
 \end{theorem}
 \begin{proof}
     We will write $\mathcal{M}=(M, p, b, r)$ for an arbitrary left-affine system of equations on some finite set $Q$. Since $Q$ is finite and non-empty, we can safely assume that $Q=\{q_1, \dots q_n\}$ for some positive $n \in \N$. We proceed by induction on $n$. 
-        
+    
+    \noindent    
     \fbox{Base case} If $Q=\{q_1\}$, then we set $h(q_1) = {M_{1,1}}^{[p_{1,1}]}\seq b_1$. To see that it is indeed a $\equiv$-solution, observe the following:
     \begin{align*}
         h(q_1) &= {M_{1,1}}^{[p_{1,1}]}\seq b_{1} \tag{Def. of $h$}\\
@@ -1734,7 +1739,7 @@ Finally, we proceed to the central result.
         &\equiv {M_{1,1}}^{[p_{1,1}]}\seq b_1 \tag{(\textsf{Unique}) and $E(M_{1,1})=0$}\\
         &\equiv h(q_1)
     \end{align*}
-    
+    \noindent
     \fbox{Induction step} Assume that all systems of the size \(n\) admit a unique $\equiv$-solution. We begin by demonstrating that the problem of finding a $\equiv$-solution for a system with \(n+1\) unknowns can be reduced to finding $\equiv$-solution to the system with $n$ unknowns.     
     	Let $Q=\{q_1, \dots, q_{n+1}\}$. For $h \colon Q \to \PExp$ to be a $\equiv$-solution to the system $\mathcal{M}$ of size $n+1$, it must satisfy the following equivalence:
     $$
@@ -1929,11 +1934,11 @@ The only remaining piece allowing us to use \Cref{c4:thm:proper} is to claim tha
 \begin{proof}
 	 We establish the simpler conditions of \cite[Definition~III.7]{Milius:2010:Sound}. Recall that in $\pca$ locally presentable and locally generated objects coincide~\cite{Sokolova:2015:Congruences}. Because of that, it suffices to show that every finitely generated subalgebra is contained in finitely generated subcoalgebra. Let $(Y, \alpha_Y)$ be a finitely generated subalgebra of $({\PExp}/{\equiv}, \alpha_{\equiv})$ generated by $[e_1], \dots, [e_n] \in {\PExp}/{\equiv}$ where $1 \leq i \leq n$. We will construct a finitely generated subalgebra $(Z, \alpha_Y)$ of $({\PExp}/{\equiv}, \alpha_{\equiv})$ such that $[e_i] \in Z$ (hence containing $(Y, \alpha_Y)$ as subalgebra) that is subcoalgebra as well.
 	 
-	  Recall that given an expression $e \in \PExp$, we write $\langle e \rangle_{\partial} \subseteq \PExp$ for the set of all expressions reachable via Antimirov derivative from $e$. By \Cref{c4:lem:locally_finite} that set is finite. Let $(Z, \alpha_Z)$ be a subalgebra of $({\PExp}/{\equiv}, \alpha_{\equiv})$ generated by the following set
+	  Recall that given an expression $e \in \PExp$, we write $\langle e \rangle_{\partial} \subseteq \PExp$ for the set of all expressions reachable from $e$. By \Cref{c4:lem:locally_finite} that set is finite. Let $(Z, \alpha_Z)$ be a subalgebra of $({\PExp}/{\equiv}, \alpha_{\equiv})$ generated by the following set
 	  $$
 	  	\left\{[a \seq e' ] \mid a \in \alphabet, e' \in \bigcup_{i = 1}^{i \leq n}\langle e_i \rangle_{\partial}\right\} \cup \{\one\}
 	  $$
-	 Note that this set is finite, as $\alphabet$ is finite and there are only finitely many expressions $e_i$, each with finitely many derivatives. We proceed to showing that $Z$ is closed under the transitions of the coalgebra structure $d$. Pick an element $z \in Z$, given by the following: $$z = p \cdot [\one] \boxplus \bigboxplus_{j \in J} p_j \cdot [a_j \seq e'_j]$$
+	 Note that this set is finite, as $\alphabet$ is finite and there are only finitely many expressions $e_i$, each with finitely many derivatives. We proceed to showing that $Z$ is closed under the transitions of $d$. Pick an element $z \in Z$, given by the following: $$z = p \cdot [\one] \boxplus \bigboxplus_{j \in J} p_j \cdot [a_j \seq e'_j]$$
 	 Note that:
     \begin{gather*}
         d([a_k \seq e'_j]) = \langle 0 , f_j \rangle \text{ with } f_j(a)=[e'_j] \text{ if } a = a_j \text{ or otherwise } f(a)=[\zero]\\
@@ -2012,14 +2017,14 @@ At this point, showing completeness becomes straightforward.
 	\begin{align*}
 		\sem{e} = \sem{f} &\iff \beh{d} ([e]) = \beh{d}([f]) \tag{\Cref{c4:lem:factoring_lemma2}} \\
 		&\implies [e] = [f] \tag{$\beh{d}$ is injective} \\
-		&\iff e \equiv f \qedhere
+		&\iff e \equiv f \tag*{\hfill \qedhere}
 	\end{align*}
 \end{proof}
 \section{Discussion}\label{c4:sec:related}
 In this chapter, we introduced probabilistic regular expressions ({PRE}), a probabilistic counterpart to Kleene's regular expressions. As the main technical contribution, we presented a Salomaa-style inference system for reasoning about probabilistic language equivalence of expressions and proved it sound and complete. Additionally, we gave a two-way correspondence between languages denoted by {PRE} and finite-state generative probabilistic transition systems. Our approach is coalgebraic and enabled us to reuse several recently proved results on fixpoints of functors and convex algebras. This abstract outlook guided the choice of the right formalisms and enabled us to isolate the key results we needed to prove to achieve completeness while at the same time reusing existing results and avoiding repeating complicated combinatorial proofs.  The key technical lemma, on uniqueness of solutions to certain systems of equations, is a generalisation of automata-theoretic constructions from the 60s further exposing the bridge between our probabilistic generalisation and the classical deterministic counterpart. 
 
 \subsection{Related work}
- Probabilistic process algebras and their axiomatisations have been widely studied~\cite{Bandini:2001:Axiomatizations,Stark:2000:Complete,Mislove:2003:Axioms,Benardo:2022:Probabilistic} with syntaxes featuring action prefixing and least fixed point operators instead of the regular operations of sequential composition and probabilistic loops. This line of research focussed on probabilistic bisimulation, while probabilistic language equivalence, which we focus on, stems from automata theory, e.g. the work of Rabin on probabilistic automata~\cite{Rabin:1963:Probabilistic}. Language equivalence of Rabin automata has been studied from an algorithmic point of view~\cite{Kiefer:2011:Language,Kiefer:2012:APEX}.
+ Probabilistic process algebras and their axiomatisations have been widely studied~\cite{Bandini:2001:Axiomatizations,Stark:2000:Complete,Mislove:2003:Axioms,Benardo:2022:Probabilistic} with syntaxes featuring action prefixing and least fixed point operators instead of the regular operations of sequential composition and probabilistic loops. This line of research focussed on probabilistic bisimulation, while probabilistic language equivalence, which we focus on, stems from automata theory, e.g. the work on Rabin automata~\cite{Rabin:1963:Probabilistic}. Language equivalence of Rabin automata has been studied from an algorithmic point of view~\cite{Kiefer:2011:Language,Kiefer:2012:APEX}.
 
 Stochastic Regular Expressions ({SRE})~\cite{Ross:2000:Probabilistic,Beeh:2017:Transformations,Getir:2018:Formal}, which were one of the main inspirations for this chapter, can also be used to specify probabilistic languages. The syntax of {SRE} features probabilistic Kleene star and $n$-ary probabilistic choice, however, it does not include $\zero$ and $\one$. The primary context of that line of research was around genetic programming in probabilistic pattern matching, and the topic of axiomatisation was simply not tackled. 
 

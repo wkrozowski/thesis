@@ -66,8 +66,8 @@ Given a prechart $(Q, E, D)$, we can equivalently see it as a pair $(Q, \beta)$,
 In other words, precharts are coalgebras for the functor $\funL \colon \Set \to \Set$, given by $\funL = \Sigma \times (-) + V$. Bisimulations and homomorphisms of $\funL$-coalgebras are captured concretely by strong bisimulation of precharts and their homomorphisms. Because of this, we will interchangeably use terms prechart and $\funL$-coalgebra. Moreover, $\funL$ preserves weak pullbacks and hence $\sim$ is an equivalence relation that captures behavioural equivalence of $\funL$-coalgebras. For more details of coalgebraic treatment of precharts, we direct an interested reader to~\cite{Schmid:2021:Star}.
 \subsection{Algebra of regular behaviours}
 To define charts, Milner proposed a specification language called an \emph{algebra of regular behaviours} (ARB). The syntax of ARB is given by the following:
-$$e,f \in \Expr ::= 0 \mid v \in V \mid a.e \mid e + f \mid \mu v. e$$
-where $V=\{v_1, v_2, \dots\}$ and $\Sigma$ be sets of \emph{variables} and \emph{letters} respectively. Given an expression $f$ containing a variable $v$, we say that $v$ is \emph{free} in $f$, if it appears outside of the scope of the $\mu v.e$ operator or say that it is \emph{bound} otherwise. Given an expression $e \in \Expr$, we write $\fv(e) \subseteq V$ for the set of its free variables. 
+$$e,f \in \Expr ::= 0 \mid v \in V \mid a.e \mid e + f \mid \mu v. e \qquad\qquad\qquad (a \in \Sigma)$$
+where $V=\{v_1, v_2, \dots\}$ and $\Sigma$ are sets of \emph{variables} and \emph{letters} respectively. Given an expression $f$ containing a variable $v$, we say that $v$ is \emph{free} in $f$, if it appears outside of the scope of the $\mu v.e$ operator or say that it is \emph{bound} otherwise. Given an expression $e \in \Expr$, we write $\fv(e) \subseteq V$ for the set of its free variables. 
 \begin{definition}[{\cite{Milner:1984:Complete}}]\label{def:subset}
 	Given vectors $\vec{v}$ of binders and $\vec{e}$ of expressions of the same size, we define a syntactic substitution operator $[\vec{e}/\vec{v}] \colon \Expr \to \Expr$ by the following
 	\begin{align*}
@@ -130,7 +130,7 @@ From now on, we will overload the notation and simply write $e$ for the equivale
 	$$
 \end{lemma}
 \begin{proof}
-	Let $\Delta = \{(e,e) \in \Expr\}$ be a diagonal relation. We define a relation ${R} \subseteq {\Expr \times \Expr}$, given by the following:
+	Let $\Delta = \{(e,e) \in \Expr\}$ be the diagonal relation. We define a relation ${R} \subseteq {\Expr \times \Expr}$, given by the following:
 	\begin{align*}
 		R = \Delta \cup \{&((e[\vec{f}/ \vec{v}])[\vec{g}/\vec{w}], e [(f_1[\vec{g}/\vec{w}], \dots, f_m[\vec{g}/\vec{w}])/\vec{v}])\\ &\mid e, f_1, \dots, f_m, g_1, \dots, g_m \in \Expr, \vec{v}=(v_{i_1}, \dots, v_{i_m}), \vec{w}=(v_{j_1}, \dots, v_{j_n}),\\ &\fv(e) \subseteq 		\vec{v},  \fv(\vec{f}) \subseteq \vec{w}\}
 	\end{align*}
@@ -208,17 +208,16 @@ Given a prechart $(Q, \beta)$, whose state-space is equipped with a pseudometric
 	\end{proof}
 	The monotone map used to define the behavioural distance satisfies the following:
 \begin{lemma}
-	$\Phi_\beta \colon D_X \to D_X$ is contractive with respect to the metric induced by the sup norm, namely
-	$$
+	$\Phi_\beta \colon D_X \to D_X$ is contractive with respect to the metric induced by the sup norm, namely $
 	\|\Phi_\beta(d)-\Phi_\beta(d')\| \leq \frac{1}{2}\|d-d'\|
-	$$
+	$.
 \end{lemma}
 \begin{proof}
 	For the sake of simplicity, assume that $d' \sqsubseteq d$ and hence $\Phi_\beta(d') \sqsubseteq \Phi_{\beta}(d)$. It suffices to show that for all $x,y \in X$, we have that $\mathcal{H}(d^\uparrow)(\beta(x), \beta(y)) -  \mathcal{H}(d'^\uparrow)(\beta(x), \beta(y))  \leq \frac{1}{2}\|d-d'\|$. We can combine the previous results and for arbitrary $x,y \in X$ obtain the following
 	\begin{align*}
 		\mathcal{H}(d^\uparrow)(\beta(x), \beta(y)) -  \mathcal{H}(d'^\uparrow)(\beta(x), \beta(y)) & \leq \|\mathcal{H}(d^\uparrow) - \mathcal{H}(d'^\uparrow)\| \\
 		&\leq \|d^\uparrow - d'^\uparrow\|\\
-		& \leq \frac{1}{2} \|d - d'\|
+		& \leq \frac{1}{2} \|d - d'\| \qedhere
 	\end{align*}
 \end{proof}
 As a consequence, we have the following corollary:
@@ -328,16 +327,16 @@ Let $(X,\beta)$ be a locally finite prechart and let $x,y \in X$. The behavioura
 \subsection{Conway theories}\label{c3:subsec:conway}
 Let $\cat{C}$ be a category, whose objects are natural numbers and $0$ is the initial object. We will write $0_n$ for the unique map $0_n \colon 0 \to n$. Additionally, we assume that $\cat{C}$ is equipped with all finite coproducts, where binary coproduct is given by addition, i.e. $n \oplus m := n + m$. Given $f \colon k \to m$ and $g \colon l \to m$, we will write $\lc f,g \rc \colon k +l \to m$ for the mediating map from the universal property of the coproduct that makes the following diagram commute:
 \begin{equation}\label{eqn:mediating}
+% https://q.uiver.app/#q=WzAsNCxbMSwwLCJrK2wiXSxbMiwwLCJsIl0sWzAsMCwiayJdLFsxLDIsIm0iXSxbMiwwLCJcXGlubF97ayArIGx9Il0sWzEsMCwiXFxpbnJfe2sgKyBsfSIsMl0sWzIsMywiZiIsMl0sWzEsMywiZyJdLFswLDMsIltmLGddIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
 \begin{tikzcd}
-	k && l \\
-	& {k+l} \\
+	k & {k+l} & l \\
 	\\
 	& m
-	\arrow["\inl_{k + l}", from=1-1, to=2-2]
-	\arrow["f"', from=1-1, to=4-2]
-	\arrow["\inr_{k + l}"', from=1-3, to=2-2]
-	\arrow["g", from=1-3, to=4-2]
-	\arrow["{\lc f , g \rc}"{description}, dashed, from=2-2, to=4-2]
+	\arrow["{\inl_{k + l}}", from=1-1, to=1-2]
+	\arrow["f"', from=1-1, to=3-2]
+	\arrow["{[f,g]}"{description}, dashed, from=1-2, to=3-2]
+	\arrow["{\inr_{k + l}}"', from=1-3, to=1-2]
+	\arrow["g", from=1-3, to=3-2]
 \end{tikzcd}
 \end{equation}
 For every $n \in N$, we can define a codiagonal $\nabla_{n} \colon n + n \to n$, given by $\nabla_n := \lc\id_n,\id_n\rc$.
@@ -710,10 +709,11 @@ Finally, we can conclude the following:
 \begin{proof}
 	Let $f,h \in \RegBeh(m,n)$ and $g,i \in \RegBeh(n,k)$. 
 	\begin{align*}
-		d^{n,k}(f ;g, h;i) &= \sup_{1 \leq j \leq n} \left\{ \mathsf{bd}_{\overline\partial} \left(  f_j[(g_1, \dots, g_m)/\vec{v}], h_j[(i_1, \dots, i_m)/\vec{v}] \right)\right\}\\
-		&\leq \sup_{1 \leq j \leq n} \left\{\max \left\{\mathsf{bd}_{\overline\partial} (f_j,h_j), \sup_{ 1 \leq l \leq m} \{\mathsf{bd}_{\overline\partial} (g_l, i_l)\}\right\}\right\} \tag{\Cref{cor:seq_nexp}} \\
-		&= \max \{ \sup_{1 \leq j \leq n} \{\mathsf{bd}_{\overline\partial} (f_j,h_j)\}, \sup_{ 1 \leq l \leq m} \{\mathsf{bd}_{\overline\partial} (g_l, i_l)\}\}\\
-		&= \max \{d^{n,m}(f,h), d^{m,k}(g,i)\}
+		&d^{n,k}(f ;g, h;i)\\
+		=& \sup_{1 \leq j \leq n} \left\{ \mathsf{bd}_{\overline\partial} \left(  f_j[(g_1, \dots, g_m)/\vec{v}], h_j[(i_1, \dots, i_m)/\vec{v}] \right)\right\}\\
+		\leq & \sup_{1 \leq j \leq n} \left\{\max \left\{\mathsf{bd}_{\overline\partial} (f_j,h_j), \sup_{ 1 \leq l \leq m} \{\mathsf{bd}_{\overline\partial} (g_l, i_l)\}\right\}\right\} \tag{\Cref{cor:seq_nexp}} \\
+		= & \max \{ \sup_{1 \leq j \leq n} \{\mathsf{bd}_{\overline\partial} (f_j,h_j)\}, \sup_{ 1 \leq l \leq m} \{\mathsf{bd}_{\overline\partial} (g_l, i_l)\}\}\\
+		= & \max \{d^{n,m}(f,h), d^{m,k}(g,i)\} \tag*{\hfill\qedhere}
 	\end{align*}
 \end{proof}
 Similarly to \Cref{lem:subst-stratified-bisim}, $\mu$-recursion interacts well with the stratification of bisimilarity.
@@ -772,7 +772,7 @@ The mediating map of binary coproduct is also nonexpansive.
 	\begin{align*}
 		d^{m +n, k}(\lc f, g \rc, \lc f', g' \rc) &= d^{m +n, k}((f_1, \dots, f_m, g_1, \dots, g_n), (f'_1, \dots, f'_m, g'_1, \dots, g'_n)) \\
 		&=\max \left\{d^{m,k}((f_1, \dots, f_m), (f'_1, \dots, f'_m)),\right.\\&\qquad \qquad\left. d^{n,k}((g_1, \dots, g_m), (g'_1, \dots, g'_m)) \right\}\\
-		&\leq \max \left\{d^{m,k}(f,f'),d^{n,k}(g,g') \right\} \qquad
+		&\leq \max \left\{d^{m,k}(f,f'),d^{n,k}(g,g') \right\} \tag*{\hfill\qedhere}
 	\end{align*}
 \end{proof}
 The above allows us to conclude the following:
@@ -794,7 +794,7 @@ The above allows us to conclude the following:
 		d^{k + l, m + n}(f \oplus g, h \oplus i) &= d^{k + l, m + n}(\lc f_1, \dots, f_k, g'_1, \dots, g'_l\rc,\lc h_1, \dots, h_k, i'_1, \dots, i'_l\rc)\\
 		&=\max \left\{\sup_{1 \leq p \leq k}\{\mathsf{bd}_{\overline\partial} (f_p, h_p)\}, \sup_{1 \leq j \leq l} \{\mathsf{bd}_{\overline\partial} (g'_j, i'_j)\} \right\}\\
 		&\leq \max \left\{\sup_{1 \leq p \leq k}\{\mathsf{bd}_{\overline\partial} (f_p, h_p)\}, \sup_{1 \leq j \leq l} \{\mathsf{bd}_{\overline\partial} (g_j, i_j)\} \right\}\\
-		&= \max \{d^{k,m}(f,g), d^{l,n}(h,i)\} \qquad
+		&= \max \{d^{k,m}(f,g), d^{l,n}(h,i)\} \tag*{\hfill\qedhere}
 	\end{align*}
 \end{proof}
 Through an inductive argument, we can show the following:
@@ -847,11 +847,12 @@ Through an inductive argument, we can show the following:
 	
 	We have the following:
 	\begin{align*}
-		d^{n' + 1, p}(f^\dagger, g^\dagger) &\leq \max \{d^{n', p + 1}(\lc f_1, \dots, f_{n'}\rc^\dagger; \lc \id_p,k^\dagger\rc,\\&\qquad\qquad  \lc g_1, \dots, g_{n'}\rc; \lc \id_p , l^\dagger\rc), d^{1,p}(k^\dagger, l^\dagger)\}\\
-		&\leq \max \{d^{n', 1 + p}(\lc f_1, \dots, f_{n'}\rc^\dagger, \lc g_1, \dots, g_{n'}\rc^\dagger),\\&\qquad\qquad  d^{p + 1, p}(\lc id_p , k^\dagger\rc, \lc id_p ,l^\dagger\rc),  d^{1,p}(k^\dagger, l^\dagger) \tag{\Cref{cor:seq_nexp}}\\
-		&\leq \max \{d^{n', p + 1}(\lc f_1, \dots, f_{n'}\rc^\dagger, \lc g_1, \dots, g_{n'}\rc^\dagger), d^{1,p}(k^\dagger, l^\dagger)\\
-		&\leq  \max \{d^{n', p + 1 + n'}(\lc f_1, \dots, f_{n'}\rc, \lc g_1, \dots, g_{n'}\rc ), d^{1,p}(k^\dagger, l^\dagger)\} \tag{Induction hypothesis}\\
-		&\leq \max \{d^{n', p + 1 + n'}(\lc f_1, \dots, f_{n'}\rc, \lc g_1, \dots, g_{n'}\rc ),  d^{n' + 1, p + 1 + n'}(f,g)\} \\
+		&d^{n' + 1, p}(f^\dagger, g^\dagger)\\
+		\leq & \max \{d^{n', p + 1}(\lc f_1, \dots, f_{n'}\rc^\dagger; \lc \id_p,k^\dagger\rc,\\&\qquad\qquad  \lc g_1, \dots, g_{n'}\rc; \lc \id_p , l^\dagger\rc), d^{1,p}(k^\dagger, l^\dagger)\}\\
+		\leq & \max \{d^{n', 1 + p}(\lc f_1, \dots, f_{n'}\rc^\dagger, \lc g_1, \dots, g_{n'}\rc^\dagger),\\&\qquad\qquad  d^{p + 1, p}(\lc id_p , k^\dagger\rc, \lc id_p ,l^\dagger\rc),  d^{1,p}(k^\dagger, l^\dagger) \tag{\Cref{cor:seq_nexp}}\\
+		\leq & \max \{d^{n', p + 1}(\lc f_1, \dots, f_{n'}\rc^\dagger, \lc g_1, \dots, g_{n'}\rc^\dagger), d^{1,p}(k^\dagger, l^\dagger)\\
+		\leq & \max \{d^{n', p + 1 + n'}(\lc f_1, \dots, f_{n'}\rc, \lc g_1, \dots, g_{n'}\rc ), d^{1,p}(k^\dagger, l^\dagger)\} \tag{Induction hypothesis}\\
+		\leq & \max \{d^{n', p + 1 + n'}(\lc f_1, \dots, f_{n'}\rc, \lc g_1, \dots, g_{n'}\rc ),  d^{n' + 1, p + 1 + n'}(f,g)\} \\
 		&=  d^{n' + 1, p + 1 + n'}(f,g)
 	\end{align*}
 	which completes the proof.
@@ -888,6 +889,7 @@ Since the trace on $\RegBeh$ is defined in terms of operations that we have show
 	\end{proof}
 	\subsection{Functorial semantics}
 	We are ready to state the semantics of our diagrammatic language $\sem{-} \colon \Syn \to \Int{\RegBeh}$ as a symmetric monoidal functor from $\Syn$ to $\Int{\RegBeh}$. Since the syntax is a freely generated prop, in order to interpret arbitrary string diagrams it is enough to just define the interpretation of the generating morphisms of $\Syn$. We have:
+	\vspace{-1em}
 	\begin{gather*}
 	\sem{\tikzfig{lr-copy}}=  N(v_1 + v_2)  \qquad 
 	\sem{\tikzfig{lr-delete}} =  N(0)  \qquad
@@ -997,7 +999,7 @@ Through a straightforward argument, one can show the soundness of the proposed q
 Every derivable equation $f \disteq{r} g$ is valid.
 \end{theorem}
 \begin{proof}
-	Induction on the length of derivation and the usage of \Cref{lem:soundness_sublemma}.
+	Induction on the length of derivation and \Cref{lem:soundness_sublemma}.
 \end{proof}
 \begin{example}
 We revisit the charts from \Cref{fig:intro} and axiomatically show that their distance is bounded by $\frac{1}{4}$. We use compositionality to our advantage and break them into two parts which we will compose later with the \textsf{(Comp)} rule. First, we have\\
@@ -1510,7 +1512,7 @@ The idea of reasoning about distances between string diagrams has been explored 
 
 Axiomatising behavioural distances have been originally studied through ad-hoc inference systems~\cite{Larsen:2011:Metrics,Argenio:2014:Axiomatizing}. The introduction of quantitative equational theories made more principled approaches possible, leading to axiomatisations of behavioural distance for probabilistic systems~\cite{Bacci:2018:Bisimilarity,Bacci:2018:Algebraic}. In \Cref{chapter2}, we extended these results within a coalgebraic framework, focusing on the simple case of DFA, which enjoys a straightforward algebraic representation via the syntax of Kleene Algebra. While we rely here on the general pattern of the completeness proof from~\Cref{chapter2} the case of Milner's charts was significantly more involved, requiring the ability to simulate the behaviour of Hausdorff lifting syntactically.
 
-In constructing the semantic category, we have used the fact that charts form a Conway theory~\cite{Esik:1999:Group}, studied in the literature on parametrised fixpoint operators~\cite{Haghverdi:2000:Categorical,Simpson:2000:Complete,Abramsky:2002:Geometry}, and which can be seen as a relaxation of iteration theories~\cite{Bloom:1993:Iteration}. The connection between charts and these structures was previously investigated by Bloom et al~\cite{Bloom:1993:Iteration} and Sewell~\cite{Sewell:1995:Algebra}, while the interplay of parametrised fixpoint operators with traced monoidal categories was studied by Hasegawa~\cite{Hasegawa:1997:Models}, Haghverdi~\cite{Haghverdi:2000:Categorical}, and Simpson and Plotkin~\cite{Simpson:2000:Complete} independently.
+In constructing the semantic category, we have used the fact that charts form a Conway theory~\cite{Esik:1999:Group}, studied in the literature on parametrised fixpoint operators~\cite{Haghverdi:2000:Categorical,Simpson:2000:Complete,Abramsky:2002:Geometry}, and which can be seen as a relaxation of iteration theories~\cite{Bloom:1993:Iteration}. The connection between charts and these structures was previously investigated by Bloom, Esik, and Taubner~\cite{Bloom:1993:Iteration} and Sewell~\cite{Sewell:1995:Algebra}, while the interplay of parametrised fixpoint operators with traced monoidal categories was studied by Hasegawa~\cite{Hasegawa:1997:Models}, Haghverdi~\cite{Haghverdi:2000:Categorical}, and Simpson and Plotkin~\cite{Simpson:2000:Complete} independently.
 
 Our work constitutes a necessary first step towards a similar diagrammatic treatment of behavioural distance for quantitative automata, such as probabilistic and weighted systems, for which distances are a more suitable way of reasoning rather than Boolean equivalences. The string diagrammatic point of view would enable a desirable, compositional treatment that reflects well the underlying operational models, in a way that is not available through conventional syntaxes. Another promising direction for future work would be to consider Guarded Kleene Algebra with Tests (GKAT)~\cite{Smolka:2020:Guarded,Schmid:2021:Guarded}, an efficiently decidable language for reasoning about equivalence of uninterpreted programs. The completeness proof of GKAT relies on a metric argument that could be internalised within an inference system like the one introduced in this chapter. Moreover, the syntax of GKAT is insufficiently expressive, as it can only describe a part of the behaviours of its underlying operational model -- in fact there is no finite purely algebraic syntax that could do so~\cite{Cate:2025:Algebras}. A string diagrammatic treatment could allow us to express all such behaviours and obtain a simpler yet more expressive completeness result, that would in turn enable axiomatic reasoning about decompilation algorithms, that were recently shown to be expressible via GKAT automata (but not in GKAT)~\cite{Zhang:2025:CFGKAT}.
 

@@ -160,10 +160,9 @@ $\nu_2[N] \leq \nu_1[\Rel(\funF)(R)^{-1}(N)]$. Finally, we can apply \Cref{apx:l
     We can show \circlednum{2} via symmetric line of reasoning to the one above.
 \end{proof}
 \section{Soundness argument}
-Given a set $Q \subseteq \PExp$ and an expression $f \in \PExp$, we will write: 
-$$
-{Q}/{f} = \{e \in \PExp \mid e \seq f \in Q\}
-$$
+Given a set $Q \subseteq \PExp$ and an expression $f \in \PExp$, we will write $
+{Q}/{f}$ for the set given by $\{e \in \PExp \mid e \seq f \in Q\}
+$.
 \begin{lemma}\label{apx:lem:cutting_postfixes}
     If \(R \subseteq \PExp \times \PExp\) is a congruence relation and \(({e}, {f}) \in R\) then for all $G \subseteq \PExp$, \(R(G / {{e}}) \subseteq R(G) / {f} \).
 \end{lemma}
@@ -227,7 +226,7 @@ Let $e,f \in \PExp$, $R \subseteq {\PExp \times \PExp}$ a congruence relation an
 \end{proof}
 \soundnessbisim*
 \begin{proof} We proceed by structural induction on the length derivation of $\equiv_b$, we show that all conditions of $\Cref{apx:lem:characterisation_of_bisimulation}$ are satisfied. In most of the cases, we will rely on simpler coinditions from \Cref{apx:lem:simpler_characterisation}. For the first few cases, we will rely on even simpler characterisation. In particular, observe that if for some $e,f \in \PExp$, $\partial(e) = \partial(f)$, then immediately $\partial(e)(\checkmark)=\partial(f)(\checkmark)$ and for all $a \in \alphabet$, $Q \in {\PExp}/{\equiv_b}$ we have that $\partial(e)[\{a\}\times Q] = \partial(f)[\{a\}\times Q]$. In other words, equality of subdistributions obtained by applying the coalgebra structure map to some pair states implies that they are bisimilar.
-    \begin{itemize}
+    \begin{itemize}[leftmargin=0em]
         \item[] \fbox{ $e \oplus_1 f \equiv_b e$}
         For all $e,f \in \PExp$, $x \in\funF \PExp $ we have that: 
         $$
@@ -298,11 +297,12 @@ Let $e,f \in \PExp$, $R \subseteq {\PExp \times \PExp}$ a congruence relation an
 
         For all $a \in \alphabet$ and $Q \in {\PExp}/{\equiv_b}$ we have that:
         \begin{align*}
-            \partial(e \seq (f \seq g))[\{a\} \times Q] &= \partial(e)[\{a\} \times {Q}/{f \seq g}] + \partial(e)(\checkmark)\partial(f \seq g)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_sequencing_semantics}} \\
-            &= \partial(e)[\{a\} \times {{Q}/{g}}/{f}] + \partial(e)(\checkmark)\partial(f)[\{a\} \times Q/{g}]\\
+            &\partial(e \seq (f \seq g))[\{a\} \times Q]\\
+            =& \partial(e)[\{a\} \times {Q}/{f \seq g}] + \partial(e)(\checkmark)\partial(f \seq g)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_sequencing_semantics}} \\
+            =& \partial(e)[\{a\} \times {{Q}/{g}}/{f}] + \partial(e)(\checkmark)\partial(f)[\{a\} \times Q/{g}]\\
             &\quad\quad+\partial(e)(\checkmark)\partial(f)(\checkmark)\partial(g)[\{a\} \times Q] \tag{\Cref{apx:lem:associativity_of_cutting}}\\
-            &=\partial(e \seq f)[\{a\} \times {Q}/{f}] + \partial(e \seq f)(\checkmark)\partial(g)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_sequencing_semantics}} \\
-            &=\partial((e \seq f) \seq g)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_sequencing_semantics}}
+            =& \partial(e \seq f)[\{a\} \times {Q}/{f}] + \partial(e \seq f)(\checkmark)\partial(g)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_sequencing_semantics}} \\
+            =& \partial((e \seq f) \seq g)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_sequencing_semantics}}
         \end{align*}
 
         \item[] \fbox{$(e \oplus_p f) \seq g \equiv_b e \seq g \oplus_p f \seq g$}
@@ -343,14 +343,15 @@ Let $e,f \in \PExp$, $R \subseteq {\PExp \times \PExp}$ a congruence relation an
             &= p\partial(e)(\checkmark)\partial(e^{[p]})(\checkmark) + (1-p)\\	        \end{align*}
         Let $a \in \alphabet$ and $Q \in {\PExp}/{\equiv_b}$. We have that:
         \begin{align*}
-            \partial(e^{[p]})[\{a\} \times Q] &= \frac{p\partial(e)[\{a\} \times {Q}/{e^{[p]}}]}{1-p\partial(e)(\checkmark)} \tag{\Cref{apx:lem:simpler_loop_semantics}} \\
-            &= p\partial(e)[\{a\} \times {Q}/{e^{[p]}}]\frac{1}{1-p\partial(e)(\checkmark)}\\
-            &= p\partial(e)[\{a\} \times {Q}/{e^{[p]}}]\frac{1-p\partial(e)(\checkmark) + p\partial(e)(\checkmark)}{1-p\partial(e)(\checkmark)}\\
-            &= p \partial(e)[\{a\} \times Q/{e^{[p]}}] \left( 1 + \frac{p\partial(e)(\checkmark)}{1-p\partial(e)(\checkmark)}\right)\\
-            &= p \partial(e)[\{a\} \times Q/{e^{[p]}}] + p\partial(e)(\checkmark)\frac{p\partial(e)[\{a\} \times {Q}/{e^{[p]}}]}{1-p\partial(e)(\checkmark)}\\
-            &= p \partial(e)[\{a\} \times Q/{e^{[p]}}] + p\partial(e)(\checkmark)\partial(e^{[p]})[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_loop_semantics}}\\
-            &= p \partial(e \seq e^{[p]})[\{a\} \times Q]\tag{\Cref{apx:lem:simpler_sequencing_semantics}}\\
-            &=\partial(e \seq e^{[p]} \oplus_p \one)[\{a\} \times Q]
+            &\partial(e^{[p]})[\{a\} \times Q]\\
+            =& \frac{p\partial(e)[\{a\} \times {Q}/{e^{[p]}}]}{1-p\partial(e)(\checkmark)} \tag{\Cref{apx:lem:simpler_loop_semantics}} \\
+            =& p\partial(e)[\{a\} \times {Q}/{e^{[p]}}]\frac{1}{1-p\partial(e)(\checkmark)}\\
+            =& p\partial(e)[\{a\} \times {Q}/{e^{[p]}}]\frac{1-p\partial(e)(\checkmark) + p\partial(e)(\checkmark)}{1-p\partial(e)(\checkmark)}\\
+            =& p \partial(e)[\{a\} \times Q/{e^{[p]}}] \left( 1 + \frac{p\partial(e)(\checkmark)}{1-p\partial(e)(\checkmark)}\right)\\
+            =& p \partial(e)[\{a\} \times Q/{e^{[p]}}] + p\partial(e)(\checkmark)\frac{p\partial(e)[\{a\} \times {Q}/{e^{[p]}}]}{1-p\partial(e)(\checkmark)}\\
+            =& p \partial(e)[\{a\} \times Q/{e^{[p]}}] + p\partial(e)(\checkmark)\partial(e^{[p]})[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_loop_semantics}}\\
+            =& p \partial(e \seq e^{[p]})[\{a\} \times Q]\tag{\Cref{apx:lem:simpler_sequencing_semantics}}\\
+            =& \partial(e \seq e^{[p]} \oplus_p \one)[\{a\} \times Q]
         \end{align*}
 
         \item[] \fbox{$(e \oplus_p \one)^{[q]} \equiv_b e^{\left[\frac{pq}{1-(1-p)q}\right]}$}
@@ -367,12 +368,13 @@ Let $e,f \in \PExp$, $R \subseteq {\PExp \times \PExp}$ a congruence relation an
 
         For all $a \in \alphabet$ and $Q \in {\PExp}/{\equiv_b}$ we have that the following holds:
         \begin{align*}
-            \partial \left( (e \oplus_p \one)^{[q]}\right)[\{a\} \times Q] &= \frac{q\partial(e \oplus_p \one)[\{a\} \times {Q}/{(e \oplus_p \one)^{[q]}}]}{1-q\partial(e \oplus_p \one)(\checkmark)} \tag{\Cref{apx:lem:simpler_loop_semantics}} \\
-            &= \frac{pq\partial(e)[\{a\} \times {Q}/{(e \oplus_p \one)^{[q]}}]}{1-(1-p)q-pq\partial(e)(\checkmark)} \\
-            &= \frac{pq\partial(e)[\{a\} \times {Q}/{(e \oplus_p 1)^{[q]}}]}{(1-(1-p)q)\left(1-\frac{pq}{1-(1-p)q}\partial(e)(\checkmark)\right)} \\
-            &= \frac{\frac{pq}{1-(1-p)q}\partial(e)[\{a\} \times {Q}/{(e \oplus_p 1)^{[q]}}]}{(1-(1-p)q)\left(1-\frac{pq}{1-(1-p)q}\partial(e)(\checkmark)\right)} \\
-            &= \frac{\frac{pq}{1-(1-p)q}\partial(e)[\{a\} \times {Q}/{e^{\left[\frac{pq}{1-(1-p)q}\right]}}]}{(1-(1-p)q)\left(1-\frac{pq}{1-(1-p)q}\partial(e)(\checkmark)\right)} \tag{\Cref{apx:lem:swapping_ends}}\\
-            &=\partial\left(e^{\left[\frac{pq}{1-(1-p)q}\right]}\right)[\{a\} \times Q]
+            &\partial \left( (e \oplus_p \one)^{[q]}\right)[\{a\} \times Q]\\
+            =& \frac{q\partial(e \oplus_p \one)[\{a\} \times {Q}/{(e \oplus_p \one)^{[q]}}]}{1-q\partial(e \oplus_p \one)(\checkmark)} \tag{\Cref{apx:lem:simpler_loop_semantics}} \\
+            =& \frac{pq\partial(e)[\{a\} \times {Q}/{(e \oplus_p \one)^{[q]}}]}{1-(1-p)q-pq\partial(e)(\checkmark)} \\
+            =& \frac{pq\partial(e)[\{a\} \times {Q}/{(e \oplus_p 1)^{[q]}}]}{(1-(1-p)q)\left(1-\frac{pq}{1-(1-p)q}\partial(e)(\checkmark)\right)} \\
+            =& \frac{\frac{pq}{1-(1-p)q}\partial(e)[\{a\} \times {Q}/{(e \oplus_p 1)^{[q]}}]}{(1-(1-p)q)\left(1-\frac{pq}{1-(1-p)q}\partial(e)(\checkmark)\right)} \\
+            =& \frac{\frac{pq}{1-(1-p)q}\partial(e)[\{a\} \times {Q}/{e^{\left[\frac{pq}{1-(1-p)q}\right]}}]}{(1-(1-p)q)\left(1-\frac{pq}{1-(1-p)q}\partial(e)(\checkmark)\right)} \tag{\Cref{apx:lem:swapping_ends}}\\
+            =&\partial\left(e^{\left[\frac{pq}{1-(1-p)q}\right]}\right)[\{a\} \times Q]
         \end{align*}
 
         \item[] \fbox{From $g \equiv_b e \seq g \oplus_p f$ and $E(g)=0$ derive $g \equiv_b e^{[p]} \seq f$} Let $e,f,g \in \PExp$, such that $g \equiv e\seq g \oplus_p f$ and $E(e) = 0$. Recall that by \Cref{c4:lem:exit_operator_lemma}, we have that $\partial(e)(\checkmark)=0$. First, observe that:
@@ -410,9 +412,10 @@ Let $e,f \in \PExp$, $R \subseteq {\PExp \times \PExp}$ a congruence relation an
     \end{align*}
     For all $a \in \alphabet$ and $Q \in {\PExp}/{\equiv_b}$ we have that:
     \begin{align*}
-        \partial(e \oplus_p f)[\{a\} \times Q]&= p\partial(e)[\{a\} \times Q] + (1-p)\partial(f)[\{a\} \times Q] \\
-        &= p\partial(g)[\{a\} \times Q] + (1-p)\partial(h)[\{a\} \times Q] \tag{Induction hypothesis}\\
-        &= \partial(g \oplus_p h)[\{a\} \times Q]
+        &\partial(e \oplus_p f)[\{a\} \times Q]\\
+        =& p\partial(e)[\{a\} \times Q] + (1-p)\partial(f)[\{a\} \times Q] \\
+        =& p\partial(g)[\{a\} \times Q] + (1-p)\partial(h)[\{a\} \times Q] \tag{Induction hypothesis}\\
+        =& \partial(g \oplus_p h)[\{a\} \times Q]
     \end{align*}
     \item \fbox{From $e \equiv_b g$ and $f \equiv_b h$ derive that $e \seq f \equiv_b g \seq h$} Let $e,f,g,h \in \PExp$, such that $e \equiv_b g$ and $f \equiv_b h$.
     We have that:
@@ -423,10 +426,11 @@ Let $e,f \in \PExp$, $R \subseteq {\PExp \times \PExp}$ a congruence relation an
     \end{align*}
     For all $a \in \alphabet$ and $G \subseteq \PExp$, we have that:
     \begin{align*}
-        \partial(e \seq f)[\{a\} \times G] &= \partial(e)[\{a\}\times G/{f}] + \partial(e)(\checkmark)\partial(f)[\{a\} \times G] \tag{\Cref{apx:lem:simpler_sequencing_semantics}}\\
-        &\leq \partial(g)[\{a\} \times R(G/f)] + \partial(g)(\checkmark)\partial(h)[\{a\} \times R(G)]\\
-        &\leq \partial(g)[\{a\} \times R(G)/h] + \partial(g)(\checkmark)\partial(h)[\{a\} \times R(G)] \tag{\Cref{apx:lem:cutting_postfixes}} \\
-        &= \partial(g \seq h)[\{a\} \times R(G)] \tag{\Cref{apx:lem:simpler_sequencing_semantics}}
+        &\partial(e \seq f)[\{a\} \times G]\\
+        =& \partial(e)[\{a\}\times G/{f}] + \partial(e)(\checkmark)\partial(f)[\{a\} \times G] \tag{\Cref{apx:lem:simpler_sequencing_semantics}}\\
+        \leq & \partial(g)[\{a\} \times R(G/f)] + \partial(g)(\checkmark)\partial(h)[\{a\} \times R(G)]\\
+        \leq & \partial(g)[\{a\} \times R(G)/h] + \partial(g)(\checkmark)\partial(h)[\{a\} \times R(G)] \tag{\Cref{apx:lem:cutting_postfixes}} \\
+        =& \partial(g \seq h)[\{a\} \times R(G)] \tag{\Cref{apx:lem:simpler_sequencing_semantics}}
     \end{align*}
 
     Condition that $\partial(g \seq h)[\{a\} \times G] \leq \partial(e \seq f)[\{a\} \times R^{-1}(G)]$ can be shown by a symmetric argument.
