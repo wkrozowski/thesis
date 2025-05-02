@@ -389,15 +389,16 @@ Let $e,f \in \PExp$, $R \subseteq {\PExp \times \PExp}$ a congruence relation an
 
         For all $a \in \alphabet$ and $Q \in {\PExp}/{\equiv_b}$ we have that:
         \begin{align*}
-            \partial(g)[\{a\} \times Q] &= \partial(e \seq g \oplus_p f)[\{a\} \times Q] \\\tag{Induction hypothesis} \\
-            &=p \partial(e \seq g)[\{a\} \times Q] + (1-p)\partial(f)[\{a\} \times Q]\\
-            &= p \partial(e)[\{a\} \times Q/{g}] + p \partial(e)(\checkmark)\partial(g)[\{a\}\times Q]\\&\quad\quad + (1-p)\partial(f)[\{a\} \times Q] \\
-            &= p\partial(e)[\{a\} \times Q/g] + (1-p)\partial(f)[\{a\} \times Q] \\
-            &=p\partial(e)[\{a\} \times Q/{e^{[p]}\seq f}] + (1-p)\partial(f)[\{a\} \times Q] \tag{\Cref{apx:lem:swapping_ends}}\\
-            &=p\partial(e)[\{a\} \times {(Q/{f})}/{e^{[p]}}] + (1-p)\partial(f)[\{a\} \times Q] \tag{\Cref{apx:lem:associativity_of_cutting}}\\
-            &=\frac{p\partial(e)[\{a\} \times {(Q/{f})}/{e^{[p]}}]}{1-p\partial(e)(\checkmark)} + \frac{1-p}{1-p\partial(e)(\checkmark)}\partial(f)[\{a\} \times Q] \\
-            &= \partial(e^{[p]})[\{a\} \times Q/f] + \partial(e^{[p]})(\checkmark)\partial(f)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_loop_semantics}}\\
-            &=\partial(e^{[p]}\seq f)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_sequencing_semantics}}
+            &\partial(g)[\{a\} \times Q]\\
+            =& \partial(e \seq g \oplus_p f)[\{a\} \times Q] \\\tag{Induction hypothesis} \\
+            =& p \partial(e \seq g)[\{a\} \times Q] + (1-p)\partial(f)[\{a\} \times Q]\\
+            =& p \partial(e)[\{a\} \times Q/{g}] + p \partial(e)(\checkmark)\partial(g)[\{a\}\times Q]\\&\quad\quad + (1-p)\partial(f)[\{a\} \times Q] \\
+            =& p\partial(e)[\{a\} \times Q/g] + (1-p)\partial(f)[\{a\} \times Q] \\
+            =& p\partial(e)[\{a\} \times Q/{e^{[p]}\seq f}] + (1-p)\partial(f)[\{a\} \times Q] \tag{\Cref{apx:lem:swapping_ends}}\\
+            =& p\partial(e)[\{a\} \times {(Q/{f})}/{e^{[p]}}] + (1-p)\partial(f)[\{a\} \times Q] \tag{\Cref{apx:lem:associativity_of_cutting}}\\
+            =& \frac{p\partial(e)[\{a\} \times {(Q/{f})}/{e^{[p]}}]}{1-p\partial(e)(\checkmark)} + \frac{1-p}{1-p\partial(e)(\checkmark)}\partial(f)[\{a\} \times Q] \\
+            =& \partial(e^{[p]})[\{a\} \times Q/f] + \partial(e^{[p]})(\checkmark)\partial(f)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_loop_semantics}}\\
+            =&\partial(e^{[p]}\seq f)[\{a\} \times Q] \tag{\Cref{apx:lem:simpler_sequencing_semantics}}
         \end{align*}
     \end{itemize}
 

@@ -34,7 +34,7 @@ Finally, using string diagrams aligns our work with a broader research programme
 %Whereas quantitative theories for term algebras have been studied extensively~\cite{Mardare:2016:Quantitative,Mio:2024:Universal,Rosicky2023,MiliusU19}, quantitative theories for string diagrams (which require working in a monoidal rather than cartesian category) have received far less attention,~\cite{Lobbia:2024:Quantitative} being a first systematic attempt at developing such framework. The axiomatic theory we develop in this paper is not quite BLABLA, but we plan to BLABLA
 
 
-The rest of the chapter is organised is as follows:
+The rest of the chapter is organised is as follows.
 
 In \Cref{c3:sec:preliminaries}, we introduce charts, as well as their associated notions of behavioural equivalence and distances. Then, in \Cref{c3:sec:monoidal}, we introduce the syntax of our diagrammatic calculus, for which we construct the semantics in \Cref{sec:semantics}. Next, in \Cref{sec:axioms} we present a (quantitative) equational inference system for reasoning about distances of the denotations of the terms of our calculus; we also prove its soundness and study one example in more detail. \Cref{sec:completeness} contains the main technical result of the chapter, namely completeness for the proposed behavioural distance between charts. We wrap up in \Cref{sec:discussion} where we review related literature, and sketch directions for future work.  
 
@@ -69,7 +69,7 @@ To define charts, Milner proposed a specification language called an \emph{algeb
 $$e,f \in \Expr ::= 0 \mid v \in V \mid a.e \mid e + f \mid \mu v. e \qquad\qquad\qquad (a \in \Sigma)$$
 where $V=\{v_1, v_2, \dots\}$ and $\Sigma$ are sets of \emph{variables} and \emph{letters} respectively. Given an expression $f$ containing a variable $v$, we say that $v$ is \emph{free} in $f$, if it appears outside of the scope of the $\mu v.e$ operator or say that it is \emph{bound} otherwise. Given an expression $e \in \Expr$, we write $\fv(e) \subseteq V$ for the set of its free variables. 
 \begin{definition}[{\cite{Milner:1984:Complete}}]\label{def:subset}
-	Given vectors $\vec{v}$ of binders and $\vec{e}$ of expressions of the same size, we define a syntactic substitution operator $[\vec{e}/\vec{v}] \colon \Expr \to \Expr$ by the following
+	Given vectors $\vec{v}$ of binders and $\vec{e}$ of expressions of the same size, we define a syntactic substitution operator $[\vec{e}/\vec{v}] \colon \Expr \to \Expr$ by the following:
 	\begin{align*}
 		v[\vec{e}/\vec{v}] &= \begin{cases}
 			\vec{e}_i & \text{if }v=\vec{v}_i\\
@@ -1309,9 +1309,9 @@ It is enough to show that the convolution of two string diagrams is an associati
 \end{align*}
 \item[Idempotence:]
 \begin{align*}
-\tikzfig{convolution-idemp} &\disteq{0} \tikzfig{convolution-idemp-1} \qquad & (\text{Lemma}~\ref{thm:co-copy-delete})
+\tikzfig{convolution-idemp} &\disteq{0} \tikzfig{convolution-idemp-1} \tag{\Cref{thm:co-copy-delete}}
 \\
-& = \dbox{f_1}{}{n} \qedhere
+& = \dbox{f_1}{}{n} \tag*{\hfill\qedhere}
 \end{align*}
 \end{description}
 \end{proof}
@@ -1323,11 +1323,11 @@ First, since $c$ and $d$ are left-to-right, there exists expressions $s,t\in\Reg
 \\
 & = N(v_1+v_2) ; (N(s)\oplus N(f)) ;  N(\nabla_1) & 
 \\
-& = N((v_1+v_2); (s\oplus f); \nabla_1) & (\text{Functoriality of $N$})
+& = N((v_1+v_2); (s\oplus f); \nabla_1) \tag{{Functoriality of $N$}}
 \\
-& = N(s+f) & (\text{Definition of $N$})
+& = N(s+f) \tag{{Definition of $N$}}
 \\
-& = N(s) + N(t) = \sem{c} + \sem{d} \qedhere
+& = N(s) + N(t) = \sem{c} + \sem{d} \tag*{\hfill\qedhere}
 \end{align*}
 
 \end{proof}

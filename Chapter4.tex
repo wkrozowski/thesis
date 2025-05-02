@@ -1642,7 +1642,7 @@ Moreover, when regarded as $\hat{\funG}$-coalgebra, $\left((\PExp/{\equiv}, \alp
         (d^{-1} \circ d) ([e]) &= d^{-1}\left\langle o , \lambda a \ldotp \left[ \bigoplus_{i \in I} p_a^i \cdot e_a^i\right] \right\rangle \tag{\Cref{c4:cor:concrete_coalgebra}}\\
         &= d^{-1}\left\langle o , \lambda a \ldotp \bigboxplus_{i \in I} p_a^i \cdot \left[ e_a^i\right] \right\rangle \tag{\Cref{c4:lem:coarser_quotient_is_a_pca}}\\
         &= \left[o \cdot \one \oplus \left(\bigoplus_{(a,i) \in \alphabet \times I} p_a^i \cdot a \seq e_a^i\right)\right] \tag{Def. of $d^{-1}$}\\
-        &= d([e]) \qedhere
+        &= d([e]) \tag*{\hfill\qedhere}
     \end{align*}
 \end{proof}
 \subsection{Step 3: Systems of equations}
@@ -1699,7 +1699,7 @@ M^\beta_{x, x'} = \begin{cases}
          f \seq \left(\bigoplus_{i \in I} p_i \cdot e_i\right) &\equiv f \seq \left( e_j \oplus_{p_j} \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{{1-p_j}} \cdot e_i\right) \right)  \\
          &\equiv  f \seq e_j \oplus_{p_j} f \seq \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{{1-p_j}} \cdot e_i\right)\tag{\textbf{D1}} \\
          &\equiv  f\seq e_j  \oplus_{p_j} \left(\bigoplus_{i \in I \setminus \{j\}} \frac{p_i}{{1-p_j}} \cdot f \seq e_i\right) \tag{Induction hypothesis}\\
-         &\equiv \left(\bigoplus_{i \in I} p_i \cdot f \seq e_i \right) \qedhere
+         &\equiv \left(\bigoplus_{i \in I} p_i \cdot f \seq e_i \right) \tag*{\hfill\qedhere}
     \end{align*}
 \end{proof}
 
