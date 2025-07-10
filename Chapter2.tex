@@ -573,7 +573,7 @@ Let $e,f,g \in \RExp$, such that $\emptyword \notin \sem{e}$ and let $n \in \N$.
 		Since $\e \cdot r_N \geq \e \cdot \lambda^{-1} \geq \lambda^{n}$, we can apply the induction hypothesis and obtain that $\vdash e \equiv_{\e \cdot r_N} g^* \seq f$. Since $\emptyword \notin \sem{e}$, we can now use \Cref{c2:lem:generalised_pref} to derive that $e \seq g \equiv_{\e'} e \seq e^{\ast} \seq f$. Since we have shown it for an arbitrary $\e' > \e$, we can use the $(\Cont)$ rule of the quantitative deduction system and conclude that $\vdash e \seq g \equiv_{\e} e \seq e^* \seq f$, as desired. 
 		
 		
-		Then, because of $(\Refl)$, we have that $\vdash f \equiv_0 f$. We can combine those two quantitative inferences using \textsf{(SL5)} axiom in order to get $\vdash e \seq g + f \equiv_{\e} e \seq e^\ast \seq f  + f $. By assumption, the left hand side satisfies that $\vdash g \equiv_0 e \seq g + f$. Now, consider the right hand side of the following quantitative inference:
+		Then, because of $(\Refl)$, we have that $\vdash f \equiv_0 f$. We can combine those two quantitative inferences using \textsf{(SL5)} axiom in order to get $\vdash e \seq g + f \equiv_{\e} e \seq e^\ast \seq f  + f $. By assumption, the left hand side satisfies that $\vdash g \equiv_0 e \seq g + f$. Now, consider $e \seq e^\ast \seq f$ that appears on the right-hand side of the quantitative inference mentioned above:
 	\begin{align*}
 		\vdash e \seq e^{\ast} \seq f + f &\equiv_0 e \seq e^\ast \seq f + \one \seq f \tag{\textsf{1S}} \\
 		&\equiv_0 (e \seq e^* + \one) \seq f \tag{\textsf{D2}} \\
@@ -607,11 +607,12 @@ It is noteworthy that $\Phi_{\langle o_M, t_M\rangle}$ exhibits two generic prop
     
     From now on, we will assume that $o_M(m) = o_M(m)$ and hence $d_{\{0,1\}}(m,m')=0$. We have the following:
     \begin{align*}
-        \Phi_{\langle o_M, t_M\rangle}(d')(m,m') - \Phi_{\langle o_M, t_M\rangle}(d)(m,m') &= \lambda \cdot \max_{a \in \alphabet} d'(m_a, m'_a) - \lambda \cdot \max_{a \in \alphabet} d(m_a, m'_a) \\
-        &= \lambda \cdot \left( \max_{a \in \alphabet} d'(m_a, m'_a) - \max_{a \in \alphabet} d(m_a,  m'_a) \right) \\
-        &\leq \lambda \cdot \left(\max_{a \in \alphabet} \{d'(m_a, m'_a) - d(m_a, m'_a) \}\right) \\  
-        &\leq \lambda \cdot \sup_{n,n' \in M} \{ d'(n,n') - d(n,n')\} \\
-        &= \lambda \cdot \|d' - d \| \qedhere
+        &\Phi_{\langle o_M, t_M\rangle}(d')(m,m') - \Phi_{\langle o_M, t_M\rangle}(d)(m,m')\\
+        =& \left|\lambda \cdot \max_{a \in \alphabet} d'(m_a, m'_a) - \lambda \cdot \max_{a \in \alphabet} d(m_a, m'_a)\right| \tag{$d \sqsubseteq d'$ and monotonicity of $\Phi$} \\
+        =& \lambda \cdot\left| \left( \max_{a \in \alphabet} d'(m_a, m'_a) - \max_{a \in \alphabet} d(m_a,  m'_a) \right) \right|\\
+        \leq & \lambda \cdot \left(\max_{a \in \alphabet} \left\{\left|d'(m_a, m'_a) - d(m_a, m'_a) \right| \right\}\right) \tag{\cite[Lemma~3.4]{Baldan:2018:Coalgebraic}}\\  
+        \leq & \lambda \cdot \sup_{n,n' \in M} \left\{ | d'(n,n') - d(n,n')|\right\} \\
+        =& \lambda \cdot \|d' - d \| \tag*{\hfill\qedhere}
     \end{align*}
 \end{proof}
 Secondly, contractivity of $\Phi_{\langle o_M, t_M\rangle}$ implies the following:
@@ -626,7 +627,8 @@ This means that if we want to calculate $d_{\langle o_M, t_M\rangle}$ it suffice
 	$\operatorname{gfp}(f) = \inf_{i \in \N }\{f^{(i)}(\top)\}$
 	where $f^{(n)}$ denotes $n$-fold self-composition of $f$ given inductively by $f^{(0)}(x)=x$ and $f^{(n+1)}(x) = f^{(n+1)}(f(x))$ for all $x \in X$.
 \end{theorem} 
-The theorem above requires the endomap to be $\omega$-cocontinuous. Luckily, it is the case for $\Phi_{\langle o_M, t_M\rangle}$ if we restrict our attention to \textsf{DFA}. To show that, we directly follow the line of reasoning from~\cite[Lemma~5.6]{Bacci:2018:Bisimilarity} generalising the similar line of reasoning for $\omega$-continuity from \cite[Theorem~1]{Breugel:2012:On}. First, using  \Cref{c2:lem:chain_pointwise_inf} we show that decreasing chains of pseudometrics over a finite set converge to their infimum. That result is a minor re-adaptation of~\cite[Theorem~1]{Breugel:2012:On} implicitly used in \cite[Lemma~5.6]{Bacci:2018:Bisimilarity}.
+The theorem above requires the endomap to be $\omega$-cocontinuous. Conveniently, it is the case for $\Phi_{\langle o_M, t_M\rangle}$ if we restrict our attention to \textsf{DFA}. To show that, we directly follow the line of reasoning from~\cite[Lemma~5.6]{Bacci:2018:Bisimilarity} generalising the similar line of reasoning for $\omega$-continuity from \cite[Theorem~1]{Breugel:2012:On}. First, using  \Cref{c2:lem:chain_pointwise_inf} we show that decreasing chains of pseudometrics over a finite set converge to their infimum. That result is a minor re-adaptation of~\cite[Theorem~1]{Breugel:2012:On} implicitly used in \cite[Lemma~5.6]{Bacci:2018:Bisimilarity}.
+
 \begin{lemma}\label{c2:lem:chain_conv_to_inf}
     Let $\{d_i\}_{i \in \N}$ be an infinite descending chain in the lattice $(D_X, \sqsubseteq)$, where $X$ is a finite set. The sequence $\{d_i\}_{i \in \N}$ converges (in the sense of convergence in the Banach space) to $d(x,y) = \inf_{i \in \N} d_i(x,y)$.
 \end{lemma}
@@ -634,11 +636,18 @@ The theorem above requires the endomap to be $\omega$-cocontinuous. Luckily, it 
      Let $\e > 0$ and let $x, y \in X$. Since $d(x,y) = \inf_{i \in \N} d_i(x,y)$ 
     there exists an index $m_{x,y} \in \N$ such that for all $n \geq m_{x,y}$, $|d_n(x,y) - d(x,y)| < \e$. Now, let $N = \max \{m_{x,y} \mid x, y \in X\}$. This is well-defined because $X$ is finite. Therefore, for all $n \geq N$ and $x,y \in X$, $| d_n(x,y) - d(x,y)|< \e$ and hence $\| d_n - d\| < \e$.
 \end{proof}
-We can now use the above to show the desired property, by re-adapting \cite[Theorem~1]{Breugel:2012:On}. 
-\begin{lemma}\label{c2:lem:cocontinuous} If $\mathcal{M} = (M, \langle o_M, t_M\rangle) $ is a deterministic finite automaton, then $\Phi_{\langle o_M, t_M\rangle}$ is $\omega$-cocontinuous.\end{lemma} 
+We can now use the above to re-adapt \cite[Theorem~1]{Breugel:2012:On}. 
+\begin{lemma}
+	Let $\Lambda \colon D_X \to D_X$ be a monotone map that is nonexpansive with respect to the supremum norm. If $X$ is finite, then $\Lambda$ is cocontinuous.
+\end{lemma}
 \begin{proof}
- By \Cref{c2:lem:chain_conv_to_inf}, the chain $\{d_i\}_{i \in \N}$ converges to $\inf_{i \in \N} d_i$. Since $\Phi_{\langle o_M, t_M\rangle}$ is contractive (\Cref{c2:lem:operator_nonexpansive}) it is also continuous (in the sense of the Banach space continuity) and therefore $\{\Phi_{\langle o_M, t_M\rangle}(d_i)\}_{i \in \N}$ converges to $\Phi_{\langle o_M, t_M\rangle} \left(\inf_{i \in \N} d_i\right)$. Recall that $\Phi_{\langle o_M, t_M\rangle}$ is monotone, which makes $\{\Phi_{\langle o_M, t_M\rangle}(d_i)\}_{i \in \N}$ into a chain, which by \Cref{c2:lem:chain_pointwise_inf} and \Cref{c2:lem:chain_conv_to_inf} converges to $\inf_{i \in \N} \{\Phi_{\langle o_M, t_M\rangle} (d_i)\}$. Since limit points are unique, $\inf_{i \in \N} \{\Phi_{\langle o_M, t_M\rangle} (d_i)\} = \Phi_{\langle o_M, t_M\rangle} \left(\inf_{i \in \N} d_i\right)$.
+Let $\{d_i\}_{i \in \N}$ be an arbitrary decreasing chain of pseudometrics over $X$. By \Cref{c2:lem:chain_conv_to_inf}, $\{d_i\}_{i \in \N}$ converges to $\inf_{i \in \N} d_i$. Since $\Lambda$ is nonexpansive (\Cref{c2:lem:operator_nonexpansive}) it is also continuous (in the sense of the Banach space continuity) and therefore $\{\Lambda(d_i)\}_{i \in \N}$ converges to $\Lambda \left(\inf_{i \in \N} d_i\right)$. 
+ Recall that $\Lambda$ is monotone, which makes $\{\Lambda(d_i)\}_{i \in \N}$ into a chain, which by \Cref{c2:lem:chain_pointwise_inf} and \Cref{c2:lem:chain_conv_to_inf} converges to $\inf_{i \in \N} \{\Lambda (d_i)\}$. 
+ Since limit points are unique, $\inf_{i \in \N} \{\Lambda (d_i)\} = \Lambda \left(\inf_{i \in \N} d_i\right)$.
 \end{proof}
+Note that the assumption that $X$ is finite is essential, as it enables the use of \Cref{c2:lem:chain_conv_to_inf}. Consequently, we obtain the following corollary:
+
+\begin{corollary}\label{c2:lem:cocontinuous} If $\mathcal{M} = (M, \langle o_M, t_M\rangle) $ is a deterministic finite automaton, then $\Phi_{\langle o_M, t_M\rangle}$ is $\omega$-cocontinuous.\end{corollary}
 We can combine the preceding results and provide a straightforward characterisation of the distance between languages represented by arbitrary regular expressions, denoted as $e, f \in \RExp$. Utilising a simple argument based on \Cref{c2:lem:behavioural_distances_properties}, which asserts that automata homomorphisms are isometries, one can demonstrate that the distance between $\sem{e}$ and $\sem{f}$ in the final automaton is equivalent to the distance between $[e]_{\acirel}$ and $[f]_{\acirel}$ in $\gen{[e]_{\acirel},[f]_{\acirel}}{\mathcal{Q}}$. This is, the least subautomaton of $\mathcal{Q}$ that contains the derivatives (modulo $\acirel$) reachable from $[e]_{\acirel}$ and $[f]_{\acirel}$. Importantly, this automaton is finite (\Cref{c2:lem:locally_finite}), allowing us to apply the Kleene's fixpoint theorem to calculate the distance.
 
 Let ${\Psi}_{e,f}^{(0)}$ denote the discrete metric on the set $\gen{[e]{\acirel},[f]{\acirel}}{\mathcal{Q}}$ (the top element of the lattice of pseudometrics over that set). Define ${\Psi}_{e,f}^{(n+1)} = \Phi_{\gen{[e]{\acirel},[f]{\acirel}}{\mathcal{Q}}} \left({\Psi}_{e,f}^{(n)}\right)$. Additionally, leveraging the fact that infima of decreasing chains are calculated pointwise (\Cref{c2:lem:chain_pointwise_inf}), we can conclude with the following:
