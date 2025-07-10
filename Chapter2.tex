@@ -66,7 +66,7 @@ We conclude in \Cref{c2:sec:discussion}, review related literature, and sketch d
 In this section, we recall the main definitions and results from the literature that this and further chapters rely on. Throughout this thesis, we assume the familiarity of the reader with basic notions of category theory~\cite{Abramsky:2010:Introduction} and order theory~\cite{Davey:2002:Introduction}. Notation wise, given a category $\C$, we will write $\ObjC(\C)$ for the collection of its objects. For $X,Y \in \ObjC(\C)$, we will write $\C(X,Y)$ for the hom-object between objets $X$ and $Y$. We will write $f \colon X \to Y$, to denote that $f$ is a morphism from $X$ to $Y$.
 \subsection{Coalgebra}\label{c2:subsec:coalgebra}
 
-Let $\C$ be a category.  An $\funB$-coalgebra is a pair $(X, \alpha \colon X \to \funB X)$, where $X \in \ObjC(\C)$ and $\funB \colon \C \to \C$ is an endofunctor on $\C$. We call $\funB$ a \emph{type functor} and refer to $X$ and $\alpha$ as \emph{state space} (or a \emph{carrier}) and \emph{transition structure} respectively. We will omit writing $\funB$ when it is obvious from the context. A homomorphism $f \colon (X, \alpha) \to (Y, \beta)$ of coalgebras is an arrow $f \colon X \to Y$ in $\C$ making the following diagram commute:
+Let $\C$ be a category.  A $\funB$-coalgebra is a pair $(X, \alpha \colon X \to \funB X)$, where $X \in \ObjC(\C)$ and $\funB \colon \C \to \C$ is an endofunctor on $\C$. We call $\funB$ a \emph{type functor} and refer to $X$ and $\alpha$ as \emph{state space} (or a \emph{carrier}) and \emph{transition structure} respectively. We will omit writing $\funB$ when it is obvious from the context. A homomorphism $f \colon (X, \alpha) \to (Y, \beta)$ of coalgebras is an arrow $f \colon X \to Y$ in $\C$ making the following diagram commute:
 
 % https://q.uiver.app/#q=WzAsNCxbMCwwLCJYIl0sWzAsMSwiXFxmdW5GIFgiXSxbMiwwLCJZIl0sWzIsMSwiXFxmdW5GIFkiXSxbMCwyLCJmIl0sWzIsMywiXFxiZXRhIl0sWzAsMSwiXFxhbHBoYSIsMl0sWzEsMywiXFxmdW5GIGYiLDJdXQ==
 \[\begin{tikzcd}
@@ -80,7 +80,7 @@ Let $\C$ be a category.  An $\funB$-coalgebra is a pair $(X, \alpha \colon X \to
 $\funB$-coalgebras and their homomorphisms form a category $\coa{\funB}$. 
 
 \begin{definition}\label{c2:def:final_coalgebra}
-We call a coalgebra $(\nu \funB, t)$ \emph{final} if for any coalgebra $(X, \alpha)$, there exists a unique homomorphism $\beh\alpha \colon (X, \alpha) \to (\nu \funB, t)$. A final coalgebra (if it exists) is precisely the final object in $\coa{\funB}$.	
+We call a coalgebra $(\nu \funB, t)$ \emph{final} if for any $\funB$-coalgebra $(X, \alpha)$, there exists a unique homomorphism $\beh\alpha \colon (X, \alpha) \to (\nu \funB, t)$. A final coalgebra (if it exists) is precisely the final object in $\coa{\funB}$.	
 \end{definition}
 
 If $\C$ is a concrete category, that is equipped with a faithful functor $\forget \colon \C \to \Set$, one can define the notion of \emph{behavioural equivalence}. All coalgebras considered in this thesis are defined over concrete categories.
@@ -89,8 +89,8 @@ Given $\funB$-coalgebras $(X, \alpha)$ and $(Y, \beta)$, and elements $x \in \fo
 \end{definition}
 
 
-For the remainder of this subsection, we will focus on properties of coalgebras for endofunctors over $\Set$ by setting $\funB \colon \Set \to \Set$. For such coalgebras, one can phrase the notion of \emph{coalgebraic bisimulation}.
-\begin{definition}\label{c2:def:bisimulation}
+For the remainder of this subsection, we will focus on properties of coalgebras for endofunctors over $\Set$ by setting $\funB \colon \Set \to \Set$. For such coalgebras, one can phrase the notion of \emph{coalgebraic bisimulation}, originally due to Aczel and Mendler~\cite{Aczel:1989:Final}.
+\begin{definition}[{\cite[Section~6]{Aczel:1989:Final}}]\label{c2:def:bisimulation}
 Let $(X, \alpha)$ and $(Y, \beta)$ be two coalgebras for the functor $\funB \colon \Set \to \Set$. We call a relation ${R} \subseteq {X \times Y}$ a bisimulation if there exists a transition function $R \to \funB R$ making the following diagram commute:
 % https://q.uiver.app/#q=WzAsNixbMCwwLCJYIl0sWzIsMCwiUiJdLFs0LDAsIlkiXSxbMiwxLCJcXGZ1bkYgUiJdLFswLDEsIlxcZnVuRiBYIl0sWzQsMSwiXFxmdW5GIFkiXSxbMCw0LCJcXGFscGhhIl0sWzEsM10sWzIsNSwiXFxiZXRhIl0sWzEsMiwiXFxwaV8yIl0sWzMsNSwiXFxmdW5GIFxccGlfMiIsMl0sWzEsMCwiXFxwaV8xIiwyXSxbMyw0LCJcXGZ1bkYgXFxwaV8xIl1d
 \[\begin{tikzcd}
@@ -139,7 +139,7 @@ Upon imposing a mild restriction on $\funB$, subcoalgebras carry a lattice struc
 If $\funB$ preserves weak pullbacks, then the collection of all subcoalgebras of a system $(Y, \beta)$ is a complete lattice. Least upper bounds and greatest lower bounds are respectively given by union and intersection of sets. 
 \end{lemma}
 Given a set $X \subseteq Y$, we will write $\gen{X}{(Y, \beta)}$ for the least subcoalgebra of $(Y, \beta)$ containing $X$.	 When $(Y, \beta)$ is obvious from the context, we will omit writing it in the subscript.
-In the case when $X$ is a singleton or a two-element set, we will lighten up the notation and respectively write $\gen{x}{(Y, \beta)}$ and $\gen{x,y}{(Y, \beta)}$ instead. Least subcoalgebras allow to characterise an important subcategory of coalgebras.
+In case when $X$ is a singleton or a two-element set, we will abuse the notation and respectively write $\gen{x}{(Y, \beta)}$ and $\gen{x,y}{(Y, \beta)}$ instead. Least subcoalgebras allow to characterise an important subcategory of coalgebras.
 \begin{definition}\label{c2:def:locally_finite}
 We call a coalgebra $(X, \alpha)$ locally finite if for all $x \in X$, we have that $\langle x \rangle_{(X, \alpha)}$ is finite.		
 \end{definition}
@@ -153,19 +153,19 @@ Note that our definition of deterministic automaton slightly differs from the mo
 
 Given a state $m \in M$, we write $L_{\mathcal{M}} (m) \subseteq {\alphabet^{\ast}}$ for its language, which is formally defined by $L_{\mathcal{M}}(m) = \{w \in \alphabet^\ast \mid o(m_w) = 1\}$. 
 Given two deterministic automata $(M, \langle o_M, t_M \rangle)$ and $(N, \langle o_N, t_N \rangle)$, a function $h \colon M \to N$ is a homomorphism if it preserves outputs and input derivatives, that is $o_N(h(m))=o_M(m)$ and $h(m)_a = h(m_a)$. The set of all languages $\pset(\alphabet^{\ast})$ over an alphabet $\alphabet$ can be made into a deterministic automaton $(\pset(\alphabet^\ast), \langle o_L, t_L\rangle)$, where for $l \in \pset (\Sigma^{\ast})$ the output function is given by $o_L(l)=[\emptyword \in l]$ and for all $a \in \alphabet$ the input derivative is defined to be $l_a = \{w \mid aw \in l\}$. This automaton is \emph{final}, that is for any other automaton $\mathcal{M} = (M, \langle o_M, t_M \rangle)$ there exists a unique homomorphism from $M$ to $\pset(\alphabet^{\ast})$, which is given by the map $L_{\mathcal{M}} \colon M \to \pset(\alphabet^\ast)$ taking each state $m \in M$ to its language.
-\begin{remark}
+\begin{fact}
 	Deterministic automata are precisely coalgebras for the functor $\funDFA \colon \Set \to \Set$ given by $\funDFA = \{0,1\} \times (-)^\alphabet \colon \Set \to \Set$. The coalgebraic definition of homomorphism coincides with the definition of an automaton homomorphism stated above. The final coalgebra for that functor corresponds to the final automaton defined on the set $\pset(\alphabet^\ast)$.
-\end{remark}
+\end{fact}
 \subsection{Regular expressions}\label{c2:subsec:regular_expressions}
 We let $e, f$ range over \emph{regular expressions over $\alphabet$} generated by the following grammar:
 $$e , f \in \RExp ::= \zero \mid \one \mid a \in \alphabet \mid e + f \mid e \seq f \mid e^{\ast}$$
 The standard interpretation of regular expressions $\sem{-} \colon \RExp \to \pset(\alphabet^\ast)$ is inductively defined by the following equation:
 \begin{gather*}
-	\sem{\zero} = \emptyset \qquad\qquad \sem{\one} = \{\emptyword\} \qquad\qquad \sem{a} = \{ a \} \qquad\qquad \sem{e + f} =  \sem{e}  \cup \sem{f} \\ \sem{e \seq f}  = \sem{e}  \diamond \sem{f} \qquad\qquad \sem{e^\ast} = \sem{e}^\ast
+	\sem{\zero} = \emptyset \qquad\qquad \sem{\one} = \{\emptyword\} \qquad\qquad \sem{a} = \{ a \} \qquad\qquad \sem{e + f} =  \sem{e}  \cup \sem{f} \\ \sem{e \seq f}  = \sem{e}  \circ \sem{f} \qquad\qquad \sem{e^\ast} = \sem{e}^\ast
 \end{gather*}
-Given $L, M \subseteq A^\ast$, we define $L \diamond M = \{lm \mid l \in L, m \in M\}$, where mere juxtaposition denotes concatenation of words. $L^\ast$ denotes the \emph{asterate} of the language $L$ defined as $L^\ast = \bigcup_{i \in \N} L^i$ with $L^0 = \{\emptyword\}$ and $L^{n + 1} = L \diamond L^{n}$.
+Given $L, M \subseteq A^\ast$, we define $L \circ M = \{lm \mid l \in L, m \in M\}$, where mere juxtaposition denotes concatenation of words. $L^\ast$ denotes the \emph{asterate} of the language $L$ defined as $L^\ast = \bigcup_{i \in \N} L^i$ with $L^0 = \{\emptyword\}$ and $L^{n + 1} = L \circ L^{n}$.
 \subsection{Brzozowski derivatives}\label{c2:subsec:brzozowski_derivatives}
-Kleene's theorem states that the formal languages accepted by DFA are in one-to-one correspondence with formal languages definable by regular expressions. One direction of this theorem involves constructing a \textsf{DFA} for an arbitrary regular expression. The most common way is via Thompson construction, $\emptyword$-transition removal and determinisation. Instead, we recall a direct construction due to Brzozowski~\cite{Brzozowski:1964:Expressions}, in which the set $\RExp$ of regular expressions is equipped with a structure of deterministic automaton $\mathcal{R} = (\RExp, \langle o_{\mathcal{R}}, t_{\mathcal{R}} \rangle)$ through so-called Brzozowski derivatives~\cite{Brzozowski:1964:Expressions}. The output derivative $o_{\mathcal{R}} \colon \RExp \to \{0, 1\}$ is defined inductively by the following 
+Kleene's theorem states that the formal languages accepted by DFA are in one-to-one correspondence with formal languages definable by regular expressions. One direction of this theorem involves constructing a \textsf{DFA} for an arbitrary regular expression. The most common way is via Thompson construction, $\emptyword$-transition removal and determinisation. Instead, we recall a direct construction due to Brzozowski~\cite{Brzozowski:1964:Expressions}, in which the set $\RExp$ of regular expressions is equipped with a structure of deterministic automaton $\mathcal{R} = (\RExp, \langle o_{\mathcal{R}}, t_{\mathcal{R}} \rangle)$ through so-called Brzozowski derivatives~\cite{Brzozowski:1964:Expressions}. The output derivative $o_{\mathcal{R}} \colon \RExp \to \{0, 1\}$, that intuitively captures the membership of empty word, is defined inductively as follows
 \begin{gather*}
     o_{\mathcal{R}}(0) = 0 \qquad\qquad o_{\mathcal{R}}(1) = 1 \qquad\qquad o_{\mathcal{R}}(a) = 0 \\ o_{\mathcal{R}}(e + f) = o_{\mathcal{R}}(e) \vee o_{\mathcal{R}}(f) \qquad
     o_{\mathcal{R}}(e \seq f) = o_{\mathcal{R}}(e) \wedge o_{\mathcal{R}}(f) \qquad o_{\mathcal{R}}(e^{\ast}) = 1
@@ -175,7 +175,7 @@ for $a \in \alphabet$ and $e,f \in \RExp$. Similarly, the transition derivative 
     (\zero)_a = 0 \qquad\qquad (\one)_a = 0 \qquad\qquad (a')_a = \begin{cases}
         1 & a = a'\\ 0 & a \neq a'  \end{cases}\\
     (e + f)_a = (e)_a + (f)_a \qquad
-    (e \seq f)_a = (e_a) \seq f + o_{\mathcal{R}}(e) \seq f \qquad (e^{\ast}) = (e)_a \seq e^{\ast}
+    (e \seq f)_a = (e_a) \seq f + o_{\mathcal{R}}(e) \seq (f)_a \qquad (e^{\ast}) = (e)_a \seq e^{\ast}
 \end{gather*}
 Semantics of regular expressions is well-behaved, that is the standard interpretation $\sem{-}$ assigning a language to each regular expression concides with the canonical language-assigning homomorphism from $\mathcal{R}$ to $\mathcal{L}$.
 \begin{lemma}[{\cite[Theorem~3.1.4]{Silva:2010:Kleene}}]\label{c2:lem:adequacy}
@@ -191,8 +191,18 @@ Instead of looking at an infinite-state automaton defined on the state-space of 
         \sem{e} = L_{\mathcal{R}}(e)=  L_{\mathcal{R}}(i(e)) = L_{\gen{e}{\mathcal{R}}}(e)\qedhere
     \]
 \end{proof}
-Unfortunately, for an arbitrary regular expression $e \in \RExp$, the automaton $\gen{e}{\mathcal{R}}$ is not guaranteed to have a finite set of states. 
-However, simplifying the transition derivatives by quotienting the expressions by associativity, commutativity and idempotence (ACI) guarantees a finite number of reachable states from any expression. Formally speaking, let ${\acirel} \subseteq {\RExp \times \RExp}$ be the least congruence relation closed under the following equations:
+Unfortunately, for an arbitrary regular expression $e \in \RExp$, the automaton $\gen{e}{\mathcal{R}}$ is not guaranteed to have a finite set of states. However, simplifying the transition derivatives by quotienting the expressions by associativity, commutativity and idempotence (ACI) guarantees a finite number of reachable states from any expression.
+\begin{example}[{\cite[Section~3.1.2]{Silva:2010:Kleene}}]
+	Consider a regular expression $(a^\ast)^\ast$, where $a \in \alphabet$. Computing a transition derivative for the letter $a$ yields the following
+	\begin{align*}
+		((a^\ast)^\ast)_a &= (1 \seq a^\ast)(a^\ast)^\ast \\
+		((1 \seq a^\ast)(a^\ast)^\ast)_a &= (0\seq a^\ast + 1\seq a^\ast)\seq (a^\ast)^\ast + (1 \seq a^\ast)(a^\ast)^\ast \\
+		((0\seq a^\ast + 1\seq a^\ast)\seq (a^\ast)^\ast + (1 \seq a^\ast)(a^\ast)^\ast)_a &= (0\seq a^\ast + 0\seq a^\ast + 1\seq a^\ast)\seq (a^\ast)^\ast\\ & \quad + (1 \seq a^\ast)(a^\ast)^\ast + (1 \seq a^\ast)(a^\ast)^\ast\\
+		&~~\vdots
+	\end{align*}
+	Although each of the transition derivatives above is equivalent, without identifying duplicates of $ (1 \seq a^\ast)$, the set $\gen{(a^\ast)^\ast}{\mathcal{R}}$ is infinite.
+\end{example}
+To formally deal with the above issue, let ${\acirel} \subseteq {\RExp \times \RExp}$ be the least congruence relation closed under the following equations:
 \begin{enumerate}
 	\item $ {{(e + f) + g} {~\acirel~} {e + (f+g)}}$ (Associativity)
 	\item ${e + f} {~\acirel~} {f + e}$ (Commutativity)
@@ -217,7 +227,7 @@ A $1$-bounded \emph{pseudometric} on a set $X$ (or equivalently just a \emph{pse
 \end{enumerate}
 for all $x,y,z \in X$. If additionally $d(x,y)=0$ implies $x=y$, $d$ is called a ($1$-bounded) \emph{metric}. 
 \begin{definition}
-	A pseudometric space is a pair $(X, d)$, where $X$ is a set and $d$ is a pseudometric on $X$. We call a function $f \colon X \to Y$ between pseudometric spaces $(X,d_1)$ and $(Y,d_2)$ nonexpansive, if $d_2(f(x),f(y))\leq d_1(x,y)$ for all $x,y \in X$. It is called isometry if it satisfies $d_Y(f(x),f(y))=d_X(x,y)$. 	
+	A pseudometric space is a pair $(X, d)$, where $X$ is a set and $d$ is a pseudometric on $X$. We call a function $f \colon X \to Y$ between pseudometric spaces $(X,d_1)$ and $(Y,d_2)$ nonexpansive, if $d_2(f(x),f(y))\leq d_1(x,y)$ for all $x,y \in X$. It is called isometry if it satisfies $d_2(f(x),f(y))=d_1(x,y)$. 	
 \end{definition}
 Pseudometrics and nonexpansive functions form a category $\PMet$. This category is bicomplete, i.e. has all limits and colimits~\cite[Theorem~3.8]{Baldan:2018:Coalgebraic}. The categorical product in $\PMet$ is defined as follows:
 \begin{definition}
@@ -255,13 +265,25 @@ Crucially for our completeness proof, if we are dealing with descending chains, 
     \end{align*}
 	which completes the proof.
 \end{proof}
-Additionally, the set of pseudometrics can be equipped with a norm. We write $\eR = [-\infty, \infty]$ for the set of extended reals. For any set $X$, the set of functions $\eR^{X \times X }$, which is a superset of $D_X$, can be seen as a Banach space~\cite{Rudin:1990:Functional} (complete normed vector space) by means of the sup-norm $\|d\| = \sup_{x,y \in X} |d(x,y)|$. This structure will implicitly underly some of the claims used as intermediate steps in the proof of completeness in this and next chapter.
+\subsection{Banach spaces}
+In the intermediate steps of the completeness proof presented in this chapter (specifically, in establishing the cocontinuity of the endomap that defines the behavioural distance) we will make use of the rich Banach space structure underlying pseudometrics. We begin by recalling the following definition:
+\begin{definition}[{\cite{Rudin:1990:Functional}}]
+	Let $V$ be a vector space over $K$, where $K$ is a field equal to $\R$ or $\mathbf{C}$. A norm on $V$ is a map $\| \cdot \| \colon V \to K$, satisfying the following four axioms: 
+	\begin{itemize}
+		\item For every $x \in V$, $\|x \| \geq 0$ (Non-negativity)
+		\item For every $x \in V$, $\| x \| = 0$ if and only if $x$ is a zero vector (Positive definiteness)
+		\item For every $k \in K$ and $x \in V$, $\| kx\|=k \|x\|$ (Absolute homogeneity) 
+		\item For every $x \in V$ and $y \in V$, $\|x + y\| \leq \|x\| + \|y\|$ (Triangle inequality)
+	\end{itemize}
+	A vector space $V$ equipped with a norm is called a normed space. Every normed space can be seen as a metric space, where the distance function is given by $d(x,y)=\|x-y\|$ for all $x \in V$. If the metric space induced by the norm is complete, then $V$ is called a Banach space.
+\end{definition}
+For any set $X$, the set of bounded functions of the type $X \times X \to \R$, that in particular contains $D_X$, is an infinite-dimensional vector space over the field $\R$ of real numbers. This vector space can be equipped with a norm given by $\|d\| = \sup_{x,y \in X} |d(x,y)|$, which makes it into a Banach space~\cite{Breugel:2012:Closure}. 
 \section{Behavioural distance of deterministic automata}\label{c2:sec:behavioural_distance}
 We now focus on defining a behavioural distance for deterministic automata through the abstract framework of coalgebraic behavioural distances~\cite{Baldan:2018:Coalgebraic}. We first recall the main definitions and then concretise the abstract results to the case of our interest.
 \subsection{Coalgebraic behavioural distances}\label{c2:subsec:coalgebraic_behavioural_distances}
 In order to define a behavioural distance for $\funB$-coalgebras for a functor $\funB \colon \Set \to \Set$, we need to be able to \emph{lift} the functor $\funB$ describing the one-step dynamics of transition systems of interest to the category $\PMet$ of pseudometric spaces and nonexpansive functions. In terms of notation, we will write $\forget \colon \PMet \to \Set$ for the canonical faithful functor taking each pseudometric space $(X, d_X)$ to its underlying set $X$.
-\begin{definition}\label{c2:def:lifting}
-	Let $\funB \colon \Set \to \Set$ be a functor. We call a functor $\overline{\funB} \colon \PMet \to \PMet$ a lifting of $\funB$ if makes the following diagram commute:
+\begin{definition}[{\cite[Definition~5.1]{Baldan:2018:Coalgebraic}}]\label{c2:def:lifting}
+	Let $\funB \colon \Set \to \Set$ be a functor. A functor $\overline{\funB} \colon \PMet \to \PMet$ is called a lifting of $\funB$ if makes the following diagram commute:
 	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFBNZXQiXSxbMSwwLCJcXFBNZXQiXSxbMCwxLCJcXFNldCJdLFsxLDEsIlxcU2V0Il0sWzAsMSwiXFxvdmVybGluZXtcXGZ1bkZ9Il0sWzIsMywiXFxmdW5GIl0sWzEsMywiXFxmb3JnZXQiXSxbMCwyLCJcXGZvcmdldCIsMl1d
 \[\begin{tikzcd}
 	\PMet & \PMet \\
@@ -289,12 +311,15 @@ If $\funB \colon \Set \to \Set$ admits a final coalgebra $(\nu \funB, t)$, then 
 \begin{proof}
 	\circlednum{1} follows from \cite[Lemma~6.6]{Baldan:2018:Coalgebraic}. For \circlednum{2}, we have that if $\funB$ is finitary, then $(\nu \funB,t)$ can be obtained via the Adamek fixpoint theorem~\cite{Adamek:1995:Greatest} and hence one can apply \cite[Theorem~6.10]{Baldan:2018:Coalgebraic}. Finally, \circlednum{3} follows from \cite[Theorem~6.7]{Baldan:2018:Coalgebraic}.
 \end{proof}
+\begin{remark}
+The forgetful functor $\forget \colon \PMet \to \Set$ is a fibration arising from the Grothendieck construction applied to a functor of the type $\Set^{\text{op}} \to \mathsf{Pos}$ (where $\mathsf{Pos}$ is the $2$-category of posets and monotone functions) that maps each set $X$ to the complete lattice $(D_X, \sqsubseteq)$. Liftings of functors to the category of pseudometric spaces are precisely instances of fibred liftings~\cite{Angelo:2024:Behavioural}. Upon reversing the order on pseudometrics, one can view behavioural distances as instances of a general framework of coinductive predicates in fibrations~\cite{Hasuo:2018:Coinductive,Sprunger:2021:Fibrational}, which generalises the Hermida–Jacobs relation lifting~\cite{Hermida:1998:Structural} to a more general, lattice-theoretic perspective. Due to the reversal of the order, behavioural distances in such a setting are obtained as greatest fixpoints~\cite{Bonchi:2018:UpTo}.
+\end{remark}
 \subsection{Behavioural distance of deterministic automata via functor lifting}	
 It turns out that shortest-distinguishing-word metric (\Cref{c2:eq:shortest_distinguishing_word}) can be obtained as an instance of the coalgebraic framework of behavioural distances~\cite[Example~6.5]{Baldan:2018:Coalgebraic} using an appropriate lifting of the functor $\funDFA = \{0,1\} \times (-)^\alphabet$ describing one-step behaviour of finite automata~\cite[Example~6.3]{Baldan:2018:Coalgebraic}. That lifting is defined as follows; let $d \colon M \times M \to [0,1]$ be a pseudometric and let $\lambda \in \interval[open]{0}{1}$ be a fixed \emph{discount factor}. We can equip the set $\funDFA X$ with a distance function given by
 \[
-	d^{\funDFA}(\langle o_1, g_1 \rangle, \langle o_2, g_2 \rangle) = \max\{d_{\{0,1\}}(o_1, o_2), \lambda \cdot \max_{a \in \alphabet} d(g_1(a), g_2(a))\} 
+	d^{\funDFA}(\langle o_1, t_1 \rangle, \langle o_2, t_2 \rangle) = \max\{d_{\{0,1\}}(o_1, o_2), \lambda \cdot \max_{a \in \alphabet} d(t_1(a), t_2(a))\} 
 \]   
-for all $\langle o_1, g_1 \rangle, \langle o_2, g_2 \rangle \in \funDFA X$. The definition above involves $d_{\{0,1\}}$, the discrete metric on the set $\{0,1\}$. Intuitively, two one-step behaviours $\langle o_1, g_1\rangle, \langle o_2, g_2 \rangle \in \{0,1\} \times M^\alphabet$ of a deterministic automaton with the set of states $M$ are maximally apart if $o_1 \neq o_2$, that is, they disagree in their output behaviour. Otherwise, the distance is equal to a maximal distance $d(g_1(a), g_2(a))$ between reachable states for all letters $a \in \alphabet$ of the alphabet, discounted by the factor of $\lambda$.
+for all $\langle o_1, t_1 \rangle, \langle o_2, t_2 \rangle \in \funDFA X$. The definition above involves $d_{\{0,1\}}$, the discrete metric on the set $\{0,1\}$. Intuitively, two one-step behaviours $\langle o_1, t_1\rangle, \langle o_2, t_2 \rangle \in \{0,1\} \times M^\alphabet$ of a deterministic automaton with the set of states $M$ are maximally apart if $o_1 \neq o_2$, that is, they disagree in their output behaviour. Otherwise, the distance is equal to a maximal distance $d(t_1(a), t_2(a))$ between reachable states for all letters $a \in \alphabet$ of the alphabet, discounted by the factor of $\lambda$.
 
 The lifting defined above is particularly well-behaved, as it satisfies the following:
 
@@ -306,7 +331,7 @@ The lifting defined above is particularly well-behaved, as it satisfies the foll
 \end{proof}
 Combining the statement above with \Cref{c2:lem:behavioural_distances} yields that for any deterministic automaton $\mathcal{M} := (M, \langle o_M, t_M \rangle)$, its behavioural distance $\bd_{\langle o_M, t_M \rangle}$ is a pseudometric space, whose values can be calculated as the least fixpoint of the monotone map $\Phi_{\langle o_M, t_M\rangle} \colon D_M \to D_M$ defined as
 $$
-\Phi_{\langle o_M, t_M\rangle}(m_1, m_2) = d^{\funDFA}(\langle o_M(m_1), t_{M}(m_1) \rangle, \langle o_M(m_2), t_{M}(m_2) \rangle)
+\Phi_{\langle o_M, t_M\rangle}(d)(m_1, m_2) = d^{\funDFA}(\langle o_M(m_1), t_{M}(m_1) \rangle, \langle o_M(m_2), t_{M}(m_2) \rangle)
 $$
 for all $m_1, m_2 \in M$.
 
@@ -320,7 +345,10 @@ In order to provide a quantitative inference system for reasoning about the beha
 
 \subsection{Quantitative equational theories}\label{c2:subsec:quantitative_equational_theories} 
 Let $\Sigma$ be an algebraic signature (in the sense of universal algebra~\cite{Burris:1981:Course}) consisting of operation symbols $f_n \in \Sigma$ of arity $n \in \N$. If we write $X$ for the countable set of \emph{metavariables}, then $\TT[\Sigma]{X}$ denotes a set of freely generated terms over $X$ built from the signature $\Sigma$. As a notational convention, we will use letters $t,s,u, \ldots \in \TT[\Sigma]{X}$ to denote terms. 
-By a \emph{substitution} we mean a function of the type $\sigma\colon X \to \TT[\Sigma]{X}$ allowing to replace metavariables with terms. Each substitution can be inductively extended to terms in a unique way by setting $\sigma(f(t_1, \dots, t_n)) = f(\sigma(t_1), \dots, \sigma(t_n))$ for each operation symbol $f_n \in \Sigma$ from the signature. We will write $\Sub[\Sigma]$ for the set of all substitutions. Given two terms $t,s \in \TT[\Sigma]{X}$ and a nonnegative rational number $\e \in \Q$ denoting the distance between the terms, we call $t \equiv_\e s$ a \emph{quantitative equation (of type $\Sigma$)}. Notation-wise, we will write $\E[\Sigma]$ to denote the set of all quantitative equations (of type $\Sigma$) and we will use the capital Greek letters $\Gamma, \Theta, \ldots \subseteq \E[\Sigma]$ to denote the subsets of $\E[\Sigma]$. By a \emph{deducibility relation} we mean a binary relation denoted  ${\vdash} \subseteq \pset ({\E[\Sigma]}) \times \E[\Sigma]$.  Similarly, to the classical equational logic, we will use the following notational shorthands:
+By a \emph{substitution} we mean a function of the type $\sigma\colon X \to \TT[\Sigma]{X}$ allowing to replace metavariables with terms. Each substitution can be inductively extended to terms in a unique way by setting $\sigma(f(t_1, \dots, t_n)) = f(\sigma(t_1), \dots, \sigma(t_n))$ for each operation symbol $f_n \in \Sigma$ from the signature. We will write $\Sub[\Sigma]$ for the set of all substitutions. Given two terms $t,s \in \TT[\Sigma]{X}$ and a nonnegative rational number $\e \in \Q$ denoting the distance between the terms, we call $t \equiv_\e s$ a \emph{quantitative equation (of type $\Sigma$)}. Intuitively, such a quantitative equation will denote that the distance between terms $t$ and $s$ is bounded by the rational number $r$.
+
+
+Notation-wise, we will write $\E[\Sigma]$ to denote the set of all quantitative equations (of type $\Sigma$) and we will use the capital Greek letters $\Gamma, \Theta, \ldots \subseteq \E[\Sigma]$ to denote the subsets of $\E[\Sigma]$. By a \emph{deducibility relation} we mean a binary relation denoted  ${\vdash} \subseteq \pset ({\E[\Sigma]}) \times \E[\Sigma]$.  Similarly, to the classical equational logic, we will use the following notational shorthands:
 \begin{gather*} 
 	\Gamma \vdash t \equiv_\e s \iff (\Gamma,t \equiv_\e s) \in {\vdash} \qquad \text{ and } \qquad \vdash t \equiv_\e s \iff \emptyset \vdash t \equiv_\e s
 \end{gather*}
@@ -361,10 +389,10 @@ $ with \emph{finitely many premises}, closed under $\vdash$-derivability.
 Quantitative equational theories lie on the syntactic part of the picture. On the semantic side, we have their models called \emph{quantitative algebras}, defined as follows. 
 
 \begin{definition}[{\cite[Definition~3.1]{Mardare:2016:Quantitative}}]
-    A quantitative algebra is a tuple $\qalgA = (A, \Sigma^{\qalgA}, d^{\qalgA})$, such that $(A, \Sigma^{\qalgA})$ is an algebra for the signature $\Sigma$ and $(A, d^{\qalgA})$ is a pseudometric such that for all operation symbols $f_n \in \Sigma$, for all $1 \leq i \leq n$, $a_i, b_i \in \alphabet$, $d^{\qalgA}(a_i,b_i)\leq \e$ implies $d^{\qalgA}(f^{\qalgA}(a_1, \dots, a_n), f^{\qalgA}(b_1, \dots, b_n)) \leq \e$.
+    A quantitative algebra is a tuple $\qalgA = (A, \Sigma^{\qalgA}, d^{\qalgA})$, such that $(A, \Sigma^{\qalgA})$ is an algebra for the signature $\Sigma$ and $(A, d^{\qalgA})$ is a pseudometric such that for all operation symbols $f_n \in \Sigma$, for all $1 \leq i \leq n$, $a_i, b_i \in \alphabet$, $d^{\qalgA}(a_i,b_i)\leq \e$ implies $d^{\qalgA}(f^{\qalgA}(a_1, \dots, a_n), f^{\qalgA}(b_1, \dots, b_n)) \leq \e$, i.e., the operation symbols are nonexpansive.
 \end{definition}
 
-Consider a quantitative algebra $\qalgA = (A,\Sigma^\qalgA,d^\qalgA)$. Given an assignment  $\iota \colon X \to A$ of meta-variables from $X$ to elements of carrier $A$, one can inductively extend it to $\Sigma$-terms $t \in \TT[\Sigma]{X}$ in a unique way. We will abuse the notation and just write $\iota(t)$ for the interpretation of the term $t$ in quantitative algebra $\qalgA$. We will say that $\qalgA$ \emph{satisfies} the quantitative inference $\Gamma \vdash t \equiv_\e s$, written $\Gamma \models_\qalgA t \equiv_\e s$, if for any assignment of the meta-variables $\iota \colon X \to A$ it is the case that for all $t' \equiv_{\e'} s' \in \Gamma$ we have that $d^\qalgA(\iota(t'),\iota(s')) \leq \e'$ implies $d^\qalgA(\iota(t),\iota(s)) \leq \e $. Finally, we say that a quantitative algebra $\qalgA$ \emph{satisfies} (or is a \emph{model} of) the quantitative theory $\U[]$, 
+Consider a quantitative algebra $\qalgA = (A,\Sigma^\qalgA,d^\qalgA)$. Given an assignment  $\iota \colon X \to A$ of meta-variables from $X$ to elements of carrier $A$, one can inductively extend it to $\Sigma$-terms $t \in \TT[\Sigma]{X}$ in a unique way. We will abuse the notation and just write $\iota(t)$ for the interpretation of the term $t$ in quantitative algebra $\qalgA$. We will say that $\qalgA$ \emph{satisfies} the quantitative inference $\Gamma \vdash t \equiv_\e s$, written $\Gamma \models_\qalgA t \equiv_\e s$, if for any assignment of the meta-variables $\iota \colon X \to A$ and for all $t' \equiv_{\e'} s' \in \Gamma$, we have that $d^\qalgA(\iota(t'),\iota(s')) \leq \e'$ implies $d^\qalgA(\iota(t),\iota(s)) \leq \e $. Finally, we say that a quantitative algebra $\qalgA$ \emph{satisfies} (or is a \emph{model} of) the quantitative theory $\U[]$, 
 if whenever $\Gamma \vdash t \equiv_\e s \in \U[]$, then $\Gamma \models_\qalgA t \equiv_\e s$. 
 
 \subsection{Quantitative algebra of regular expressions}\label{c2:subsec:quantitative_algebra_of_regular_expressions}
@@ -376,7 +404,7 @@ To make this algebra into a quantitative algebra, we first equip the set $\RExp$
 	d^{\qalgB}(e,f) = \langmetric(\sem{e}, \sem{f}) \qquad \text{ for all } e, f \in \RExp
 \end{equation}
 
-Recall that $\langmetric$ used in the definition above is a behavioural pseudometric on the final deterministic automaton carried by the set $\pset (\alphabet^{\ast})$ of all formal languages over an alphabet $\alphabet$. In other words, we define the distance between arbitrary expressions $e$ and $f$ to be the distance between formal languages $\sem{e}$ and $\sem{f}$ calculated through the shortest-distinguishing-word metric. 
+Recall that $\langmetric$ used in the definition above is a behavioural metric on the final deterministic automaton carried by the set $\pset (\alphabet^{\ast})$ of all formal languages over an alphabet $\alphabet$. In other words, we define the distance between arbitrary expressions $e$ and $f$ to be the distance between formal languages $\sem{e}$ and $\sem{f}$ calculated through the shortest-distinguishing-word metric. 
 It turns out, that in such a situation all the interpretation functions of $\Sigma$-algebra structure on $\RExp$ are nonexpansive with respect to the pseudometric defined above. In other words, we have that: 
 
 \begin{lemma}\label{c2:lem:quantitative_algebra}
@@ -399,12 +427,12 @@ Since $\langmetric$ is a pseudometric, then so is $d^{\qalgB} = \langmetric \cir
     \end{align*}
     And thus $\sem{e + f}$ and $\sem{g + h}$ agree on all words of the length below $n$ and therefore $d^{\qalgB}(e + f, g + h) \leq \lambda^{n} \leq \e$.
     
-    \item The case for $\e = 0$ holds immediately through the same line of reasoning as before, relying on well-definedness of $\diamond$ (concatenation) operation on formal languages. We focus on the remaining case, making the same simplification as before, that is we assume that $\sem{e}$ and $\sem{g}$ (as well as $\sem{f}$ and $\sem{h}$) agree on all word of length strictly below $n$). We show that $\sem{e \seq f}$ and $\sem{g \seq h}$ also agree on all words of the length strictly less than $n$. Let $w \in \alphabet^{\ast}$, such that $|w|<n$. We have that: 
+    \item The case for $\e = 0$ holds immediately through the same line of reasoning as before, relying on well-definedness of $\circ$ (concatenation) operation on formal languages. We focus on the remaining case, making the same simplification as before, that is we assume that $\sem{e}$ and $\sem{g}$ (as well as $\sem{f}$ and $\sem{h}$) agree on all word of length strictly below $n$). We show that $\sem{e \seq f}$ and $\sem{g \seq h}$ also agree on all words of the length strictly less than $n$. Let $w \in \alphabet^{\ast}$, such that $|w|<n$. We have that: 
     \begin{align*}
-        w \in \sem{e \seq f} &\iff w \in \sem{e} \diamond \sem{f}\\ &\iff
+        w \in \sem{e \seq f} &\iff w \in \sem{e} \circ \sem{f}\\ &\iff
         \left(\exists u,v \in \alphabet^\ast \ldotp w=uv \wedge w \in \sem{e} \wedge v \in \sem{f}\right)\\
         &\iff  \left(\exists u,v \in \alphabet^\ast \ldotp w=uv \wedge w \in \sem{g} \wedge v \in \sem{h}\right) \tag{ $|u|< n$ and $|v| < n$} \\
-        &\iff w \in \sem{g} \diamond \sem{h} \iff w \in \sem {g \seq h}
+        &\iff w \in \sem{g} \circ \sem{h} \iff w \in \sem {g \seq h}
     \end{align*}
     \item We use the same line of reasoning as before. Assume that $\sem{e}$ and $\sem{g}$ agree on all words of length below $n$. Let $w \in \alphabet^\ast$, such that $|w| < n$. We have the following:
     \begin{align*}
@@ -473,7 +501,7 @@ The first group of axioms capture properties of the nondeterministic choice oper
 
 The sequencing axioms \textsf{(1S), (S1), (S)} state that the set $\RExp$ of regular expressions has the structure of a monoid (with neutral element $\one$) with absorbent element $0$ \textsf{(0S), (S0)}. Additionally, \textsf{(D1-D2)} talk about interaction of the nondeterministic choice operator $+$ with sequential composition. 
 
-The loop axioms \textsf{(Unroll)} and \textsf{(Tight)} are directly inherited from Salomaa's axiomatisation of language equivalence of regular expressions~\cite{Salomaa:1966:Two}. \textsf{(Unroll)} axiom associates loops with their intuitive behaviour of choosing, at each step, between successful termination and executing the loop body once. \textsf{(Tight)} states that the loop whose body might instantly terminate, causing the next loop iteration to be executed immediately is provably equivalent to a different loop, whose body does not contain immediate termination. 
+The loop axioms \textsf{(Unroll)} and \textsf{(Tight)} are directly inherited from Salomaa's axiomatisation of language equivalence of regular expressions~\cite{Salomaa:1966:Two}. The \textsf{(Unroll)} axiom associates loops with their intuitive behaviour of choosing, at each step, between successful termination and executing the loop body once. \textsf{(Tight)} states that the loop whose body might instantly terminate, causing the next loop iteration to be executed immediately is provably equivalent to a different loop, whose body does not contain immediate termination. 
 %Contrary to Salomaa~\cite{Salomaa:1966:Two} and Kozen~\cite{Kozen:1994:Completeness} we do not include any fixpoint rule allowing the introduction of loops. We will elaborate on this in the next section, showing that in the presence of infinitary \textsf{(Cont)} rule of the quantitative deduction systems, Salomaa's rule for introducing loops is derivable from other axioms of \textsf{REG}. 
 Finally, \textsf{(\dPref)} captures the fact that prepending the same letter to arbitrary expressions shrinks the distance between them by the factor of $\lambda \in \interval[open]{0}{1}$ (used in the definition of $d^{\qalgB}$). This axiom is adapted from the axiomatisation of discounted probabilistic bisimilarity distance~\cite{Bacci:2018:Bisimilarity}.
 Through a simple induction on the length of derivation, one can verify that indeed $\qalgB$ is a model of the quantitative theory \textsf{REG}. 
@@ -481,7 +509,7 @@ Through a simple induction on the length of derivation, one can verify that inde
     The quantitative algebra $\qalgB = (\RExp, \Sigma^{\qalgB}, d^\qalgB)$ is a model of the quantitative theory $\mathsf{REG}$. In other words, for any $e, f \in \RExp$ and $\e \in \Q$, if $\Gamma \vdash e \equiv_\e f \in \mathsf{REG}$, then $\Gamma \models_\qalgB e \equiv_\e f$
 \end{theorem}
 \begin{proof}
-By the structural induction on the judgement $\Gamma \vdash e \equiv_{\e} f \in \mathsf{REG}$. $(\Subst)$, $(\Cut)$ and $(\Assum)$ deduction rules from classical logic hold immediately. The soundness of $(\Top)$, $(\Refl)$, $(\Symm)$, $(\Triang)$, $(\Cont)$ and $(\Max)$ follows from the fact that $d^{\qalgB}$ is a pseudometric. $(\Nexp)$ follows from the fact that interpretations of symbols from the algebraic signature are nonexpansive (\cref{c2:lem:quantitative_algebra}). Recall that $d^{\qalgB} = \langmetric \circ (\sem{-} \times \sem {-})$. Additionally, for all axioms in the form $\vdash e \equiv_0 f$ it suffices to show that $\sem{e} = \sem{f}$. \textsf{(SL1-SL4)}, \textsf{(1S)}, \textsf{(S)}, \textsf{(S1)}, \textsf{(0S)}, \textsf{(S0)}, \textsf{(D1-D2)}, \textsf{(Unroll)} and \textsf{(Tight)} are taken from Salomaa's axiomatisation of language equivalence of regular expressions~\cite{Salomaa:1966:Two} and thus both sides of those equations denote the same formal languages~\cite[Theorem~5.2]{Wagemaker:2019:Completeness}. For $(\dPref)$ assume that the premise is satisfied in the model, that is $\langmetric(\sem{e},\sem{f}) \leq \e$. Let $\e' \geq \lambda \cdot \e$. We show the following:
+By the structural induction on the judgement $\Gamma \vdash e \equiv_{\e} f \in \mathsf{REG}$. $(\Subst)$, $(\Cut)$ and $(\Assum)$ deduction rules from classical logic hold immediately. The soundness of $(\Top)$, $(\Refl)$, $(\Symm)$, $(\Triang)$, and $(\Max)$ follows from the fact that $d^{\qalgB}$ is a pseudometric. The soundness of $(\Cont)$ follows from pseudometrics being real-valued and captures the limiting property of a decreasing chain of neighbourhoods with converging diameters.  $(\Nexp)$ follows from the fact that interpretations of symbols from the algebraic signature are nonexpansive (\Cref{c2:lem:quantitative_algebra}). Recall that $d^{\qalgB} = \langmetric \circ (\sem{-} \times \sem {-})$. Additionally, for all axioms in the form $\vdash e \equiv_0 f$ it suffices to show that $\sem{e} = \sem{f}$. \textsf{(SL1-SL4)}, \textsf{(1S)}, \textsf{(S)}, \textsf{(S1)}, \textsf{(0S)}, \textsf{(S0)}, \textsf{(D1-D2)}, \textsf{(Unroll)} and \textsf{(Tight)} are taken from Salomaa's axiomatisation of language equivalence of regular expressions~\cite{Salomaa:1966:Two} and thus both sides of those equations denote the same formal languages~\cite[Theorem~5.2]{Wagemaker:2019:Completeness}. For $(\dPref)$ assume that the premise is satisfied in the model, that is $\langmetric(\sem{e},\sem{f}) \leq \e$. Let $\e' \geq \lambda \cdot \e$. We show the following:
 \vspace{-0.5em}
 \begin{align*}
     d^{\qalgB}(a \seq e, a \seq f) &= \langmetric(\sem{a \seq e}, \sem{a \seq f}) \tag{\Cref{c2:eq:qalg_dist}}\\
@@ -490,9 +518,9 @@ By the structural induction on the judgement $\Gamma \vdash e \equiv_{\e} f \in 
     &= \lambda \cdot \langmetric(\sem{e}, \sem{f}) \tag{Def. of final automaton} \\
     & \leq \lambda \cdot \e \leq \e' \\
 \end{align*}
-Finally, \textsf{(SL5)} is derivable from other axioms; we included \textsf{(SL5)} as an axiom to highlight the similarity of our inference system with axiomatisations of language equivalence of regular expressions~\cite{Salomaa:1966:Two,Kozen:1994:Completeness} containing the axioms of semilattices with bottom. In the previous work~\cite{Mardare:2016:Quantitative}, \textsf{(SL1-SL5)} are precisely the axioms of \emph{quantitative semilattices with zero} axiomatising the Hausdorff distance.  If $\e = \max(\e, \e')$ then $\{e \equiv_\e g \} \vdash e \equiv_{\max(\e, \e')} g$ holds by $(\Assum)$. If $\e < \max(\e, \e')$, then we can derive the quantitative judgement above using $(\Max)$. By a similar line of reasoning, we can show that $\{f \equiv_{\e'} h \} \vdash f \equiv_{\max(\e, \e')} h$. Finally, using $(\Cut)$ and $(\Nexp)$, we can show that $\{e \equiv_{\e} g, f \equiv_{\e'} h\} \vdash e + f \equiv_{\max(\e,\e')} g + h$ as desired.
+Finally, \textsf{(SL5)} is derivable from other axioms; we included \textsf{(SL5)} as an axiom to highlight the similarity of our inference system with axiomatisations of language equivalence of regular expressions~\cite{Salomaa:1966:Two,Kozen:1994:Completeness} containing the axioms of semilattices with bottom. In~\cite{Mardare:2016:Quantitative}, \textsf{(SL1-SL5)} are precisely the axioms of \emph{quantitative semilattices with zero} axiomatising the Hausdorff distance.  If $\e = \max(\e, \e')$ then $\{e \equiv_\e g \} \vdash e \equiv_{\max(\e, \e')} g$ holds by $(\Assum)$. If $\e < \max(\e, \e')$, then we can derive the quantitative judgement above using $(\Max)$. By a similar line of reasoning, we can show that $\{f \equiv_{\e'} h \} \vdash f \equiv_{\max(\e, \e')} h$. Finally, using $(\Cut)$ and $(\Nexp)$, we can show that $\{e \equiv_{\e} g, f \equiv_{\e'} h\} \vdash e + f \equiv_{\max(\e,\e')} g + h$ as desired.
 \end{proof}
-We now revisit the example from \Cref{c2:fig:dfas}. Recall that states marked as initial of the left and middle automata can be respectively represented as $a^\ast$ and $a + \one$. The shortest word distinguishing languages representing those expressions is $aa$. If we fix $\lambda = \frac{1}{2}$, then $d^{\qalgB}(a^\ast, a + \one)= \langmetric(\sem{a^\ast}, \sem{a+ \one}) = \frac{1}{4}=\left(\frac{1}{2}\right)^{|aa|}$. We can derive this distance through the means of axiomatic reasoning using the quantitative equational theory \textsf{REG} in the following way: 
+We now revisit the example from \Cref{c2:fig:dfas} (page \pageref{c2:fig:dfas}). Recall that states marked as initial of the left and middle automata can be respectively represented as $a^\ast$ and $a + \one$. The shortest word distinguishing languages representing those expressions is $aa$. If we fix $\lambda = \frac{1}{2}$, then $d^{\qalgB}(a^\ast, a + \one)= \langmetric(\sem{a^\ast}, \sem{a+ \one}) = \frac{1}{4}=\left(\frac{1}{2}\right)^{|aa|}$. We can derive an upper bound on this distance through the means of axiomatic reasoning using the quantitative equational theory \textsf{REG} in the following way: 
 \begin{example}
  	\begin{align*}
 		\vdash a^* &\equiv_1 \zero \tag{$\Top$} \\
@@ -540,12 +568,12 @@ Let $e,f,g \in \RExp$, such that $\emptyword \notin \sem{e}$ and let $n \in \N$.
 \begin{proof}
 	By induction. If $n = 0$, then using $(\Top)$, we can immediately conclude that $\vdash g \equiv_1 e^{\ast} \seq f$. Since by the assumption $\e \geq \lambda^0 = 1$, we can apply $(\Max)$ and obtain $\vdash g \equiv_{\e} e^\ast \seq f $. 
 	
-	For the inductive cases, we have that $\e \geq \lambda^{n+1}$ and hence $\e \cdot \lambda^{-1} \geq \lambda^n $. We cannot instantly apply the induction hypothesis, as $\e \cdot \lambda^{-1}$ is not guaranteed to be rational. Instead, we will use $(\Cont)$ of quantitative deduction systems. Let $\e'$ be an arbitrary rational number strictly greater than $\e$ and let $\{r_n\}_{n \in \N}$ be any decreasing sequence of rationals that converges to $\lambda^{-1}$. Pick element $r_N$ of that sequence that satisfies that $\e' \geq \e \cdot \lambda \cdot r_N$. We can always pick such an element, as $\{r_n\}_{n \in \N}$ gets arbitrarily close to $\lambda^{-1}$, so $\{\lambda \cdot r_n\}_{n \in \N}$ is a decreasing sequence that converges to $1$ and additionally we have that $\e' > \e$, so $\frac{\e'}{\e} >1$.	From the definition of the limit, we know that there exists large enough $N \in \N$, such that $|\lambda \cdot r_{N}-1| \leq \frac{\e'}{\e} - 1$. We can simplify the above relying on the fact that $\lambda \cdot r_n \geq 1$ for all $n \in \N$ and obtain that indeed $\e' \geq \e \cdot \lambda \cdot r_N$ as desired. 
+	For the inductive cases, we have that $\e \geq \lambda^{n+1}$ and hence $\e \cdot \lambda^{-1} \geq \lambda^n $. We cannot instantly apply the induction hypothesis, as $\e \cdot \lambda^{-1}$ is not guaranteed to be rational. Instead, we will use $(\Cont)$ of quantitative deduction systems. Let $\e'$ be an arbitrary rational number strictly greater than $\e$ and let $\{r_n\}_{n \in \N}$ be any decreasing sequence of rationals that converges to $\lambda^{-1}$. Pick an element $r_N$ of that sequence that satisfies that $\e' \geq \e \cdot \lambda \cdot r_N$. We can always pick such an element, as $\{r_n\}_{n \in \N}$ gets arbitrarily close to $\lambda^{-1}$, so $\{\lambda \cdot r_n\}_{n \in \N}$ is a decreasing sequence that converges to $1$ and additionally we have that $\e' > \e$, so $\frac{\e'}{\e} >1$.	From the definition of the limit, we know that there exists large enough $N \in \N$, such that $|\lambda \cdot r_{N}-1| \leq \frac{\e'}{\e} - 1$. We can simplify the above relying on the fact that $\lambda \cdot r_n \geq 1$ for all $n \in \N$ and obtain that indeed $\e' \geq \e \cdot \lambda \cdot r_N$ as desired. 
 	
-		Since $\e \cdot r_N \geq \e \cdot \lambda^{-1} \geq \lambda^{n}$, we can apply induction hypothesis and obtain that $\vdash e \equiv_{\e \cdot r_N} g^* \seq f$. Since $\emptyword \notin \sem{e}$, we can now use \Cref{c2:lem:generalised_pref} to derive that $e \seq g \equiv_{\e'} e \seq e^{\ast} \seq f$. Since we have shown it for arbitrary $\e' > \e$, we can use $(\Cont)$ rule of the quantitative deduction systems and conclude that $\vdash e \seq g \equiv_{\e} e \seq e^* \seq f$, as desired. 
+		Since $\e \cdot r_N \geq \e \cdot \lambda^{-1} \geq \lambda^{n}$, we can apply the induction hypothesis and obtain that $\vdash e \equiv_{\e \cdot r_N} g^* \seq f$. Since $\emptyword \notin \sem{e}$, we can now use \Cref{c2:lem:generalised_pref} to derive that $e \seq g \equiv_{\e'} e \seq e^{\ast} \seq f$. Since we have shown it for an arbitrary $\e' > \e$, we can use the $(\Cont)$ rule of the quantitative deduction system and conclude that $\vdash e \seq g \equiv_{\e} e \seq e^* \seq f$, as desired. 
 		
 		
-		Then, because of $(\Refl)$, we have that $\vdash f \equiv_0 f$. We can combine those two quantitative inferences using \textsf{(SL5)} axiom in order to get $\vdash e \seq g + f \equiv_{\e} e \seq e^\ast \seq f  + f $. By assumption, the left hand side satisfies that $\vdash g \equiv_0 e \seq g + f$. Now, consider the right hand side of that quantitative inference:
+		Then, because of $(\Refl)$, we have that $\vdash f \equiv_0 f$. We can combine those two quantitative inferences using \textsf{(SL5)} axiom in order to get $\vdash e \seq g + f \equiv_{\e} e \seq e^\ast \seq f  + f $. By assumption, the left hand side satisfies that $\vdash g \equiv_0 e \seq g + f$. Now, consider the right hand side of the following quantitative inference:
 	\begin{align*}
 		\vdash e \seq e^{\ast} \seq f + f &\equiv_0 e \seq e^\ast \seq f + \one \seq f \tag{\textsf{1S}} \\
 		&\equiv_0 (e \seq e^* + \one) \seq f \tag{\textsf{D2}} \\
@@ -562,7 +590,7 @@ Having the result above, we can now use the infinitary $(\Cont)$ rule capturing 
 To deduce that $\vdash g \equiv_0 e^{\ast} \seq f$ using $(\Cont)$ it suffices to show that $\vdash g \equiv_{\e} e^{\ast} \seq f$ for all $\e > 0$.  To do so, pick an arbitrary $\e > 0$ and let $N = \lceil \log_{\lambda} \e \rceil$. Observe that $\lambda^N = \lambda^{\lceil \log_{\lambda} \e \rceil} \leq \lambda^{\log_{\lambda} \e} = \e$. Because of \Cref{c2:lem:star_lemma} we have that $\vdash g \equiv_{\e} e^{\ast} \seq f$, which completes the proof.
 \end{proof}
 \section{Completeness}\label{c2:sec:completeness}
-We now focus our attention on the central result of this paper, which is the completeness of \textsf{REG} with respect to the shortest-distinguishing-word metric on languages denoting regular expressions. We use the strategy from the proof of completeness of quantitative axiomatisation of probabilistic bisimilarity distance~\cite{Bacci:2018:Bisimilarity}. It turns out that the results from~\cite{Bacci:2018:Bisimilarity} rely on properties that are not unique to the Kantorovich/Wassertstein lifting and can be also established for instances of the abstract coalgebraic framework~\cite{Baldan:2018:Coalgebraic}.
+We now focus our attention on the central result of this chapter, which is the completeness of \textsf{REG} with respect to the shortest-distinguishing-word metric on languages denoting regular expressions. We use the strategy from the proof of completeness of quantitative axiomatisation of probabilistic bisimilarity distance~\cite{Bacci:2018:Bisimilarity}. It turns out that the results from~\cite{Bacci:2018:Bisimilarity} rely on properties that are not unique to the Kantorovich/Wassertstein lifting and can be also established for instances of the abstract coalgebraic framework~\cite{Baldan:2018:Coalgebraic}.
 
 The heart of our argument relies on the fact that the distance between languages denoting regular expressions can be calculated in a simpler way than applying the Knaster-Tarski fixpoint theorem while looking at the infinite-state final automaton of all formal languages over some fixed alphabet. 
 
