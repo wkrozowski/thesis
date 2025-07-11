@@ -266,9 +266,9 @@ Crucially for our completeness proof, if we are dealing with descending chains, 
 	which completes the proof.
 \end{proof}
 \subsection{Banach spaces}
-In the intermediate steps of the completeness proof presented in this chapter (specifically, in establishing the cocontinuity of the endomap that defines the behavioural distance) we will make use of the rich Banach space structure underlying pseudometrics. We begin by recalling the following definition:
+In the intermediate steps of the completeness proof presented in this chapter (specifically, in establishing the cocontinuity of the endomap that defines the behavioural distance) we will make use of the rich Banach space structure associated with pseudometrics. We begin by recalling the following definition:
 \begin{definition}[{\cite{Rudin:1990:Functional}}]
-	Let $V$ be a vector space over $K$, where $K$ is a field equal to $\R$ or $\mathbf{C}$. A norm on $V$ is a map $\| \cdot \| \colon V \to K$, satisfying the following four axioms: 
+	Let $V$ be a vector space over $K$, where $K$ is a field equal to $\R$ or $\mathbb{C}$. A norm on $V$ is a map $\| \cdot \| \colon V \to K$, satisfying the following four axioms: 
 	\begin{itemize}
 		\item For every $x \in V$, $\|x \| \geq 0$ (Non-negativity)
 		\item For every $x \in V$, $\| x \| = 0$ if and only if $x$ is a zero vector (Positive definiteness)
@@ -545,7 +545,7 @@ It turns out that in the presence of the infinitary continuity $(\Cont)$ rule of
 \begin{lemma}\label{c2:lem:generalised_pref}
 	Let $e,f,g \in \RExp$, such that $\emptyword \notin \sem{e}$. Then, 	$
 		 \{ f \equiv_\e g \} \vdash e \seq f \equiv_{\e'} e \seq g 
-	$ is derivable  using the axioms of \textsf{REG}
+	$ is derivable using the axioms of \textsf{REG}
  for all $\e'\geq \lambda \cdot \e$.
 \end{lemma}
 \begin{proof}
@@ -561,25 +561,38 @@ It turns out that in the presence of the infinitary continuity $(\Cont)$ rule of
 	\fbox{$e = e_1 \seq e_2$} Because of the assumption, $\emptyword \notin \sem{e_1}$ or $\emptyword \notin \sem{e_2}$. First, let's consider the subcase when both $\emptyword \notin \sem{e_1}$ and $\emptyword \notin \sem{e_2}$. By induction hypothesis, we have that $\vdash e_2 \seq f \equiv_{\e'} e_2 \seq g$. Since $\lambda \in \interval[open]{0}{1}$, we have that $\lambda \cdot \e' < \e'$. Because of that, we can apply induction hypothesis again and obtain $\vdash  e_1 \seq e_2 \seq f \equiv_{\e'} e_1 \seq e_2 \seq g$. Now, let's consider the subcase when $\emptyword \notin \sem{e_1}$, but $\emptyword \in \sem{e_2}$. Using $(\Nexp)$, we can obtain $\vdash e_2 \seq f \equiv_{\e} e_2 \seq g $. Then, since $\emptyword \notin \sem{e_1}$, we can apply the induction hypothesis and obtain $\vdash e_1 \seq e_2 \seq f \equiv_{\e'} e_1 \seq e_2 \seq g$ as desired. The remaining subcase, when  $\emptyword \notin \sem{e_2}$ but $\emptyword \in \sem{e_1}$ is symmetric and therefore omitted. \qedhere 
 \end{proof}
 
-With the above lemma in hand, one can inductively show that if $g \equiv_0 e \seq g + f$ and $\emptyword \notin \sem{e}$, then $g$ gets arbitrarily close to $e^\ast \seq f$. Intuitively, the more we unroll the loop in $e^\ast \seq f$ using \textsf{(Unroll)} and the more we unroll the definition of $g$, then the closer both expressions become.
+With the above lemma in hand, one can inductively show that if $g \equiv_0 e \seq g + f$ and $\emptyword \notin \sem{e}$, then $g$ gets arbitrarily close to $e^\ast \seq f$. Intuitively, the more we unroll the loop in $e^\ast \seq f$ using \textsf{(Unroll)} and the more we unroll the definition of $g$, then the closer both expressions become. First, we establish the following helper lemma:
+\begin{lemma}\label{c2:lem:real_approximation}
+	Let $e,f,g \in \RExp$, such that $\emptyword \notin \sem{e}$ and let $w \in \R$ be an arbitrary real number. If for all $r \in \Qp$, such that $r \geq w$, it holds that $\Gamma \vdash f \equiv_{r} g \in \mathsf{REG}$, then $\Gamma \vdash e \seq f \equiv_{s} e \seq g \in \mathsf{REG}$, for all $s \in \Qp$, such that $s \geq \lambda \cdot w$
+\end{lemma}
+\begin{proof}
+	Since $s \geq \lambda \cdot w$, we have that $s \cdot \lambda^{-1} \geq w$. Unfortunately, we cannot immediately apply the induction hypothesis, as $s \cdot \lambda^{-1}$ is not guaranteed to be rational. Instead, we will rely on the $(\Cont)$ rule of quantitative deduction systems. 
+	
+		Let $s'$ be an arbitrary rational number strictly greater than $s$. Let $\{u_n\}_{n \in N}$ be any decreasing sequence of rationals that converges to $\lambda^{-1}$. Then, $\{\lambda \cdot u_n\}_{n \in \N}$ is a decreasing real sequence that converges to $1$. Recall that $s' > s$, and hence $\frac{s'}{s} >1$. From the definition of the limit, we know that there exists a large enough $N \in \N$, such that $|\lambda \cdot u_N - 1 | \leq \frac{s'}{s}-1$. Since $\lambda \cdot u_n \geq 1$ for all $n \in \N$, we have that $\lambda \cdot u_N \leq \frac{s'}{s}$ and hence $s' \geq  s \cdot \lambda \cdot u_N$.
+		
+			We have the following chain of inequalities:
+			\begin{align*}
+				s \cdot u_N &\geq s \cdot \lambda^{-1} \tag{$u_N \geq \lambda^{-1}$}\\
+				&\geq\lambda \cdot w \cdot \lambda^{-1} \tag{$s \geq \lambda \cdot w$}\\
+				&=w
+			\end{align*}
+		Since $s \cdot u_N$ is rational and greater or equal to $w$, we can derive $\Gamma \vdash f  \equiv_{s \cdot u_N} g$ using the axioms of \textsf{REG}. Since $s' > s \cdot \lambda \cdot u_N$ and $\emptyword \notin \sem{e}$, we can use \Cref{c2:lem:generalised_pref} and conclude $\Gamma \vdash e \seq f \equiv_{s'} e \seq g \in \mathsf{REG}$. Since $s'$ was an arbitrary rational strictly greater than $s$, we conclude using $(\Cont)$ that $ \Gamma\vdash e \seq f \equiv_{s} e \seq g \in \mathsf{REG}$.
+\end{proof}
+
+
 \begin{lemma}\label{c2:lem:star_lemma}
 Let $e,f,g \in \RExp$, such that $\emptyword \notin \sem{e}$ and let $n \in \N$. Then, $ \{g \equiv_0 e \seq g  + f\} \vdash g \equiv_{\e} e^{\ast} \seq f$ is derivable using the axioms of $\mathsf{REG}$ for all $\e \geq \lambda^n $.
 \end{lemma}
 \begin{proof}
-	By induction. If $n = 0$, then using $(\Top)$, we can immediately conclude that $\vdash g \equiv_1 e^{\ast} \seq f$. Since by the assumption $\e \geq \lambda^0 = 1$, we can apply $(\Max)$ and obtain $\vdash g \equiv_{\e} e^\ast \seq f $. 
+	By induction. If $n = 0$, then using $(\Top)$, we can immediately conclude that $\vdash g \equiv_1 e^{\ast} \seq f$. Since by the assumption $\e \geq \lambda^0 = 1$, we can apply $(\Max)$ and obtain $\vdash g \equiv_{\e} e^\ast \seq f $.
 	
-	For the inductive cases, we have that $\e \geq \lambda^{n+1}$ and hence $\e \cdot \lambda^{-1} \geq \lambda^n $. We cannot instantly apply the induction hypothesis, as $\e \cdot \lambda^{-1}$ is not guaranteed to be rational. Instead, we will use $(\Cont)$ of quantitative deduction systems. Let $\e'$ be an arbitrary rational number strictly greater than $\e$ and let $\{r_n\}_{n \in \N}$ be any decreasing sequence of rationals that converges to $\lambda^{-1}$. Pick an element $r_N$ of that sequence that satisfies that $\e' \geq \e \cdot \lambda \cdot r_N$. We can always pick such an element, as $\{r_n\}_{n \in \N}$ gets arbitrarily close to $\lambda^{-1}$, so $\{\lambda \cdot r_n\}_{n \in \N}$ is a decreasing sequence that converges to $1$ and additionally we have that $\e' > \e$, so $\frac{\e'}{\e} >1$.	From the definition of the limit, we know that there exists large enough $N \in \N$, such that $|\lambda \cdot r_{N}-1| \leq \frac{\e'}{\e} - 1$. We can simplify the above relying on the fact that $\lambda \cdot r_n \geq 1$ for all $n \in \N$ and obtain that indeed $\e' \geq \e \cdot \lambda \cdot r_N$ as desired. 
-	
-		Since $\e \cdot r_N \geq \e \cdot \lambda^{-1} \geq \lambda^{n}$, we can apply the induction hypothesis and obtain that $\vdash e \equiv_{\e \cdot r_N} g^* \seq f$. Since $\emptyword \notin \sem{e}$, we can now use \Cref{c2:lem:generalised_pref} to derive that $e \seq g \equiv_{\e'} e \seq e^{\ast} \seq f$. Since we have shown it for an arbitrary $\e' > \e$, we can use the $(\Cont)$ rule of the quantitative deduction system and conclude that $\vdash e \seq g \equiv_{\e} e \seq e^* \seq f$, as desired. 
-		
-		
-		Then, because of $(\Refl)$, we have that $\vdash f \equiv_0 f$. We can combine those two quantitative inferences using \textsf{(SL5)} axiom in order to get $\vdash e \seq g + f \equiv_{\e} e \seq e^\ast \seq f  + f $. By assumption, the left hand side satisfies that $\vdash g \equiv_0 e \seq g + f$. Now, consider $e \seq e^\ast \seq f$ that appears on the right-hand side of the quantitative inference mentioned above:
+	For the inductive case, for all $r \in \Qp$, such that $r \geq \lambda^n$, we can use the induction hypothesis and conclude that $\{g \equiv_0 e \seq g  + f\} \vdash g \equiv_{\e} e^{\ast} \seq f$. Using \Cref{c2:lem:real_approximation} and the fact that $\emptyword \notin \sem{e}$, we can conclude that $\{g \equiv_0 e \seq g  + f\} \vdash e \seq g \equiv_{r} e \seq e^\ast \seq f \in \mathsf{REG}$ for all rational $r$, such that $r \geq \lambda \cdot \lambda^n = \lambda^{n + 1}$. Then, because of $(\Refl)$, we have that $\vdash f \equiv_0 f$. We can combine those two quantitative inferences using \textsf{(SL5)} axiom in order to get $\vdash e \seq g + f \equiv_{\e} e \seq e^\ast \seq f  + f $. By assumption, the left hand side satisfies that $\vdash g \equiv_0 e \seq g + f$. Now, consider $e \seq e^\ast \seq f$ that appears on the right-hand side of the quantitative inference mentioned above:
 	\begin{align*}
 		\vdash e \seq e^{\ast} \seq f + f &\equiv_0 e \seq e^\ast \seq f + \one \seq f \tag{\textsf{1S}} \\
 		&\equiv_0 (e \seq e^* + \one) \seq f \tag{\textsf{D2}} \\
 		&\equiv_0 e^{*} \seq f \tag{\textsf{Unroll}}
 	\end{align*}
-	We can combine the reasoning above and conclude (using $(\Triang)$) that $\vdash g \equiv_{\e} e^\ast \seq f$.
+	We can use $(\Triang)$ to combine the above inferences and obtain $\{g \equiv_0 e \seq g  + f\} \vdash g \equiv_{\e} e^\ast \seq f$.
 \end{proof}
 Having the result above, we can now use the infinitary $(\Cont)$ rule capturing the limiting property of decreasing chain of overapproximations to the distance and show the derivability of Salomaa's inference rule.
 \begin{lemma}
@@ -587,7 +600,7 @@ Having the result above, we can now use the infinitary $(\Cont)$ rule capturing 
 
 \end{lemma}
 \begin{proof}
-To deduce that $\vdash g \equiv_0 e^{\ast} \seq f$ using $(\Cont)$ it suffices to show that $\vdash g \equiv_{\e} e^{\ast} \seq f$ for all $\e > 0$.  To do so, pick an arbitrary $\e > 0$ and let $N = \lceil \log_{\lambda} \e \rceil$. Observe that $\lambda^N = \lambda^{\lceil \log_{\lambda} \e \rceil} \leq \lambda^{\log_{\lambda} \e} = \e$. Because of \Cref{c2:lem:star_lemma} we have that $\vdash g \equiv_{\e} e^{\ast} \seq f$, which completes the proof.
+To deduce that $\{g \equiv_0 e \seq g  + f\} \vdash g \equiv_0 e^{\ast} \seq f$ using $(\Cont)$ it suffices to show that $\{g \equiv_0 e \seq g  + f\} \vdash g \equiv_{\e} e^{\ast} \seq f$ for all $\e > 0$.  To do so, pick an arbitrary $\e > 0$ and let $N = \lceil \log_{\lambda} \e \rceil$. Observe that $\lambda^N = \lambda^{\lceil \log_{\lambda} \e \rceil} \leq \lambda^{\log_{\lambda} \e} = \e$. Because of \Cref{c2:lem:star_lemma} we have that $\{g \equiv_0 e \seq g  + f\} \vdash g \equiv_{\e} e^{\ast} \seq f$, which completes the proof.
 \end{proof}
 \section{Completeness}\label{c2:sec:completeness}
 We now focus our attention on the central result of this chapter, which is the completeness of \textsf{REG} with respect to the shortest-distinguishing-word metric on languages denoting regular expressions. We use the strategy from the proof of completeness of quantitative axiomatisation of probabilistic bisimilarity distance~\cite{Bacci:2018:Bisimilarity}. It turns out that the results from~\cite{Bacci:2018:Bisimilarity} rely on properties that are not unique to the Kantorovich/Wassertstein lifting and can be also established for instances of the abstract coalgebraic framework~\cite{Baldan:2018:Coalgebraic}.
@@ -751,20 +764,16 @@ For the induction step, let $i = j + 1$ and derive the following:
     \iff &\e \geq \Phi_{\gen{[e]_{\acirel},[f]_{\acirel}}{\mathcal{Q}}} \left( {\Psi}_{e,f}^{(j)} \right)\left([g]_{\acirel}, [h]_{\acirel}\right) \tag{Def. of ${\Psi}_{e,f}^{j+1}$}\\
     \iff &\e \geq \max\left\{ d_{\{0,1\}} (o_{\mathcal{Q}}({[g]}_{\acirel}), o_{\mathcal{Q}}([h]_{\acirel})), \lambda \cdot \max_{a \in \alphabet} \left\{ {\Psi}_{e,f}^{(j)}\left({[g]_{\acirel}}_a, {[h]_{\acirel}}_{a}\right) \right\}\right\} \tag{Def. of $\Phi$}\\
     \iff &\e \geq \max\left\{ d_{\{0,1\}} \left(o_{\mathcal{R}}(g), o_{\mathcal{R}}(h)\right), \lambda \cdot \max_{a \in \alphabet} \left\{ \Phi_{\gen{[e]_{\acirel},[f]_{\acirel}}{\mathcal{Q}}}^{(j)}\left({[{(g)}_{a}]_{\acirel}}, {[{(h)}_{a}]_{\acirel}}\right) \right\}\right\} \tag{Def. of $\mathcal{Q}$}\\
-    \iff &{\e \geq d_{\{0,1\}} (o_{\mathcal{R}}(g), o_{\mathcal{R}}(h))} \text{ and for all $a \in \alphabet$},~\e \cdot \lambda^{-1} \geq {\Psi}_{e,f}^{(j)}\left({[{(g)}_{a}]_{\acirel}}, {[{(h)}_{a}]_{\acirel}}\right)
+    \iff &{\e \geq d_{\{0,1\}} (o_{\mathcal{R}}(g), o_{\mathcal{R}}(h))} \text{ and for all $a \in \alphabet$},~\e \geq \lambda \cdot {\Psi}_{e,f}^{(j)}\left({[{(g)}_{a}]_{\acirel}}, {[{(h)}_{a}]_{\acirel}}\right)
 \end{align*}
 
 Firstly, since $d_{\{0,1\}}$ is the discrete pseudometric on the set $\{0,1\}$, we can use $(\Refl)$ or $(\Top)$ depending on whether $o_{\mathcal{R}}(g) = o_{\mathcal{R}}(h)$ and then apply $(\Max)$ to derive $\vdash o_{\mathcal{R}}(g) \equiv_\e o_{\mathcal{R}}(h)$. 
 
-Let $a \in \alphabet$. We will show that $\vdash a\seq (g)_a \equiv_{\e} a \seq (h)_a $. Since $\e \cdot \lambda^{-1}$ is not guaranteed to be rational, we cannot immediately apply the induction hypothesis. Instead, we rely on \textsf{(Cont)} rule. 
-
-First, pick an arbitrary rational $\e'$ strictly greater than $\e$ and fix $\{r_n\}_{n \in \N}$ to be any decreasing sequence of rationals that converges to $\lambda^{-1}$. Let $r_N$ be an element of that sequence such that $\e' \geq \lambda \cdot \e \cdot r_N$. It is always possible to pick such element because $\{\lambda \cdot r_n\}_{n \in \N}$ is a decreasing sequence that converges to $1$ and $\e' > \e$. 
-
-Since $\e \cdot r_N \geq \e \cdot \lambda^{-1}$ and $\e \cdot r_{N} \in \Q$, we can use the induction hypothesis and derive $\vdash (g)_a \equiv_{\e \cdot r_{N}} (h_a)$. Then, by $(\dPref)$ axiom we have that $\vdash a \seq (g)_a \equiv_{\e'} a \seq (h)_a$. Since we have shown it for arbitrary $\e' > \e$, by \textsf{(Cont)} rule we have that $\vdash a\seq (g)_a \equiv_{\e} a \seq (h)_a $. Using \textsf{(SL5)}, we can combine all subexpressions involving the output and transition derivatives into the following:
+For an arbitrary $a \in \alphabet$, we can apply \Cref{c2:lem:real_approximation} and the induction hypothesis to conclude $\vdash a\seq (g)_a \equiv_{\e} a \seq (h)_a $ using the axioms of \textsf{REG}. Using \textsf{(SL5)}, we can combine all subexpressions involving the output and transition derivatives into the following:
 	$$
 	\vdash \sum_{a \in \alphabet} a \seq (g)_a + o_{\mathcal{R}}(g) \equiv_{\e} \sum_{a \in \alphabet} a \seq (h)_a + o_{\mathcal{R}}(h)
 	$$
-	Since both sides are normal forms of $g$ and $h$ existing because of \Cref{c2:thm:fundamental_theorem}, we can apply \textsf{(Triang)} on both sides and obtain $\vdash g \equiv_{\e} h$ thus completing the proof.
+	Since both sides are normal forms of $g$ and $h$ existing because of \Cref{c2:thm:fundamental_theorem}, we can apply \textsf{(Triang)} on both sides and obtain $\vdash g \equiv_{\e} h$, as desired.
 \end{proof}
 At this point, we have done all the hard work, and establishing completeness involves a straightforward argument that utilises the \textsf{(Cont)} rule and the lemma above.
 \begin{theorem}[Completeness]\label{c2:completeness}
