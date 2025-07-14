@@ -266,18 +266,28 @@ Crucially for our completeness proof, if we are dealing with descending chains, 
 	which completes the proof.
 \end{proof}
 \subsection{Banach spaces}
-In the intermediate steps of the completeness proof presented in this chapter (specifically, in establishing the cocontinuity of the endomap that defines the behavioural distance) we will make use of the rich Banach space structure associated with pseudometrics. We begin by recalling the following definition:
-\begin{definition}[{\cite{Rudin:1990:Functional}}]
-	Let $V$ be a vector space over $K$, where $K$ is a field equal to $\R$ or $\mathbb{C}$. A norm on $V$ is a map $\| \cdot \| \colon V \to K$, satisfying the following four axioms: 
+In the intermediate steps of the completeness proof presented in this chapter --specifically, in establishing the cocontinuity of the endomap defining the behavioral distance -- we will make use of the Banach space structure associated with spaces of pseudometrics. We begin by recalling the relevant definitions.
+\begin{definition}[{\cite{Ozaki:1953:Note}}]
+	Let $\mathbb{K}$ be a field. A valuation on $\mathbb{K}$ is a map $|\cdot| \colon \mathbb{K} \to \interval[open right]{0}{+\infty}$  satisfying the following properties for all $f,g \in \mathbb{K}$:
 	\begin{itemize}
-		\item For every $x \in V$, $\|x \| \geq 0$ (Non-negativity)
-		\item For every $x \in V$, $\| x \| = 0$ if and only if $x$ is a zero vector (Positive definiteness)
-		\item For every $k \in K$ and $x \in V$, $\| kx\|=k \|x\|$ (Absolute homogeneity) 
-		\item For every $x \in V$ and $y \in V$, $\|x + y\| \leq \|x\| + \|y\|$ (Triangle inequality)
+		\item $|f|=0 \iff f = 0$ (Non-degeneracy)
+		\item $|-f|=|f|$ (Symmetry)
+		\item $|f + g| \leq |f| + |g|$ (Triangle inequality)
+		\item $|f \cdot g| = |f| \cdot |g|$ (Multiplicativity)
 	\end{itemize}
-	A vector space $V$ equipped with a norm is called a normed space. Every normed space can be seen as a metric space, where the distance function is given by $d(x,y)=\|x-y\|$ for all $x \in V$. If the metric space induced by the norm is complete, then $V$ is called a Banach space.
 \end{definition}
-For any set $X$, the set of bounded functions of the type $X \times X \to \R$, that in particular contains $D_X$, is an infinite-dimensional vector space over the field $\R$ of real numbers. This vector space can be equipped with a norm given by $\|d\| = \sup_{x,y \in X} |d(x,y)|$, which makes it into a Banach space~\cite{Breugel:2012:Closure}. 
+A canonical example is the field $\R$ of real numbers equipped with the absolute value.
+\begin{definition}[{\cite{Rudin:1990:Functional}}]
+	Let $\mathbb{K}$ be a field with valuation $|\cdot |$. A normed space over $\mathbb{K}$ is a pair $(\mathbb{V}, \| \cdot\|)$, where $\mathbb{V}$ is a vector space over $\mathbb{K}$ and $\| \cdot \|$ and $\| \cdot \| \colon \mathbb{V} \to \interval[open right]{0}{+\infty}$ is a function (called \emph{norm}) satisfying the following for all $x, y \in \mathbb{V}$ and $k \in \mathbb{K}$: 
+	\begin{itemize}
+		\item $\| x \| = 0$ if and only if $x$ is a zero vector (Positive definiteness)
+		\item $\| k \cdot x\|=|k| \cdot \|x\|$ (Absolute homogeneity) 
+		\item $\|x + y\| \leq \|x\| + \|y\|$ (Triangle inequality)
+	\end{itemize}
+	Every normed space induces a metric via $d(x,y)=\|x-y\|$ for all $x \in \mathbb{V}$. If this metric space is complete, then $\mathbb{V}$ is called a Banach space.
+\end{definition}
+For any set $X$, the set of bounded functions of the type $X \times X \to \R$ is an infinite-dimensional vector space over the field $\R$ of real numbers. When equipped with the supremum norm $$\|d\| = \sup_{x,y \in X} |d(x,y)|$$
+this space becomes a Banach space~\cite{Breugel:2012:Closure}.  In particular, the space of pseudometrics $D_X$ is a subset of this Banach space.
 \section{Behavioural distance of deterministic automata}\label{c2:sec:behavioural_distance}
 We now focus on defining a behavioural distance for deterministic automata through the abstract framework of coalgebraic behavioural distances~\cite{Baldan:2018:Coalgebraic}. We first recall the main definitions and then concretise the abstract results to the case of our interest.
 \subsection{Coalgebraic behavioural distances}\label{c2:subsec:coalgebraic_behavioural_distances}
