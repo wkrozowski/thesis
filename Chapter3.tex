@@ -39,7 +39,7 @@ The rest of the chapter is organised is as follows.
 In \Cref{c3:sec:preliminaries}, we introduce charts, as well as their associated notions of behavioural equivalence and distances. Then, in \Cref{c3:sec:monoidal}, we introduce the syntax of our diagrammatic calculus, for which we construct the semantics in \Cref{sec:semantics}. Next, in \Cref{sec:axioms} we present a (quantitative) equational inference system for reasoning about distances of the denotations of the terms of our calculus; we also prove its soundness and study one example in more detail. \Cref{sec:completeness} contains the main technical result of the chapter, namely completeness for the proposed behavioural distance between charts. We wrap up in \Cref{sec:discussion} where we review related literature, and sketch directions for future work.  
 
 \section{Preliminaries}\label{c3:sec:preliminaries}
-In this section, we provide the main technical preliminaries for the development of this chapter. We assume the familiarity of the reader with basic notions of monoidal categories~\cite{Selinger_2010,piedeleu2023introduction}, traced monoidal categories~\cite{Joyal:1996:Traced} and compact closed categories~\cite{kellylaplaza}.
+In this section, we provide the main technical preliminaries for the development of this chapter.
 \subsection{Charts}
 Fix a set $V=\{v_1, v_2, \dots\}$ of \emph{variables} and $\Sigma$ of \emph{letters} respectively. A prechart is a triple $(Q,E,D)$, where $Q$ is a set of states, $D \subseteq Q \times \Sigma \times Q$ a finite labelled transition relation and $E \subseteq Q \times V$ is a finite output relation. Precharts can be thought as a branching-time generalisation of nondeterministic automata, where instead of acceptance, we deal with the notion of outputs. Moreover, when $D$ and $E$ are clear from the context, we will write $q \tr{a} q' \iff (q,a,q') \in D$ and $q \rhd v \iff (q,v) \in E$. A chart $C$ is a quadruple $(Q, s, D, E)$, where $(Q,D,E)$ is a prechart and $s \in Q$ is a distinguished start node. We call a chart finite if $Q$ is finite.
 \begin{remark}\label{c3:rem:kripke}
@@ -227,9 +227,6 @@ Given a prechart $(Q, \beta)$, whose state-space is equipped with a pseudometric
 		& \leq \frac{1}{2} \|d - d'\| \qedhere
 	\end{align*}
 \end{proof}
-\begin{remark}
-	If we replace the constant $\frac{1}{2}$ in the definition of transitions lifting with an arbitrary discount factor $\lambda \in \interval[open]{0}{1}$ (as discussed in \Cref{c3:rem:discount}), the Lipschitz constant in the preceding lemma would become $\lambda$ while preserving the contractivity of $\Phi_\beta$.
-\end{remark}
 As a consequence, we have the following corollary:
 \begin{corollary}
 	$\Phi_\beta$ has a unique fixpoint.
@@ -283,9 +280,6 @@ The behavioural distance between any two states in locally finite precharts is a
 			Since the infima range over finite sets, their values are either $1=2^0$ if the sets are empty or are one of the values from the set, which we have shown to be of the desired form. Similarly, suprema range over finite sets and are either $0$ for empty sets or are on of the values from the set, which are in the desired form. Taking the maximum of values in the desired form, still results in a value in the desired form.\qedhere
 	\end{itemize}
 \end{proof}
-\begin{remark}
-If the discount factor $\frac{1}{2}$ in the definition of transition lifting were replaced with an arbitrary $\lambda \in \interval[open]{0}{1}$ (as discussed in \Cref{c3:rem:discount}), the lemma above would require modification: distances would instead be either zero or of the form $\lambda^k$, for some $k \in \N$.
-\end{remark}
 If two states have a non-zero distance, then the chain of approximants from Kleene's fixpoint theorem stabilises.
 \begin{lemma}\label{lem:chain_stabilises}
 	Let $(X, \beta)$ be a locally finite prechart and let $x,y \in X$, such that $\mathsf{bd}_\beta(x,y)>0$. There exists $i \in \N$, such that $\Phi_\beta^{(i)}(x,y)=\Phi^{(i+1)}_\beta(x,y)$
@@ -347,8 +341,74 @@ Let $(X,\beta)$ be a locally finite prechart and let $x,y \in X$. The behavioura
 	 In the second case, because of \Cref{lem:chain_stabilises}, we know that if $\mathsf{bd}_\beta(x,y) > 0$, then the behavioural distance is equal to some element of the chain of approximants. By \Cref{lem:distance_power_of_two}, we know that all non-zero elements of that chain are equal to $2^{-k}$, for some $k \in \N$. Combining it with \Cref{lem:bound_on_stratified_bisim} yields the desired result. 
 	 For the converse, if $n \in N$ is the largest number such that $x \sim^{(n)} y$, then because of \Cref{lem:bound_on_stratified_bisim}, we have that $\mathsf{bd}_\beta(x,y)\leq 2^{-n}$. Assume that $\mathsf{bd}_\beta(x,y)=0$. In such a case, using \Cref{lem:bound_on_stratified_bisim}, we could conclude that $x \sim^{(n+1)} y$, which would lead to contradiction. Hence, $\mathsf{bd}_\beta(x,y)>0$. Because of \Cref{lem:chain_stabilises}, we have that $\mathsf{bd}_\beta(x,y)$ is equal to some power of two. Combining that with \Cref{lem:bound_on_stratified_bisim} again yields the desired result.\qedhere
 \end{proof}
+\begin{remark}
+If the discount factor $\frac{1}{2}$ in the definition of transition lifting were replaced with an arbitrary $\lambda \in \interval[open]{0}{1}$ (as discussed in \Cref{c3:rem:discount}), then \Cref{c3:lem:contractive}, \Cref{lem:distance_power_of_two}, \Cref{lem:bound_on_stratified_bisim} and \Cref{thm:concrete_distance} would need to be adjusted accordingly to mention (powers of) $\lambda$, but otherwise would remain unchanged.
+\end{remark}
+\subsection{Monoidal categories}\label{c3:subsec:monoidal}
+Throughout this thesis, we assume the reader is familiar with basic concepts of monoidal categories~\cite{Selinger_2010,piedeleu2023introduction}, traced monoidal categories~\cite{Joyal:1996:Traced}, and compact closed categories~\cite{kellylaplaza}. Nevertheless, we recall the definitions of (symmetric) monoidal categories to establish notation for the remainder of the chapter.
+\begin{definition}
+A monoidal category is a tuple $(\mathcal{C}, \otimes, I, \alpha, \lambda, \rho)$ consisting of:
+\begin{itemize}
+    \item A category $\mathcal{C}$,
+    \item A bifunctor $\otimes \colon \mathcal{C} \times \mathcal{C} \to \mathcal{C}$ (monoidal product),
+    \item An object $I \in\ObjC(\C)$ (monoidal unit),
+    \item A natural isomorphism $\alpha_{A,B,C} \colon (A \otimes B) \otimes C \xrightarrow{\sim} A \otimes (B \otimes C)$ (associator),
+    \item Natural isomorphisms $\lambda_A \colon I \otimes A \xrightarrow{\sim} A$ and $\rho_A \colon A \otimes I \xrightarrow{\sim} A$ (left and right unitors),
+\end{itemize}
+satisfying the following coherence conditions:
+\begin{enumerate}
+    \item {Pentagon identity}: For all $A,B,C,D \in \ObjC(\C)$, the diagram
+    \[\begin{tikzcd}
+        & ((A \otimes B) \otimes C) \otimes D \arrow[dr, "\alpha_{A\otimes B,C,D}"] \arrow[dl, "\alpha_{A,B,C} \otimes \id_D"'] \\
+        (A \otimes (B \otimes C)) \otimes D \arrow[d, "\alpha_{A,B\otimes C,D}"] & & (A \otimes B) \otimes (C \otimes D) \arrow[d, "\alpha_{A,B,C\otimes D}"] \\
+        A \otimes ((B \otimes C) \otimes D) \arrow[rr, "\id_A \otimes \alpha_{B,C,D}"'] & & A \otimes (B \otimes (C \otimes D))
+    \end{tikzcd}\]
+    commutes.
+    
+    \item {Triangle identity}: For all $A,B \in\ObjC(\C)$, the diagram
+    \[\begin{tikzcd}
+        (A \otimes I) \otimes B \arrow[rr, "\alpha_{A,I,B}"] \arrow[dr, "\rho_A \otimes \id_B"'] & & A \otimes (I \otimes B) \arrow[dl, "\id_A \otimes \lambda_B"] \\
+        & A \otimes B &
+    \end{tikzcd}\]
+    commutes.
+\end{enumerate}
+A monoidal category is called {strict} if $\alpha$, $\lambda$, and $\rho$ are identity morphisms.
+\end{definition}
+We often abuse notation by referring to the monoidal category as $(\mathcal{C}, \otimes, I)$, by omitting associator and unitors. 
+\begin{definition}
+A {symmetric monoidal category} is a monoidal category $(\mathcal{C}, \otimes, I, \alpha, \lambda, \rho)$ equipped with a natural isomorphism $\sigma_{A,B} \colon A \otimes B \xrightarrow{\sim} B \otimes A$, called symmetry, satisfying the following additional coherence conditions:  
+\begin{enumerate}  
+    \item {Involutivity}: For all $A,B \in \ObjC(\C)$, the composite  
+    \[  
+    A \otimes B \xrightarrow{\sigma_{A,B}} B \otimes A \xrightarrow{\sigma_{B,A}} A \otimes B  
+    \]  
+    equals $\id_{A \otimes B}$.  
+
+    \item {Hexagon identity}: For all $A,B,C \in\ObjC(\C)$, the diagram  
+    \[\begin{tikzcd}  
+        & (A \otimes B) \otimes C \arrow[dl, "\alpha_{A,B,C}"'] \arrow[dr, "\sigma_{A,B} \otimes \id_C"] \\  
+        A \otimes (B \otimes C) \arrow[d, "\sigma_{A,B \otimes C}"'] & & (B \otimes A) \otimes C \arrow[d, "\alpha_{B,A,C}"] \\  
+        (B \otimes C) \otimes A \arrow[dr, "\alpha_{B,C,A}"'] & & B \otimes (A \otimes C) \arrow[dl, "\id_B \otimes \sigma_{A,C}"] \\  
+        & B \otimes (C \otimes A) &  
+    \end{tikzcd}\]  
+    commutes.  
+
+    \item {Unitor compatibility}: For all $A \in\ObjC(\C)$, the diagram  
+    \[\begin{tikzcd}  
+        A \otimes I \arrow[rr, "\sigma_{A,I}"] \arrow[dr, "\rho_A"'] & & I \otimes A \arrow[dl, "\lambda_A"] \\  
+        & A &  
+    \end{tikzcd}\]  
+    commutes.  
+\end{enumerate}   
+\end{definition}
+%Examples of monoidal categories include:
+%\begin{itemize}
+%    \item $(\mathsf{Set}, \times, \{\bullet\})$ - The category of sets forms a symmetric monoidal category, where the tensor product $\times$ is the Cartesian product of sets and the monoidal unit $\{\bullet\}$ is the singleton set.
+%    \item $(\mathsf{PMet}, \times, I_\otimes)$ - The category of pseudometric spaces and nonexpansive maps forms a symmetric monoidal category where the tensor product is the product space with the $\sup$-metric and the unit $I_\otimes$ is a singleton space $\{\bullet\}$ with the (unique) discrete pseudometric $d_\bullet(\bullet, \bullet)=0$.
+%    \item For any semiring $\mathbb{S}$, $(\mathsf{Mat}(\mathbb{S}), \oplus, [])$ - The category of $\mathbb{S}$-valued matrices forms a strict symmetric monoidal category where objects are natural numbers $\mathbb{N}$, morphisms $n \to m$ are $n \times m$ matrices over $\mathbb{S}$, and composition is given by matrix multiplication. The tensor product $\oplus$ is the direct sum (block diagonal) of matrices, while the unit is the empty matrix $[]$
+%\end{itemize}
 \subsection{Conway theories}\label{c3:subsec:conway}
-Let $\cat{C}$ be a category, whose objects are natural numbers and $0$ is the initial object. We will write $0_n$ for the unique map $0_n \colon 0 \to n$. Additionally, we assume that $\cat{C}$ is equipped with all finite coproducts, where binary coproduct is given by addition, i.e. $n \oplus m := n + m$. Given $f \colon k \to m$ and $g \colon l \to m$, we will write $\lc f,g \rc \colon k +l \to m$ for the mediating map from the universal property of the coproduct that makes the following diagram commute:
+Let $\cat{C}$ be a category, whose objects are natural numbers and $0$ is the initial object. We will write $0_n$ for the unique map $0_n \colon 0 \to n$. Additionally, we assume that $\cat{C}$ is equipped with all finite coproducts, where the binary coproduct is given by addition, i.e. $n \oplus m := n + m$. Given $f \colon k \to m$ and $g \colon l \to m$, we will write $\lc f,g \rc \colon k +l \to m$ for the mediating map from the universal property of the coproduct that makes the following diagram commute:
 \begin{equation}\label{eqn:mediating}
 % https://q.uiver.app/#q=WzAsNCxbMSwwLCJrK2wiXSxbMiwwLCJsIl0sWzAsMCwiayJdLFsxLDIsIm0iXSxbMiwwLCJcXGlubF97ayArIGx9Il0sWzEsMCwiXFxpbnJfe2sgKyBsfSIsMl0sWzIsMywiZiIsMl0sWzEsMywiZyJdLFswLDMsIltmLGddIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
 \begin{tikzcd}
@@ -379,23 +439,9 @@ Given $f \colon k \to l$ and $g \colon m \to n$, we can define their \emph{separ
 	\arrow["\inl_{l,n}"', from=3-1, to=3-3]
 	\arrow["\inr_{l,n}", from=3-5, to=3-3]
 \end{tikzcd}\end{equation}
-\begin{remark}
-	Because of the universal properties of coproduct and initial object, the following identities hold:
-	\begin{enumerate}
-		\item $\lc f , \lc g , h \rc \rc = \lc \lc f , g \rc, h \rc$
-		\item $\lc 0_n, f \rc = f = \lc f , 0_n \rc$
-		\item $\lc f , g \rc ; h = \lc f ; h , g ; h \rc$
-		\item $(f \oplus g) \oplus h = f \oplus (g \oplus h )$
-		\item $0_n \oplus f = f = f \oplus 0_n$
-		\item $(f \oplus g) ; (h \oplus i) = f ; h \oplus g;i$
-	\end{enumerate}
-\end{remark}
-Because of the above remark, we can unambiguously define an $n$-ary version of $\lc -, -\rc$ and hence we can view every map $f \colon m \to n$, as $f = \lc f_1, \dots, f_m\rc$.
-
-Observe that under the assumptions listed above $\cat{C}$ is equipped with all finite coproducts (since it has an initial object and binary coproducts), and hence $(\cat{C}, \oplus , 0 )$ is a cocartesian strict symmetric monoidal category. 
+Observe that under the assumptions listed above $\cat{C}$ is equipped with all finite coproducts (since it has an initial object and binary coproducts), and hence $(\cat{C}, \oplus , 0 )$ is a cocartesian symmetric monoidal category. 
 
 We follow the terminology of Esik, and we call $\cat{C}$ a \emph{preiteration theory}~\cite{Esik:1999:Group} if for every morphism $f \colon n \to p + n$, there exists a morphism $f^\dagger_{n,p} \colon n \to p$ called \emph{dagger}. We will often omit the subscripts and write $f^\dagger$, when $n$ and $m$ are clear from the context. Note that the definition does not impose any conditions on the dagger. However, for $f \colon 0 \to p$, when always we have that $f_{0,p}^\dagger = 0_p$.
- 
  
  
 \begin{definition}[{\cite[Definition~3.1]{Esik:1999:Group}}]\label{def:conway_theory}
@@ -421,7 +467,7 @@ We follow the terminology of Esik, and we call $\cat{C}$ a \emph{preiteration th
 \end{remark}
 
 \subsection{Trace-fixpoint correspondence}
-It turns out that having a category $\cat{C}$ with finite coproducts and equipped with a dagger operator satisfying the axioms of Conway theories is equivalent with $\cat{C}$ being traced symmetric monoidal category. This is captured by the following theorem that was independently proved by Hasegawa~\cite{Hasegawa:1997:Models} and Haghverdi~\cite{Haghverdi:2000:Categorical}. The formulation of Hasegawa is phrased dually via the setting of products and cartesian categories.
+It turns out that Conway theories can be seen as a special case of traced symmetric monoidal categories. This is captured by the following theorem that was independently proved by Hasegawa~\cite{Hasegawa:1997:Models} and Haghverdi~\cite{Haghverdi:2000:Categorical}. The formulation of Hasegawa is phrased dually via the setting of products and cartesian categories.
 \begin{theorem}[{\cite[Proposition~3.1.9]{Haghverdi:2000:Categorical}}]\label{thm:trace}
 For any category with finite coproducts, to give a Conway operator is to give a trace (where finite coproducts are taken as the monoidal structure). 
 \end{theorem}
@@ -493,9 +539,9 @@ Morphisms of $\Syn$ are thus vertical and horizontal composites of the generator
 	
 	\section{Monoidal semantics}\label{sec:semantics}
 	
-	In order to interpret the string diagrams described in \Cref{c3:sec:monoidal}, we construct an appropriate semantic universe out of regular behaviours. As much as the technical development makes use of category theory, we will keep the description of the formalism high-level. We will write $V_n$ for the set $V_n = \{v_1, \dots, v_n\}\subseteq V$ and $\Expr/{\sim}(n)$ for the set of all regular behaviours whose live variables are contained in the set $V_n$. For any $m,n \in \N$, we will write $\RegBeh(m,n)$ for the set of $m$-tuples of elements of $\Expr/{\sim}(n)$. 
+	In order to interpret the string diagrams described in \Cref{c3:sec:monoidal}, we construct an appropriate semantic universe out of regular behaviours. As much as the technical development makes use of category theory, we will keep the description of the formalism high-level. We will write $V_n$ for the set $V_n = \{v_1, \dots, v_n\}\subseteq V$ and $(\Expr/{\sim})(n)$ for the set of all regular behaviours whose live variables are contained in the set $V_n$. For any $m,n \in \N$, we will write $\RegBeh(m,n)$ for the set of $m$-tuples of elements of $(\Expr/{\sim})(n)$. 
 	
-	For every $n \in N$, we define an identity map $\id_n \in \RegBeh(n,n)$ as  $\id_n=\vec{v}_n=(v_1, \dots, v_n)$. When $n$ is clear from the context, we will abuse the notation and simply write $\vec{v}$ instead.
+	For every $n \in N$, we define an identity map $\id_n \in \RegBeh(n,n)$ as $\id_n=\vec{v}_n=(v_1, \dots, v_n)$. When $n$ is clear from the context, we will abuse the notation and simply write $\vec{v}$ instead.
 
 	Given $f \in \RegBeh(m,n)$ and $g \in \RegBeh(n,p)$, we can define their sequential composition $f;g \in \RegBeh(m,p)$ to be given by $(f_1[\vec{g} / \vec{v}], \dots, f_m[\vec{g}/ \vec{v}])$, where $\vec{v}=(v_1, \dots, v_n)$. It turns out that sequential composition is associative, with identity being a neutral element when composed both on the left and right.
  \begin{restatable}{lemma}{regbehcategory}\label{lem:comp_associative}
