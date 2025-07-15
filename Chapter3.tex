@@ -1,16 +1,16 @@
 \chapter{Behavioural Distance of Nondeterministic Processes}
 \label{chapter3}
 
-In this chapter, we investigate axiomatisations of behavioural distance for a {\em nondeterministic} model of computation, known as \emph{charts}~\cite{Milner:1984:Complete}. Originally introduced by Milner, charts extend \emph{finite-state nondeterministic automata} (NFA) by replacing the notion of acceptance with variable outputs. Intuitively, the distance between two charts can be quantified by, roughly, the number of steps after which their behaviours disagree---\emph{i.e.} are no longer bisimilar. This seemingly small generalisation from deterministic finite automata provides a range of challenges, stemming from the fact that the presence of non-determinism moves the semantics from language to bisimilarity, while at the same time representing a crucial step towards weighted transition systems~\cite{Larsen:2011:Metrics}, where the general theory of behavioral distances and axiomatisations thereof is relatively underexplored. 
+In this chapter, we investigate axiomatisations of behavioural distance for a {\em nondeterministic} model of computation, known as \emph{charts}~\cite{Milner:1984:Complete}. Originally introduced by Milner, charts extend \emph{finite-state nondeterministic automata} (NFA) by replacing the notion of acceptance with variable outputs. Intuitively, the distance between two charts can be quantified by, roughly, the number of steps after which their behaviours disagree. This seemingly small generalisation from deterministic finite automata provides a range of challenges, stemming from the fact that the presence of non-determinism moves the semantics from language to bisimilarity, while at the same time representing a crucial step towards weighted transition systems~\cite{Larsen:2011:Metrics}, where the general theory of behavioral distances and axiomatisations thereof is relatively underexplored. 
 
 %Despite their relative simplicity, behavioural distance of charts remained uncharted territory.
 
-The central contribution of this paper is an inference system for reasoning about behavioural distances of behaviours of Milner's charts. We demonstrate its \emph{soundness}~(\Cref{c3:thm:soundness}) and \emph{completeness}~(\Cref{thm:completeness}). On the way, we gather several contributions of independent interest. First, we instantiate the abstract framework of behavioural distances in the concrete case of charts. We organise such behaviours as a symmetric monoidal category, in which they may be composed \emph{sequentially} and \emph{in parallel}. We do so relying on rich structures associated with charts, such as Conway theories~\cite{Bloom:1993:Iteration,Esik:1999:Group}. Second, as one of the steps in the soundness argument, we give a concrete characterisation of behavioural distance between charts via Hennessy and Milner's stratification of bisimilarity~\cite{hennessy:1985:algebraic}. Finally, similarly to \Cref{chapter2}, the completeness argument makes use of tools from fixpoint theory and Banach spaces to simplify the calculation of behavioural distance to the point it can be mimicked via syntactic manipulation.
+The central contribution of this chapter is an inference system for reasoning about behavioural distances of behaviours of Milner's charts. We demonstrate its \emph{soundness}~(\Cref{c3:thm:soundness}) and \emph{completeness}~(\Cref{thm:completeness}). On the way, we gather several contributions of independent interest. First, we instantiate the abstract framework of behavioural distances in the concrete case of charts. We organise such behaviours as a symmetric monoidal category, in which they may be composed \emph{sequentially} and \emph{in parallel}. We do so relying on rich structures associated with charts, such as Conway theories~\cite{Bloom:1993:Iteration,Esik:1999:Group}. Second, as one of the steps in the soundness argument, we give a concrete characterisation of behavioural distance between charts via Hennessy and Milner's stratification of bisimilarity~\cite{hennessy:1985:algebraic}. Finally, similarly to \Cref{chapter2}, the completeness argument makes use of tools from fixpoint theory and Banach spaces to simplify the calculation of behavioural distance to the point it can be mimicked via syntactic manipulation.
 
 %\noindent
 %\textbf{Diagrammatic calculi. } 
 %On the syntax side, \emph{monoidal} equational theories extend classical universal algebra in a different direction.  Instead of relying on traditional variables and terms, these theories use \emph{string diagrams}. 
-The syntax and equations of our complete axiomatic theory are given in terms \emph{string diagrams}, the two-dimensional language of monoidal categories~\cite{Selinger_2010,piedeleu2023introduction}. The pictorial representation of string diagrams provides an intuitive understanding of how information flows and is exchanged between components within a system. For this reason, they have been increasingly popular as a formal language for computations and processes in areas such as quantum theory~\cite{Coecke:2008:Interacting}, concurrency~\cite{Bonchi:2019:Diagrammatic}, probabilistic programming~\cite{Piedeleu:2024:Complete}, and digital circuits~\cite{Ghica:2022:Full}.  
+The syntax and equations of our complete axiomatic theory are given in terms of \emph{string diagrams}, the two-dimensional language of monoidal categories~\cite{Selinger_2010,piedeleu2023introduction}. The pictorial representation of string diagrams provides an intuitive understanding of how information flows and is exchanged between components within a system. For this reason, they have been increasingly popular as a formal language for computations and processes in areas such as quantum theory~\cite{Coecke:2008:Interacting}, concurrency~\cite{Bonchi:2019:Diagrammatic}, probabilistic programming~\cite{Piedeleu:2024:Complete}, and digital circuits~\cite{Ghica:2022:Full}.  
 %Importantly, the diagrammatic syntax explicitly models the copying and discarding of resources (such as variables), making it particularly well-suited for capturing resource-sensitive processes in areas like quantum theory~\cite{Coecke:2008:Interacting}, concurrency~\cite{Bonchi:2019:Diagrammatic}, probabilistic programming~\cite{Piedeleu:2024:Complete}, and digital circuits~\cite{Ghica:2022:Full}. %From an abstract perspective, this explicit handling of resources is formalised by the fact that the algebra of string diagrams operates within a (symmetric) monoidal category, rather than a Cartesian one.
 \begin{figure}
 \begin{align*}
@@ -41,7 +41,10 @@ In \Cref{c3:sec:preliminaries}, we introduce charts, as well as their associated
 \section{Preliminaries}\label{c3:sec:preliminaries}
 In this section, we provide the main technical preliminaries for the development of this chapter. We assume the familiarity of the reader with basic notions of monoidal categories~\cite{Selinger_2010,piedeleu2023introduction}, traced monoidal categories~\cite{Joyal:1996:Traced} and compact closed categories~\cite{kellylaplaza}.
 \subsection{Charts}
-Fix a set $V=\{v_1, v_2, \dots\}$ of \emph{variables} and $\Sigma$ of \emph{letters} respectively. A prechart is a triple $(Q,E,D)$, where $Q$ is a set of states, $D \subseteq Q \times \Sigma \times Q$ a finite labelled transition relation and $E \subseteq Q \times V$ is a finite output relation. Precharts can be thought as a generalisation of nondeterministic automata, where instead of acceptance, we deal with the notion of outputs. Moreover, when $D$ and $E$ are clear from the context, we will write $q \tr{a} q' \iff (q,a,q') \in D$ and $q \rhd v \iff (q,v) \in E$. A chart $C$ is a quadruple $(Q, s, D, E)$, where $(Q,D,E)$ is a prechart and $s \in Q$ is a distinguished start node. We call a chart finite if $Q$ is finite.
+Fix a set $V=\{v_1, v_2, \dots\}$ of \emph{variables} and $\Sigma$ of \emph{letters} respectively. A prechart is a triple $(Q,E,D)$, where $Q$ is a set of states, $D \subseteq Q \times \Sigma \times Q$ a finite labelled transition relation and $E \subseteq Q \times V$ is a finite output relation. Precharts can be thought as a branching-time generalisation of nondeterministic automata, where instead of acceptance, we deal with the notion of outputs. Moreover, when $D$ and $E$ are clear from the context, we will write $q \tr{a} q' \iff (q,a,q') \in D$ and $q \rhd v \iff (q,v) \in E$. A chart $C$ is a quadruple $(Q, s, D, E)$, where $(Q,D,E)$ is a prechart and $s \in Q$ is a distinguished start node. We call a chart finite if $Q$ is finite.
+\begin{remark}\label{c3:rem:kripke}
+	Charts are closely related to other well-known transition system models in theoretical computer science. On one hand, they can be viewed as a slight variation of image-finite labelled transition systems (LTS), differing primarily in their use of explicit outputs besides just a labelled transition relation. This connection proves particularly useful when applying Henessy and Milner’s stratification of bisimilarity, later in this chapter. xOn the other hand, charts can also be seen as a variation of Kripke frames, where outputs serve as propositional atoms, but the standard accessibility relation between worlds is generalised to a labelled transition relation. While we do not explicitly pursue this perspective, we will hint at the connections between the results presented in this chapter and the field of modal logic.
+\end{remark}
 \begin{definition}[Strong Bisimulation]
 	Let $C_i = (Q_i,D_i,E_i)$, $i \in \{1,2\}$ be precharts. A bisimulation between $C_1$ and $C_2$ is a relation ${R} \subseteq Q_1 \times Q_2$, such that \circlednum{1} if $(q_1,q_2)\in R$, then $E(q_1)=E(q_2)$, \circlednum{2} if $(q_1,q_2) \in R$ and $q_1 \tr{a} q'_1$, then there exists $q'_2 \in Q_2$, such that $q_2 \tr{a} q'_2$ and $(q'_1, q'_2) \in R$ and symmetrically. If $C_1$ and $C_2$ are charts, we say that they are bisimilar (denoted $C_1 \sim C_2$) if there exists a bisimulation between their underlying precharts that relates their start nodes.
 \end{definition}
@@ -49,7 +52,7 @@ Using the above definition, we can also define the following:
 \begin{definition}[Prechart homomorphism]
 	 Let $C_i = (Q_i,D_i,E_i)$, $i \in \{1,2\}$ be precharts. We call a function $f \colon Q_1 \to Q_2$ a prechart homomorphism if the graph of $f$, given by $G(f) = \{(q,f(q)) \mid q \in Q_1\}$ is a bisimulation between $C_1$ and $C_2$.
 \end{definition}
-In other words, prechart homomorphisms preserve and reflect transitions. Given a chart $C=(Q,s,D,E)$ we say that a variable $v \in V$ is \emph{live} in $C$ if there exists a path of transitions $s \tr{a_1} \dots \tr{a_n} s' \rhd v$ or call it \emph{dead} otherwise. It can be easily observed that bisimulations and homomorphisms preserve the liveness of variables.
+In other words, prechart homomorphisms preserve and reflect transitions. Given a chart $C=(Q,s,D,E)$ we say that a variable $v \in V$ is \emph{live} in $C$ if there exists a path of transitions $s \tr{a_1} \dots \tr{a_n} s' \rhd v$ or call it \emph{dead} otherwise. It can be easily observed that bisimulations and homomorphisms preserve the liveness of variables. Such a conclusion can be also obtained from the perspective of modal logic, where bisimulations of Kripke frames preserve the truth of modal propositions~\cite[Chapter~2]{Blackburn:2001:Modal}.
 
 Later in this chapter, we will characterise the behavioural distance of precharts via Hennessy and Milner's \emph{stratification of bisimilarity}~\cite{hennessy:1985:algebraic} defined by the following:
 	\begin{definition}[Stratification of bisimilarity]
@@ -63,7 +66,7 @@ For precharts, which by definition are image-finite, we have the following relat
 
 Given a prechart $(Q, E, D)$, we can equivalently see it as a pair $(Q, \beta)$, where $\beta$ is a combined transition function $Q \to \powf (\Sigma \times Q + V)$, where $\powf$ denotes a finite powerset. Such transition function $\beta$ takes each state $q \in Q$, to the set $\beta(q) = D(q) \cup E(q)$ of possible successors, that include labelled transitions and variable outputs.
 
-In other words, precharts are coalgebras for the functor $\funL \colon \Set \to \Set$, given by $\funL = \Sigma \times (-) + V$. Bisimulations and homomorphisms of $\funL$-coalgebras are captured concretely by strong bisimulation of precharts and their homomorphisms. Because of this, we will interchangeably use terms prechart and $\funL$-coalgebra. Moreover, $\funL$ preserves weak pullbacks and hence $\sim$ is an equivalence relation that captures behavioural equivalence of $\funL$-coalgebras. For more details of coalgebraic treatment of precharts, we direct an interested reader to~\cite{Schmid:2021:Star}.
+In other words, precharts are coalgebras for the functor $\funL \colon \Set \to \Set$, given by $\funL = \powf (\Sigma \times (-) + V)$. Bisimulations and homomorphisms of $\funL$-coalgebras are captured concretely by strong bisimulation of precharts and their homomorphisms. Because of this, we will interchangeably use terms prechart and $\funL$-coalgebra. Moreover, $\funL$ preserves weak pullbacks and hence $\sim$ is an equivalence relation that captures behavioural equivalence of $\funL$-coalgebras. For more details of coalgebraic treatment of precharts, we direct an interested reader to~\cite{Schmid:2021:Star}.
 \subsection{Algebra of regular behaviours}
 To define charts, Milner proposed a specification language called an \emph{algebra of regular behaviours} (ARB). The syntax of ARB is given by the following:
 $$e,f \in \Expr ::= 0 \mid v \in V \mid a.e \mid e + f \mid \mu v. e \qquad\qquad\qquad (a \in \Sigma)$$
@@ -79,7 +82,7 @@ where $V=\{v_1, v_2, \dots\}$ and $\Sigma$ are sets of \emph{variables} and \emp
 		(e + f)[\vec{e}/\vec{v}] &= e[\vec{e}/\vec{v}] + f[\vec{e}/\vec{v}]\\
 		(\mu w.e)[\vec{e}/\vec{v}] &= \begin{cases}
 			\mu w. (e[\vec{e}/\vec{v}]) & \text{if } w \text{ is not in } \vec{v} \text{ nor free in } \vec{e}\\
-			\mu w. (e[z/w][\vec{e}/\vec{v}]) & \text{otherwise for some } z \text{ not in } \vec{v} \text{ nor free in } \vec{e}\\
+			\mu z. (e[z/w][\vec{e}/\vec{v}]) & \text{otherwise for some } z \text{ not in } \vec{v} \text{ nor free in } \vec{e}\\
 		\end{cases}
 	\end{align*}
 \end{definition}
@@ -122,17 +125,17 @@ It turns out that all operations from the syntax are compositional with respect 
 \begin{lemma}[{\cite[Proposition~7]{Sewell:1995:Algebra}}]\label{lem:congruence}
 	$\sim$ is a congruence on $\Expr$ with respect to all operations of the algebra of regular behaviours.
 \end{lemma}
-From now on, we will overload the notation and simply write $e$ for the equivalence class $[e]_{\sim}$. Using the definitions state above, we can show the following technical lemma, that we will use when constructing a semantic category for our string diagrammatic syntax.
+Using the definitions stated above, we can show the following technical lemma, that we will use when constructing a semantic category for our string diagrammatic syntax.
 \begin{lemma}\label{lem:subst_lemma}
-	For all $e, f_1, \dots, f_m, g_1, \dots, g_m \in \Expr$ and vectors $\vec{v}=(v_{i_1}, \dots, v_{i_m}), \vec{w}=(v_{j_1}, \dots, v_{j_n})$, such that all free variables of $e$ are contained in $\vec{v}$ and all free variables of $\vec{f}$ are contained in $\vec{w}$, we have that 
+	For all $e, f_1, \dots, f_m, g_1, \dots, g_n \in \Expr$ and vectors $\vec{v}=(v_{i_1}, \dots, v_{i_m}), \vec{w}=(v_{j_1}, \dots, v_{j_n})$, such that all free variables of $e$ are contained in $\vec{v}$ and all free variables of $\vec{f}$ are contained in $\vec{w}$, we have that 
 	$$
-	(e[\vec{f}/ \vec{v}])[\vec{g}/\vec{w}] =e [(f_1[\vec{g}/\vec{w}], \dots, f_m[\vec{g}/\vec{w}])/\vec{v}] 
+	(e[\vec{f}/ \vec{v}])[\vec{g}/\vec{w}] \sim e [(f_1[\vec{g}/\vec{w}], \dots, f_m[\vec{g}/\vec{w}])/\vec{v}] 
 	$$
 \end{lemma}
 \begin{proof}
 	Let $\Delta = \{(e,e) \in \Expr\}$ be the diagonal relation. We define a relation ${R} \subseteq {\Expr \times \Expr}$, given by the following:
 	\begin{align*}
-		R = \Delta \cup \{&((e[\vec{f}/ \vec{v}])[\vec{g}/\vec{w}], e [(f_1[\vec{g}/\vec{w}], \dots, f_m[\vec{g}/\vec{w}])/\vec{v}])\\ &\mid e, f_1, \dots, f_m, g_1, \dots, g_m \in \Expr, \vec{v}=(v_{i_1}, \dots, v_{i_m}), \vec{w}=(v_{j_1}, \dots, v_{j_n}),\\ &\fv(e) \subseteq 		\vec{v},  \fv(\vec{f}) \subseteq \vec{w}\}
+		R = \Delta \cup \{&((e[\vec{f}/ \vec{v}])[\vec{g}/\vec{w}], e [(f_1[\vec{g}/\vec{w}], \dots, f_m[\vec{g}/\vec{w}])/\vec{v}])\\ &\mid e, f_1, \dots, f_m, g_1, \dots, g_n \in \Expr, \vec{v}=(v_{i_1}, \dots, v_{i_m}), \vec{w}=(v_{j_1}, \dots, v_{j_n}),\\ &\fv(e) \subseteq 		\vec{v},  \fv(\vec{f}) \subseteq \vec{w}\}
 	\end{align*}
 
 	
@@ -161,12 +164,16 @@ From now on, we will overload the notation and simply write $e$ for the equivale
 	
 	Finally, moving on to the second subcase, we have that $e \tr{a} h''$ and hence $$e[(f_1[\vec{g}/ \vec{w}], \dots, f_m[\vec{g}/ \vec{w}])/\vec{v}] \tr{a} h''[(f_1[\vec{g}/ \vec{w}], \dots, f_m[\vec{g}/ \vec{w}])/\vec{v}]$$ Recall that $(e[\vec{f}/ \vec{v}])[\vec{g}/\vec{w}] \tr{a} h$ and $h = (h''[\vec{f}/\vec{v}])[\vec{g}/\vec{v}]$. Both of those reachable expressions are actually in the relation $R$. The remaining conditions of bisimulation, can be shown via a symmetric argument. 
 \end{proof}
+From now on, we will overload the notation and simply write $e$ for the equivalence class $[e]_{\sim}$. 
 \subsection{Behavioural distance of precharts}
 Given a pseudometric space defined on a state-space of a prechart, we can \emph{lift} it to the set of possible transitions through the following construction.
 \begin{definition}[Transitions lifting]\label{def:edge}
 	Let $(X,d)$ be a pseudometric space. We write $d^\uparrow$ for the pseudometric on $\Sigma \times X + V$ defined by $d^\uparrow(m, n) = \frac{1}{2} d(x,y)$ if $m = (a,x)$ and $n = (a,y)$, $d^\uparrow(m,n)=0$ if $m = n$ or $d^{\uparrow}(m,n)=1$ otherwise.
 \end{definition}
-This lifting admits the following:
+\begin{remark}\label{c3:rem:discount}
+	Unlike \Cref{chapter2}, for simplicity and clarity, we fix a discount factor of $\frac{1}{2}$ for transitions with identical labels, rather than allowing an arbitrary  $\lambda \in \interval[open]{0}{1}$. The results in this chapter can be readily generalised to any discount factor in the open unit interval, and we explicitly note this when introducing the axioms and proving completeness.
+\end{remark}
+The transitions lifting introduced above satisfies the following:
 \begin{lemma}
 	$(-)^\uparrow \colon D_X \to D_{\Sigma \times X + V}$, the lifitng for $\Sigma \times (-) + V$ is contractive with respect to the metric induced by the sup norm. Namely,
 	$\|d^\uparrow - d'^\uparrow \| \leq \frac{1}{2} \|d - d' \|$ 
@@ -179,7 +186,7 @@ This lifting admits the following:
 	\end{align*}
 	which completes the proof.
 \end{proof}
-Similarly, we can lift distances over $X$ to distances between elements of $\powf (X)$.
+To lift the distances between elements of $X$ to distances finite subsets of $X$ (that is elements of $\powf (X))$, we will rely on the classic notion of Hausdorff distance (also known as Pompeiu-Hausdorff distance)~\cite{Birsan:2006:One}. The standard definition applies to non-empty compact subsets of a metric space, but we adapt it here to finite (and possibly empty) subsets of a pseudometric space, following~\cite{Baldan:2018:Coalgebraic}.
 \begin{definition}[Hausdorff lifting]\label{def:hausdorff}
 	Let $(X,d)$ be a pseudometric space. We can equip $\powf (X)$ with a distance function $$
 	\mathcal{H}(d)(X,Y)= \max \{\sup_{x \in X} \inf_{y \in Y} d(x,y), \sup_{y \in Y} \inf_{x \in X} d(y,x) \}$$ making $(\powf(X), \mathcal{H}(d))$ into a pseudometric.
@@ -207,7 +214,7 @@ Given a prechart $(Q, \beta)$, whose state-space is equipped with a pseudometric
 		$\mathcal{H}$ and $(-)^\uparrow$ are liftings for the functors $\powf$ and $\Sigma \times (-) + V$ respectively, that preserve isometries~\cite[Theorem~5.8]{Baldan:2018:Coalgebraic}. The rest follows from~\Cref{c2:lem:behavioural_distances} and \Cref{c2:lem:behavioural_distances_properties}
 	\end{proof}
 	The monotone map used to define the behavioural distance satisfies the following:
-\begin{lemma}
+\begin{lemma}\label{c3:lem:contractive}
 	$\Phi_\beta \colon D_X \to D_X$ is contractive with respect to the metric induced by the sup norm, namely $
 	\|\Phi_\beta(d)-\Phi_\beta(d')\| \leq \frac{1}{2}\|d-d'\|
 	$.
@@ -220,6 +227,9 @@ Given a prechart $(Q, \beta)$, whose state-space is equipped with a pseudometric
 		& \leq \frac{1}{2} \|d - d'\| \qedhere
 	\end{align*}
 \end{proof}
+\begin{remark}
+	If we replace the constant $\frac{1}{2}$ in the definition of transitions lifting with an arbitrary discount factor $\lambda \in \interval[open]{0}{1}$ (as discussed in \Cref{c3:rem:discount}), the Lipschitz constant in the preceding lemma would become $\lambda$ while preserving the contractivity of $\Phi_\beta$.
+\end{remark}
 As a consequence, we have the following corollary:
 \begin{corollary}
 	$\Phi_\beta$ has a unique fixpoint.
@@ -228,6 +238,9 @@ Additionally, through an identical argument to \Cref{c2:lem:cocontinuous}, we ca
 \begin{lemma}\label{lem:cocontinuous}
 	For a finite prechart $(X,\beta)$, $\Phi_\beta$ is cocontinuous.
 \end{lemma}
+\begin{proof}
+	Since $X$ is finite and $\Phi_\beta$ is nonexpansive with respect to the metric induced by the sup-norm (by \Cref{c3:lem:contractive}), an application of \Cref{c2:lem:cocontinuous} yields the desired result.
+\end{proof}
 Since $\Phi_\beta$ has a unique fixpoint, we can use~\Cref{c2:thm:kleene} to calculate behavioural distance of states of finite precharts.
 \begin{lemma}\label{lem:finite_dist}
 	Let $(Q, \beta)$ be a finite prechart. The behavioural distance between any pair $q_1, q_2 \in Q$ of states can be calculated by $\mathsf{bd}_\beta(q_1,q_2) = \inf_{p \in \N} \left \{ \Phi^{(p)}_\beta(q_1, q_2) \right\}$, where $\Phi^{(0)}_\beta$ is a discrete pseudometric and for any $p \in \N$, we define $\Phi^{(p+1)}_\beta = \Phi_\beta \left( \Phi^{(p)}_\beta\right)$.
@@ -241,7 +254,7 @@ The characterisation described above can be extended to any locally finite prech
 \end{corollary}
 \begin{proof}
 Let $\beta'$ denote $\beta$ restricted to $\langle x , y \rangle_\beta$.
-	Since $(X, \beta)$ is locally finite, then its subprechart $(\langle x , y \rangle_\beta, \beta')$ is finite. Since homomorphisms are ismometries, calculating distance between $x$ and $y$ in $(X, \beta)$ is the same as calculating it in $(\langle x , y \rangle_\beta, \beta')$. Because of \Cref{lem:cocontinuous}, $\Phi_\beta$ is cocontinuous (when restricted to $\langle x , y \rangle_{\beta'}$) and hence we can employ \Cref{c2:thm:kleene}. Since the infima in the lattice of pseudometrics can be calculated pointwise (\Cref{c2:lem:chain_pointwise_inf}), we have that
+	Since $(X, \beta)$ is locally finite, then its subprechart $(\langle x , y \rangle_\beta, \beta')$ is finite. Since homomorphisms are isometries, calculating distance between $x$ and $y$ in $(X, \beta)$ is the same as calculating it in $(\langle x , y \rangle_\beta, \beta)$. Because of \Cref{lem:cocontinuous}, $\Phi_\beta$ is cocontinuous (when restricted to $\langle x , y \rangle_{\beta'}$) and hence we can employ \Cref{c2:thm:kleene}. Since the infima in the lattice of pseudometrics can be calculated pointwise (\Cref{c2:lem:chain_pointwise_inf}), we have that
 	$$
 	\mathsf{bd}_\beta(x,y) = \mathsf{bd}_{\beta'}(x,y) = \inf_{i \in I} \left( \Phi^{(i)}_{\beta'}(x,y)\right)
 	$$
@@ -249,25 +262,36 @@ Let $\beta'$ denote $\beta$ restricted to $\langle x , y \rangle_\beta$.
 	\mathsf{bd}_\beta(x,y) = \inf_{i \in \N} \left(\Phi_\beta^{(i)}(x,y)\right)
 	$ as desired.
 \end{proof} 
-The value of behavioural distance between any two states in locally finite precharts is always a power of two.
+The behavioural distance between any two states in locally finite precharts is always a power of two.
 \begin{lemma}\label{lem:distance_power_of_two}
 	Let $(X,\beta)$ be a locally finite prechart. For all $x,y \in X$, $i \in \N$, either $\Phi_\beta^{(i)}=0$ or there exists $k \in \N$, such that $\Phi_{\beta}^{(i)}(x,y)=2^{-k}$
 \end{lemma}
 \begin{proof}
-	Let $x,y \in X$. We proceed by induction on $i$. If $i = 0$, then $\Phi^{(0)}_\beta(x,y)=1=2^{0}$, if $x \neq 0$ or $\Phi^{(0)}_\beta(x,y)=0$, otherwise. 
-	If $i = j + 1$, then we have that:
-	$$
-	\Phi^{j + 1}_\beta(x,y) = \max \left\{\sup_{u \in \beta(x)} \inf_{w \in \beta(y)} {\Phi^{(j)}_\beta}^\uparrow(u,w), \sup_{w \in \beta(y)} \inf_{u \in \beta(x)}{\Phi^{(j)}_\beta}^\uparrow(w,u)\right\}.
-	$$
+	Let $x,y \in X$. We proceed by induction on $i$. 
 	
-	Recall that for $u = (a,x')$ and $w=(a,y')$, we have that ${\Phi^{(j)}_\beta}^\uparrow(u,w)=\frac{1}{2} {\Phi^{(j)}_\beta}(x',y')$. By induction hypothesis, we have that ${\Phi^{(j)}_\beta}(x',y')=0$ and hence ${\Phi^{(j)}_\beta}^\uparrow(u,w)=0$ or there exists a $k \in N$, such that ${\Phi^{(j)}_\beta}(x',y')=2^{-k}$ and hence ${\Phi^{(j)}_\beta}^\uparrow(u,w)=2^{-(k+1)}$. Since the infima range over finite sets, their values are either $1=2^0$ if the sets are empty or are one of the values from the set, which we have shown to be of the desired form. Similarly, suprema range over finite sets and are either $0$ for empty sets or are on of the values from the set, which are in the desired form. Taking the maximum of values in the desired form, still results in a value in the desired form.
+	\begin{itemize}
+		\item If $i = 0$, then $\Phi^{(0)}_\beta(x,y)=1=2^{0}$, if $x\not=0$ or $\Phi^{(0)}_\beta(x,y)=0$, otherwise. 
+		\item If $i = j + 1$, then unrolling the definition of $\Phi_\beta^{(j+1)}$ yields the following:
+			$$\Phi^{j + 1}_\beta(x,y) = \max \left\{\sup_{u \in \beta(x)} \inf_{w \in \beta(y)} {\Phi^{(j)}_\beta}^\uparrow(u,w), \sup_{w \in \beta(y)} \inf_{u \in \beta(x)}{\Phi^{(j)}_\beta}^\uparrow(w,u)\right\}$$
+			For any two transitions $u = (a,x')$ and $w=(a,y')$ with the same prefix, the following holds:
+			$${\Phi^{(j)}_\beta}^\uparrow(u,w)=\frac{1}{2} {\Phi^{(j)}_\beta}(x',y')$$
+			We can apply the induction hypothesis, which states that one of the following is true:
+			\begin{itemize}
+				\item${\Phi^{(j)}_\beta}(x',y')=0$, which entails that ${\Phi^{(j)}_\beta}^\uparrow(u,w)=0$.
+				\item There exists a $k \in N$, such that ${\Phi^{(j)}_\beta}(x',y')=2^{-k}$. This implies that ${\Phi^{(j)}_\beta}^\uparrow(u,w)=2^{-(k+1)}$.
+			\end{itemize}
+			Since the infima range over finite sets, their values are either $1=2^0$ if the sets are empty or are one of the values from the set, which we have shown to be of the desired form. Similarly, suprema range over finite sets and are either $0$ for empty sets or are on of the values from the set, which are in the desired form. Taking the maximum of values in the desired form, still results in a value in the desired form.\qedhere
+	\end{itemize}
 \end{proof}
+\begin{remark}
+If the discount factor $\frac{1}{2}$ in the definition of transition lifting were replaced with an arbitrary $\lambda \in \interval[open]{0}{1}$ (as discussed in \Cref{c3:rem:discount}), the lemma above would require modification: distances would instead be either zero or of the form $\lambda^k$, for some $k \in \N$.
+\end{remark}
 If two states have a non-zero distance, then the chain of approximants from Kleene's fixpoint theorem stabilises.
 \begin{lemma}\label{lem:chain_stabilises}
 	Let $(X, \beta)$ be a locally finite prechart and let $x,y \in X$, such that $\mathsf{bd}_\beta(x,y)>0$. There exists $i \in \N$, such that $\Phi_\beta^{(i)}(x,y)=\Phi^{(i+1)}_\beta(x,y)$
 \end{lemma}
 \begin{proof}
-	Assume that for all $i \in \N$, $\Phi_\beta^{(i)}(x,y)\neq\Phi^{(i+1)}_\beta(x,y)$. Essentially, that means we have an infinite, strictly decreasing $\omega$-cochain $\{\Phi^{(i)}_\beta(x,y)\}_{i \in I}$. By \Cref{lem:distance_power_of_two}, we know that the values of the chain are either $0$ or $2^{-k}$. Since all the values of the chain are nonegative, if any of it is equal to zero $0$, we reach a contradiction, as chain would have to contain values strictly below $0$. Hence, we can safely assume that the chain is in the form $\{1,\frac{1}{2}, \frac{1}{4}, \dots\}$. But in such a case its infimum is $0$, contradicting the assumption.
+	Assume that for all $i \in \N$, $\Phi_\beta^{(i)}(x,y)\neq\Phi^{(i+1)}_\beta(x,y)$. Essentially, that means we have an infinite, strictly decreasing $\omega$-cochain $\{\Phi^{(i)}_\beta(x,y)\}_{i \in I}$. By \Cref{lem:distance_power_of_two}, we know that the values of the chain are either $0$ or $2^{-k}$. Since all the values of the chain are nonegative, if any of it is equal to zero $0$, we reach a contradiction, as the chain would have to contain values strictly below $0$. Hence, we can safely assume that the chain is in the form $\{1,\frac{1}{2}, \frac{1}{4}, \dots\}$. But in such a case its infimum is $0$, contradicting the assumption.
 \end{proof}
 We can connect behavioural distances with stratified bisimulations via the following result:
 \begin{lemma}\label{lem:bound_on_stratified_bisim}
@@ -292,9 +316,9 @@ We can connect behavioural distances with stratified bisimulations via the follo
 	$$
 	We focus on the left hand side of the conjunction above, as the right hand side is symmetric. We are aiming to show that
 	$$
-	\forall {u \in \beta(x)}\ldotp~\inf_{v \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,w)  \leq 2^{-(k'+1)} 
+	\forall {u \in \beta(x)}\ldotp~\inf_{w \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,w)  \leq 2^{-(k'+1)} 
 	$$
-	Let $u \in V$. By the assumption, we know that also $u \in B(y)$, which means that $$\inf_{w \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,v) = 0 \leq 2^{-(k'+1)}$$
+	Let $u \in V$. By the assumption, we know that also $u \in B(y)$, which means that $$\inf_{w \in \beta(y)} \mathsf{bd}_\beta^\uparrow(u,w) = 0 \leq 2^{-(k'+1)}$$
 	
 	Now, let $u \in \Sigma \times X$, i.e. $u = (a,x')$. By the assumption, we know that there exists $y' \in X$, such that $(a,y') \in \beta(y)$ and $x' \sim^{(k')} y'$. By induction hypothesis, we know that $\mathsf{bd}_{\beta}(x',y') \leq 2^{-k'}$. Hence, we have that $\mathsf{bd}_{\beta}^\uparrow((a,x'),(a,x')) \leq \frac{1}{2} \cdot  2^{-k'} = 2^{-(k'+1)}$. Hence, we again have that 
 		$$
@@ -321,8 +345,7 @@ Let $(X,\beta)$ be a locally finite prechart and let $x,y \in X$. The behavioura
 	For the first case, because of \Cref{thm:beh_dist}, if $x \sim y$, then $\mathsf{bd}_{\beta}(x,y)=0$. For the converse, if $\mathsf{bd}_{\beta}(x,y)=0$, we have that $x \sim^{(k)} y$ for all $k \in \N$ and hence by \Cref{eqn:stratification}, it holds that $x \sim y$.
 	
 	 In the second case, because of \Cref{lem:chain_stabilises}, we know that if $\mathsf{bd}_\beta(x,y) > 0$, then the behavioural distance is equal to some element of the chain of approximants. By \Cref{lem:distance_power_of_two}, we know that all non-zero elements of that chain are equal to $2^{-k}$, for some $k \in \N$. Combining it with \Cref{lem:bound_on_stratified_bisim} yields the desired result. 
-	 For the converse, if $n \in N$ is the largest number such that $x \sim^{(n)} y$, then because of \Cref{lem:bound_on_stratified_bisim}, we have that $\mathsf{bd}_\beta(x,y)\leq 2^{-n}$. Assume that $\mathsf{bd}_\beta(x,y)=0$. In such a case, using \Cref{lem:bound_on_stratified_bisim}, we could conclude that $x \sim^{(n+1)} y$, which would lead to contradiction. Hence, $\mathsf{bd}_\beta(x,y)>0$. Because of \Cref{lem:chain_stabilises}, we have that $\mathsf{bd}_\beta(x,y)$ is equal to some power of two. Combining that with \Cref{lem:bound_on_stratified_bisim} again yields the desired result.
-
+	 For the converse, if $n \in N$ is the largest number such that $x \sim^{(n)} y$, then because of \Cref{lem:bound_on_stratified_bisim}, we have that $\mathsf{bd}_\beta(x,y)\leq 2^{-n}$. Assume that $\mathsf{bd}_\beta(x,y)=0$. In such a case, using \Cref{lem:bound_on_stratified_bisim}, we could conclude that $x \sim^{(n+1)} y$, which would lead to contradiction. Hence, $\mathsf{bd}_\beta(x,y)>0$. Because of \Cref{lem:chain_stabilises}, we have that $\mathsf{bd}_\beta(x,y)$ is equal to some power of two. Combining that with \Cref{lem:bound_on_stratified_bisim} again yields the desired result.\qedhere
 \end{proof}
 \subsection{Conway theories}\label{c3:subsec:conway}
 Let $\cat{C}$ be a category, whose objects are natural numbers and $0$ is the initial object. We will write $0_n$ for the unique map $0_n \colon 0 \to n$. Additionally, we assume that $\cat{C}$ is equipped with all finite coproducts, where binary coproduct is given by addition, i.e. $n \oplus m := n + m$. Given $f \colon k \to m$ and $g \colon l \to m$, we will write $\lc f,g \rc \colon k +l \to m$ for the mediating map from the universal property of the coproduct that makes the following diagram commute:
