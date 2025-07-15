@@ -575,7 +575,12 @@ Because of the above, we can define a category $\RegBeh$, whose objects are natu
 \begin{proof}
 For each $n \in \N$, there exists a unique empty tuple $0_m \colon 0 \to m$ satisfying that for any $f \colon m \to n$, we have that $0_m ; f = 0_n$.
 \end{proof}
- Given $f \in \RegBeh(k,m)$ and $g \in \RegBeh(l,m)$, we define their pairing $\lc f , g \rc \in \RegBeh (k + l,m)$, by setting $\lc f , g \rc = (f_1, \dots, f_k, g_1, \dots g_l)$. $\RegBeh$ can be equipped with binary coproducts, which is defined on objects as addition and the mediating map is given by pairing.
+ Given $f \in \RegBeh(k,m)$ and $g \in \RegBeh(l,m)$, we define their pairing $\lc f , g \rc \in \RegBeh (k + l,m)$, by setting
+ \begin{equation}\label{c3:eqn:mediating}
+ 	\lc f , g \rc = (f_1, \dots, f_k, g_1, \dots g_l)
+ \end{equation} 
+ 
+ $\RegBeh$ can be equipped with binary coproducts, which is defined on objects as addition and the mediating map is given by pairing.
 \begin{lemma}
 	$\RegBeh$ has binary coproducts. In particular, given $k, l \in \N$, the inclusions $\inl_{k,l} \colon k \to k +l$ and $\inr_{k,l} \colon l \to k + l$ are given by $\inl_{k,l} = (v_1, \dots, v_k)$ and $\inr_{k,l} = (v_{k+1}, \dots, v_{k+l})$ respectively, while the mediating map is given by pairing. 
 % https://q.uiver.app/#q=WzAsNCxbMCwwLCJrIl0sWzIsMCwibCJdLFsxLDEsImsrbCJdLFsxLDMsIm0iXSxbMCwyLCJcXGlubCJdLFsxLDIsIlxcaW5yIiwyXSxbMCwzLCJmIiwyXSxbMSwzLCJnIl0sWzIsMywiXFxsYW5nbGUgZiAsIGcgXFxyYW5nbGUiLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
@@ -594,17 +599,17 @@ For each $n \in \N$, there exists a unique empty tuple $0_m \colon 0 \to m$ sati
 %	\arrow["{\lc f , g \rc}"{description}, dashed, from=2-2, to=4-2]
 %\end{tikzcd}\]
 	\begin{align*}
-		\inl_{k,l} ; \lc f , g\rc &= (v_1, \dots, v_k) ; (f_1, \dots f_k, g_1, \dots, g_l) \\
+		\inl_{k,l} ; \lc f , g\rc &= (v_1, \dots, v_k) ; (f_1, \dots f_k, g_1, \dots, g_l) \tag{\Cref{c3:eqn:mediating}}\\
 		&= (f_1, \dots, f_k) \\
 		&= f
 	\end{align*}
 	Similarly, for the right subdiagram, we have that:
 	\begin{align*}
-		\inr_{k,l} ; \lc f , g\rc &= (v_{k +1}, \dots, v_{k + l}) ; (f_1, \dots f_k, g_1, \dots, g_l) \\
+		\inr_{k,l} ; \lc f , g\rc &= (v_{k +1}, \dots, v_{k + l}) ; (f_1, \dots f_k, g_1, \dots, g_l) \tag{\Cref{c3:eqn:mediating}} \\
 		&= (g_1, \dots, g_l) \\
 		&= g
 	\end{align*}
-	For the uniqueness proof, assume that there exists a map $h \colon k + l \to m$, which makes the coproduct diagram commute. We can safely assume that $h = (h_1, \dots, h_{k + l})$. 
+	For the uniqueness proof, assume that there exists a map $h \colon k + l \to m$, which makes the coproduct diagram commute. We have that $h = (h_1, \dots, h_{k + l})$. 
 	Since $\inl_{k,l} ; h = f$ and $\inr_{k,l} ; h = g$, we have that:
 	\begin{align*}
 		(f_1, \dots, f_k) &= f\\ 
@@ -621,27 +626,57 @@ For each $n \in \N$, there exists a unique empty tuple $0_m \colon 0 \to m$ sati
 	\end{align*}
 	Hence, $h = (f_1, \dots, f_k, g_1, \dots, g_l) = \lc f , g \rc$ as desired. 
 \end{proof}
-Given $f \in \RegBeh(k,l)$ and $g \in \RegBeh(m,n)$, we can define their parallel composition $f \oplus g \in \RegBeh(k + m, l + n)$, by setting $$f \oplus g = (f_1, \dots, f_k, g_1[(v_{l + 1},\dots, v_{l + n})/\vec{v}], \dots, g_m[(v_{l + 1},\dots, v_{l + n})/\vec{v}])$$ One can easily verify that this corresponds to the map given by \Cref{eqn:monoidal}. As a consequence of the universal properties established above, we have that $(\RegBeh, \oplus , 0 )$ is a co-cartesian strict symmetric monoidal category. 
+Given $f \in \RegBeh(k,l)$ and $g \in \RegBeh(m,n)$, we can define their parallel composition $f \oplus g \in \RegBeh(k + m, l + n)$, by setting $$f \oplus g = (f_1, \dots, f_k, g_1[(v_{l + 1},\dots, v_{l + n})/\vec{v}], \dots, g_m[(v_{l + 1},\dots, v_{l + n})/\vec{v}])$$ 
+This operation intuitively combines two tuples while systematically renaming variables in $g$ to prevent conflicts with those in $f$. The equation above precisely corresponds to the mapping defined in \Cref{eqn:monoidal} and thus $(\RegBeh, \oplus , 0 )$ is a co-cartesian symmetric monoidal category. Moreover, this monoidal category is strict.
+\begin{proposition}
+	$(\RegBeh, \oplus , 0 )$ is a strict monoidal category.
+\end{proposition}
+\begin{proof}
+	We verify that associators and unitors are strict equalities. Let $f \in \RegBeh(k,l), g \in \RegBeh(m,n), h \in \RegBeh(o,p)$. For the left unitor, we have the following:
+	\begin{align*}
+		0 \oplus f &= () \oplus (f_1, \dots, f_k) \tag{def. of $0$ and $\oplus$}\\
+		&= (f_1, \dots, f_k) = f
+	\end{align*}
+	Similarly, for the right unitor, we have that:
+	\begin{align*}
+		f \oplus 0 &= () \oplus (f_1, \dots, f_k) \tag{def. of $0$ and $\oplus$}\\
+		&= (f_1, \dots, f_k) = f
+	\end{align*}
+	Finally, for the associator we have that:
+	\begin{align*}
+		 &(f \oplus g) \oplus h\\
+		=& (f_1, \dots, f_k, g_1[(v_{l+1}, \dots, v_{l + n})/\vec{v}], \dots, g_m[(v_{l+1}, \dots, v_{l + n})/\vec{v}]) \oplus h \\
+		=& (f_1, \dots, f_k, g_1[(v_{l+1}, \dots, v_{l + n})/\vec{v}], \dots, g_m[(v_{l+1}, \dots, v_{l + n})/\vec{v}], \\
+		&\qquad\qquad h_1 [(v_{l + n +1}, \dots, v_{l + n + p})/\vec{v}], \dots, h_o [(v_{l + n + 1}, \dots, v_{l + n + p})/\vec{v}])\\
+		=& f \oplus  (g_1[(v_{1}, \dots, v_{n})/\vec{v}], \dots, g_m[(v_{1}, \dots, v_{n})/\vec{v}], \\
+		&\qquad\qquad h_1 [(v_{n +1}, \dots, v_{n + p})/\vec{v}], \dots, h_o [(v_{n +1}, \dots, v_{n + p})/\vec{v}])\\
+		=& f \oplus  (g_1, \dots, g_m, \\
+		&\qquad\qquad h_1 [(v_{n +1}, \dots, v_{n + p})/\vec{v}], \dots, h_o [(v_{n +1}, \dots, v_{n + p})/\vec{v}])\\
+		=& f \oplus  (g \oplus h)
+	\end{align*}
+	The intermediate steps in the calculation above follow from the definition of $\oplus$.
+\end{proof}
+
+
+
 \subsection{$\RegBeh$ as a Conway theory}
 We move on to showing that $\RegBeh$ is in fact a Conway theory. For any $f \in \RegBeh(1, p + 1)$, we can define $f^\dagger \in \RegBeh(1,p)$ to be given by $f^\dagger = \mu v_{p+1}.f$.
 The dagger defined above satisfies \textbf{scalar parameter identity}.
 \begin{lemma}\label{conway1}
-	Let $f \colon 1 \to 1 + p$, $g \colon p \to g$ be morphisms in $\RegBeh$. Then,
+	Let $f \colon 1 \to p + 1$, $g \colon p \to q$ be morphisms in $\RegBeh$. Then,
 	$$
 	(f ; (g\oplus \id_1))^\dagger = f^\dagger ; g
 	$$
 \end{lemma}
 \begin{proof}
 \begin{align*}
-(f ; (g \oplus \id_1))^\dagger & = (f[\vec{g}/\vec{v}])^\dagger
-\\
-& = \mu v_{p+1}.\big(f[\vec{g}/\vec{v}]\big) \tag{Def. of $\dagger$}
-\\
-& = (\mu v_{p+1}.f)[\vec{g}/\vec{v}] 
-\\
-& = f^\dagger[\vec{g}/\vec{v}] 
-\\
-& = f^\dagger ; g \qedhere
+(f ; (g \oplus \id_1))^\dagger & = (f[(g_1, \dots, g_p, v_{q+1})/(v_1, \dots, v_{p}, v_{p+1})])^\dagger \tag{Def. of $\oplus$}\\
+& = \mu v_{q+1}.\big(f[(g_1, \dots, g_p, v_{q+1})/(v_1, \dots, v_{p}, v_{p+1})]\big) \tag{Def. of $\dagger$}\\
+& = \mu v_{q+1}.\big(f[v_{q+1}/v_{p+1}][\vec{g}/\vec{v}]\big) \tag{\cite[Lemma~5.6 2.]{Milner:1984:Complete}}\\
+& = (\mu v_{q+1}.f[v_{q+1}/v_{p+1}])[\vec{g}/\vec{v}] \tag{\Cref{def:subset}}\\
+& = (\mu v_{p+1}.f)[\vec{g}/\vec{v}] \tag{\cite[Proposition~4.6 5.]{Milner:1984:Complete}}\\
+& = f^\dagger[\vec{g}/\vec{v}] \tag{Def. of $\dagger$}\\
+& = f^\dagger ; g \tag{Def. of sequential composition\hfill\qedhere}
 \end{align*}
 \end{proof}
 To show the remaining identities, we first recall the following lemma.
@@ -693,9 +728,8 @@ f^{\dagger\dagger} &= \mu v_{p+1}.(\mu v_{p+2}.f)
 \\
 & = \mu v_{p+1}. \left(f;(\id_p\oplus \nabla_1)\right)
 \\
-& = (f ; (\id_p\oplus \nabla_1))^\dagger
+& = (f ; (\id_p\oplus \nabla_1))^\dagger \tag{\hfill\qedhere}
 \end{align*}
-This complete the proof.
 \end{proof}
 Combining earlier results yields the following statement.
 \begin{restatable}{lemma}{regbehconway}\label{lem:regbehconway}
@@ -1584,6 +1618,4 @@ Axiomatising behavioural distances have been originally studied through ad-hoc i
 In constructing the semantic category, we have used the fact that charts form a Conway theory~\cite{Esik:1999:Group}, studied in the literature on parametrised fixpoint operators~\cite{Haghverdi:2000:Categorical,Simpson:2000:Complete,Abramsky:2002:Geometry}, and which can be seen as a relaxation of iteration theories~\cite{Bloom:1993:Iteration}. The connection between charts and these structures was previously investigated by Bloom, Esik, and Taubner~\cite{Bloom:1993:Iteration} and Sewell~\cite{Sewell:1995:Algebra}, while the interplay of parametrised fixpoint operators with traced monoidal categories was studied by Hasegawa~\cite{Hasegawa:1997:Models}, Haghverdi~\cite{Haghverdi:2000:Categorical}, and Simpson and Plotkin~\cite{Simpson:2000:Complete} independently.
 
 Our work constitutes a necessary first step towards a similar diagrammatic treatment of behavioural distance for quantitative automata, such as probabilistic and weighted systems, for which distances are a more suitable way of reasoning rather than Boolean equivalences. The string diagrammatic point of view would enable a desirable, compositional treatment that reflects well the underlying operational models, in a way that is not available through conventional syntaxes. Another promising direction for future work would be to consider Guarded Kleene Algebra with Tests (GKAT)~\cite{Smolka:2020:Guarded,Schmid:2021:Guarded}, an efficiently decidable language for reasoning about equivalence of uninterpreted programs. The completeness proof of GKAT relies on a metric argument that could be internalised within an inference system like the one introduced in this chapter. Moreover, the syntax of GKAT is insufficiently expressive, as it can only describe a part of the behaviours of its underlying operational model -- in fact there is no finite purely algebraic syntax that could do so~\cite{Cate:2025:Algebras}. A string diagrammatic treatment could allow us to express all such behaviours and obtain a simpler yet more expressive completeness result, that would in turn enable axiomatic reasoning about decompilation algorithms, that were recently shown to be expressible via GKAT automata (but not in GKAT)~\cite{Zhang:2025:CFGKAT}.
-
-
  
