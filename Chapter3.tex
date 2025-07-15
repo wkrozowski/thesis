@@ -749,8 +749,10 @@ We can now combine all the intermediate results into the following statement.
 	\end{itemize}
 \end{theorem} 
 \subsection{Pseudometric structure on $\RegBeh$}
-$\RegBeh$ additionally carries a well-behaved pseudometric structure. For all $m,n \in \N$ each set $\RegBeh(m,n)$ can be made into a pseudometric space by equipping it with a distance function, given by $d^{m,n}((f_1, \dots, f_m), (g_1, \dots, g_m)) = \sup_{1 \leq i \leq m} \left\{ \mathsf{bd}_{\overline{\partial}}(f_i, g_i) \right\}$.
-Intuitively, we calculate the distance between $m$-tuples of regular behaviours, by taking the pointwise behavioural distance of elements of tuples and then taking the maximum. In the corner case, when both tuples are empty, then they are simply at distance zero. We will show that all categorical operations of $\RegBeh$ defined above are well-behaved with respect to that pseudometric equipment. To do so, we establish a series of technical lemmas.
+$\RegBeh$ additionally carries a well-behaved pseudometric structure. For all $m,n \in \N$ each set $\RegBeh(m,n)$ can be made into a pseudometric space by equipping it with a distance function, given by $$d^{m,n}((f_1, \dots, f_m), (g_1, \dots, g_m)) = \sup_{1 \leq i \leq m} \left\{ \mathsf{bd}_{\overline{\partial}}(f_i, g_i) \right\}$$
+In the definition above, $\mathsf{bd}_{\overline{\partial}}$ is a behavioural distance associated with the quotient prechart $({\Expr}/{\sim}, \overline{\partial} )$.
+
+Intuitively, we calculate the distance between $m$-tuples of regular behaviours, by taking the pointwise behavioural distance of elements of tuples and then taking the maximum. In the corner case, when both tuples are empty, then they are simply at distance zero. We will show that all categorical operations of $\RegBeh$ defined above are well-behaved with respect to that pseudometric equipment. To do so, we establish a series of technical lemmas. Many of these can be seen as quantitative analogues of congruence results for operations in the syntax of $\Expr$.
 
 First, we show that substitution preserves indexes of relations forming the stratification of bisimilarity.
 
@@ -815,7 +817,8 @@ Finally, we can conclude the following:
 		&d^{n,k}(f ;g, h;i)\\
 		=& \sup_{1 \leq j \leq n} \left\{ \mathsf{bd}_{\overline\partial} \left(  f_j[(g_1, \dots, g_m)/\vec{v}], h_j[(i_1, \dots, i_m)/\vec{v}] \right)\right\}\\
 		\leq & \sup_{1 \leq j \leq n} \left\{\max \left\{\mathsf{bd}_{\overline\partial} (f_j,h_j), \sup_{ 1 \leq l \leq m} \{\mathsf{bd}_{\overline\partial} (g_l, i_l)\}\right\}\right\} \tag{\Cref{cor:seq_nexp}} \\
-		= & \max \{ \sup_{1 \leq j \leq n} \{\mathsf{bd}_{\overline\partial} (f_j,h_j)\}, \sup_{ 1 \leq l \leq m} \{\mathsf{bd}_{\overline\partial} (g_l, i_l)\}\}\\
+		=  & \max \{ \sup_{1 \leq j \leq n} \{\mathsf{bd}_{\overline\partial} (f_j,h_j)\}, \sup_{1 \leq j \leq n} \sup_{ 1 \leq l \leq m} \{\mathsf{bd}_{\overline\partial} (g_l, i_l)\}\}  \tag{Interchanging of supremas} \\
+		= & \max \{ \sup_{1 \leq j \leq n} \{\mathsf{bd}_{\overline\partial} (f_j,h_j)\}, \sup_{ 1 \leq l \leq m} \{\mathsf{bd}_{\overline\partial} (g_l, i_l)\}\}  \tag{$j$ not mentioned in the second argument}\\
 		= & \max \{d^{n,m}(f,h), d^{m,k}(g,i)\} \tag*{\hfill\qedhere}
 	\end{align*}
 \end{proof}
@@ -867,7 +870,7 @@ Hence, we obtain that prefixing is contractive.
 \begin{proof}
 	We employ the characterisation from~\Cref{thm:concrete_distance}. If $e \sim f$, then by \Cref{lem:congruence} we are done. Otherwise, we have that $\mathsf{bd}_{\overline\partial}(e,f)=2^{-k}$ and $e \sim^{(k)}_{\overline\partial} f$ for some $k \in \N$. By applying~\Cref{cor:prefixing_discounts}, we get that $a.e \sim^{(k+1)} a.f$ and hence $\mathsf{bd}_{\overline\partial}(e,f)\leq 2^{-(k+1)} = \frac{1}{2} 2^{-k} = \frac{1}{2}\mathsf{bd}_{\overline\partial}(e,f)$, as desired. 
 \end{proof}
-The mediating map of binary coproduct is also nonexpansive.
+The mediating map of the binary coproduct is also nonexpansive.
 \begin{lemma}\label{lem:pairs_nonexpansive}
 	Let $f,f' \colon m \to k$, $g,g' \colon n \to k$ be morphisms of $\RegBeh$. We have that $d^{m +n, k}(\lc f, g \rc, \lc f', g' \rc) \leq \max \{d^{m,k}(f,f'), d^{n,k}(g,g')\}$
 \end{lemma}
