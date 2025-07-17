@@ -43,7 +43,7 @@ In this section, we provide the main technical preliminaries for the development
 \subsection{Charts}
 Fix a set $V=\{v_1, v_2, \dots\}$ of \emph{variables} and $\Sigma$ of \emph{letters} respectively. A prechart is a triple $(Q,E,D)$, where $Q$ is a set of states, $D \subseteq Q \times \Sigma \times Q$ a finite labelled transition relation and $E \subseteq Q \times V$ is a finite output relation. Precharts can be thought as a branching-time generalisation of nondeterministic automata, where instead of acceptance, we deal with the notion of outputs. Moreover, when $D$ and $E$ are clear from the context, we will write $q \tr{a} q' \iff (q,a,q') \in D$ and $q \rhd v \iff (q,v) \in E$. A chart $C$ is a quadruple $(Q, s, D, E)$, where $(Q,D,E)$ is a prechart and $s \in Q$ is a distinguished start node. We call a chart finite if $Q$ is finite.
 \begin{remark}\label{c3:rem:kripke}
-	Charts are closely related to other well-known transition system models in theoretical computer science. On one hand, they can be viewed as a slight variation of image-finite labelled transition systems (LTS), differing primarily in their use of explicit outputs besides just a labelled transition relation. This connection proves particularly useful when applying Henessy and Milner’s stratification of bisimilarity, later in this chapter. xOn the other hand, charts can also be seen as a variation of Kripke frames, where outputs serve as propositional atoms, but the standard accessibility relation between worlds is generalised to a labelled transition relation. While we do not explicitly pursue this perspective, we will hint at the connections between the results presented in this chapter and the field of modal logic.
+	Charts are closely related to other well-known transition system models in theoretical computer science. On one hand, they can be viewed as a slight variation of image-finite labelled transition systems (LTS), differing primarily in their use of explicit outputs besides just a labelled transition relation. This connection proves particularly useful when applying Henessy and Milner’s stratification of bisimilarity, later in this chapter. On the other hand, charts can also be seen as a variation of Kripke frames, where outputs serve as propositional atoms, but the standard accessibility relation between worlds is generalised to a labelled transition relation. While we do not explicitly pursue this perspective, we will hint at the connections between the results presented in this chapter and the field of modal logic. 
 \end{remark}
 \begin{definition}[Strong Bisimulation]
 	Let $C_i = (Q_i,D_i,E_i)$, $i \in \{1,2\}$ be precharts. A bisimulation between $C_1$ and $C_2$ is a relation ${R} \subseteq Q_1 \times Q_2$, such that \circlednum{1} if $(q_1,q_2)\in R$, then $E(q_1)=E(q_2)$, \circlednum{2} if $(q_1,q_2) \in R$ and $q_1 \tr{a} q'_1$, then there exists $q'_2 \in Q_2$, such that $q_2 \tr{a} q'_2$ and $(q'_1, q'_2) \in R$ and symmetrically. If $C_1$ and $C_2$ are charts, we say that they are bisimilar (denoted $C_1 \sim C_2$) if there exists a bisimulation between their underlying precharts that relates their start nodes.
@@ -344,6 +344,9 @@ Let $(X,\beta)$ be a locally finite prechart and let $x,y \in X$. The behavioura
 \begin{remark}
 If the discount factor $\frac{1}{2}$ in the definition of transition lifting were replaced with an arbitrary $\lambda \in \interval[open]{0}{1}$ (as discussed in \Cref{c3:rem:discount}), then \Cref{c3:lem:contractive}, \Cref{lem:distance_power_of_two}, \Cref{lem:bound_on_stratified_bisim} and \Cref{thm:concrete_distance} would need to be adjusted accordingly to mention (powers of) $\lambda$, but otherwise would remain unchanged.
 \end{remark}
+\begin{remark}
+The original paper that introduced the stratification of bisimilarity~\cite{hennessy:1985:algebraic} simultaneously presented Hennessy-Milner logic and established connection between each relation $x \sim^{(k)} y$ and formulas of modal depth $k$. Viewed through this lens, the theorem above provides a characterisation of the behavioural distance between inequivalent states $x$ and $y$ of the chart $(X, \beta)$ as $2^{-n}$, where $n$ denotes the minimal modal depth of a Hennessy-Milner formula distinguishing their behaviours. In this setting, modal formulas serve an analogous role to words in the behavioural distance theory studied in \Cref{chapter2}.
+	\end{remark}
 \subsection{Monoidal categories}\label{c3:subsec:monoidal}
 Throughout this thesis, we assume the reader is familiar with basic concepts of monoidal categories~\cite{Selinger_2010,piedeleu2023introduction}, traced monoidal categories~\cite{Joyal:1996:Traced}, and compact closed categories~\cite{kellylaplaza}. Nevertheless, we recall the definitions of (symmetric) monoidal categories to establish notation for the remainder of the chapter.
 \begin{definition}
@@ -676,7 +679,7 @@ The dagger defined above satisfies \textbf{scalar parameter identity}.
 & = (\mu v_{q+1}.f[v_{q+1}/v_{p+1}])[\vec{g}/\vec{v}] \tag{\Cref{def:subset}}\\
 & = (\mu v_{p+1}.f)[\vec{g}/\vec{v}] \tag{\cite[Proposition~4.6 5.]{Milner:1984:Complete}}\\
 & = f^\dagger[\vec{g}/\vec{v}] \tag{Def. of $\dagger$}\\
-& = f^\dagger ; g \tag{Def. of sequential composition\hfill\qedhere}
+& = f^\dagger ; g \tag*{\hfill\qedhere}
 \end{align*}
 \end{proof}
 To show the remaining identities, we first recall the following lemma.
@@ -728,7 +731,7 @@ f^{\dagger\dagger} &= \mu v_{p+1}.(\mu v_{p+2}.f)
 \\
 & = \mu v_{p+1}. \left(f;(\id_p\oplus \nabla_1)\right)
 \\
-& = (f ; (\id_p\oplus \nabla_1))^\dagger \tag{\hfill\qedhere}
+& = (f ; (\id_p\oplus \nabla_1))^\dagger \tag*{\hfill\qedhere}
 \end{align*}
 \end{proof}
 Combining earlier results yields the following statement.
@@ -993,6 +996,63 @@ Since the trace on $\RegBeh$ is defined in terms of operations that we have show
 		For the remaining claim, let $f,g \in \RegBeh(m,n)$. From the definition of $N$, we immediately have that $
 		d^{N(m), N(n)}(N(f),(N(g))=d^{m,n}(f,g) $. 
 	\end{proof}
+	
+	\subsection{Connections to enriched category theory}
+Although we do not pursue such a perspective in this thesis, a categorically-minded reader may observe that equipping the homsets of $\RegBeh$ and $\Int{\RegBeh}$ with pseudometric structures and proving appropriate nonexpansivity conditions yields their enrichment over $\PMet$ - the monoidal category $(\PMet, \times, \{\bullet\})$ of pseudometric spaces with the categorical product as tensor and singleton space with a discrete metric as unit. For notational convenience, we will write $\PMet$ as an abbreviation for the monoidal category $(\PMet, \times, \{\bullet\})$ and $\Set$ for the cartesian monoidal category $(\Set,\times,\{\bullet\})$. In this section, we assume the basic familiarity of the reader with the notions of enriched category theory~\cite{Kelly:1982:Basic}.
+
+Following Kelly~\cite{Kelly:1982:Basic}, taking $\mathcal{V} = \Set$ yields ordinary small categories, functors, and natural transformations as $\mathcal{V}$-categories, $\mathcal{V}$-functors, and $\mathcal{V}$-natural transformations respectively. The category $\PMet$ is concrete, that is, can be viewed as $\Set$ equipped with an extra pseudometric structure. In particular, it admits a faithful, strict monoidal forgetful functor to $\mathsf{Set}$. Crucially, $\PMet$ inherits monoidal structure from  $\Set$ : their tensor products, units, associators, and unitors coincide, with $\PMet$ simply adding pseudometric structures and constraints.
+
+Because of that, the definitions of enriched category theory trivialise, when applied to $\PMet$. In particular, they reduce to endowing ordinary small categories with pseudometrics on homsets, with an extra condition that all fundamental operations (composition, monoidal product, etc.) are nonexpansive on each homset.
+	\begin{lemma}[{\cite[Lemma~B.7]{Lobbia:2024:Quantitative}}]\label{lem:enriched_cat}
+		Let $\cat{C}$ be a small category such that for each $X,Y \in \ObjC(\cat{C})$ there is a pseudometric space $(\C(X,Y),d_{X,Y})$. If for all $f,f' \in \C(X,Y)$ and $g,g' \in \C(Y,Z)$,
+		$$
+			d_{X,Z}(g \circ f, g' \circ f') \leq \max \{
+			d_{Y,Z}(g,f),  d_{X,Y}(g',f')\}
+		$$
+		then $\cat{C}$ is a $\PMet$-enriched category. 
+	\end{lemma}
+	Since $\PMet$ is a concrete category, given a $\PMet$-enriched category one can unambiguously talk about its underlying category, obtained by forgetting the pseudometric structure. By construction, $\cat{C}$ is the underlying category of the $\PMet$-enriched category obtained through the above lemma. Similarly, one can lift functoriality to enriched functoriality, by verifying nonexpansivity.
+	\begin{lemma}[{\cite[Lemma~B.8]{Lobbia:2024:Quantitative}}]\label{lem:enriched_fun}
+		Let $\cat{C}$ and $\cat{D}$ be two $\PMet$-enriched categories and $F \colon \cat{C} \to \cat{D}$ be a functor between
+their underlying categories. If $F$ is locally nonexpansive, namely, the assignment $f \to Ff$ is a nonexpansive map $\cat{C}(X,Y) \to \cat{D} (F(X),F(Y))$ for all $X,Y \in \ObjC(\cat{C})$, then there is a $\PMet$-enriched functor between $\cat{C}$ and $\cat{D}$, whose underlying functor is given by $F$.
+	\end{lemma}
+	Given a small strict monoidal category $\cat{C}$ one can enrich it in $\PMet$ via the following lemma:
+	\begin{lemma}[{\cite[Corollary~B.10]{Lobbia:2024:Quantitative}}]\label{lem:enriched_mon_cat}
+		Let $\cat{C}$ be an $\PMet$-enriched category, whose underlying category is equipped with a strict monoidal product $\otimes : \cat{C} \times \cat{C} \to \cat{C}$. Then $\cat{C}$ is a strict $\PMet$-enriched monoidal category, if for all $X,Y,Z,W \in \ObjC{\cat{C}}$, $f,f' \in \cat{C}(X,Y)$, $g, g' \in \cat{C}(Z,W)$,
+		$$
+			d_{X \otimes Z, Y \otimes W}(f \otimes g, f' \otimes g') \leq \max\{d_{X,Y}(f,f'), d_{Z,W}(g,g')\}.
+		$$
+	\end{lemma}
+	Using the above lemma, we can obtain the following.
+	\begin{corollary}
+		$\RegBeh$ is a strict $\PMet$-enriched monoidal category.
+	\end{corollary}
+	\begin{proof}
+		Follows from \Cref{cor:rec_nexp}, \Cref{lem:tens_nonexpansive}, \Cref{lem:enriched_cat} and \Cref{lem:enriched_mon_cat}.
+	\end{proof}
+In \Cref{cor:trace_nonexpansive}, we proved that for all $A,B,X \in \ObjC(\RegBeh)$, the trace map
+$\Tr \colon \RegBeh(A \otimes X, B \otimes X) \to \RegBeh(A,B)$ is nonexpansive,
+showing it defines a family of morphisms in $\PMet$.
+Consequently, all trace axioms become valid equalities in $\PMet$,
+which suggests that $\RegBeh$ could be viewed as a $\PMet$-enriched traced monoidal category. However, we note that the literature lacks a general characterization of traces in arbitrary $\mathcal{V}$-enriched monoidal categories that would encompass our construction. While the enrichment conditions trivialise for $\PMet$, it would be interesting to formulate axioms for $\mathcal{V}$-enriched traced categories to handle more complex enrichment cases.
+
+We speculate that tightening axioms of trace that enforce naturality in $A$ and $B$
+should correspond to $\mathcal{V}$-naturality, while the sliding axiom that ensures dinaturality in $X$, would require a notion of a $\mathcal{V}$-dinaturality that is currently missing in the literature. 
+
+However, since the trace of $\RegBeh$ is used to define sequential composition in $\Int{\RegBeh}$, we can easily obtain the following result.
+\begin{corollary}
+	$\Int{\RegBeh}$ is a strict $\PMet$-enriched monoidal category.
+\end{corollary}
+\begin{proof}
+	Follows from \Cref{cor:sem_enriched} and \Cref{lem:enriched_cat} and \Cref{lem:enriched_mon_cat}.
+\end{proof}
+Moreover, the functor $N \colon \RegBeh \to \Int{\RegBeh}$ satisfies the following property.
+\begin{corollary}
+	$N \colon \RegBeh \to \Int{\RegBeh}$ is a $\PMet$-enriched strict monoidal functor. 
+\end{corollary}
+\begin{proof}
+	Follows from \Cref{cor:sem_enriched} and \Cref{lem:enriched_fun}.
+\end{proof}
 	\subsection{Functorial semantics}
 	We are ready to state the semantics of our diagrammatic language $\sem{-} \colon \Syn \to \Int{\RegBeh}$ as a symmetric monoidal functor from $\Syn$ to $\Int{\RegBeh}$. Since the syntax is a freely generated prop, in order to interpret arbitrary string diagrams it is enough to just define the interpretation of the generating morphisms of $\Syn$. We have:
 	\vspace{-1em}
