@@ -996,7 +996,7 @@ Since the trace on $\RegBeh$ is defined in terms of operations that we have show
 	\end{proof}
 	
 	\subsection{Connections to enriched category theory}
-Although we do not pursue such a perspective in this thesis, a categorically-minded reader may observe that equipping the homsets of $\RegBeh$ and $\Int{\RegBeh}$ with pseudometric structures and proving appropriate nonexpansivity conditions yields their enrichment over $\PMet$ - the monoidal category $(\PMet, \times, \{\bullet\})$ of pseudometric spaces with the categorical product as tensor and singleton space with a discrete metric as unit. For notational convenience, we will write $\PMet$ as an abbreviation for the monoidal category $(\PMet, \times, \{\bullet\})$ and $\Set$ for the cartesian monoidal category $(\Set,\times,\{\bullet\})$. In this section, we assume the basic familiarity of the reader with the notions of enriched category theory~\cite{Kelly:1982:Basic}.
+Although we do not pursue such a perspective in this thesis, a categorically-minded reader may observe that equipping the homsets of $\RegBeh$ and $\Int{\RegBeh}$ with pseudometric structures and proving appropriate nonexpansivity conditions yields their enrichment over $\PMet$ - the monoidal category $(\PMet, \times, \{\bullet\})$ of pseudometric spaces with the product metric as tensor and singleton space with a discrete metric as unit. For notational convenience, we will write $\PMet$ as an abbreviation for the monoidal category $(\PMet, \times, \{\bullet\})$ and $\Set$ for the cartesian monoidal category $(\Set,\times,\{\bullet\})$. In this section, we assume the basic familiarity of the reader with the notions of enriched category theory~\cite{Kelly:1982:Basic}.
 
 Following Kelly~\cite{Kelly:1982:Basic}, taking $\mathcal{V} = \Set$ yields ordinary small categories, functors, and natural transformations as $\mathcal{V}$-categories, $\mathcal{V}$-functors, and $\mathcal{V}$-natural transformations respectively. The category $\PMet$ is concrete, that is, can be viewed as $\Set$ equipped with an extra pseudometric structure. In particular, it admits a faithful, strict monoidal forgetful functor to $\mathsf{Set}$. Crucially, $\PMet$ inherits monoidal structure from  $\Set$ : their tensor products, units, associators, and unitors coincide, with $\PMet$ simply adding pseudometric structures and constraints.
 
@@ -1064,14 +1064,16 @@ Moreover, the functor $N \colon \RegBeh \to \Int{\RegBeh}$ satisfies the followi
 	\sem{\tikzfig{cup-down}} = \eta_{(1, 0)} \qquad
 \end{gather*}
 
-
-We interpret $\tikzfig{lr-copy}$ as nondeterministic choice, $\tikzfig{lr-delete}$ as the behaviour of the empty chart, while $\tikzfig{lr-generate}$ and $\tikzfig{lr-merge}$ correspond to the empty tuple and joining the variables respectively. For each letter $a \in \Sigma$ of the alphabet, we view $\scalar{a}$ as the prefixing operation. Finally, $\tikzfig{cap-down}$ and $\tikzfig{cup-down}$ are interpreted using counit and unit of $\Int{\RegBeh}$ allowing one to create loops.
+The first five generators are left-to-right morphisms and hence they live in the image of the functor $N \colon \RegBeh \to \Int{\RegBeh}$. In particular, we interpret $\tikzfig{lr-copy}$ as nondeterministic choice, $\tikzfig{lr-delete}$ as the behaviour of the empty chart, while $\tikzfig{lr-generate}$ and $\tikzfig{lr-merge}$ correspond to the empty tuple and joining the variables respectively. For each letter $a \in \Sigma$ of the alphabet, we view $\scalar{a}$ as the prefixing operation. The remaining generators, $\tikzfig{cap-down}$ and $\tikzfig{cup-down}$, are interpreted using counit and unit of $\Int{\RegBeh}$ coming from the $\textbf{Int}$ construction (see~\Cref{c3:subsec:int}) allowing one to create loops. The sequential composition in $\Int{\RegBeh}$ makes use of the trace operation of $\RegBeh$ interpreting such loops via recursion operation on charts.
+\begin{remark}
+	A careful reader should note a lack of right-to-left generators. Intuitively speaking, $\textbf{Int}$ construction simulates bidirectionality via the trace operation, but its only relevant data are left-to-right morphisms taken from the traced monoidal category. In the setting of a compact closed categori, right-to-left diagrams can be easily obtained by applying the dual operation to left-to-right diagrams.
+\end{remark}
 \section{Axiomatisation}
 \label{sec:axioms}
 Our main aim in this chapter is to find a set of (quantitative) equations to reason about semantic distance directly at the level of the diagrams themselves. To do so, we distinguish two different relations on diagrams of the same type:
 \begin{itemize}
-\item An equational theory intended to capture (strong) bisimilarity of regular behaviours, allowing us to simplify the diagrams whose distance is being compared.
-\item A quantitative equational theory intended to capture the behavioural distance of ~\Cref{sec:semantics}, that is the subject of the completeness theorem (\Cref{thm:completeness}) described in \Cref{sec:completeness}. Note that this theory contains the equational axioms as rules for distance zero.
+\item A purely equational theory, allowing us to simplify the diagrams being compared modulo (strong) bisimilarity. 
+\item An implicational quantitative equational theory intended to capture the behavioural distance of ~\Cref{sec:semantics}, that is the subject of the completeness theorem (\Cref{thm:completeness}) described in \Cref{sec:completeness}. Note that this theory contains the equational axioms as rules for distance zero, as well as includes an axiom schema defining the distance between any two charts with no initial states to zero.
 \end{itemize}
 \noindent
 \textbf{Equational theory. } Our equational theory is the smallest congruence (w.r.t to vertical and horizontal compositions) that includes the axioms of Fig.~\ref{fig:equational-axioms}. In practice, this means that, if we find a sub-diagram that matches one side of an axiom in a larger diagram, we can replace it with the other side of the axiom (the left and right-hand side of any axiom have the same type)~\cite[Section 2.1]{piedeleu2023introduction}. 
@@ -1100,7 +1102,7 @@ Our main aim in this chapter is to find a set of (quantitative) equations to rea
 \end{figure}
 %
 
-Axioms \textsf{A1}-\textsf{A2} are those of \emph{compact closed categories}~\cite{kellylaplaza} and allow us to bend and straighten wires at will, only keeping track of their directions. Crucially, they also allow us to manipulate feedback loops. \textsf{B1-B3} encode the fact that $\Bcomult$ and $\Bcounit$ form a \emph{cocommutative comonoid}. These guarantee that nondeterministic choice behaves like a commutative, associative and unital operation in our diagrammatic syntax. At the same time, \textsf{B4-B6} are the dual of the previous three, and make $\Bmult$ and $\Bunit$ into a \emph{commutative monoid}. These guarantee that output wires behave like the variables of our diagrammatic syntax. \textsf{B7}-\textsf{B9} make the previous monoid-comonoid pair into a \emph{bimonoid}, while \textsf{B10} makes nondeterministic choice an idempotent operation. Axiom \textsf{B11} allows us to remove unguarded loops, while \textsf{C1} encodes the fact that merging tuples of variables interacts as expected with prefixing: $(a.v_1, a.v_2);(v_1,v_1) = (a.v_1, a.v_1)$. Note that, if we replace the $\Bmult$ with $\Bcomult$, the resulting equality (prefixes distribute over nondeterministic sum) is not valid.
+Axioms \textsf{A1}-\textsf{A2} are those of \emph{compact closed categories}~\cite{kellylaplaza} and allow us to bend and straighten wires at will, only keeping track of their directions. Crucially, they also allow us to manipulate feedback loops. \textsf{B1-B3} encode the fact that $\Bcomult$ and $\Bcounit$ form a \emph{cocommutative comonoid}. These guarantee that nondeterministic choice behaves like a commutative, associative and unital operation in our diagrammatic syntax. At the same time, \textsf{B4-B6} are the dual of the previous three, and make $\Bmult$ and $\Bunit$ into a \emph{commutative monoid}. These guarantee that output wires behave like the variables of our diagrammatic syntax. \textsf{B7}-\textsf{B9} make the previous monoid-comonoid pair into a \emph{bimonoid}, while \textsf{B10} makes nondeterministic choice an idempotent operation, thus combined with commutative comonoid axioms yields an anlalogue of the semilattice axioms appearing in \Cref{chapter2}. Axiom \textsf{B11} allows us to remove unguarded loops, similarly to the axiom $(\mathsf{Tight})$ appearing in \Cref{chapter2}. \textsf{C1} encodes the fact that merging tuples of variables interacts as expected with prefixing: $(a.v_1, a.v_2);(v_1,v_1) = (a.v_1, a.v_1)$. This can be seen as a string diagrammatic version of the right distributivity axiom from \Cref{chapter2}. Note that, if we replace the $\Bmult$ with $\Bcomult$, the resulting equality (prefixes distribute over nondeterministic sum) is not valid. This captures the fact that left distributivity of prefixing over nondeterministic choice is not sound in branching-time semantics. While we do not have an analogue of the $(\mathsf{Unroll})$ rule from \Cref{chapter2}, we will show that a similar identity can be derived using the above axioms. 
 \begin{restatable}[Soundness]{lemma}{soundnessequality}
 For any two diagrams $f,g\from v\to w$ of $\Syn$, if $f=g$ then $\sem{f}=\sem{g}$. 
 \end{restatable}
@@ -1149,16 +1151,21 @@ For any two diagrams $f,g\from v\to w$ of $\Syn$, if $f=g$ then $\sem{f}=\sem{g}
 \caption{Quantitative axioms for regular behaviours.}
 \label{fig:quantitative-axioms}
 \end{figure}
-For any two diagrams $f,g\from v\to w$ of $\Syn$, we say a quantitative equation $f\disteq{r} g$ is \emph{valid} if $d^{\sem{v},\sem{w}}(\sem{f}, \sem{g}) \leq r$. Analogously, an inference rule is valid if, whenever all quantitative equations in the premise are valid, then the equation in the conclusion in the equation is also valid. We now briefly explain each of the rules of our inference system depicted on \Cref{fig:quantitative-axioms}. \textsf{(Refl)}, \textsf{(Sym)} and \textsf{(Triang)} respectively capture reflexivity, symmetry and triangle inequality of pseudometric spaces. Importantly, rule \textsf{(Refl)} allows one to state that equal diagrams (modulo strictly equational rules described above) are at distance zero of each other. \textsf{(Top)} allows us to state that any two diagrams are at most within distance $1$ of each other, while \textsf{(Max)} allows one to always weaken the bound on the distance at which two diagrams are.  \textsf{(Cont)} is the key analytic inference rule here: it allows us to conclude that two diagrams are within distance $r$, provided we can show that they are within all distances that are strictly greater than $r$, thereby passing to the limit. Next, \textsf{(Seq)} and \textsf{(Tens)} relate the horizontal and vertical compositions of diagrams to the distance. There are two domain-specific rules that we use. \textsf{(Pref)} witnesses the fact that prefixing by the same actions decreases the distance by half. Note that it applies to diagram $\objr^m\to\objr^n$ and that we use $\tikzfig{m-a-m}$ to denote the vertical composition of $m$ many $\scalar{a}$ generators, for any $m\in\mathbb{N}$. \textsf{(Codel)} axiom encodes that any diagram with no initial state has no behaviour and is therefore at distance zero of the empty chart.
+For any two diagrams $f,g\from v\to w$ of $\Syn$, we say a quantitative equation $f\disteq{r} g$ is \emph{valid} if $d^{\sem{v},\sem{w}}(\sem{f}, \sem{g}) \leq r$. Analogously, an inference rule is valid if, whenever all quantitative equations in the premise are valid, then the equation in the conclusion in the equation is also valid. We now briefly explain each of the rules of our inference system depicted on \Cref{fig:quantitative-axioms}. Nearly all the rules are analogues of the axioms of quantitative equational theories (see \Cref{c2:subsec:quantitative_equational_theories}). \textsf{(Refl)}, \textsf{(Sym)} and \textsf{(Triang)} respectively capture reflexivity, symmetry and triangle inequality of pseudometric spaces. Importantly, rule \textsf{(Refl)} allows one to state that equal diagrams (modulo strictly equational rules described above) are at distance zero of each other. \textsf{(Top)} allows us to state that any two diagrams are at most within distance $1$ of each other, while \textsf{(Max)} allows one to always weaken the bound on the distance at which two diagrams are.  \textsf{(Cont)} is the key analytic inference rule here: it allows us to conclude that two diagrams are within distance $r$, provided we can show that they are within all distances that are strictly greater than $r$, thereby passing to the limit. Next, \textsf{(Seq)} and \textsf{(Tens)} relate the horizontal and vertical compositions of diagrams to the distance. There are two domain-specific rules that we use. \textsf{(Pref)} witnesses the fact that prefixing by the same actions decreases the distance by half and is a direct analogue of the identically named rule in \Cref{chapter2}. Note that the string diagrammatic version of this rule applies to diagrams $\objr^m\to\objr^n$ and that we use $\tikzfig{m-a-m}$ to denote the vertical composition of $m$ many $\scalar{a}$ generators, for any $m\in\mathbb{N}$.
+	\begin{remark}
+		If one was to replace the discount factor of $\frac{1}{2}$ with an arbitrary $\lambda \in \interval[open]{0}{1}$, one would need to appropriately adjust the $(\Pref)$ rule to capture all rational overapproximations of the discounted distance, similarly to $(\Pref)$ rule appearing in \Cref{chapter2}.
+	\end{remark}
 
+	\textsf{(Codel)} encodes that any diagram with no initial state has no behaviour and is therefore at distance zero of the empty chart. We purposely did not include this axiom in the fragment for strict equality, as it is an axiom schema, rather than purely equational axiom.
+	
 Through a straightforward argument, one can show the soundness of the proposed quantitative rules.
 \begin{lemma}\label{lem:soundness_sublemma}
 		All the inference rules defining the distance on $\Syn$ are satisfied in $\Int{\RegBeh}$.
 	\end{lemma}
 	\begin{proof}
-		For most of the rules, the proof is straightforward. The soundness of \textsf{(Top)} follows from the fact that the distance on morphisms of $\Int{\RegBeh}$ is $1$-bounded, while \textsf{(Max)} captures the transitivity of partial order on the rational numbers. \textsf{(Refl)}, \textsf{(Sym)} and \textsf{(Triang)} are satisfied because the distance function on each hom-set of $\Int{\RegBeh}$ is a pseudometric space. \textsf{(Cont)} captures the Cauchy completeness of reals, while \textsf{(Seq)} and \textsf{(Tens)} are immediate consquence of \Cref{cor:sem_enriched}. For the remaining two rules, we will make use of the fact that the fully faithful embedding $N \colon \RegBeh \to \Int{\RegBeh}$ is an isometry (\Cref{cor:sem_enriched}), hence for the left-to-right diagrams it suffices to check the rules in $\RegBeh$. The soundness of \textsf{(Pref)} is an immediate consequence of \Cref{cor:prefixing_discounts}. Finally, \textsf{(Codel)} follows from the uniqueness of maps from the initial object in $\RegBeh$.
+		For most of the rules, the proof is straightforward. The soundness of \textsf{(Top)} follows from the fact that the distance on morphisms of $\Int{\RegBeh}$ is $1$-bounded, while \textsf{(Max)} captures the transitivity of partial order on the rational numbers. \textsf{(Refl)}, \textsf{(Sym)} and \textsf{(Triang)} are satisfied because the distance function on each hom-set of $\Int{\RegBeh}$ is a pseudometric space. The soundness of \textsf{(Cont)} comes from the fact that the behavioural distance is real-valued. It intuitively captures the limiting property of a decreasing chain of neighbourhoods with converging diameters, while \textsf{(Seq)} and \textsf{(Tens)} are immediate consquence of \Cref{cor:sem_enriched}. For the remaining two rules, we will make use of the fact that the fully faithful embedding $N \colon \RegBeh \to \Int{\RegBeh}$ is an isometry (\Cref{cor:sem_enriched}), hence for the left-to-right diagrams it suffices to check the rules in $\RegBeh$. The soundness of \textsf{(Pref)} is an immediate consequence of \Cref{cor:prefixing_discounts}. Finally, \textsf{(Codel)} follows from the uniqueness of maps from the initial object in $\RegBeh$.
 		\end{proof}
-		Through a simple inductive argument, we can extended the above to any derivable equation.
+		Through a simple inductive argument, we can extend the above to any derivable equation.
 \begin{theorem}[Quantitative soundness]\label{c3:thm:soundness}
 Every derivable equation $f \disteq{r} g$ is valid.
 \end{theorem}
@@ -1166,7 +1173,7 @@ Every derivable equation $f \disteq{r} g$ is valid.
 	Induction on the length of derivation and \Cref{lem:soundness_sublemma}.
 \end{proof}
 \begin{example}
-We revisit the charts from \Cref{fig:intro} and axiomatically show that their distance is bounded by $\frac{1}{4}$. We use compositionality to our advantage and break them into two parts which we will compose later with the \textsf{(Comp)} rule. First, we have\\
+We revisit the charts from \Cref{fig:intro} and axiomatically show that their distance is bounded by $\frac{1}{4}$. We use compositionality to our advantage and break them into two parts which we will compose later with the \textsf{(Seq)} rule. First, we have\\
 	{
 \circlednum{1}
 \scalebox{0.58}{
@@ -1222,7 +1229,7 @@ $$
 \end{example}
 \section{Completeness}
 \label{sec:completeness}
-We finally arrive at the main technical section of the chapter, where we gradually present a sequence of results leading to the completeness of our axioms for the behavioural distance. First, we show that we can safely focus solely on $\objr^m \to \objr^n$ diagrams. Then, through an analytic proof relying on \textsf{(Cont)} rule, we show that each diagram can be \emph{co-copied}. Consequently, we can decompose any $\objr^m \to \objr^n$ diagram into a collection of $\objr \to \objr^n$ diagrams, which correspond to individual charts. We argue that each of those $\objr \to \objr^n$ diagrams has a normal form from which one can extract a finite prechart structure. It turns out that the distance between states of this prechart precisely captures the distance between the diagrams being related and very importantly, admits a simple characterisation that can be simulated through the inference rules of our system, eventually leading to the completeness result.
+We finally arrive at the main technical section of the chapter, where we gradually present a sequence of results leading to the completeness of our axioms for the behavioural distance. First, we show that we can safely focus solely on $\objr^m \to \objr^n$ diagrams. Then, through an analytic proof relying on the \textsf{(Cont)} rule, we show that each diagram can be \emph{co-copied}. Consequently, we can decompose any $\objr^m \to \objr^n$ diagram into a collection of $\objr \to \objr^n$ diagrams, which correspond to individual charts. We argue that each of those $\objr \to \objr^n$ diagrams has a normal form from which one can extract a finite prechart structure. It turns out that the distance between states of this prechart precisely captures the distance between the diagrams being related and very importantly, admits a simple characterisation that can be simulated through the inference rules of our system, eventually leading to the completeness result.
 \subsection{Left-to-right diagrams} 
 The following result allows us to turn any bidirectional diagram into a left-to-right one by appropriately \emph{bending} the the wires using $\tikzfig{cap-down}$ and $\tikzfig{cup-down}$. We will see later that this process does not change distances between diagrams. 
 \begin{restatable}{lemma}{compact}\label{lem:compact}
@@ -1255,8 +1262,11 @@ The idea is that, if $S(f)=S(g)$, we can always show that $f=g$ using a similar 
 \end{proof}
 A \emph{block} is simply a diagram freely composed from a restricted set of generators (possibly including identities and symmetries). In this chapter, we will make use of two special kinds of diagrams that can be factored into blocks:
 \begin{itemize}
-	\item A \emph{matrix-diagram} is a diagram $\objr^m\to\objr^n$ that factors as a composition of a block of $\tikzfig{lr-copy}, \tikzfig{lr-delete}$, another of $\scalar{a}$ for $a\in \Sigma$, and a last one of $\tikzfig{lr-merge}, \tikzfig{lr-generate}$. A matrix-diagram is \emph{guarded} when any path from left to right port encounters at least one $\scalar{a}$. 
-	\item A \emph{relation-diagram} is a diagram $\objr^m\to\objr^n$ that factors as a composition of a block of $\tikzfig{lr-copy}, \tikzfig{lr-delete}$ followed by the block of $\tikzfig{lr-merge}, \tikzfig{lr-generate}$.
+	\item A \emph{matrix-diagram} is a diagram $\objr^m\to\objr^n$ that factors as a composition of a block of $\tikzfig{lr-copy}, \tikzfig{lr-delete}$, another of $\scalar{a}$ for $a\in \Sigma$, and a last one of $\tikzfig{lr-merge}, \tikzfig{lr-generate}$. A matrix-diagram is \emph{guarded} when any path from left to right port encounters at least one $\scalar{a}$. The diagram below, with the three blocks highlighted, is an example of matrix-diagram.
+	\[
+		\tikzfig{ex-matrix-nfa-blocks}
+	\] 
+	\item A \emph{relation-diagram} is a diagram $\objr^m\to\objr^n$ that factors as a composition of a block of $\tikzfig{lr-copy}, \tikzfig{lr-delete}$ followed by the block of $\tikzfig{lr-merge}, \tikzfig{lr-generate}$. Removing the middle block from the diagram above would yield an example of a relation-diagram.
 \end{itemize} 
 \begin{lemma}\label{lem:matrix-cocopy}
 For any matrix-diagram $d\from \objr^m\to \objr^n$, we have
@@ -1275,7 +1285,7 @@ we have
 \[\tikzfig{c-d1}\disteq{r/2}\tikzfig{c-d2}\]
 \end{lemma}
 \begin{proof}
-We rely on the definition of guarded matrix diagrams. Recall that since $c$ is guarded, we can factor it as
+We rely on the definition of guarded matrix diagrams. Recall from the definition of a guarded matrix-diagram that since $c$ is guarded, we can factor it as
 \[\dbox{c}{\ell}{m} = \tikzfig{matrix-diagram-blocks}\]
 where $c_0$ is a diagram composed only of $\Bcomult,\Bcounit$, $\vec{a}$ is a vertical composite of $k$ $\scalar{a_i}$ generators, and $c_1$ is a diagram composed only of $\Bmult,\Bunit$. Hence,
 {
@@ -1385,7 +1395,7 @@ Let  $f\from \objr^m\to \objr^n$ and define $f_i$ to be the diagram $\objr\to \o
 \end{lemma}
 The semantics of those diagrams is precisely given by pairing:
 \begin{lemma}\label{lem:merge-repr}
-	Let $e,f\from\objr\to\objr^n$, such that $\sem{e} = N(s)$ and $\sem{f} = N(d)$, where $s, t \in \RegBeh(1,n)$. We have that
+	Let $e,f\from\objr\to\objr^n$, such that $\sem{e} = N(s)$ and $\sem{f} = N(t)$, where $s, t \in \RegBeh(1,n)$. We have that
 	\begin{align*}
 		\sem{\tikzfig{merge-cxd}} &= N \left( \lc s, t \rc\right )
 	\end{align*}
@@ -1406,7 +1416,7 @@ Hence, behavioural distance between the denotations of arbitrary diagrams $f,g \
 	\end{align*}
 \end{lemma}
 \begin{proof}
-	Since $e_1, e_2, f_1,f_2$ are left-to-right diagrams, we can safely assume that there exist $s_1, s_2, t_1, t_2 \in \RegBeh(1,n)$ such that $\sem{c_1} = N(s_1)$,$\sem{c_2} = N(s_2)$,$\sem{d_1} = N(t_1)$. We have the following
+	Since $e_1, e_2, f_1,f_2$ are left-to-right diagrams, we can safely assume that there exist $s_1, s_2, t_1, t_2 \in \RegBeh(1,n)$ such that $\sem{e_1} = N(s_1)$,$\sem{e_2} = N(s_2)$,$\sem{f_1} = N(t_1)$ and $\sem{f_2} = N(t_2)$. We have the following
 	\begin{align*}
 		&d^{N(2),N(n)}\left(\sem{\tikzfig{merge-cxd-1}}, \sem{\tikzfig{merge-cxd-2}}\right)\\
 		&\qquad = d^{N(2),N(n)}(N(\lc e_1, f_1 \rc), N\lc e_2, f_2 \rc)\tag{\Cref{lem:merge-repr}}\\
@@ -1429,19 +1439,19 @@ For any two $c,d\from\objr\to\objr^n$, we have that
 \sem{\tikzfig{convolution-cxd}} = \sem{e} + \sem{f}\]
 \end{restatable}
 \begin{proof}
-First, since $c$ and $d$ are left-to-right, there exists expressions $s,t\in\RegBeh(1,n)$, such that $\sem{c} = N(s)$ and $\sem{d} = N(t)$. Then,
+First, since $c$ and $d$ are left-to-right, there exists expressions $s,t\in\RegBeh(1,n)$, such that $\sem{e} = N(s)$ and $\sem{f} = N(t)$. Then,
 %TODO: Fix formatting, line break + qedhere
 \begin{align*}
 &\sem{\tikzfig{convolution-cxd}}\\ 
-&\qquad = \sem{\Bcomult}; (\sem{c}\oplus \sem{d});\sem{\Bmult}
+&\qquad = \sem{\Bcomult}; (\sem{e}\oplus \sem{f});\sem{\Bmult}
 \\
-&\qquad = N(v_1+v_2) ; (N(s)\oplus N(f)) ;  N(\nabla_1) & 
+&\qquad = N(v_1+v_2) ; (N(s)\oplus N(t)) ;  N(\nabla_1) & 
 \\
-&\qquad = N((v_1+v_2); (s\oplus f); \nabla_1) & (\text{Functoriality of $N$})
+&\qquad = N((v_1+v_2); (s\oplus t); \nabla_1) & (\text{Functoriality of $N$})
 \\
-&\qquad = N(s+f) & (\text{Definition of $N$})
+&\qquad = N(s+t) & (\text{Definition of $N$})
 \\
-&\qquad = N(s) + N(t) = \sem{c} + \sem{d} \qedhere
+&\qquad = N(s) + N(t) = \sem{e} + \sem{f} \tag*{\hfill\qedhere}
 \end{align*}
 
 \end{proof}
@@ -1451,8 +1461,7 @@ This operation of combining two $\objr \to \objr^n$ string diagrams (that we cal
 	$$ 
 	The above is well defined up to permutations and removing duplicates, while staying at distance zero. Hence, given a finite subset of $F$ we can unambiguously talk about its convolution.
 \begin{lemma}
-\label{lem:convolution-aci}
-Any two finite indexed collections $A = \{f_{i_1}, \dots, f_{i_k}\}_{k \in K}$ and $B = \{g_{i_1}, \dots, g_{i_k}\}_{k \in K}$ that are equal as sets, then their convolution are at distance zero from each other.
+\label{lem:convolution-aci} If $A = \{f_{i_1}, \dots, f_{i_k}\}_{k \in K}$ and $B = \{g_{i_1}, \dots, g_{i_j}\}_{j \in J}$ are two finite indexed collections that are equal as sets, then their convolution are at distance zero from each other.
 \end{lemma}
 \begin{proof}
 It is enough to show that the convolution of two string diagrams is an associative, commutative and idempotent operation (up to $\disteq{0}$).
@@ -1478,22 +1487,6 @@ It is enough to show that the convolution of two string diagrams is an associati
 & = \dbox{f_1}{}{n} \tag*{\hfill\qedhere}
 \end{align*}
 \end{description}
-\end{proof}
-\sumconvolutions*
-\begin{proof}
-First, since $c$ and $d$ are left-to-right, there exists expressions $s,t\in\RegBeh(1,n)$, such that $\sem{c} = N(s)$ and $\sem{d} = N(t)$. Then,
-\begin{align*}
-\sem{\tikzfig{convolution-cxd}} & = \sem{\Bcomult}; (\sem{c}\oplus \sem{d});\sem{\Bmult}
-\\
-& = N(v_1+v_2) ; (N(s)\oplus N(f)) ;  N(\nabla_1) & 
-\\
-& = N((v_1+v_2); (s\oplus f); \nabla_1) \tag{{Functoriality of $N$}}
-\\
-& = N(s+f) \tag{{Definition of $N$}}
-\\
-& = N(s) + N(t) = \sem{c} + \sem{d} \tag*{\hfill\qedhere}
-\end{align*}
-
 \end{proof}
 If a diagram is in the representation normal form we can express each the subdiagrams $f_i \colon \objr \to \objr^n$ from \Cref{lem:injections} as a certain convolution.
 \begin{lemma}
@@ -1542,6 +1535,9 @@ Since every diagram can be brought to the representation normal form, we can eas
 \begin{proof}
 	Follows from \Cref{thm:representation} and \Cref{lem:diagram-to-eq-system}.
 \end{proof}
+\begin{remark}
+	The normal form guaranteed by the above lemma resembles normal form appearing in \Cref{c2:thm:fundamental_theorem}, as well as the one given by the equational characterisation theorem from the original Milner's paper on (pre)charts~\cite[Theorem~5.9]{Milner:1984:Complete}. At the same time, when looking at precharts from the coalgebraic modal logic perspective, one can observe the similarity of the normal form presented above to the shape of $\nabla$ formulas~\cite{Moss:1999:Coalgebraic}, characterising one-step behaviour of coalgebras.
+\end{remark}
 The informal intuition is that each of the $f_i \colon \objr \to \objr^n$ diagrams represents a state of a prechart and the behaviour of each such state is the union of all possible labelled transitions to other states and variable outputs. To make this formal, we first establish the lemma below.
 \begin{lemma}
 \label{lem:fixpoint}
@@ -1560,7 +1556,12 @@ This is a consequence of Lemma~\ref{lem:sum-convolution} and the semantics of co
 %where we have substituted each $f_{i_j}$ with a corresponding variable $x_{i_j}$ bound by some $\mu$. By the definition of the dagger (Definition~\ref{def:dagger}) and the trace operator (Definition~\ref{def:trace}), we have
 %$$\sem{f_i} = \left(\sum_{j=1}^k a_{j}.x_{i_j}\right)^{\dagger\dots\dagger} + \sum_{j=1}^{\ell} v_{q_k} = \Tr^k_{k,n}\left(\nabla_n \,; \left(\sum_{j=1}^k a_{j}.x_{i_j}\right)\right) + \sum_{j=1}^{\ell} v_{q_k}$$ 
 \end{proof}
-It turns out that we can make the intuition about each diagram corresponding to state of a prechart formal, by extracting a prechart over the set $Q_f = \{f_1, \dots, f_m\}$, whose transition function $\beta$ is given by the following; we define $f_i \tr{a} f_{j}$ iff $\dbox{f_i}{}{n}$ contains $\tikzfig{prefix-transition}$ and similarly $f_i \rhd v_s$ iff $\dbox{f_i}{}{n}$ contains $\dbox{v_s}{}{n}$. The behavioural distance between states of this prechart, precisely captures the behavioural distance between each of the $f_i$ diagrams.
+It turns out that we can make the intuition about each diagram corresponding to state of a prechart formal, by extracting a prechart over the set $Q_f = \{f_1, \dots, f_m\}$, whose transition function $\beta$ is given by the following; 
+	\begin{itemize}
+		\item $f_i \tr{a} f_{j}$ iff $\dbox{f_i}{}{n}$ contains $\tikzfig{prefix-transition}$
+		\item $f_i \rhd v_s$ iff $\dbox{f_i}{}{n}$ contains $\dbox{v_s}{}{n}$
+	\end{itemize}
+The behavioural distance between states of this prechart, precisely captures the behavioural distance between each of the $f_i$ diagrams.
 \begin{restatable}{lemma}{extracteddist}\label{cor:dist-chart-diag}
 	For all $f_i, f_j \in Q_f$, we have that $\mathsf{bd}_{\beta}(f_i,f_j) = \mathsf{bd}(\sem{f_i}, \sem{f_j})$
 \end{restatable}
@@ -1678,5 +1679,5 @@ Axiomatising behavioural distances have been originally studied through ad-hoc i
 
 In constructing the semantic category, we have used the fact that charts form a Conway theory~\cite{Esik:1999:Group}, studied in the literature on parametrised fixpoint operators~\cite{Haghverdi:2000:Categorical,Simpson:2000:Complete,Abramsky:2002:Geometry}, and which can be seen as a relaxation of iteration theories~\cite{Bloom:1993:Iteration}. The connection between charts and these structures was previously investigated by Bloom, Esik, and Taubner~\cite{Bloom:1993:Iteration} and Sewell~\cite{Sewell:1995:Algebra}, while the interplay of parametrised fixpoint operators with traced monoidal categories was studied by Hasegawa~\cite{Hasegawa:1997:Models}, Haghverdi~\cite{Haghverdi:2000:Categorical}, and Simpson and Plotkin~\cite{Simpson:2000:Complete} independently.
 
-Our work constitutes a necessary first step towards a similar diagrammatic treatment of behavioural distance for quantitative automata, such as probabilistic and weighted systems, for which distances are a more suitable way of reasoning rather than Boolean equivalences. The string diagrammatic point of view would enable a desirable, compositional treatment that reflects well the underlying operational models, in a way that is not available through conventional syntaxes. Another promising direction for future work would be to consider Guarded Kleene Algebra with Tests (GKAT)~\cite{Smolka:2020:Guarded,Schmid:2021:Guarded}, an efficiently decidable language for reasoning about equivalence of uninterpreted programs. The completeness proof of GKAT relies on a metric argument that could be internalised within an inference system like the one introduced in this chapter. Moreover, the syntax of GKAT is insufficiently expressive, as it can only describe a part of the behaviours of its underlying operational model -- in fact there is no finite purely algebraic syntax that could do so~\cite{Cate:2025:Algebras}. A string diagrammatic treatment could allow us to express all such behaviours and obtain a simpler yet more expressive completeness result, that would in turn enable axiomatic reasoning about decompilation algorithms, that were recently shown to be expressible via GKAT automata (but not in GKAT)~\cite{Zhang:2025:CFGKAT}.
+Our work constitutes a necessary first step towards a similar diagrammatic treatment of behavioural distance for quantitative transition systems, such as probabilistic and weighted systems, for which distances are a more suitable way of reasoning rather than Boolean equivalences. The string diagrammatic point of view would enable a desirable, compositional treatment that reflects well the underlying operational models, in a way that is not available through conventional syntaxes. Another promising direction for future work would be to consider Guarded Kleene Algebra with Tests (GKAT)~\cite{Smolka:2020:Guarded,Schmid:2021:Guarded}, an efficiently decidable language for reasoning about equivalence of uninterpreted programs. The completeness proof of GKAT relies on a metric argument that could be internalised within an inference system like the one introduced in this chapter. Moreover, the syntax of GKAT is insufficiently expressive, as it can only describe a part of the behaviours of its underlying operational model -- in fact there is no finite purely algebraic syntax that could do so~\cite{Cate:2025:Algebras}. A string diagrammatic treatment could allow us to express all such behaviours and obtain a simpler yet more expressive completeness result, that would in turn enable axiomatic reasoning about decompilation algorithms, that were recently shown to be expressible via GKAT automata (but not in GKAT)~\cite{Zhang:2025:CFGKAT}.
  
