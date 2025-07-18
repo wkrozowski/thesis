@@ -342,7 +342,7 @@ Let $(X,\beta)$ be a locally finite prechart and let $x,y \in X$. The behavioura
 	 For the converse, if $n \in N$ is the largest number such that $x \sim^{(n)} y$, then because of \Cref{lem:bound_on_stratified_bisim}, we have that $\mathsf{bd}_\beta(x,y)\leq 2^{-n}$. Assume that $\mathsf{bd}_\beta(x,y)=0$. In such a case, using \Cref{lem:bound_on_stratified_bisim}, we could conclude that $x \sim^{(n+1)} y$, which would lead to contradiction. Hence, $\mathsf{bd}_\beta(x,y)>0$. Because of \Cref{lem:chain_stabilises}, we have that $\mathsf{bd}_\beta(x,y)$ is equal to some power of two. Combining that with \Cref{lem:bound_on_stratified_bisim} again yields the desired result.\qedhere
 \end{proof}
 \begin{remark}
-If the discount factor $\frac{1}{2}$ in the definition of transition lifting were replaced with an arbitrary $\lambda \in \interval[open]{0}{1}$ (as discussed in \Cref{c3:rem:discount}), then \Cref{c3:lem:contractive}, \Cref{lem:distance_power_of_two}, \Cref{lem:bound_on_stratified_bisim} and \Cref{thm:concrete_distance} would need to be adjusted accordingly to mention (powers of) $\lambda$, but otherwise would remain unchanged.
+If the discount factor $\frac{1}{2}$ in the definition of transitions lifting were replaced with an arbitrary $\lambda \in \interval[open]{0}{1}$ (as discussed in \Cref{c3:rem:discount}), then \Cref{c3:lem:contractive}, \Cref{lem:distance_power_of_two}, \Cref{lem:bound_on_stratified_bisim} and \Cref{thm:concrete_distance} would need to be adjusted accordingly to mention (powers of) $\lambda$, but otherwise would remain unchanged.
 \end{remark}
 \begin{remark}
 The original paper that introduced the stratification of bisimilarity~\cite{hennessy:1985:algebraic} simultaneously presented Hennessy-Milner logic and established connection between each relation $x \sim^{(k)} y$ and formulas of modal depth $k$. Viewed through this lens, the theorem above provides a characterisation of the behavioural distance between inequivalent states $x$ and $y$ of the chart $(X, \beta)$ as $2^{-n}$, where $n$ denotes the minimal modal depth of a Hennessy-Milner formula distinguishing their behaviours. In this setting, modal formulas serve an analogous role to words in the behavioural distance theory studied in \Cref{chapter2}.
@@ -871,6 +871,9 @@ Hence, we obtain that prefixing is contractive.
 \begin{proof}
 	We employ the characterisation from~\Cref{thm:concrete_distance}. If $e \sim f$, then by \Cref{lem:congruence} we are done. Otherwise, we have that $\mathsf{bd}_{\overline\partial}(e,f)=2^{-k}$ and $e \sim^{(k)}_{\overline\partial} f$ for some $k \in \N$. By applying~\Cref{cor:prefixing_discounts}, we get that $a.e \sim^{(k+1)} a.f$ and hence $\mathsf{bd}_{\overline\partial}(e,f)\leq 2^{-(k+1)} = \frac{1}{2} 2^{-k} = \frac{1}{2}\mathsf{bd}_{\overline\partial}(e,f)$, as desired. 
 \end{proof}
+\begin{remark}
+	If we were to replace the discount factor of $\frac{1}{2}$ appearing in the definition of transitions lifting with an arbitrary $\lambda \in \interval[open]{0}{1}$ (see \Cref{c3:rem:discount}), then we would need to appropriately adjust the Lipschitz factor appearing in the corollary above.
+\end{remark}
 The mediating map of the binary coproduct is also nonexpansive.
 \begin{lemma}\label{lem:pairs_nonexpansive}
 	Let $f,f' \colon m \to k$, $g,g' \colon n \to k$ be morphisms of $\RegBeh$. We have that $d^{m +n, k}(\lc f, g \rc, \lc f', g' \rc) \leq \max \{d^{m,k}(f,f'), d^{n,k}(g,g')\}$
@@ -1153,7 +1156,7 @@ For any two diagrams $f,g\from v\to w$ of $\Syn$, if $f=g$ then $\sem{f}=\sem{g}
 \end{figure}
 For any two diagrams $f,g\from v\to w$ of $\Syn$, we say a quantitative equation $f\disteq{r} g$ is \emph{valid} if $d^{\sem{v},\sem{w}}(\sem{f}, \sem{g}) \leq r$. Analogously, an inference rule is valid if, whenever all quantitative equations in the premise are valid, then the equation in the conclusion in the equation is also valid. We now briefly explain each of the rules of our inference system depicted on \Cref{fig:quantitative-axioms}. Nearly all the rules are analogues of the axioms of quantitative equational theories (see \Cref{c2:subsec:quantitative_equational_theories}). \textsf{(Refl)}, \textsf{(Sym)} and \textsf{(Triang)} respectively capture reflexivity, symmetry and triangle inequality of pseudometric spaces. Importantly, rule \textsf{(Refl)} allows one to state that equal diagrams (modulo strictly equational rules described above) are at distance zero of each other. \textsf{(Top)} allows us to state that any two diagrams are at most within distance $1$ of each other, while \textsf{(Max)} allows one to always weaken the bound on the distance at which two diagrams are.  \textsf{(Cont)} is the key analytic inference rule here: it allows us to conclude that two diagrams are within distance $r$, provided we can show that they are within all distances that are strictly greater than $r$, thereby passing to the limit. Next, \textsf{(Seq)} and \textsf{(Tens)} relate the horizontal and vertical compositions of diagrams to the distance. There are two domain-specific rules that we use. \textsf{(Pref)} witnesses the fact that prefixing by the same actions decreases the distance by half and is a direct analogue of the identically named rule in \Cref{chapter2}. Note that the string diagrammatic version of this rule applies to diagrams $\objr^m\to\objr^n$ and that we use $\tikzfig{m-a-m}$ to denote the vertical composition of $m$ many $\scalar{a}$ generators, for any $m\in\mathbb{N}$.
 	\begin{remark}
-		If one was to replace the discount factor of $\frac{1}{2}$ with an arbitrary $\lambda \in \interval[open]{0}{1}$, one would need to appropriately adjust the $(\Pref)$ rule to capture all rational overapproximations of the discounted distance, similarly to $(\Pref)$ rule appearing in \Cref{chapter2}.
+		If we were to replace the discount factor of $\frac{1}{2}$ appearing in the definition of transitions lifting with an arbitrary $\lambda \in \interval[open]{0}{1}$ (see \Cref{c3:rem:discount}), one would need to appropriately adjust the $(\Pref)$ rule to capture all rational overapproximations of the discounted distance, similarly to $(\Pref)$ rule appearing in \Cref{chapter2}.
 	\end{remark}
 
 	\textsf{(Codel)} encodes that any diagram with no initial state has no behaviour and is therefore at distance zero of the empty chart. We purposely did not include this axiom in the fragment for strict equality, as it is an axiom schema, rather than purely equational axiom.
@@ -1300,6 +1303,9 @@ where $c_0$ is a diagram composed only of $\Bcomult,\Bcounit$, $\vec{a}$ is a ve
 }
 The last line is what we wanted to show.
 \end{proof} 
+\begin{remark}
+	Changing the discount factor of $\frac{1}{2}$ in the definition of transitions lifting to an arbitrary $\lambda \in \interval[open]{0}{1}$ (see \Cref{c3:rem:discount}), would require adjusting the above lemma (and its usages) to use the contractivity factor of $\lfloor \lambda \rfloor$.
+\end{remark}
 
 Intuitively, matrix-diagrams are representations of labelled transition relations, while relation-transition diagrams are representations of the output relations. This idea can be captured formally through the notion of a \emph{representation}. For a diagram $d\from \objr^m\to \objr^n$, a \emph{representation} is a pair $(a,o)$ of a guarded matrix-diagram $c\from \objr^{\ell+m}\to \objr^{\ell+m}$ and a relation-diagram $o\from \objr^{\ell+m}\to \objr^n$, such that
 \begin{equation}\label{eq:rep}
@@ -1585,7 +1591,11 @@ Let $r \geq d_F^\uparrow(g_u, g_v)$. First, consider the case, when $\dbox{g_u}{
 
 Using \textsf{(Pref)}, we can derive $\tikzfig{prefix-transition-1} \disteq{r} \tikzfig{prefix-transition-2}$, which is the same as $\dbox{g_u}{}{n} \disteq{r} \dbox{g_v}{}{n}$. In all the remaining cases, $d_F^\uparrow$ behaves like a discrete pseudometric, hence there are two remaining subcases. In the situation when $\dbox{g_u}{}{n} = \dbox{g_v}{}{n}$, we have that $d_F^\uparrow(g_u, g_v)=0$ and hence we can derive $\dbox{g_u}{}{n} \disteq{r} \dbox{g_v}{}{n}$ by first applying \textsf{(Refl)} and then \textsf{(Max)}. Othwerise, when $\dbox{g_u}{}{n} \neq \dbox{g_v}{}{n}$, we have that $d_F^\uparrow(g_u, g_v)=1$ and hence we can derive $\dbox{g_u}{}{n} \disteq{r} \dbox{g_v}{}{n}$ by first applying \textsf{(Top)} and then \textsf{(Max)}.
 \end{proof}
-Then, we establish a similar result for Hausdorff lifting. Crucially, we make use of the alternative characterisation of Hausdorff distance via couplings.
+\begin{remark}
+	If we would replace the discount factor $\frac{1}{2}$ in the transitions lifting with an arbitrary $\lambda \in \interval[open]{0}{1}$ (see \Cref{c3:rem:discount}), we would need an analogue of \Cref{c2:lem:real_approximation} allowing us to approximate the discounted distance arbitrarily closely through the use of $(\mathsf{Cont})$ rule.
+\end{remark}
+
+Then, we establish a similar result to \Cref{lem:transition_approximation}, but for the Hausdorff lifting. Crucially, we make use of the alternative characterisation of Hausdorff distance via couplings.
 \begin{lemma}\label{lem:hausdorff_approx}
 	Let $F$ be a finite set of string diagrams of the type $\objr \to \objr^n$ that is equipped with a $1$-bounded pseudometric $d_F \colon F \times F \to [0,1]$. Assume that for all $f_i, f_k \in F$, $r \in \Qp$, such that $d_F(f_i, f_k)\leq r$, we have that $\dbox{f_i}{}{n} \disteq{r} \dbox{f_k}{}{n}$ is derivable. Then, for all $A,B \subseteq F$ and all $r \in \Qp$, such that $\mathcal{H}(d_F)(A,B) \leq r$, we have that $\dbox{R_A}{}{n} \disteq{r} \dbox{R_B}{}{n}$ is also derivable.
 \end{lemma}
