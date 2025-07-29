@@ -122,3 +122,4 @@ sympy-plots-for-*.tex/
 *.xdy
 Preamble.pdf
 *.pdf
+.DS_Store

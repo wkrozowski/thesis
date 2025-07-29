@@ -693,22 +693,22 @@ Terms of Milner's ARB (modulo bisimilarity) satisfy the following rules:
 \end{lemma}
 We can now establish the \textbf{scalar composition} indentity.
 \begin{lemma}\label{conway2}
-Let $f,g \colon 1 \to 1 + p$ be morphisms of $\RegBeh$. Then,
+Let $f,g \colon 1 \to p + 1$ be morphisms of $\RegBeh$. Then,
 		$$
 		(f ; \lc  \id_p \oplus 0_1 , g \rc)^\dagger = f ; \lc \id_p, (g ;  \lc  \id_p \oplus 0_1 , f\rc)^\dagger\rc
 		$$ 
 \end{lemma}
 \begin{proof}
 \begin{align*}
-(f ; \lc  \id_p \oplus 0_1 , g \rc)^\dagger & = \big(f[v_1,\dots,v_p, g/\vec{v}]\big)^\dagger	
+(f ; \lc  \id_p \oplus 0_1 , g \rc)^\dagger & = \big(f[(v_1,\dots,v_p, g)/\vec{v}]\big)^\dagger	
 \\
-& = \mu v_{p+1}.\big(f[v_1,\dots,v_p, g/\vec{v}]\big)
+& = \mu v_{p+1}.\big(f[(v_1,\dots,v_p, g)/\vec{v}]\big)
 \\
 & = \mu v_{p+1}.\big(f[g/v_{p+1}]\big)
 \\
 & = f[\mu v_{p+1}. \left(g[f/v_{p+1}]\right)/v_{p+1}] \tag{\Cref{lem:recursion-substitution}~2.}
 \\
-& = f[\mu v_{p+1}. \left(g[v_1,\dots,v_n,f/v_1,\dots,v_n,v_{p+1}]\right)/v_{p+1}]\\
+& = f[\mu v_{p+1}. \left(g[(v_1,\dots,v_n,f)/(v_1,\dots,v_n,v_{p+1})]\right)/v_{p+1}]\\
 & = f[\mu v_{p+1}. (g ;  \lc  \id_p \oplus 0_1 , f\rc)/v_{p+1}]
 \\
 & = f[(g ;  \lc  \id_p \oplus 0_1 , f\rc)^\dagger/v_{p+1}]
@@ -718,7 +718,7 @@ Let $f,g \colon 1 \to 1 + p$ be morphisms of $\RegBeh$. Then,
 \end{proof}
 Similarly, we can show that dagger on $\RegBeh$ satisfies \textbf{scalar double dagger identity}. 
 \begin{lemma}\label{conway3}
-Let $f \colon 1 \to 2 + p$ be a morphism of $\RegBeh$. Then,
+Let $f \colon 1 \to p + 2$ be a morphism of $\RegBeh$. Then,
 		$$
 		f^{\dagger\dagger} = (f ; (\id_p\oplus \nabla_1))^\dagger
 		$$
@@ -727,7 +727,7 @@ Let $f \colon 1 \to 2 + p$ be a morphism of $\RegBeh$. Then,
 \begin{align*}
 f^{\dagger\dagger} &= \mu v_{p+1}.(\mu v_{p+2}.f)
 \\
-& = \mu v_{p+1}. \left(f [v_{p+1}, v_{p+1} / v_{p+1}, v_{p+2}]\right) \tag{\Cref{lem:recursion-substitution}~ 1.}
+& = \mu v_{p+1}. \left(f [(v_{p+1}, v_{p+1}) / (v_{p+1}, v_{p+2})]\right) \tag{\Cref{lem:recursion-substitution}~ 1.}
 \\
 & = \mu v_{p+1}. \left(f;(\id_p\oplus \nabla_1)\right)
 \\
@@ -1003,7 +1003,7 @@ Although we do not pursue such a perspective in this thesis, a categorically-min
 
 Following Kelly~\cite{Kelly:1982:Basic}, taking $\mathcal{V} = \Set$ yields ordinary small categories, functors, and natural transformations as $\mathcal{V}$-categories, $\mathcal{V}$-functors, and $\mathcal{V}$-natural transformations respectively. The category $\PMet$ is concrete, that is, can be viewed as $\Set$ equipped with an extra pseudometric structure. In particular, it admits a faithful, strict monoidal forgetful functor to $\mathsf{Set}$. Crucially, $\PMet$ inherits monoidal structure from  $\Set$ : their tensor products, units, associators, and unitors coincide, with $\PMet$ simply adding pseudometric structures and constraints.
 
-Because of that, the definitions of enriched category theory trivialise, when applied to $\PMet$. In particular, they reduce to endowing ordinary small categories with pseudometrics on homsets, with an extra condition that all fundamental operations (composition, monoidal product, etc.) are nonexpansive on each homset.
+Because of that, the definitions of enriched category theory trivialise, when applied to $\PMet$. In particular, they reduce to endowing ordinary the homsets of small categories with pseudometric structures, with an extra condition that all fundamental operations (composition, monoidal product, etc.) are nonexpansive on each homset.
 	\begin{lemma}[{\cite[Lemma~B.7]{Lobbia:2024:Quantitative}}]\label{lem:enriched_cat}
 		Let $\cat{C}$ be a small category such that for each $X,Y \in \ObjC(\cat{C})$ there is a pseudometric space $(\C(X,Y),d_{X,Y})$. If for all $f,f' \in \C(X,Y)$ and $g,g' \in \C(Y,Z)$,
 		$$
@@ -1069,7 +1069,7 @@ Moreover, the functor $N \colon \RegBeh \to \Int{\RegBeh}$ satisfies the followi
 
 The first five generators are left-to-right morphisms and hence they live in the image of the functor $N \colon \RegBeh \to \Int{\RegBeh}$. In particular, we interpret $\tikzfig{lr-copy}$ as nondeterministic choice, $\tikzfig{lr-delete}$ as the behaviour of the empty chart, while $\tikzfig{lr-generate}$ and $\tikzfig{lr-merge}$ correspond to the empty tuple and joining the variables respectively. For each letter $a \in \Sigma$ of the alphabet, we view $\scalar{a}$ as the prefixing operation. The remaining generators, $\tikzfig{cap-down}$ and $\tikzfig{cup-down}$, are interpreted using counit and unit of $\Int{\RegBeh}$ coming from the $\textbf{Int}$ construction (see~\Cref{c3:subsec:int}) allowing one to create loops. The sequential composition in $\Int{\RegBeh}$ makes use of the trace operation of $\RegBeh$ interpreting such loops via recursion operation on charts.
 \begin{remark}
-	A careful reader should note a lack of right-to-left generators. Intuitively speaking, $\textbf{Int}$ construction simulates bidirectionality via the trace operation, but its only relevant data are left-to-right morphisms taken from the traced monoidal category. In the setting of a compact closed categori, right-to-left diagrams can be easily obtained by applying the dual operation to left-to-right diagrams.
+	A careful reader should note a lack of right-to-left generators. Intuitively speaking, $\textbf{Int}$ construction simulates bidirectionality via the trace operation, but its only relevant data are left-to-right morphisms taken from the traced monoidal category. In the setting of compact closed categories, right-to-left diagrams can be easily obtained by applying the dual operation to left-to-right diagrams.
 \end{remark}
 \section{Axiomatisation}
 \label{sec:axioms}
@@ -1542,7 +1542,7 @@ Since every diagram can be brought to the representation normal form, we can eas
 	Follows from \Cref{thm:representation} and \Cref{lem:diagram-to-eq-system}.
 \end{proof}
 \begin{remark}
-	The normal form guaranteed by the above lemma resembles normal form appearing in \Cref{c2:thm:fundamental_theorem}, as well as the one given by the equational characterisation theorem from the original Milner's paper on (pre)charts~\cite[Theorem~5.9]{Milner:1984:Complete}. At the same time, when looking at precharts from the coalgebraic modal logic perspective, one can observe the similarity of the normal form presented above to the shape of $\nabla$ formulas~\cite{Moss:1999:Coalgebraic}, characterising one-step behaviour of coalgebras.
+	The normal form guaranteed by the above lemma resembles the normal form appearing in \Cref{c2:thm:fundamental_theorem}, as well as the one given by the equational characterisation theorem from the original Milner's paper on (pre)charts~\cite[Theorem~5.9]{Milner:1984:Complete}. At the same time, when looking at precharts from the coalgebraic modal logic perspective, one can observe the similarity of the normal form presented above to the shape of $\nabla$ formulas~\cite{Moss:1999:Coalgebraic}, characterising one-step behaviour of coalgebras.
 \end{remark}
 The informal intuition is that each of the $f_i \colon \objr \to \objr^n$ diagrams represents a state of a prechart and the behaviour of each such state is the union of all possible labelled transitions to other states and variable outputs. To make this formal, we first establish the lemma below.
 \begin{lemma}
