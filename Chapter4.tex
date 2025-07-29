@@ -1200,7 +1200,7 @@ Having established the necessary algebraic structure, we move on to showing how 
 \end{tikzcd}\]
 }
 
-Formally, we equip a quotient ${\PExp}/{\equiv_b}$ with $\distf \funF$-coalgebra structure, which exists due to soundness of ${\equiv_b}$ with respect to bisimilarity. Then, we transform it into a $\funG \distf$-coalgebra using the natural transformation $\gamma \colon \distf \funF \Rightarrow \funG \distf$. Rather than determinising this coalgebra directly, we instead flatten each reachable subdistribution using the algebra map $\alpha_{\equiv_b} \colon \distf \funF {\PExp}/{\equiv_b} \to {\PExp}/{\equiv_b}$, thereby inducing a $\funG$-coalgebra structure. This construction is closely related to the determinisation of $\left({{\PExp}/{\equiv_b}},{\gamma_{{\PExp}/{\equiv_b}} \circ \qcoa}\right)$. In particular, we have the following result
+Formally, we equip a quotient ${\PExp}/{\equiv_b}$ with $\distf \funF$-coalgebra structure, which exists due to soundness of ${\equiv_b}$ with respect to bisimilarity. Then, we transform it into a $\funG \distf$-coalgebra using the natural transformation $\gamma \colon \distf \funF \Rightarrow \funG \distf$. Determinising this coalgebra directly would lead to changing the state space to $\distf {\PExp}/{\equiv_b}$, which we would like to avoid. Instead, we flatten each reachable subdistribution using the algebra map $\alpha_{\equiv_b} \colon \distf \funF {\PExp}/{\equiv_b} \to {\PExp}/{\equiv_b}$, thereby inducing a $\funG$-coalgebra structure. This construction is closely related to the determinisation of $\left({{\PExp}/{\equiv_b}},{\gamma_{{\PExp}/{\equiv_b}} \circ \qcoa}\right)$. In particular, we have the following result
 \begin{lemma}\label{c4:lem:algebra_map_coalgebra_homomorphism}
     The $\pca$ structure map $\alpha_{\equiv_b} \colon \distf {\PExp}/{\equiv_b} \to {\PExp}/{\equiv_b}$ is a $\funG$-coalgebra homomorphism of the following type: $$\alpha_{\equiv_b} \colon \left(\distf {\PExp}/{\equiv_b}, (\gamma_{{\PExp}/{\equiv_b}} \circ \qcoa )^\sharp\right) \to \left({\PExp}/{\equiv_b}, c\right)$$
 \end{lemma}
@@ -1647,18 +1647,64 @@ Moreover, when regarded as $\hat{\funG}$-coalgebra, $\left((\PExp/{\equiv}, \alp
 \subsection{Step 3: Systems of equations}
 In order to establish that ${\PExp}/{\equiv}$ is isomorphic to the rational fixpoint (which is the property that will eventually imply completeness), we will show the satisfaction of conditions of \Cref{c4:thm:proper}. One of the required things we need to show is that the determinisation of an arbitrary finite-state GPTS admits a unique homomorphism to the coalgebra carried by ${\PExp}/{\equiv}$. In other words, we need to convert states of an arbitrary finite-state GPTS to language equivalent expressions in a way which is unique up to the axioms of $\equiv$. This can be thought of as an abstract reformulation of one direction of the Kleene theorem to the case of PRE. To make that possible, we give a construction inspired by Brzozowski's equation solving method~\cite{Brzozowski:1964:Expressions} of converting a DFA to the corresponding regular expression. We start by stating the necessary definitions.
 \begin{definition}
-	A left-affine system on finite non-empty set \(Q\) of unknowns is a quadruple
+	A left-affine system on a finite non-empty set \(Q\) of unknowns is a quadruple
 \begin{align*}
 	\mathcal{S}=\left( M \colon Q \times Q \to \PExp, p \colon Q \times Q \to \interval{0}{1}, b \colon Q \to \PExp, r \colon Q \to \interval{0}{1} \right)
 \end{align*}
 such that for all $q,q' \in Q$, \(\sum_{q' \in Q}p_{q,q'} + r_q = 1\) and $E(M_{q,q'})=0$.
 \end{definition}
+\begin{example}\label{c5:ex:system}
+    Consider the set of unknowns $Q = \{q_0, q_1\}$. We define a left-affine system $\mathcal{S} = (M, p, b, r)$ on $Q$ with the following components:
+
+    \begin{itemize}
+        \item The function $M \colon Q \times Q \to \PExp$ is defined by:
+        \[
+            \begin{array}{c|cc}
+                M & q_0 & q_1 \\
+                \hline
+                q_0 & 0   & a   \\
+                q_1 & 0   & a   
+            \end{array}
+        \]
+        
+        \item The function $p \colon Q \times Q \to [0,1]$ is given by:
+        \[
+            \begin{array}{c|cc}
+                p & q_0   & q_1     \\
+                \hline
+                q_0 & 0     & 1       \\
+                q_1 & 0     & \frac{1}{4}
+            \end{array}
+        \]
+        
+        \item Functions $b \colon Q \to \PExp$ and $r \colon Q \to \interval{0}{1}$ are defined as:
+        \[
+            b_x = \begin{cases}
+               0 & \text{if } x = q_0\\
+               1 & \text{if } x = q_1
+            \end{cases}
+            \qquad \text{and} \qquad
+            r = \begin{cases}
+               0  & \text{if } x = q_0           \\
+               \frac{3}{4} & \text{if } x=q_1
+            \end{cases}
+        \]
+    \end{itemize}
+\end{example}
+
 \begin{definition}
-	Let \({\equiv_c} \subseteq {\PExp \times \PExp}\) be a congruence relation. A map \(h \colon Q \to \PExp\) is \(\equiv_b\)-solution if for all \(q \in Q\) we have that:
+	Let \({\equiv_c} \subseteq {\PExp \times \PExp}\) be a congruence relation. A map \(h \colon Q \to \PExp\) is \(\equiv_c\)-solution if for all \(q \in Q\) we have that:
 \[
-    h(q) \equiv_b \left(\bigoplus_{q' \in Q} p_{q,q'} \cdot M_{q,q'}\seq h(q')\right) \oplus r_{q} \cdot b_{q}
+    h(q) \equiv_c \left(\bigoplus_{q' \in Q} p_{q,q'} \cdot M_{q,q'}\seq h(q')\right) \oplus r_{q} \cdot b_{q}
 \]
 \end{definition}
+\begin{example}\label{c5:ex:system2}
+	A $\equiv_c$-solution $h \colon \{q_0, q_1\} \to \PExp $ to the system described in \Cref{c5:ex:system}, would need to satisfy the following:
+	 \[
+        h(q_0) \equiv_c a \seq h(q_1) \qquad h(q_1) \equiv_c a \seq h(q_1) \oplus_{\frac{1}{4}} \one
+    \]
+\end{example}
+
 \begin{definition}
 	A system representing the finite-state $\distf \funF$-coalgebra $(X, \beta)$ is given by $\mathcal{S}(\beta) = \langle M^\beta, p^\beta, b^\beta, r^\beta\rangle $ where for all $x, x' \in X$ we have:
 \begin{gather*}
@@ -1673,10 +1719,14 @@ M^\beta_{x, x'} = \begin{cases}
 \end{cases} 
 \end{gather*}
 \end{definition}
+\begin{example}
+The left-affine system described in \Cref{c5:ex:system} corresponds to the $\distf \funF$-coalgebra shown on the left-hand side of \Cref{c4:ex:systems}.
+\end{example}
+
 
  The original Brzozowski's equation-solving method is purely semantic, as it crucially relies on Arden's rule~\cite{Arden:1961:Delayed} by providing solutions up to the language equivalence to the systems of equations. As much as it would be enough for an analogue of the one direction of Kleene's theorem, for the purposes of our completeness argument, we need to argue something stronger. Namely, we show that we can uniquely solve each system purely through the means of syntactic manipulation using the axioms of $\equiv$. This is where the main complexity of the completeness proof is located. We show this property, by re-adapting the key result of Salomaa~\cite{Salomaa:1966:Two} to the systems of equations of our interest.
  
- The proof of the uniqueness of solutions theorem will proceeds by induction on the size of the systems of equations. We first show that systems with only one unknown can be solved via the (\textsf{Unique}) fixpoint axiom. Systems of the size $n+1$ can be reduced to systems of size $n$, by solving for one of the unknowns and substituting the obtained equation with $n$ unknowns to the remaining $n$ equations. We note that this reduction step is highly reliant on axioms (\textsf{D2}) and (\textsf{S0}). In particular, we will rely on the following property to generalise left distributivity to arbitrary $n$-ary convex sums.
+ The proof of the uniqueness of solutions theorem will proceed by induction on the size of the systems of equations. We first show that systems with only one unknown can be solved via the (\textsf{Unique}) fixpoint axiom. Systems of the size $n+1$ can be reduced to systems of size $n$, by solving for one of the unknowns and substituting the obtained equation with $n$ unknowns to the remaining $n$ equations. We note that this reduction step is highly reliant on axioms (\textsf{D2}) and (\textsf{S0}). In particular, we will rely on the following property to generalise left distributivity to arbitrary $n$-ary convex sums.
  \begin{lemma}\label{c4:lem:generalised_left_distributivity}
     Let $f \in \PExp$, $I$ be a finite index set and let $\{p_i\}_{i \in I}$ and $\{e_i\}_{i \in I}$ be indexed collections of probabilities and expressions, respectively. Then:
     $$\left(\bigoplus_{i \in I} p_i \cdot e_i\right) \seq f \equiv_b \bigoplus_{i \in I} p_i \cdot e_i \seq f$$
@@ -1704,7 +1754,7 @@ M^\beta_{x, x'} = \begin{cases}
 
 Before proceeding, we demonstrate how to solve a system of equations with two unknowns.
 \begin{example}
-    Consider the transition system from the left-hand side of \Cref{c4:ex:systems}. A map $h \colon\{q_0, q_1\} \to \PExp $ is an $\equiv$-solution to the system associated with that transition system, if and only if:
+    Consider the transition system from the left-hand side of \Cref{c4:ex:systems}. Recall from \Cref{c5:ex:system2}, that a map $h \colon\{q_0, q_1\} \to \PExp $ is an $\equiv$-solution to the system associated with that transition system, if and only if:
     \[
         h(q_0) \equiv a \seq h(q_1) \qquad h(q_1) \equiv a \seq h(q_1) \oplus_{\frac{1}{4}} \one
     \]
@@ -1715,7 +1765,7 @@ Before proceeding, we demonstrate how to solve a system of equations with two un
 \end{example}
 Finally, we proceed to the central result.
 \begin{theorem}\label{c4:thm:unique_solutions}
-    Every left-affine system of equations admits a unique $\equiv$-solution.
+    E  Every left-affine system of equations has a unique solution modulo the equivalence relation $\equiv$.
 \end{theorem}
 \begin{proof}
     We will write $\mathcal{M}=(M, p, b, r)$ for an arbitrary left-affine system of equations on some finite set $Q$. Since $Q$ is finite and non-empty, we can safely assume that $Q=\{q_1, \dots q_n\}$ for some positive $n \in \N$. We proceed by induction on $n$. 
@@ -1810,7 +1860,7 @@ To prove the $\equiv$-uniqueness of $h$, assume that $g \colon Q \to \PExp$, is 
     \end{align*}
 	This completes the proof.	
 \end{proof}
-\subsection{Step 3: Correspondence of solutions and homomorphisms}
+\subsection{Step 4: Correspondence of solutions and homomorphisms}
 We are not done yet, as in the last step we only proved properties of systems of equations and their solutions, while our main interest is in appropriate $\hat{\funG}$-coalgebras and their homomorphisms. As desired, it turns out that $\equiv$-solutions are in one-to-one correspondence with $\hat{\funG}$-coalgebra homomorphisms from determinisations of (converted) finite state $\distf \funF$-coalgebras to the coalgebra structure on ${\PExp}/{\equiv}$.
 \begin{lemma}\label{c4:lem:solutions_homomorphisms}
     For a finite set $X$, we have the following one-to-one correspondence:
@@ -1925,7 +1975,7 @@ Aside from the completeness argument, the above result also gives us an analogue
 		\end{align*}
 		This completes the proof.
 \end{proof}
-\subsection{Step 4: Establish the universal property}
+\subsection{Step 5: Establish the universal property}
 The only remaining piece allowing us to use \Cref{c4:thm:proper} is to claim that the $\hat{\funG}$-coalgebra is locally finitely presentable. We indirectly rely on finiteness of Antimirov derivatives shown in \Cref{c4:lem:locally_finite}.
 \begin{lemma}\label{c4:lem:lfp}
 	$\left(({\PExp}/{\equiv}, \alpha_{\equiv}), d\right)$ is locally finitely presentable $\hat{\funG}$-coalgebra.
