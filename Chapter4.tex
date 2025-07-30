@@ -232,13 +232,13 @@ The first group of axioms capture properties of the probabilistic choice operato
 
 \begin{example} We revisit the expressions from \Cref{c4:ex:systems} and show their equivalence via axiomatic reasoning.
 \begin{align*}
-     a \seq a^{[\frac{1}{4}]} &\equiv a \seq \left(a^{[\frac{1}{4}]} \seq a \right)\oplus_{\frac{1}{4}} \one \tag{$\dagger$}\\ 
-     &\equiv \left(a \seq \left(a^{[\frac{1}{4}]}\seq a\right)\right) \oplus_{\frac{1}{4}} a \seq \one \tag{\textsf{D2}}\\
-     &\equiv \left(a \seq \left(a^{[\frac{1}{4}]}\seq a\right)\right)\oplus_{\frac{1}{4}} a \tag{\textsf{S1}}\\
-     &\equiv a \oplus_{\frac{3}{4}}\left(a \seq \left(a^{[\frac{1}{4}]}\seq a\right)\right)  \tag{\textsf{C3}}
+     a \seq a^{[\frac{1}{4}]} &\equiv a \seq \left(a^{[\frac{1}{4}]} \seq a \oplus_{\frac{1}{4}} \one \right)\tag{$\dagger$}\\ 
+     &\equiv a \seq \left(a^{[\frac{1}{4}]}\seq a\right) \oplus_{\frac{1}{4}} a \seq \one \tag{\textsf{D2}}\\
+     &\equiv a \seq \left(a^{[\frac{1}{4}]}\seq a\right)\oplus_{\frac{1}{4}} a \tag{\textsf{S1}}\\
+     &\equiv a \oplus_{\frac{3}{4}}a \seq \left(a^{[\frac{1}{4}]}\seq a\right)  \tag{\textsf{C3}}
 \end{align*}
 
-The $\dagger$ step of the proof above relies on the equivalence $e^{[p]}\seq e \oplus_p \one \equiv e$ derivable from other axioms under the assumption $E(e)=0$ through a following line of reasoning:
+The $\dagger$ step of the proof above relies on the equivalence $e^{[p]}\seq e \oplus_p \one \equiv e^{[p]}$ derivable from other axioms under the assumption $E(e)=0$ through a following line of reasoning:
 \begin{align*}
     e^{[p]} \seq e \oplus_p \one  &\equiv (e \seq e^{[p]} \oplus_p \one )\seq e\oplus_p \one \tag{\textsf{Unroll}}\\
     &\equiv (e \seq (e^{[p]}\seq e ) )\oplus_p \one\seq e) \oplus_p \one \tag{\textsf{D1}}\\
@@ -610,7 +610,7 @@ c_f(x) = \begin{cases}
         \draw (0) edge[-latex] node[left] {\footnotesize\( {a} \mid {s}\)} (4);
 \end{tikzpicture}
 \end{gather*}
-Intuitively, $c_{f}$ reroutes the transitions coming out of ${e}$: acceptance (the first case) is replaced by the behaviour of ${f}$, and the probability mass of transitioning to ${e}'$ (the second case) is reassigned to $ e\seq f$.
+Intuitively, $c_{f}$ reroutes the transitions coming out of ${e}$: acceptance (the first case) is replaced by the behaviour of ${f}$, and the probability mass of transitioning to ${e}'$ (the second case) is reassigned to $ e'\seq f$.
 A pictorial representation of the effect on the derivatives of ${e} \seq {f}$ is given above on the right.
 Here, we assume that \(\partial({e})\) can perform a \({a}\)-transition to \({e'}\) with probability \({s}\); we make the same assumption in the informal descriptions of derivatives for the loops, below. 
 
@@ -812,7 +812,7 @@ As a consequence of \Cref{c4:lem:soundness_bisim} and \Cref{c2:lem:quotient_coal
 \end{tikzcd}\]
 \end{lemma}
 \begin{proof}
-	Front face of the diagram commutes because $[-]_{\equiv_b}$ is $\distf \funF$-coalgebra homomorphism and because of \cite[Theorem~15.1]{Rutten:2000:Universal}. The sides of the diagram commute because of the free-forgetful adjunction between $\Set$ and $\pca$. Finally, the commutativity of the square at the back of the diagram above follows from \cite[Theorem~4.1]{Silva:2010:Generalizing}.
+The top face of the diagram commutes by naturality of $\eta$. Front face of the diagram commutes because $[-]_{\equiv_b}$ is $\distf \funF$-coalgebra homomorphism and because of \cite[Theorem~15.1]{Rutten:2000:Universal}. The sides of the diagram commute because of the free-forgetful adjunction between $\Set$ and $\pca$. Finally, the commutativity of the square at the back of the diagram above follows from \cite[Theorem~4.1]{Silva:2010:Generalizing}.
 \end{proof}
 \subsection{Step 2a: Fundamental theorem}  We show that every PRE is provably equivalent (modulo the axioms of $\equiv_b$) to a decomposition involving sub-expressions obtained in its small-step semantics. This property, often referred to as the fundamental theorem (in analogy with the fundamental theorem of calculus) is useful in proving soundness. In order to encode elements of $\funF \PExp$ using the syntax of $\PExp$, we define a function $\ex \colon \funF \PExp \to \PExp$, given by $\ex(\checkmark)=1$ and $\ex(a,e')=a;e'$ for all $a \in \alphabet$ and $e' \in \PExp$. To be able to syntactically express finitely supported subdistributions, we will use $n$-ary convex sum of elements of $\PExp$ obeying the axioms of positive convex algebras, that exists because of \Cref{c4:prop:binary} and axioms (\textsf{C1-C4}). Using it, we can state the following:
 
@@ -1255,7 +1255,7 @@ The above lemma encapsulates the key step of the soundness proof. To establish t
     \begin{equation}\label{c4:eqn:kernel}
     	e \equiv f \implies \funG[-]_\equiv \circ c (e) = \funG[-]_\equiv \circ c (f)
     \end{equation}
-   We begin by demonstrating that the map on the right-hand side of the equation above can be expressed explicitly.
+   We begin by demonstrating that the map appearing in the equation on the right-hand side of the implication above can be expressed explicitly.
    \begin{lemma}\label{c4:lem:concrete_quotient}
     	For all $o \in \interval{0}{1}$ and indexed collections $\{p_i\}_{i \in I}$, $\{a_i\}_{i \in I}$, and $\{e_i\}_{i \in I}$, such that $p_i \in \interval{0}{1}$, $a_i \in \alphabet$ and $e_i \in \PExp$ for all $i \in I$ and $\sum_{i \in I} p_i \leq 1 - o$, we have that:
     	$$(\funG [-]_\equiv \circ c)\left( \left[ o \cdot \one \oplus \left( \bigoplus_{i \in I} p_i \cdot a_i \seq e_i\right) \right]_{\equiv_b} \right) = \left\langle o, \lambda a \ldotp \left[ \bigoplus_{a_i = a} p_i \cdot e_i\right]\right\rangle $$
@@ -1280,7 +1280,7 @@ The above lemma encapsulates the key step of the soundness proof. To establish t
 	\end{align*}
 	This establishes the desired result.
     \end{proof}
-Since the proof of \Cref{c4:lem:coalg_on_quotient_left_dist} equires passing through the quotient ${\PExp}/{\equiv_b}$, which identifies the expressions modulo the axioms of the finer relation $\equiv_b$, emains only to verify the soundness of axioms (\textsf{S0}) and (\textsf{D2}) present in the finer relation $\equiv$. 
+Since the proof of \Cref{c4:lem:coalg_on_quotient_left_dist} requires passing through the quotient ${\PExp}/{\equiv_b}$, which identifies the expressions modulo the axioms of the finer relation $\equiv_b$, remains only to verify the soundness of axioms (\textsf{S0}) and (\textsf{D2}) present in the finer relation $\equiv$. 
 
 Before proceeding, we first show that (\textsf{S0}) and (\textsf{D2}) can be reformulated in a simpler yet equally expressive form, which simplifies checking their soundness. Define the relation ${\uaequiv}\subseteq {\PExp \times \PExp}$ as follows:
 Let ${\uaequiv} \subseteq {\PExp \times \PExp}$ be a relation defined by the following
@@ -1605,7 +1605,11 @@ We are ready to prove the desired result.
 	    Recall that $({({\PExp}/{\equiv}, \alpha_{\equiv})},d)$ is a quotient coalgebra of $$({\PExp}/{\equiv_b}, \funG\alpha_{\equiv_b} \circ \gamma_{{\PExp}/{\equiv_b}} \circ \qcoa)$$
 	     which by \Cref{c4:lem:iamge_of_natural_transformation} is a $\hat{\funG}$-coalgebra. Because of \Cref{c4:lem:closed_under_quotients} so is $({{\PExp}/{\equiv}}, d)$. This completes the proof.
 \end{proof}
-Moreover, when regarded as $\hat{\funG}$-coalgebra, $\left((\PExp/{\equiv}, \alpha_{\equiv}), d \right)$ forms a fixpoint of the functor, meaning $d$ is an isomorphism.
+Moreover, when viewed as a $\hat{\funG}$-coalgebra, we can show that $\left((\PExp/{\equiv}, \alpha_{\equiv}), d \right)$ forms a fixpoint of the functor, i.e. $d$ is an isomorphism. This technical result will play a crucial role in the completeness proof. Specifically, it enables us to establish a correspondence between:
+\begin{itemize}
+    \item $\hat{\funG}$-coalgebra homomorphisms from $\hat{\funG}$-coalgebras with free finitely generated carriers into $\left((\PExp/{\equiv}, \alpha_{\equiv}), d \right)$, and
+    \item syntactic solutions to fixpoint systems of equations (that will be formally introduced in \Cref{c5:subsec:systems}) describing finite-state GPTS.
+\end{itemize}
 \begin{lemma}\label{c4:lem:isomorphism_quotient}
 	$d \colon (\PExp, \alpha_{\equiv}) \to \hat{\funG}(\PExp, \alpha_{\equiv})$ is an isomorphism
 \end{lemma}
@@ -1644,7 +1648,7 @@ Moreover, when regarded as $\hat{\funG}$-coalgebra, $\left((\PExp/{\equiv}, \alp
         &= d([e]) \tag*{\hfill\qedhere}
     \end{align*}
 \end{proof}
-\subsection{Step 3: Systems of equations}
+\subsection{Step 3: Systems of equations}\label{c5:subsec:systems}
 In order to establish that ${\PExp}/{\equiv}$ is isomorphic to the rational fixpoint (which is the property that will eventually imply completeness), we will show the satisfaction of conditions of \Cref{c4:thm:proper}. One of the required things we need to show is that the determinisation of an arbitrary finite-state GPTS admits a unique homomorphism to the coalgebra carried by ${\PExp}/{\equiv}$. In other words, we need to convert states of an arbitrary finite-state GPTS to language equivalent expressions in a way which is unique up to the axioms of $\equiv$. This can be thought of as an abstract reformulation of one direction of the Kleene theorem to the case of PRE. To make that possible, we give a construction inspired by Brzozowski's equation solving method~\cite{Brzozowski:1964:Expressions} of converting a DFA to the corresponding regular expression. We start by stating the necessary definitions.
 \begin{definition}
 	A left-affine system on a finite non-empty set \(Q\) of unknowns is a quadruple
@@ -1705,7 +1709,7 @@ such that for all $q,q' \in Q$, \(\sum_{q' \in Q}p_{q,q'} + r_q = 1\) and $E(M_{
     \]
 \end{example}
 
-\begin{definition}
+\begin{definition}\label{c5:def:system_representing}
 	A system representing the finite-state $\distf \funF$-coalgebra $(X, \beta)$ is given by $\mathcal{S}(\beta) = \langle M^\beta, p^\beta, b^\beta, r^\beta\rangle $ where for all $x, x' \in X$ we have:
 \begin{gather*}
 p^\beta_{x, x'} = \sum_{a ' \in \alphabet}\beta(x)(a', x') \qquad\qquad r^\beta_x = 1 - \sum_{(a',x') \in \supp (\beta(x))}\beta(x)(a',x')\\
@@ -1765,7 +1769,7 @@ Before proceeding, we demonstrate how to solve a system of equations with two un
 \end{example}
 Finally, we proceed to the central result.
 \begin{theorem}\label{c4:thm:unique_solutions}
-    E  Every left-affine system of equations has a unique solution modulo the equivalence relation $\equiv$.
+    Every left-affine system of equations has a unique solution modulo the equivalence relation $\equiv$.
 \end{theorem}
 \begin{proof}
     We will write $\mathcal{M}=(M, p, b, r)$ for an arbitrary left-affine system of equations on some finite set $Q$. Since $Q$ is finite and non-empty, we can safely assume that $Q=\{q_1, \dots q_n\}$ for some positive $n \in \N$. We proceed by induction on $n$. 
@@ -1892,15 +1896,15 @@ Before diving into the main argument, we establish the following helper lemma, w
         &\equiv \left(\bigoplus_{(a , x') \in \alphabet \times X} p^\beta_{x,x'}s^a_{x,x'} \cdot a \seq h(x')\right) \oplus \beta(x)(\checkmark) \cdot \one \tag{\Cref{c4:lem:flattening_convex_sums}}\\
         &\equiv \left(\bigoplus_{(a , x') \in \alphabet \times X} \beta(x)(a,x') \cdot a \seq h(x')\right) \oplus \beta(x)(\checkmark) \cdot \one
     \end{align*}
-    The last step of the proof relies on the observation that for both cases of how $M^\beta_{x,x'}$ is defined, we have that
+    The last step of the proof relies on the observation that for both cases of how $M^\beta_{x,x'}$ is defined (\Cref{c5:def:system_representing}), we have that
     $
         p^\beta_{x,x'} s^{a}_{x,x'} = \beta(x)(a,x')
     $.
-    Similarly, in the passage between the third and fourth line, we have used the observation that:
-    $
-        r^\beta_x \cdot b^\beta_x \equiv \beta(x)(\checkmark) \cdot \one
-    $
-    for both possible cases.
+Similarly, in the transition between the third and fourth lines, we apply the following identity:
+\[
+    r^\beta_x \cdot b^\beta_x \equiv \beta(x)(\checkmark) \cdot \one,
+\]
+which holds for both cases in the definition of $b^{\beta}_x$ (see \Cref{c5:def:system_representing}). The necessity of distinguishing these two cases for $M^\beta_{x,x'}$ and $b^{\beta}_x$ arises from their definitions: trivial corner cases must be treated separately to avoid division by zero.
 \end{proof}
 We are now ready to prove the main claim.
 \begin{proof}[Proof of \Cref{c4:lem:solutions_homomorphisms}]
