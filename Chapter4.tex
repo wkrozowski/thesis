@@ -590,7 +590,7 @@ Since, $\mu_{\funF X} \circ \distf \beta \circ \eta_X $ is a $\pca$ homomorphism
 We now equip $\PExp$ with a $\distf \funF$-coalgebra structure, that is, we define a function $\partial : \PExp \to \distf (1+A\times \PExp)$. We refer to $\partial$ as the \emph{Antimirov derivative}, as it is reminiscent of the analogous construction
 for regular expressions and nondeterministic automata~\cite{Antimirov:1996:Partial}. First, we define a helper function that will eventually be used to define sequential composition:
 \begin{definition}\label{c4:def:rerouting}
-	Let $f \in \PExp$. We define $( - \lhd f) : \distf \funF \PExp \to \distf \funF \PExp$ to be given by $( - \lhd f) = {c_f}^{\sharp}$, i.e. a convex extension of the map $c_f : 1+A\times \PExp \to \distf (1+A \times \PExp)$ given by the following:
+	Let $f \in \PExp$. We define $( - \lhd f) : \distf \funF \PExp \to \distf \funF \PExp$ to be given by $( - \lhd f) = {c_f}^{\sharp}$, that is a convex extension of the map $c_f : 1+A\times \PExp \to \distf (1+A \times \PExp)$ given by the following:
 	\begin{gather*}
 		c_f(x) = \begin{cases}
     \partial(f) & x = \checkmark \\
@@ -598,7 +598,7 @@ for regular expressions and nondeterministic automata~\cite{Antimirov:1996:Parti
 \end{cases}\
 	\end{gather*}
 \end{definition}
-Now, we can state the following:
+Using such a helper function, we can state the following definition:
 \begin{definition}[Antimirov derivatives for PRE]\label{c4:def:antimirov}
 	Given $a \in \alphabet$, $e,f \in \PExp$ and $p \in \interval{0}{1}$ we define:
 \begin{gather*}
@@ -612,12 +612,10 @@ Now, we can state the following:
 \end{gather*}
 \end{definition}
 In the definition above, the expression $\zero$ is mapped to the empty subdistribution, intuitively representing a deadlock. On the other hand, the expression $\one$ represents immediate acceptance, that is, it transitions to $\checkmark$ with probability $1$. For any letter $a \in \alphabet$ in the alphabet, the expression $a$ performs $a$-labelled transition to $\one$ with probability $1$. The outgoing transitions of the probabilistic choice $e \oplus_p f$ consist of the outgoing transitions of $e$ with
-probabilities scaled by $p$ and the outgoing transitions of $f$ scaled by $1-p$.
-
-In the definition of $\partial(e;f)$, we use the helper function $( - \lhd f)$ defined above (see \Cref{c4:def:rerouting}). Intuitively speaking, we need to factor in the possibility that $e$ may accept with some probability $t$, in which case the outgoing transitions of $f$ contribute to the outgoing transitions of $e \seq f$. In such a case, $( - \lhd f)$ reroutes the transitions coming out of ${\partial(e)}$: acceptance (the first case of $c_f$ from \Cref{c4:def:rerouting}) is replaced by the behaviour of ${f}$, and the probability mass of transitioning to ${e}'$ (the second case of $c_f$ from \Cref{c4:def:rerouting}) is reassigned to $ e'\seq f$.
+probabilities scaled by $p$ and the outgoing transitions of $f$ scaled by $1-p$. In the definition of $\partial(e;f)$, we use the helper function $( - \lhd f)$ defined above (see \Cref{c4:def:rerouting}). Intuitively speaking, we need to factor in the possibility that $e$ may accept with some probability $t$, in which case the outgoing transitions of $f$ contribute to the outgoing transitions of $e \seq f$. In such a case, $( - \lhd f)$ reroutes the transitions coming out of ${\partial(e)}$: acceptance (the first case of $c_f$ from \Cref{c4:def:rerouting}) is replaced by the behaviour of ${f}$, and the probability mass of transitioning to ${e}'$ (the second case of $c_f$ from \Cref{c4:def:rerouting}) is reassigned to $ e'\seq f$.
 \begin{example}
-	We give a pictorial representation of the effect on the derivatives of ${e} \seq {f}$ is given below. Here, we assume that \(\partial({e})\) can perform a \({a}\)-transition to \({e'}\) with probability \({s}\); we make the same assumption in the informal descriptions of derivatives for the loops, below. 
-	
+	Below, we give a pictorial representation of the effect on the derivatives of ${e} \seq {f}$. Here, we assume that \(\partial({e})\) can perform a \({a}\)-transition to \({e'}\) with probability \({s}\); we will make the same assumption in the informal descriptions of derivatives for the loops, later on. 
+\[
 \begin{tikzpicture}
         \node (0) {${e}\seq{f}$};
         \node (4) [below=.75cm of 0] {${e}'{ {} \seq {f}}$};
@@ -626,13 +624,17 @@ In the definition of $\partial(e;f)$, we use the helper function $( - \lhd f)$ d
         \draw (0) edge[-implies, double, double distance=0.5mm] node[above] {\({t}\)} (5);
         \draw (0) edge[-latex] node[left] {\footnotesize\( {a} \mid {s}\)} (4);
 \end{tikzpicture}
+\]
 \end{example}
+The definition of loops is slightly more involved. This stems from the requirement that 
+$\partial\left(e^{[p]}\right)$ is the least subdistribution satisfying the following equation: $$\partial\left(e^{[p]} \right) =  p \partial(e) \lhd e^{{[p]}} + (1-p) \partial(\checkmark)$$
 
+In the case when $\partial(e)(\checkmark)\neq 0$, the above becomes a fixpoint equation (as in such a case, the unrolling of the definition of $(- \lhd e^{[p]})$ involves $\partial \left( e{[p]}\right)$). It turns out, we can give the definition $\partial \left( e^{[p]} \right)$ in a closed form, but we need to consider two cases. If $\partial(e)(\checkmark)=1$ and $p = 1$, then the loop body is constantly executed, but the inner expression $e$ does not perform any labelled transitions. We identify such divergent loops with deadlock behaviour and hence $\partial(e^{[p]})(x)=0$. Otherwise, we look at $\partial(e)$ to build $\partial\left({e}^{[p]}\right)$. 
 
-For loops, we require $\partial\left(e^{[p]}\right)$ to be the least subdistribution satisfying $\partial\left(e^{[p]} \right) =  p \partial(e) \lhd e^{{[p]}} + (1-p) \partial(\checkmark)$. In the case when $\partial(e)(\checkmark)\neq 0$, the above becomes a fixpoint equation (as in such a case, the unrolling of the definition of $(- \lhd e^{[p]})$ involves $\partial \left( e{[p]}\right)$). We can define $\partial \left( e^{[p]} \right)$ as a closed form, but we need to consider two cases. If $\partial(e)(\checkmark)=1$ and $p = 1$, then the loop body is constantly executed, but the inner expression $e$ does not perform any labelled transitions. We identify such divergent loops with deadlock behaviour and hence $\partial(e^{[p]})(x)=0$. Otherwise, we look at $\partial(e)$ to build $\partial\left({e}^{[p]}\right)$. First, we make sure that the loop may be skipped with probability $1-p$.
-Next, we modify the branches that perform labelled transitions by adding ${e}^{[p]}$ to be executed next.
+First, we make sure that the loop may be skipped with probability $1-p$. Next, we modify the branches that perform labelled transitions by adding ${e}^{[p]}$ to be executed next.
 The remaining mass is $p\partial(e)(\checkmark)$, the probability that we will enter the loop and immediately exit it without performing any labelled transitions. We discard this possibility and redistribute it among the remaining branches. 
-As before, we provide an informal visual depiction of the probabilistic loop semantics below, using the same conventions as before. The crossed-out checkmark along with the dashed lines denotes the redistribution of probability mass described above.
+\begin{example}
+	As before, we provide an informal visual depiction of the probabilistic loop semantics below, using the same conventions as before. The crossed-out checkmark along with the dashed lines denotes the redistribution of probability mass described above.
 \[
 	\begin{tikzpicture}
         \node (0) {${e}^{[p]}$};
@@ -648,6 +650,7 @@ As before, we provide an informal visual depiction of the probabilistic loop sem
    %     \draw[dotted,bend left=20] (5) edge[-latex] (6);
     \end{tikzpicture}
 \]
+\end{example}
 % Having defined the semantics, we can easily observe that the termination operator $E : \PExp \to \interval{0}{1}$ captures the probability of immediate acceptance.
 % \begin{restatable}{lemma}{exitoperatorlemma}\label{c4:lem:exit_operator_lemma}
 % For all $e \in \PExp$ it holds that $E(e)=\partial(e)(\checkmark)$
