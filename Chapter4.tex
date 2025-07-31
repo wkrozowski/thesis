@@ -954,7 +954,7 @@ We now have all the ingredients to show the fundamental theorem.
             \equiv_b & \left( \bigoplus_{d \in \supp(\partial(f))} \partial(f)(d) \cdot \ex(d) \right)\oplus_p  \left( \bigoplus_{d \in \supp(\partial(g))} \partial(g)(d) \cdot \ex(g) \right) \tag{Induction hypothesis}\\
             \equiv_b &\left( \bigoplus_{d \in \supp(\partial(f \oplus_p g))}\partial(f)(d) \cdot \ex(d) \right) \oplus_p  \left( \bigoplus_{d \in \supp(\partial(f \oplus_p g))} \partial(g)(d) \cdot \ex(g) \right) \tag{\Cref{c4:prop:properties_of_positive_convex_algebras}}\\
             \equiv_b & \bigoplus_{d \in \supp(\partial(f \oplus_p g))} \left(p\partial(f)(d) + {(1-p)}\partial(g)(d)\right) \cdot \ex(d) \tag{Barycenter axiom}\\
-             \equiv_b &\bigoplus_{d \in \supp(\partial(f \oplus_p g))} \partial(f \oplus_p g)(d) \cdot \ex(d) \tag{Def. of $\partial$}
+             \equiv_b &\bigoplus_{d \in \supp(\partial(f \oplus_p g))} \partial(f \oplus_p g)(d) \cdot \ex(d) \tag{\Cref{c4:def:antimirov}}
         \end{align*}
         }
         \item[]\fbox{$e = f\seq g $}
@@ -1088,7 +1088,7 @@ Then, we equip the set ${\PExp}/{\equiv_b}$ with a $\pca$ structure. To do so, w
     &\quad=  \left(\qcoa \circ [-]_{\equiv_b}\right) \left(\nu(\checkmark) \cdot \one \oplus \left( \bigoplus_{(a,[e']_{\equiv_b}) \in \supp(\nu)} \nu(a,[e']_{\equiv_b}) \cdot a \seq e'\right)\right)(\checkmark)\\
     &\quad= (\distf \funF [-]_{\equiv_b} \circ \partial) \left(\nu(\checkmark) \cdot \one \oplus \left(\bigoplus_{(a,[e']_{\equiv_b}) \in \supp(\nu)} \nu(a,[e']_{\equiv_b}) \cdot a \seq e'\right)\right)(\checkmark) \tag{${[-]_{\equiv}}$ is a $\distf \funF$-coalgebra homomorphism} \\
     &\quad= \partial \left(\nu(\checkmark) \cdot \one \oplus \bigoplus_{(a,[e']_{\equiv_b}) \in \supp(\nu)} \nu(a,[e']_{\equiv_b}) \cdot a \seq e'\right) (\checkmark) \\
-    &\quad= \nu(\checkmark) \tag{Def. of $\partial$}
+    &\quad= \nu(\checkmark) \tag{\Cref{c4:def:antimirov}}
     \end{align*}
     }
    Similarly, for any $(b, [f']_{\equiv_b}) \in \supp(\nu)$, it follows that:
@@ -1098,7 +1098,7 @@ Then, we equip the set ${\PExp}/{\equiv_b}$ with a $\pca$ structure. To do so, w
     &(\qcoa \circ \qcoa^{-1})(\nu)(b, [f']_{\equiv_b})\\ &\quad=  (\qcoa \circ [-]_{\equiv_b})\left(\nu(\checkmark) \cdot \one \oplus \left(\bigoplus_{(a,[e']_{\equiv_b}) \in \supp(\nu)} \nu(a,[e']_{\equiv_b}) \cdot a \seq e'\right)\right)(b, [f']_{\equiv_b}) \\
     &\quad= (\distf \funF [-]_{\equiv_b} \circ \partial) \left(\nu(\checkmark) \cdot \one \oplus \left(\bigoplus_{(a,[e']_{\equiv_b}) \in \supp(\nu)} \nu(a,[e']_{\equiv_b}) \cdot a \seq e'\right)\right)(b, [f']_{\equiv_b})  \tag{${[-]_{\equiv}}$ is a $\distf \funF$-coalgebra homomorphism} \\
     &\quad= \sum_{g \equiv f'} \partial\left(\nu(\checkmark) \cdot \one \oplus \left(\bigoplus_{(a,[e']_{\equiv_b}) \in \supp(\nu)} \nu(a,[e']_{\equiv_b}) \cdot a \seq e'\right)\right)(b,g) \\
-    &\quad= \nu(b, [f']_{\equiv_b}) \tag{Def. of $\partial$}
+    &\quad= \nu(b, [f']_{\equiv_b}) \tag{\Cref{c4:def:antimirov}}
     \end{align*}
    }
    \noindent
@@ -1283,7 +1283,7 @@ The above lemma encapsulates the key step of the soundness proof. To establish t
     Using the above reasoning, we can obtain the following:
     \begin{align*}
 		&\funG\alpha_{\equiv} \circ \gamma_{{\PExp}/{\equiv}} \circ \distf \funF[-] \circ \partial  \left(o \cdot \one \oplus \left( \bigoplus_{i \in I} p_i \cdot a_i \seq e_i \right)\right)\\
-		&\quad= \funG\alpha_{\equiv} \circ \gamma_{{\PExp}/{\equiv}} \circ \distf \funF[-] \left(o \delta_{\checkmark} + \left( \sum_{i \in I} p_i  \delta_{(a_i, e_i)}\right)\right) \tag{Def. of $\partial$}\\
+		&\quad= \funG\alpha_{\equiv} \circ \gamma_{{\PExp}/{\equiv}} \circ \distf \funF[-] \left(o \delta_{\checkmark} + \left( \sum_{i \in I} p_i  \delta_{(a_i, e_i)}\right)\right) \tag{\Cref{c4:def:antimirov}}\\
 		&\quad= \funG\alpha_{\equiv} \circ \gamma_{{\PExp}/{\equiv}} \left(o \delta_{\checkmark} + \left( \sum_{i \in I} p_i  \delta_{(a_i, [e_i])}\right)\right)\\
 		&\quad= \funG\alpha_{\equiv} \left\langle o, \lambda a\ldotp  \sum_{ a_i = a} p_i  \delta_{[e_i]}\right \rangle \tag{Def. of $\gamma$}\\
 		&\quad= \left\langle o, \lambda a\ldotp  \left[\bigoplus_{ a_i = a} p_i \cdot e \right]\right \rangle \tag{\Cref{c4:thm:correspondence}}\\
