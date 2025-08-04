@@ -1,0 +1,36 @@
+All minor typos, issues, and reference requests raised by the examiners have been addressed. More importantly, all mandatory revisions suggested by both examiners have been implemented. The list below outlines the key changes made to the thesis:
+
+Chapter 2
+
+- An example of a regular expression with infinitely many derivatives has been included (Example 2.1.14)
+- A definition of Banach spaces has been included (Section 2.1.6)
+- There is a remark that connects behavioural distances to the “greatest predicate in a fibration” line of work (Remark 2.2.4)
+- Lemma 2.3.6 encapsulates a recurring argument that previously appeared both in a completeness argument and example of derivability of Salomaa’s rule
+- Corollary 2.4.6 was previously a lemma on its own that was later recalled in Chapter 3 for a different monotone map. Instead, Lemma 2.4.5 now contains an abstract statement from which Corollary 2.4.6 is deduced and is used in Chapter 3.
+- Lemma 2.4.9 was rewritten to use Lemma 2.3.6 
+
+Chapter 3
+- Remark 3.1.1 connects charts to Kripke frames and mentions connections to Henessy-Milner logic. That is later used to state that preservation of liveness of variables can be deduced from results in modal logic.
+- Remark 3.1.14 and further remarks that cite it describe how one can change the discount factor of 1/2 used in Chapter 3 to an arbitrary real number from the unit interval (as is the case in Chapter 2). 
+- A paragraph about Hausdorff lifting is introduced before its definition (Definition 3.1.16)
+- The wording of the proof of Lemma 3.1.25 was rewritten for clarity. Different cases of the proof are now bullet points.
+- Remark 3.1.30 describes the further connection to Henessy-Milner logic and elaborates on the analogy with the shortest-distinguishing-word metric in which words act as tests/modal formulas.
+- Section 3.1.4, containing definitions of (symmetric) monoidal categories, has been added.
+- Proposition 3.3.4 shows that RegBeh is a strict monoidal category. Previously, that was only mentioned in a passing text via a lemma with an omitted proof.
+- The proof of Lemma 3.3.5 was rewritten so that each derivation is appropriately explained.
+- The beginning of prose in Section 3.3.2 mentions that one can view non-expansivity results as a quantitative analogue of congruence. 
+- All steps in the proof of Lemma 3.3.13 have been appropriately annotated
+- Section 3.3.4 formally describes connections to enriched category theory. It cites the results from a paper of mine (joint work with Gabrielle Lobbia, Ralph Sarkis and Fabio Zanasi) that is not included in the thesis. A discussion about the hardness of defining enriched traced monoidal categories in the generality of an arbitrary enrichment. Both RegBeh and Int(RegBeh) are demonstrated to be enriched categories; the embedding stemming from Int construction is shown to be an enriched functor.
+- Remark 3.3.31 describes the lack of right-to-left generators.
+- An example of a matrix diagram is provided (in the block of text below Lemma 3.5.2)
+- Lemma 3.5.12 is not duplicated anymore.
+- Remark 3.5.16 describes the connection of the shape of normal form appearing in Lemma 3.5.15 to nabla modalities.
+
+Chapter 4
+- The introduction now has a paragraph that describes why we go for a Salomaa-style axiomatisation rather than a Kozen-style one. 
+- The order of axioms in Figure 4.1 is now fixed (D1 is right distributivity, D2 is left distributivity and is being dropped modulo bisimilarity). All lemmas that rely on it have been rechecked. 
+- Example 4.1.3 has been rebracketed and properly annotated.
+- Antimirov derivatives are now defined inside of Definition 4.3.6 rather than being defined implicitly in the text. That definition is appropriately referenced throughout the rest of the chapter.
+- Section 4.5.2 contains the formal definition of proper functors - see Definition 4.5.3.
+- The definition of a system of equations (Definition 4.5.11)is illustrated with an example 4.5.12 that is later used to illustrate the notion of solutions and solving the systems.
+- Section 4.6.2 mentions studying Kozen-style algebraic axiomatisation as future work and now mentions the idea of interpreting PRE as arrows in the Kleisli category of the subdistribution monad.
