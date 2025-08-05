@@ -5,7 +5,7 @@ Chapter 2
 - An example of a regular expression with infinitely many derivatives has been included (Example 2.1.14)
 - A definition of Banach spaces has been included (Section 2.1.6)
 - There is a remark that connects behavioural distances to the “greatest predicate in a fibration” line of work (Remark 2.2.4)
-- Lemma 2.3.6 encapsulates a recurring argument that previously appeared both in a completeness argument and example of derivability of Salomaa’s rule
+- Lemma 2.3.6 encapsulates a recurring argument that previously appeared both in a completeness argument and in an example of derivability of Salomaa’s rule
 - Corollary 2.4.6 was previously a lemma on its own that was later recalled in Chapter 3 for a different monotone map. Instead, Lemma 2.4.5 now contains an abstract statement from which Corollary 2.4.6 is deduced and is used in Chapter 3.
 - Lemma 2.4.9 was rewritten to use Lemma 2.3.6 
 
@@ -16,11 +16,11 @@ Chapter 3
 - The wording of the proof of Lemma 3.1.25 was rewritten for clarity. Different cases of the proof are now bullet points.
 - Remark 3.1.30 describes the further connection to Henessy-Milner logic and elaborates on the analogy with the shortest-distinguishing-word metric in which words act as tests/modal formulas.
 - Section 3.1.4, containing definitions of (symmetric) monoidal categories, has been added.
-- Proposition 3.3.4 shows that RegBeh is a strict monoidal category. Previously, that was only mentioned in a passing text via a lemma with an omitted proof.
+- Proposition 3.3.4 shows that RegBeh is a *strict* monoidal category. Previously, that was only mentioned in a passing text via a lemma with an omitted proof.
 - The proof of Lemma 3.3.5 was rewritten so that each derivation is appropriately explained.
 - The beginning of prose in Section 3.3.2 mentions that one can view non-expansivity results as a quantitative analogue of congruence. 
 - All steps in the proof of Lemma 3.3.13 have been appropriately annotated
-- Section 3.3.4 formally describes connections to enriched category theory. It cites the results from a paper of mine (joint work with Gabrielle Lobbia, Ralph Sarkis and Fabio Zanasi) that is not included in the thesis. A discussion about the hardness of defining enriched traced monoidal categories in the generality of an arbitrary enrichment. Both RegBeh and Int(RegBeh) are demonstrated to be enriched categories; the embedding stemming from Int construction is shown to be an enriched functor.
+- Section 3.3.4 formally describes connections to enriched category theory. It cites the results from a paper of mine (joint work with Gabriele Lobbia, Ralph Sarkis and Fabio Zanasi) that is not included in the thesis. A discussion about the hardness of defining enriched traced monoidal categories in the generality of an arbitrary enrichment. Both RegBeh and Int(RegBeh) are demonstrated to be enriched categories; the embedding stemming from the Int construction is shown to be an enriched functor.
 - Remark 3.3.31 describes the lack of right-to-left generators.
 - An example of a matrix diagram is provided (in the block of text below Lemma 3.5.2)
 - Lemma 3.5.12 is not duplicated anymore.
